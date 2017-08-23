@@ -1,10 +1,14 @@
 """ directory.py
+How to use:
+Run this program from the terminal, 
+to calibrate the directory-location and add the pythonpath to '.bashrc'-file
+
 Description:
 
-class Foldermap
-
-calibrate()
-add_path2pythonpath()
+class Foldermap - Contains all the relevant folders to be used in this module
+calibrate() - Checks current location and adds the cwd inside the script
+add_path2pythonpath() - Adds cwd to '.bashrc'-file
+insert_into_self() - Adds a piece of string, between two other strings to itself.
 """
 import sys
 import os

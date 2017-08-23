@@ -15,20 +15,29 @@ selfname = sys.argv[0]# "directory.py" #sys.argv[0]?? #name of this script
 class Foldermap:
     def __init__(self):
         self.main_folder = path_of_folder #global string
-        self.write_NuPyCEE_folders()
-        self.write_eris_data()
+
+        self.write_summerproject_folders()
+        self.write_latex_folders()
+        
     def __call__(self):
         return self.main_folder
-    def write_NuPyCEE_folders(self):
-        self.nupycee = self.main_folder + "NuPyCEE/"
-    def write_eris_data(self):
-        self.eris_folder = self.main_folder + "reproduce_shen/"
+    
+    def write_latex_folders(self):
+        self.latex = self.main_folder + "latex/"
+        
+    def write_summerproject_folders(self):
+        self.summerproject = self.main_folder + "../Summer_project/"
+
+        self.nupycee = self.summer_project + "NuPyCEE/"
+        
+        self.eris_folder = self.summerproject + "reproduce_shen/"
         self.eris_sfgas = self.eris_folder \
                           + "Eris_hostSFgas_aveZ.dat"
         self.eris_sfr = self.eris_folder \
                         + "L90Mpc8000_hithres.00400.sfr_time.grp01"
         self.eris_nsm = self.eris_folder \
                         + "NSmergers_per_timestep_delay100Myr_idx1p0_yield0p05.dat"
+        
     def test(self):
         """ Write a meaningful set of tests for 'Foldermap' here."""
         None

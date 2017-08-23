@@ -1,34 +1,81 @@
 """
-Description:
+Description: Test various ways of inserting the 'Eris'-sfr
+into the 'Omega'-calculation. This is done by a sfh-file, 
+and a sfh-array from the data in 'reproduce_shen'-directory.
 TODO:
 """
 ################################################
 ### Import modules and set global parameters ###
 ################################################
 #Get module for handling folders correctly
+import sys
 import directory_master as dir_m
 folder = dir_m.Foldermap() #instance with all the correct folders
 #Set environment option for the 'Omega' simulation
 import os
 os.environ['SYGMADIR'] = folder.nupycee[:-1]
 #import 'Omega', visualize, and other relevant packages
-import omega as om
+import NuPyCEE.omega as om
 import visualize as vs
 import sys
 import numpy as np
 import matplotlib.pyplot as pl
 
-test_all = True
-test_1 = True
-test_2 = True
+###############################################
+### Get boolean test-switches from cmd-line ###
+###############################################
 
-if test_all or test_1:
-    print "First test"
-    om.omega(special_timesteps=5)
+print "Using boolean cmd-line args: *all* *test1* *test2* etc."
+try:
+    test_all = bool(int(sys.argv[1]))
+except:
+    test_all = True
+try:
+    test_array_bool = [bool(int(arg)) for arg in sys.argv[2:]]
+except:
+    test_array_bool = []
+    
+num_tests = 3
+while len(test_array_bool) < num_tests:
+    test_array_bool.append(False)
+num_steps = 1500
 
-if test_all or test_2:
-    print "second test"
-    om.omega(special_timesteps=5, sfh_file='none')
+###########################################
+### Tests various ways of inserting SFR ###
+###########################################
+
+#relative path to sfh-file from 'NuPyCEE'-directory
+sfh_file_dir = "../reproduce_shen/"
+sfh_file_relpath1 = sfh_file_dir+"time_sfr_Shen_2015.txt"
+sfh_file_relpath2 = sfh_file_dir+"timegal5e8_sfr_Shen_2015.txt"
+
+if test_all or test_array_bool[0]:
+    print "First test, vanilla 'Omega'"
+    om.omega(special_timesteps=num_steps)
+
+if test_all or test_array_bool[1]:
+    print "Second test, sfh-file"
+    sfh_file_omega = om.omega(special_timesteps=num_steps, sfh_file=sfh_file_relpath1)
+    #plot sfr
+    plotting_object = vs.visualize(sfh_file_omega,
+                                   "Omega(sfh-file)",
+                                   age=0)
+    plotting_object.add_time_sfr()
+    #plotting_object.add_tbirth()
+    plotting_object.finalize(show=True)
+
+    
+if test_all or test_array_bool[2]:
+    print "Third test, sfh-array"
+    sfh_array = np.loadtxt(folder.nupycee + sfh_file_relpath1)
+    sfh_array_omega = om.omega(special_timesteps=num_steps,
+                               sfh_array=sfh_array)
+    #plot sfr
+    plotting_object = vs.visualize(sfh_array_omega,
+                                   "Omega(sfh-array)")
+    plotting_object.add_time_sfr()
+    #plotting_object.add_tbirth()
+    plotting_object.finalize(show=True)
 
 """
 def __init__(self, 

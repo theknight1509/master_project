@@ -32,7 +32,7 @@ class Foldermap:
     def write_summerproject_folders(self):
         self.summerproject = self.main_folder + "../Summer_project/"
 
-        self.nupycee = self.summer_project + "NuPyCEE/"
+        self.nupycee = self.summerproject + "NuPyCEE/"
         
         self.eris_folder = self.summerproject + "reproduce_shen/"
         self.eris_sfgas = self.eris_folder \

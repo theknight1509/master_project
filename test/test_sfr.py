@@ -38,7 +38,7 @@ except:
 num_tests = 3
 while len(test_array_bool) < num_tests:
     test_array_bool.append(False)
-num_steps = 1500
+num_steps = 350
 
 ###########################################
 ### Tests various ways of inserting SFR ###
@@ -55,7 +55,8 @@ if test_all or test_array_bool[0]:
 
 if test_all or test_array_bool[1]:
     print "Second test, sfh-file"
-    sfh_file_omega = om.omega(special_timesteps=num_steps, sfh_file=sfh_file_relpath1)
+    sfh_file_omega = om.omega(special_timesteps=num_steps,
+                              sfh_file=sfh_file_relpath1)
     #plot sfr
     plotting_object = vs.visualize(sfh_file_omega,
                                    "Omega(sfh-file)",

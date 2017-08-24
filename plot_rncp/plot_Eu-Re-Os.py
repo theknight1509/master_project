@@ -37,13 +37,13 @@ rncp_plot_obj = vs.visualize(rncp_omega_obj, r"$\Omega$",
 #subplot [Eu/H] for all data
 rncp_plot_obj.add_time_relabu("[Eu/H]", 0)
 #subplot [Eu/H], [Re/H], [Os/H] for 'Omega' data
-rncp_plot_obj.add_time_relabu_omegaonly("[Eu/H]", 1)
-rncp_plot_obj.add_time_relabu_omegaonly("[Os/H]", 1)
-rncp_plot_obj.add_time_relabu_omegaonly("[Re/H]", 1)
+rncp_plot_obj.add_time_relabu_singleomega("[Eu/H]", 1)
+rncp_plot_obj.add_time_relabu_singleomega("[Os/H]", 1)
+rncp_plot_obj.add_time_relabu_singleomega("[Re/H]", 1)
 #subplot [Eu/H], [Re-187/H], [Os-187/H] for 'Omega' data
-rncp_plot_obj.add_time_relabu_omegaonly("[Eu/H]", 2)
-rncp_plot_obj.add_time_relabu_omegaonly("[Os-187/H]", 2)
-rncp_plot_obj.add_time_relabu_omegaonly("[Re-187/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Eu/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-187/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Re-187/H]", 2)
 #show
 rncp_plot_obj.finalize(show=True,
                        title="Rapid Neutron Capture Processes")

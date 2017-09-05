@@ -26,7 +26,7 @@ num_steps = 140
 #get SFR from Shen(2015)/'Eris'
 sfh_file_dir = "../reproduce_shen/"
 sfh_file_relpath = sfh_file_dir+"time_sfr_Shen_2015.txt"
-#make instances of 'Omega' and 'visualize'
+### make instances of 'Omega' and 'visualize' ###
 rncp_omega_obj = om.omega(special_timesteps=num_steps,
                           sfh_file=sfh_file_relpath,
                           imf_type="kroupa93",
@@ -45,5 +45,33 @@ rncp_plot_obj.add_time_relabu_singleomega("[Eu/H]", 2)
 rncp_plot_obj.add_time_relabu_singleomega("[Os-187/H]", 2)
 rncp_plot_obj.add_time_relabu_singleomega("[Re-187/H]", 2)
 #show
-rncp_plot_obj.finalize(show=True,
+rncp_plot_obj.finalize(save="rncp_1.png",
                        title="Rapid Neutron Capture Processes")
+
+### make new plot with new visualize-object ###
+rncp_plot_obj = vs.visualize(rncp_omega_obj, r"$\Omega$",
+                             num_yaxes=3, age=0)
+#subplot [Eu, Re, Os/H] for 'Omega' data
+rncp_plot_obj.add_time_relabu_singleomega("[Eu/H]", 0)
+rncp_plot_obj.add_time_relabu_singleomega("[Re/H]", 0)
+rncp_plot_obj.add_time_relabu_singleomega("[Os/H]", 0)
+#subplot [Re, Re-iso/H] for 'Omega' data
+rncp_plot_obj.add_time_relabu_singleomega("[Re/H]", 1)
+rncp_plot_obj.add_time_relabu_singleomega("[Re-185/H]", 1)
+rncp_plot_obj.add_time_relabu_singleomega("[Re-187/H]", 1)
+#subplot [Eu/H], [Re-187/H], [Os-187/H] for 'Omega' data
+rncp_plot_obj.add_time_relabu_singleomega("[Os/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-184/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-186/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-187/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-188/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-189/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-190/H]", 2)
+rncp_plot_obj.add_time_relabu_singleomega("[Os-192/H]", 2)
+#show
+rncp_plot_obj.finalize(show=True,
+                       #save="rncp_2_isotopes.png",
+                       title="Rapid Neutron Capture Processes")
+
+#use omega-plotting syntax
+rncp_omega_obj.plot_iso_ratio(yaxis="[Re-187/H]", fig=3)

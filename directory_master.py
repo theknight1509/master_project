@@ -22,14 +22,18 @@ class Foldermap:
 
         self.write_summerproject_folders()
         self.write_latex_folders()
+        self.write_yieldtable_folders()
         
     def __call__(self):
+        self.call_bool = True
         return self.main_folder
     
     def write_latex_folders(self):
+        self.latex_bool = True
         self.latex = self.main_folder + "latex/"
         
     def write_summerproject_folders(self):
+        self.summerproject_bool = True
         self.summerproject = self.main_folder + "../Summer_project/"
 
         self.nupycee = self.summerproject + "NuPyCEE/"
@@ -42,10 +46,13 @@ class Foldermap:
         self.eris_nsm = self.eris_folder \
                         + "NSmergers_per_timestep_delay100Myr_idx1p0_yield0p05.dat"
         
-    def test(self):
-        """ Write a meaningful set of tests for 'Foldermap' here."""
-        None
-        
+    def write_yieldtable_folders(self):
+        if not self.summerproject_bool:
+            print "Error in Foldermap!"
+            return False
+        #folder-location
+        self.yield_tables = self.nupycee + "yield_tables"
+
 def insert_into_self(text, start_marker="### START PYTHONMARKER ###",
                      end_marker="### END PYTHONMARKER ###"):
     """

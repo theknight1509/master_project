@@ -37,7 +37,39 @@ def test_simple(n):
     plotter.finalize(save="test_rncp_isos_n%d.png"%n,
                      show=True,
                      title="R-process isotopes of 'Omega'")
+    return None
 
+def re_eu_ratios(n):
+    """
+    Plot various isotope and element ratios of Re and Eu.
+    Make three subplots:
+    - Re/Eu
+    - Re-isos/Eu-151
+    - Re-isos/Eu-153
+    """
+    Eu_isos = ["Eu-151", "Eu-153"]
+    Re_isos = ["Re-187", "Re-185"]
+    fractions = ["Re/Eu"] \
+                + [re+'/'+Eu_isos[0] for re in Re_isos] \
+                + [re+'/'+Eu_isos[1] for re in Re_isos]
+    spectro_notation = ['['+frac+']' for frac in fractions]
+    
+    #make instance of 'Omega'
+    inst = om.omega(galaxy="milky_way", special_timesteps=n,
+                           ns_merger_on=True, bhns_merger_on=True)
+    plotter = vs.visualize(inst, "test_omega",
+                           num_yaxes=3, age=0,
+                           loa_spectro_abu=spectro_notation)
+    
+    for frac, index in zip(fractions, [0,1,1,2,2]):
+        plotter.add_time_relabu_singleomega(frac,
+                                            index_yaxis=index)
+    limit = [-3,0]
+    plotter.zoom([False, limit, limit])
+    plotter.finalize(save="test_rnscp_fraction_n%d"%n,
+                     title="Re/Eu - fractions",
+                     show=True)
+    return None
     
 if __name__ == '__main__':
     try:
@@ -45,4 +77,5 @@ if __name__ == '__main__':
     except:
         resolution = 2
         
-    test_simple(resolution)
+    #test_simple(n=resolution)
+    re_eu_ratios(n=resolution)

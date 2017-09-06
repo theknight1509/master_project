@@ -281,3 +281,43 @@ delayed_extra_dtd_norm=bestfit_delayed_extra_dtd_norm,
 delayed_extra_yields=bestfit_delayed_extra_yields,
 delayed_extra_yields_norm=bestfit_delayed_extra_yields_norm
 """
+
+#Some details regarding __history()
+""" 
+self.age = []
+self.sfr = []
+self.gas_mass = []
+self.metallicity = []
+self.ism_iso_yield = []
+self.ism_iso_yield_agb = []
+self.ism_iso_yield_massive = []
+self.ism_iso_yield_1a = []
+self.ism_iso_yield_nsm = []
+self.ism_iso_yield_bhnsm = []
+self.isotopes = []
+self.elements = []
+self.ism_elem_yield = []
+self.ism_elem_yield_agb = []
+self.ism_elem_yield_massive = []
+self.ism_elem_yield_1a = []
+self.ism_elem_yield_nsm = []
+self.ism_elem_yield_bhnsm = []
+self.sn1a_numbers = []
+self.nsm_numbers = []
+self.bhnsm_numbers = []
+self.sn2_numbers = []
+self.t_m_bdys = []
+
+# Add the evolution arrays to the history class
+self.history.m_DM_t = self.m_DM_t
+self.history.m_tot_ISM_t = self.m_tot_ISM_t
+self.history.m_outflow_t = self.m_outflow_t
+self.history.m_inflow_t = self.m_inflow_t
+self.history.eta_outflow_t = self.eta_outflow_t
+self.history.t_SF_t = self.t_SF_t
+self.history.redshift_t = self.redshift_t
+
+# If external control ...
+if self.external_control:
+self.history.sfr_abs[i] = self.history.sfr_abs[i-1]
+"""

@@ -51,7 +51,12 @@ class Foldermap:
             print "Error in Foldermap!"
             return False
         #folder-location
-        self.yield_tables = self.nupycee + "yield_tables"
+        self.yield_tables = self.nupycee + "yield_tables/"
+
+    def activate_environ(self):
+        nupycee_dir = self.nupycee #directory of nupycee (where omega is lcoated)
+        nupycee_dir = nupycee_dir[:-1] #remove '/' at end of string
+        os.environ['SYGMADIR'] = nupycee_dir
 
 def insert_into_self(text, start_marker="### START PYTHONMARKER ###",
                      end_marker="### END PYTHONMARKER ###"):

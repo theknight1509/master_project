@@ -45,6 +45,8 @@ class Foldermap:
                         + "L90Mpc8000_hithres.00400.sfr_time.grp01"
         self.eris_nsm = self.eris_folder \
                         + "NSmergers_per_timestep_delay100Myr_idx1p0_yield0p05.dat"
+        self.eris_sfh_file = self.eris_folder \
+                             + "time_sfr_Shen_2015.txt"
         
     def write_yieldtable_folders(self):
         if not self.summerproject_bool:

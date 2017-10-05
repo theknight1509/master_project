@@ -6,9 +6,11 @@ then the modification can begin.
 Lastly the copy-pasted code is presented in the bottom.
 """
 import numpy as np #only do this for the default parameters
+from directory_master import Foldermap
+folder = Foldermap()
 
 ### Initialize bestfit-parameters with the initial parameters ###
-bestfit_galaxy='none'
+bestfit_galaxy = 'none'
 bestfit_in_out_control=False
 bestfit_SF_law=False
 bestfit_DM_evolution=False
@@ -153,13 +155,17 @@ Taken directly from 'Eris' data
 bestfit_imf_type='kroupa93'
 sfh_file_dir = "../reproduce_shen/"
 sfh_file_relpath = sfh_file_dir+"time_sfr_Shen_2015.txt"
-bestfit_sfh_file=sfh_file_relpath
+#bestfit_sfh_file=sfh_file_relpath
+#get array of time-sfr from sfh-file
+bestfit_sfh_array = np.loadtxt(folder.eris_sfh_file)
+
 #present mass values in galaxy
 """
 tested in 'test/test_bestfitfile.py'
 """
 bestfit_stellar_mass_0=2.0e10 #-1.0
 bestfit_m_gas_f=2.0e11 #-1.0
+#bestfit_mgal = 
 #flows
 """
 tested in 'test/test_bestfitfile.py'
@@ -209,20 +215,23 @@ if __name__ == '__main__': #test the current bestfit parameters
     
     ###plot with visualize ###
     import visualize as vs
+    image_location = folder() + "bestfit_param_omega/"
     plot_spectros = vs.visualize(loa_bestfit_omegas, loa_bestfit_names, num_yaxes=3)
     plot_spectros.add_time_relabu('[O/H]', index_yaxis=0)
     plot_spectros.add_time_relabu('[Fe/H]', index_yaxis=1)
     plot_spectros.add_time_relabu('[Eu/H]', index_yaxis=2)
     plot_spectros.zoom([[-4,1],[-4,1],[-4,1]])
+    image_filename = image_location + "bestfit_omega_eris_spectro_n%d"%n
     plot_spectros.finalize(title="Spectroscopic data of bestfit parameters",
-                           save="bestfit_omega_eris_spectro_n%d"%n)
+                           save=image_filename)
     plot_rates = vs.visualize(loa_bestfit_omegas, loa_bestfit_names, num_yaxes=3)
     plot_rates.add_time_rate('kn',index_yaxis=0,rate_type='one')
     plot_rates.add_time_rate('sn',index_yaxis=1,rate_type='one')
     plot_rates.add_time_rate('sf',index_yaxis=2)
+    image_filename = image_location + "bestfit_omega_eris_rates_n%d"%n
     plot_rates.finalize(show=True,
-                           title="Rate data of bestfit parameters",
-                           save="bestfit_omega_eris_rates_n%d"%n)
+                        title="Rate data of bestfit parameters",
+                        save=image_filename)
 
 ################################################
 ### Insert this into the omega-initalization ###

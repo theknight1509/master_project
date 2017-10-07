@@ -4,17 +4,29 @@ Description:
 -change the functions that uses sygma to get yields
 -add a funky factor to the yields of a single isotope
 """
+######################################
+### Various imports and structures ###
+######################################
 #get folder-handling-script
 from directory_master import Foldermap
 folder = Foldermap()
 folder.activate_environ() #set environment for omega before importing
 #NuPyCEE one-zone chemical evolution code
 from NuPyCEE.omega import *
-#import the current bestfit parameters
-from bestfit_param_omega.bestfit_file import *
 #use pandas for data-storage
 import pandas as pd
+#import the current bestfit parameters if not already done
+#global parameter is not defined...
+if not ('bestfit_imported' in globals()):
+    bestfit_imported = False #define global parameter
+#no bestfit-file has been imported yet...
+if not bestfit_imported:
+    from bestfit_param_omega.bestfit_file import *
+    bestfit_imported = True
 
+#####################################################
+### Class inheriting omega for experimental usage ###
+#####################################################
 class experiment(omega):
     def __init__(self, input_isotope='Re-187', input_factor=1.0, input_timesteps=30):
         self.experiment_isotope = input_isotope
@@ -174,41 +186,72 @@ class experiment(omega):
         -isotope(str)
         -yieldfactor(float)
         -time(array)
-        -ism(array) - (total, agb, massive, sn1a, nsm, bhnsm) - (H,O,Mg,C,Fe,Eu,Re,Os + isotopes)
-        -yield(array) - (total, agb, massive, sn1a, nsm, bhnsm) - (H,O,Mg,C,Fe,Eu,Re,Os + isotopes)
-        -mass(array) - (total, stellar) - (H,O,Mg,C,Fe,Eu,Re,Os + isotopes)
-        -rates(array) - (sn1a, sn2, nsm, bhnsm)
+        -ism(array) - (total, agb, massive, sn1a, nsm, bhnsm) - (H,O,Mg,C,Fe,Eu,Re,Os - isotopes)
+        -yield(array) - (total, agb, massive, sn1a, nsm, bhnsm) - (H,O,Mg,C,Fe,Eu,Re,Os - isotopes)
+        -mass(array) - (gas, stellar_locked, ism, out-/inflow)
+        -numbers(array) - (sn1a, sn2, nsm, bhnsm)
         """
+        #add varying isotope and factor to filename
+        if '.' not in filename: #no extension given
+            filename += "_%s_%1.10f.csv"%(self.experiment_isotope, self.experiment_factor)
+        else: #extension in filename
+            extension = filename.split('.')[-1]
+            filename = filename.split('.')[0]
+            filename += "_%s_%1.10f"%(self.experiment_isotope, self.experiment_factor)
+            filename += '.' + extension
+        print "New filename: ", filename
+        
         #make list of elements, isotopes, yield-sources
-        save_elements = ['H','O','Mg','C','Fe','Eu','Re','Os']
-        save_isotopes = []
+        save_elements = ['H','C','O','Mg','Fe','Eu','W','Re','Os','Ir']
+        save_isotopes = ['H-1', 'H-2','C-12','C-13','O-16','O-17','O-18','Mg-24','Mg-25','Mg-26','Fe-54','Fe-56','Fe-57','Fe-58','Eu-151', 'Eu-153','W-180','W-182','W-183','W-184','W-186','Re-185','Re-187','Os-184','Os-186','Os-187','Os-188','Os-189','Os-190','Os-192','Ir-191','Ir-193']
         save_sources = ['total', 'agb', 'massive', 'sn1a', 'nsm', 'bhnsm']
-        loa_ism_arrays = []
-        loa_yields_arrays = []
-        save_rates = ['sf', 'sn1a', 'sn2', 'nsm', 'bhnsm']
-        loa_rate_arrays = []
+        loa_ism_arrays = [self.history.ism_iso_yield, self.history.ism_iso_yield_agb,
+                          self.history.ism_iso_yield_massive, self.history.ism_iso_yield_1a,
+                          self.history.ism_iso_yield_nsm, self.history.ism_iso_yield_bhnsm]
+        loa_yields_arrays = [self.mdot, self.mdot_agb, self.mdot_massive,
+                             self.mdot_1a, self.mdot_nsm, self.mdot_bhnsm]
+        save_numbers = ['sn1a', 'sn2', 'nsm', 'bhnsm']
+        loa_number_arrays = [self.history.sn1a_numbers, self.history.sn2_numbers,
+                             self.history.nsm_numbers, self.history.bhnsm_numbers]
         
-        #make dictionary
+        #make dictionary of arrays
         save_dictionary = {}
-        #save_dictionary["nuclides"] = save_elements + save_isotopes
-        #save_dictionary["variable-isotope"] = self.experiment_isotope
-        #save_dictionary["variable-factor"] = self.experiment_factor
-        #save_dictionary["time"] = self.age
-        #save_dictionary["m_tot"]
-        #save_dictionary["m_stellar"]
-        #for rate, array in zip(save_rates, loa_rate_arrays):
-        #key = "rates " + rate
-        #save_dictionary["rates"] = array
-        #for source, array in zip(save_sources, loa_ism_arrays):
-        #loop over nuclides
-        #key = 
-        #save_dicitonary["ism"]
-        #for source, array in zip(save_sources, loa_yields_arrays):
-        #loop over nuclides
-        #key = 
-        #save_dictionary["yields"]
         
-        panda_object = pd.Dataframe(data=save_dictionary)
+        save_dictionary["time"] = self.history.age
+        save_dictionary["sfr"] = self.history.sfr_abs
+        save_dictionary["gas_mass"] = self.history.gas_mass
+        save_dictionary["m_tot_ISM_t"] = self.history.m_tot_ISM_t
+        save_dictionary["m_outflow_t"] = self.history.m_outflow_t
+        save_dictionary["m_inflow_t"] = self.history.m_inflow_t
+        save_dictionary["m_locked"] = self.history.m_locked
+        save_dictionary["m_locked_agb"] = self.history.m_locked_agb
+        save_dictionary["m_locked_massive"] = self.history.m_locked_massive
+        
+        #NOTE! add extra zero to beginning to make all arrays equal in length
+        save_dictionary["m_outflow_t"] = np.insert(save_dictionary["m_outflow_t"], 0,0)
+        save_dictionary["m_inflow_t"] = np.insert(save_dictionary["m_inflow_t"], 0,0)
+        save_dictionary["m_locked"] = np.insert(save_dictionary["m_locked"], 0,0)
+        save_dictionary["m_locked_agb"] = np.insert(save_dictionary["m_locked_agb"], 0,0)
+        save_dictionary["m_locked_massive"] = np.insert(save_dictionary["m_locked_massive"], 0,0)
+        
+        
+        for number, array in zip(save_numbers, loa_number_arrays):
+            key = "number_" + number
+            save_dictionary[key] = array
+        for source, array in zip(save_sources, loa_ism_arrays):
+            for iso in save_isotopes:
+                key = "ism_" + source + "_" + iso
+                np_array = np.array(array)
+                save_dictionary[key] = np_array[:,self.history.isotopes.index(iso)]
+        for source, array in zip(save_sources, loa_yields_arrays):
+            for iso in save_isotopes:
+                key = "yield_" + source + "_" + iso
+                np_array = np.array(array)
+                save_dictionary[key] = np_array[:,self.history.isotopes.index(iso)]
+                #NOTE! add extra zero to beginning to make all arrays equal in length
+                save_dictionary[key] = np.insert(save_dictionary[key], 0,0)
+
+        panda_object = pd.DataFrame(data=save_dictionary)
         panda_object.to_csv(filename, compression=None)
 
 if __name__ == '__main__':
@@ -228,11 +271,6 @@ if __name__ == '__main__':
                              for scalefactor in loa_scalefactors ]
     loa_experiments = [experiment(isotope, scalefactor)
                        for scalefactor in loa_scalefactors]
-    #loa_experiments = []
-    #for scalefactor in loa_scalefactors:
-    #    exp = experiment(isotope, scalefactor) #make instance
-    #    #print exp.mdot_nsm[-1][exp.history.isotopes.index(isotope)]
-    #    loa_experiments.append(exp) #add instance to loa_experiments
 
     #plot with visualize
     import visualize as vs

@@ -153,7 +153,7 @@ modification
 Taken directly from 'Eris' data
 """
 bestfit_imf_type='kroupa93'
-sfh_file_dir = "../reproduce_shen/"
+sfh_file_dir = "bestfit_param_omega/"
 sfh_file_relpath = sfh_file_dir+"time_sfr_Shen_2015.txt"
 #bestfit_sfh_file=sfh_file_relpath
 #get array of time-sfr from sfh-file

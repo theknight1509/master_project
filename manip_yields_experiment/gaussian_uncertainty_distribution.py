@@ -34,5 +34,21 @@ def start_experiment(folder_name, readme_text=""):
     #Everything went alright so far
     return True
 
-def gaussian_variate_experiment():
-    
+def gaussian_variate_experiment(isotope="Re-187", stddev=0.1,
+                                num_experiments=10, num_timesteps=50):
+    """
+    Use the experiment class to vary *isotope* with 
+    a "fudge factor" drawn from a gaussian distribution around 1.0
+    with a standard deviation *stddev*.
+    """
+    #get array of cpu-clock
+
+    #loop over all experiments
+    for i in range(num_experiments):
+        #draw random gaussian fudge factor
+        #get instance of experiment
+        #save data to appropriately named file
+        #delete instance
+
+    #calculate experiment times in seconds
+    #save total time, #experiments, 

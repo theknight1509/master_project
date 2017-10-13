@@ -26,9 +26,9 @@ class Foldermap:
         self.main_folder = path_of_folder #global string
         self.nupycee = path_of_nupycee #global_string
 
-        self.write_summerproject_folders()
         self.write_latex_folders()
-        self.write_yieldtable_folders()
+        self.write_bestfit_folders()
+        self.write_sfh_file()
         
     def __call__(self):
         self.call_bool = True
@@ -37,29 +37,14 @@ class Foldermap:
     def write_latex_folders(self):
         self.latex_bool = True
         self.latex = self.main_folder + "latex/"
-        
-    def write_summerproject_folders(self):
-        self.summerproject_bool = True
-        self.summerproject = self.main_folder + "../Summer_project/"
 
-        self.nupycee = self.summerproject + "NuPyCEE/"
-        
-        self.eris_folder = self.summerproject + "reproduce_shen/"
-        self.eris_sfgas = self.eris_folder \
-                          + "Eris_hostSFgas_aveZ.dat"
-        self.eris_sfr = self.eris_folder \
-                        + "L90Mpc8000_hithres.00400.sfr_time.grp01"
-        self.eris_nsm = self.eris_folder \
-                        + "NSmergers_per_timestep_delay100Myr_idx1p0_yield0p05.dat"
-        self.eris_sfh_file = self.eris_folder \
+    def write_bestfit_folders(self):
+        self.bestfit_bool = True
+        self.bestfit = self.main_folder \
+                       + "bestfit_param_omega/"
+    def write_sfh_file(self):
+        self.eris_sfh_file = self.bestfit \
                              + "time_sfr_Shen_2015.txt"
-        
-    def write_yieldtable_folders(self):
-        if not self.summerproject_bool:
-            print "Error in Foldermap!"
-            return False
-        #folder-location
-        self.yield_tables = self.nupycee + "yield_tables/"
 
     def activate_environ(self):
         nupycee_dir = self.nupycee #directory of nupycee (where omega is lcoated)

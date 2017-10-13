@@ -178,8 +178,8 @@ def add_path2pythonpath():
         return True
     
 ### START PYTHONMARKER ###
-path_of_folder = '/uio/hume/student-u27/oyvinbsv/github_uio/Master/'
-path_of_nupycee = '/uio/hume/student-u27/oyvinbsv/github_uio/NuPyCEE/'
+path_of_folder = '/home/oyvind/github_uio/Master/'
+path_of_nupycee = '/home/oyvind/github_uio/NuPyCEE/'
 ### END PYTHONMARKER ###
 
 if __name__ == '__main__':

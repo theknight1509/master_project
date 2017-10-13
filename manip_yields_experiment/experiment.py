@@ -12,7 +12,7 @@ from directory_master import Foldermap
 folder = Foldermap()
 folder.activate_environ() #set environment for omega before importing
 #NuPyCEE one-zone chemical evolution code
-from NuPyCEE.omega import *
+from omega import *
 #use pandas for data-storage
 import pandas as pd
 #import the current bestfit parameters if not already done

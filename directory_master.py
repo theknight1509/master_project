@@ -47,9 +47,12 @@ class Foldermap:
                              + "time_sfr_Shen_2015.txt"
 
     def activate_environ(self):
-        nupycee_dir = self.nupycee #directory of nupycee (where omega is lcoated)
-        nupycee_dir = nupycee_dir[:-1] #remove '/' at end of string
-        os.environ['SYGMADIR'] = nupycee_dir
+        #add full path to os.environ (minus the last backslash)
+        os.environ['SYGMADIR'] = self.nupycee[:-1]
+
+        #add NuPyCEE-dir to pythonpath
+        sys.path.append(self.nupycee[:-1])
+        
 
 def calibrate():
     """
@@ -176,6 +179,7 @@ def add_path2pythonpath():
     
 ### START PYTHONMARKER ###
 path_of_folder = '/uio/hume/student-u27/oyvinbsv/github_uio/Master/'
+path_of_nupycee = '/uio/hume/student-u27/oyvinbsv/github_uio/NuPyCEE/'
 ### END PYTHONMARKER ###
 
 if __name__ == '__main__':

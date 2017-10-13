@@ -13,12 +13,18 @@ insert_into_self() - Adds a piece of string, between two other strings to itself
 import sys
 import os
 
-path_of_folder = "" #create variable that eventually will be filled
+#set global parameters
+path_of_folder = "" #create variable that eventually will be filled by current dir
+path_of_nupycee = "" #create variable that eventually will be filled by nupyee-dir
+
 selfname = sys.argv[0]# "directory.py" #sys.argv[0]?? #name of this script
+current_dir = os.getcwd() #the full path of the current dir
+home_dir = os.path.expanduser("~") #full path of home dir
 
 class Foldermap:
     def __init__(self):
         self.main_folder = path_of_folder #global string
+        self.nupycee = path_of_nupycee #global_string
 
         self.write_summerproject_folders()
         self.write_latex_folders()
@@ -59,6 +65,36 @@ class Foldermap:
         nupycee_dir = self.nupycee #directory of nupycee (where omega is lcoated)
         nupycee_dir = nupycee_dir[:-1] #remove '/' at end of string
         os.environ['SYGMADIR'] = nupycee_dir
+
+def calibrate():
+    """
+    Write path of current dir to local variable.
+    Look for NuPyCEE-path...
+    if found; write path to local variable
+    if not found; print error message, with instructions on how to get NuPyCEE
+    """
+    #function for turning var-name and path-string to string
+    storage_string = lambda path_string, var_string: \
+                     "%s = '%s/'"%(var_string, path_string)
+
+    insert_string = "" #string to inserted into self-file
+
+    #write current dir to local_var
+    insert_string += storage_string(current_dir, "path_of_folder")
+    
+    #write NuPyCEE dir to local var
+    nupycee_name = "NuPyCEE"
+    nupycee_folder = find_folder(nupycee_name)
+    if nupycee_folder: #nupycee-dir was found
+        insert_string += '\n'
+        insert_string += storage_string(nupycee_folder, "path_of_nupycee") #insert nupycee-folder
+    else: #nupycee-dir was not found
+        print "'%s'-directory was not found in HOME-dir or any sub-folder"%nupycee_name
+        print "directory can be download with the command;"
+        print "git clone https://github.com/NuGrid/NuPyCEE.git"
+
+    #Perform insertion into self-file
+    insert_into_self(insert_string) #write insert-string to self-file
 
 def insert_into_self(text, start_marker="### START PYTHONMARKER ###",
                      end_marker="### END PYTHONMARKER ###"):
@@ -116,24 +152,30 @@ def insert_into_self(text, start_marker="### START PYTHONMARKER ###",
     #Write new content to a new file with the same name
     with open(selfname, 'w+') as selffile:
         selffile.write(content)
-        
-def calibrate(test=False):
+
+def find_folder(folder_name):
     """
-    Use os.getcwd() to find path of folder.
-    Write path to local variable.
+    USE WITH DISCRESSION!
+    Start at home-directory, walk thrugh all directories,
+    return full path of folder with folder_name
     """
-    local_dir = os.getcwd()
-    storage_string = lambda path_string: "path_of_folder = '%s/'"%path_string
-    insert_into_self(storage_string(local_dir))
-    if test:
-        return path_of_folder
+    full_path = ""
+    for root, dirs, files in os.walk(home_dir):
+        current_path = root.split('/') #path of current dir in os.walk
+        if folder_name == current_path[-1]: #found full path of folder_name
+            full_path = root
+            break
+    if full_path: #var is not empty and path was found
+        return full_path
+    else:
+        print "'%s' was not found"%folder_name
+        return False
 
 def add_path2pythonpath():
     #Write the path of the current folder to pythonpath in the bashrc-script.
-    #NOTE! only do so if the string doesn't exist already!
-
-    pythonpath_string = "export PYTHONPATH=$PYTHONPATH:"+os.getcwd()+"\n"
-    bashrc_path = "/home/oyvind/.bashrc"
+    #NOTE! only do so if the string doesn't exist already!    
+    pythonpath_string = "export PYTHONPATH=$PYTHONPATH:"+current_dir+"\n"
+    bashrc_path = home_dir + "/.bashrc"
 
     #look if string already exists in .bashrc
     with open(bashrc_path, "r") as bashfile_read:
@@ -148,6 +190,7 @@ def add_path2pythonpath():
     
 ### START PYTHONMARKER ###
 path_of_folder = '/home/oyvind/github_uio/Master/'
+path_of_nupycee = '/home/oyvind/github_uio/NuPyCEE/'
 ### END PYTHONMARKER ###
 
 if __name__ == '__main__':

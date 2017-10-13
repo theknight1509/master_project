@@ -146,6 +146,7 @@ def find_folder(folder_name):
     """
     full_path = ""
     for root, dirs, files in os.walk(home_dir):
+        print "searching for '%s': "%folder_name, root
         current_path = root.split('/') #path of current dir in os.walk
         if folder_name == current_path[-1]: #found full path of folder_name
             full_path = root
@@ -174,8 +175,7 @@ def add_path2pythonpath():
         return True
     
 ### START PYTHONMARKER ###
-path_of_folder = '/home/oyvind/github_uio/Master/'
-path_of_nupycee = '/home/oyvind/github_uio/NuPyCEE/'
+path_of_folder = '/uio/hume/student-u27/oyvinbsv/github_uio/Master/'
 ### END PYTHONMARKER ###
 
 if __name__ == '__main__':

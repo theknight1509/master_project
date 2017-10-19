@@ -1,0 +1,29 @@
+#variable values... name_of_image.png
+mgal 1.0e+10 varyMgal_1e10.png
+inflow_rate
+outflow_rate
+imf_bdys
+** r_gas_star 
+#ns_merger_on True
+nsmerger_bdys
+nb_nsm_per_m
+f_binary
+f_merger
+m_ej_nsm
+** t_nsm_coal
+** t_merge
+t_merger_max
+#popIII_on True
+pop3_table
+imf_bdys_pop3
+imf_yields_range_pop3
+#Various DTD arguments
+#Unknown arguments
+f_dyn
+f_arfo
+#m_crit_on
+norm_m_crit
+t_star
+exp_ml
+f_s_enhancement
+tau_ferrini

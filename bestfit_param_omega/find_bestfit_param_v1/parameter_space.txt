@@ -1,29 +1,25 @@
 #variable values... name_of_image.png
-mgal 1.0e+10 varyMgal_1e10.png
-inflow_rate
-outflow_rate
-imf_bdys
-** r_gas_star 
+mgal 2.0e+9 1.0e+10 2.0e+10 3.0e+10 5.0e+10 7.0e+10 1.0e+11 varyMgal_1e10.png
+inflow_rate 0.005 1.0 200.0 varyInflow_1e0.png
+outflow_rate 0.5 1.0 2.0 varyOutflow_1e0.png
+imf_bdys [0.1,30] [0.1,100] [0.1,200] VaryImfbdys.png
 #ns_merger_on True
-nsmerger_bdys
-nb_nsm_per_m
-f_binary
-f_merger
-m_ej_nsm
-** t_nsm_coal
-** t_merge
-t_merger_max
+#nsmerger_bdys [8,100] VaryNsmbdys.png
+nb_nsm_per_m 0.1, 0.3, 0.5, 0.8, 1.0, 1.2 VaryNbnsm.png
+f_binary 1.0 VaryBinfrac.png
+f_merger 0.0008 VaryMergefrac.png
+m_ej_nsm 2.5e-2 VaryMejecta.png
+t_nsm_coal 
+t_merge 
+t_merger_max 1.0e+10 VaryMaxmergetime.png
 #popIII_on True
-pop3_table
-imf_bdys_pop3
-imf_yields_range_pop3
+pop3_table "yield_tables/popIII_heger10.txt" VaryPop3tab.png
+imf_bdys_pop3 [0.1,100] VaryPop3bdys.png
+imf_yields_range_pop3 [10,30] VaryPop3yieldrange.png
 #Various DTD arguments
 #Unknown arguments
-f_dyn
 f_arfo
 #m_crit_on
 norm_m_crit
-t_star
-exp_ml
 f_s_enhancement
 tau_ferrini

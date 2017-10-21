@@ -20,14 +20,17 @@ except IndexError:
     
 #Run calculations of GCE with 'Omega'
 timesteps = n
-loa_mgal_vals, save_name = read_param("mgal") #get values from 'parameter_space.txt'
-loa_omega_inst = [omega(special_timesteps=timesteps, mgal=mgal,
-                        imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array, ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table)
-                   for mgal in loa_mgal_vals] #omega-instances with new m_gal
-loa_omega_names = ["$M_{gal}$=%1.2e"%mgal for mgal in loa_mgal_vals]
+loa_outflow_vals, save_name = read_param("outflow_rate") #get values from 'parameter_space.txt'
+bestfit_mgal = 2.0e+10
+loa_omega_inst = [omega(special_timesteps=timesteps, outflow_rate=outflow,
+                        imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
+                        ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table,
+                        mgal=bestfit_mgal)
+                  for outflow in loa_outflow_vals] #omega-instances with new outflow
+loa_omega_names = ["$\dot{M}_{out}$=%1.2e"%outflow for outflow in loa_outflow_vals]
 
 #visualize masses and sfr with 'visualize'
-title = "Vary initial galactic mass $M_{gal}(t_0)$"
+title = "Vary constant outflow $\dot{M}_{out}$"
 #plot sfr, ism-mass, locked_mass, total_mass
 plot_obj = visualize(loa_omega_inst, loa_omega_names, num_yaxes=4)
 plot_obj.add_time_mass("total", index_yaxis=0)

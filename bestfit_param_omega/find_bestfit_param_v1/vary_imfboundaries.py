@@ -21,7 +21,7 @@ except IndexError:
 #Run calculations of GCE with 'Omega'
 timesteps = n
 loa_imfboundary_vals, save_name = read_param("imf_bdys") #get values from 'parameter_space.txt'
-bestfit_mgal = 2.0e+10
+bestfit_mgal = 4.0e+10
 loa_omega_inst = [omega(special_timesteps=timesteps, imf_bdys=imfboundary,
                         imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
                         ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table,
@@ -32,9 +32,9 @@ loa_omega_names = ["$IMF\in$%s"%imf_bound for imf_bound in loa_imfboundary_vals]
 #visualize masses and sfr with 'visualize'
 title = "Vary IMF boundary"
 #plot sfr, ism-mass, locked_mass, total_mass
-plot_obj = visualize(loa_omega_inst, loa_omega_names, num_yaxes=4)
-plot_obj.add_time_mass("total", index_yaxis=0)
-plot_obj.add_time_mass("ism", index_yaxis=1)
+plot_obj = visualize(loa_omega_inst, loa_omega_names, num_yaxes=4, yields=True)
+plot_obj.add_yields("Fe", index_yaxis=0, time="sum")
+plot_obj.add_yields("Eu", index_yaxis=1, time="sum")
 plot_obj.add_time_mass("locked", index_yaxis=2)
 plot_obj.add_time_rate("sf", index_yaxis=3)
 

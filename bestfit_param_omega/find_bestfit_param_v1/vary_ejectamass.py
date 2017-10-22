@@ -21,7 +21,7 @@ except IndexError:
 #Run calculations of GCE with 'Omega'
 timesteps = n
 loa_eject_vals, save_name = read_param("m_ej_nsm") #get values from 'parameter_space.txt'
-bestfit_mgal = 1.0e+10
+bestfit_mgal = 4.0e+10
 loa_omega_inst = [omega(special_timesteps=timesteps, m_ej_nsm=eject,
                         imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
                         ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table,
@@ -34,9 +34,9 @@ title = "Vary ejecta mass from NSM event"
 #plot sfr, ism-mass, locked_mass, total_mass
 plot_obj = visualize(loa_omega_inst, loa_omega_names,
                      num_yaxes=4, yields=True)
-plot_obj.add_("", index_yaxis=0, time="sum")
-plot_obj.add_("", index_yaxis=1, time="sum")
-plot_obj.add_("", index_yaxis=2)
-plot_obj.add_("", index_yaxis=3)
+plot_obj.add_time_relabu("[Eu/H]", index_yaxis=0)
+plot_obj.add_yields("Eu", index_yaxis=1, time="sum")
+plot_obj.add_time_rate("kn", index_yaxis=2) #?
+plot_obj.add_time_rate("sf", index_yaxis=3) #?
 
 plot_obj.finalize(show=True, title=title, save=save_name)

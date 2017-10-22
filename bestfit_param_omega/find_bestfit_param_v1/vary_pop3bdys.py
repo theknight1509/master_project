@@ -21,12 +21,12 @@ except IndexError:
 #Run calculations of GCE with 'Omega'
 timesteps = n
 loa_pop3bdys_vals, save_name = read_param("imf_bdys_pop3") #get values from 'parameter_space.txt'
-bestfit_mgal = 2.0e+10
+bestfit_mgal = 4.0e+10
 loa_omega_inst = [omega(special_timesteps=timesteps, imf_bdys_pop3=pop3bdys,
                         imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
                         ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table,
                         mgal=bestfit_mgal)
-                  for pop3bdys in loa_pop3bdys_vals] #omega-instances with new outflow
+                  for pop3bdys in loa_pop3bdys_vals] #omega-instances with new parameter
 loa_omega_names = ["$IMF_{pop3}\in$%s"%pop3bdys for pop3bdys in loa_pop3bdys_vals]
 
 #visualize masses and sfr with 'visualize'
@@ -34,9 +34,9 @@ title = "Vary IMF of pop 3 stars"
 #plot sfr, ism-mass, locked_mass, total_mass
 plot_obj = visualize(loa_omega_inst, loa_omega_names,
                      num_yaxes=4, yields=True)
-plot_obj.add_("", index_yaxis=0, time="sum")
-plot_obj.add_("", index_yaxis=1, time="sum")
-plot_obj.add_("", index_yaxis=2)
-plot_obj.add_("sf", index_yaxis=3)
+plot_obj.add_time_relabu("[Fe/H]", index_yaxis=0)
+plot_obj.add_time_relabu("[O/H]", index_yaxis=1)
+plot_obj.add_time_mass("ism", index_yaxis=2)
+plot_obj.add_time_mass("stellar", index_yaxis=3)
 
 plot_obj.finalize(show=True, title=title, save=save_name)

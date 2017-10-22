@@ -20,23 +20,25 @@ except IndexError:
     
 #Run calculations of GCE with 'Omega'
 timesteps = n
-loa_coaltime_vals, save_name = read_param("t_nsm_coal") #get values from 'parameter_space.txt'
-bestfit_mgal = 4.0e+10
-loa_omega_inst = [omega(special_timesteps=timesteps, t_nsm_coal=coaltime,
-                        imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
-                        ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table,
+loa_fraction_vals, save_name = read_param("f_arfo") #get values from 'parameter_space.txt'
+bestfit_mgal = 3.5e+10
+loa_omega_inst = [omega(special_timesteps=timesteps, f_arfo=fraction,
+                        imf_type=bestfit_imf_type,
+                        sfh_array=bestfit_sfh_array,
+                        ns_merger_on=bestfit_ns_merger_on,
+                        nsmerger_table=bestfit_nsmerger_table,
                         mgal=bestfit_mgal)
-                  for coaltime in loa_coaltime_vals] #omega-instances with new parameter
-loa_omega_names = ["$t_{coal,nsm}$=%1.2e"%coaltime for coaltime in loa_coaltime_vals]
+                   for fraction in loa_fraction_vals] #omega-instances with new m_gal
+loa_omega_names = ["f=%1.2e"%fraction for fraction in loa_fraction_vals]
 
 #visualize masses and sfr with 'visualize'
-title = "Vary coallesence time of NSM"
+title = "Vary fractional yield of massive stars"
 #plot sfr, ism-mass, locked_mass, total_mass
 plot_obj = visualize(loa_omega_inst, loa_omega_names,
                      num_yaxes=4, yields=True)
-plot_obj.add_time_relabu("[Eu/H]", index_yaxis=0)
+plot_obj.add_yields("O", index_yaxis=0, time="sum")
 plot_obj.add_yields("Eu", index_yaxis=1, time="sum")
-plot_obj.add_time_rate("kn", index_yaxis=2)
+plot_obj.add_time_mass("locked", index_yaxis=2)
 plot_obj.add_time_rate("sf", index_yaxis=3)
 
 plot_obj.finalize(show=True, title=title, save=save_name)

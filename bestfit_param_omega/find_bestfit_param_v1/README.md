@@ -33,3 +33,5 @@ The images are stored in the [image-folder](variable_plots), but the results are
 Personal notes
 ----------------
 Sfr-normalization should be set by the default Eris-parameters, since it uses the last value of the 'm_growth' array in the 'sfr'-dictionary.
+
+Value = 38914300000.0

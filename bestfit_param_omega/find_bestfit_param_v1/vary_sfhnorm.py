@@ -29,6 +29,7 @@ loa_omega_inst = [omega(special_timesteps=timesteps, sfh_array_norm=norm,
                    for norm in loa_norm_vals] #omega-instances with new m_gal
 loa_omega_names = ["$f_{norm,sfr}$=%1.2f"%norm for norm in loa_norm_vals]
 norm_eris = eris_data().sfr["m_growth"][-1]
+print norm_eris
 loa_omega_inst += [omega(special_timesteps=timesteps, sfh_array_norm=norm_eris,
                         mgal=bestfit_mgal,
                         imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,

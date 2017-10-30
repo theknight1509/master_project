@@ -23,7 +23,10 @@ timesteps = n
 loa_outflow_vals, save_name = read_param("outflow_rate") #get values from 'parameter_space.txt'
 bestfit_mgal = 4.0e+10
 loa_omega_inst = [omega(special_timesteps=timesteps,
-                        in_out_control=True, outflow_rate=outflow,
+                        in_out_control=True,
+                        outflow_rate=outflow,
+                        out_follows_E_rate=False,
+                        in_out_ratio=0.0,
                         imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
                         ns_merger_on=bestfit_ns_merger_on, nsmerger_table=bestfit_nsmerger_table,
                         mgal=bestfit_mgal)
@@ -31,7 +34,7 @@ loa_omega_inst = [omega(special_timesteps=timesteps,
 loa_omega_names = ["$\dot{M}_{out}$=%1.2e"%outflow for outflow in loa_outflow_vals]
 
 #visualize masses and sfr with 'visualize'
-title = "Vary constant outflow $\dot{M}_{out}$"
+title = "Vary constant outflow $\dot{M}_{out}$ \n $M_{gal}(t_0)$=%1.1e"%(bestfit_mgal)
 #plot sfr, ism-mass, locked_mass, total_mass
 plot_obj = visualize(loa_omega_inst, loa_omega_names, num_yaxes=4)
 plot_obj.add_time_mass("total", index_yaxis=0)

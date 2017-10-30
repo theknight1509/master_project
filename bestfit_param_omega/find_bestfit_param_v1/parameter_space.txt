@@ -1,8 +1,9 @@
 #variable values... name_of_image.png
-mgal 2.0e+9 1.0e+10 2.0e+10 3.0e+10 5.0e+10 7.0e+10 1.0e+11 varyMgal.png
-inflow_rate 10.0 50.0 100.0 200.0 varyInflow.png
-outflow_rate 0.005 1.0 200.0 varyOutflow.png
-sfh_array_norm 3.5e+10 3.8e+10 4.0e+10 4.2e+10 4.5e+10 varyNormsfr.png
+mgal 2.0e+9 1.0e+10 2.0e+10 3.0e+10 5.0e+10 7.0e+10 1.0e+11 VaryMgal.png
+inflow_rate 1.0 5.0 10.0 50.0 100.0 200.0 VaryInflow.png
+outflow_rate 0.005 0.5 1.0 5.0 20.0 200.0 VaryOutflow.png
+mass_loading 0.1 0.5 1.0 5.0 20.0 VaryMassloading.png
+sfh_array_norm 3.5e+10 3.8e+10 4.0e+10 4.2e+10 4.5e+10 VaryNormsfr.png
 imf_bdys [0.1,30] [0.1,100] [0.1,200] [0.001,400] VaryImfbdys.png
 f_arfo 0.5 0.9 1.0 1.2 2.0 VaryMassivefrac.png
 #ns_merger_on True

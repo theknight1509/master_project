@@ -1,9 +1,12 @@
 """
-From looking at 'Eris'(Shen et.al.2015) the Initial Mass Function and Star Formation Rate can be determined, also the Compact Object Merger tables must be From Arnould 2007.
+From looking at 'Eris'(Shen et.al.2015) the Initial Mass Function and Star Formation Rate can be 
+determined, also the Compact Object Merger tables must be From Arnould 2007.
 """
+from bestfit_param_omega.bestfit_file import *
 import numpy as np
 from directory_master import Foldermap
 folder = Foldermap()
+
 ###################
 ### IMF and SFR ###
 ###################

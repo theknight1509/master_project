@@ -22,7 +22,7 @@ except IndexError:
 timesteps = n
 loa_inflow_vals, save_name = read_param("inflow_rate") #get values from 'parameter_space.txt'
 print "Using inflow values: ", loa_inflow_vals
-bestfit_mgal = 2.0e+10
+bestfit_mgal = 1.0e+10
 loa_omega_inst = [omega(special_timesteps=timesteps,
                         in_out_control=True, inflow_rate=inflow, 
                         imf_type=bestfit_imf_type, sfh_array=bestfit_sfh_array,
@@ -32,7 +32,7 @@ loa_omega_inst = [omega(special_timesteps=timesteps,
 loa_omega_names = ["$\dot{M}_{in}$=%1.2e"%inflow for inflow in loa_inflow_vals]
 
 #visualize masses and sfr with 'visualize'
-title = "Vary constant inflow $\dot{M}_{in}$"
+title = "Vary constant inflow $\dot{M}_{in}$ \n $M_{gal}(t_0)$=%1.1e"%(bestfit_mgal)
 #plot sfr, ism-mass, locked_mass, total_mass
 plot_obj = visualize(loa_omega_inst, loa_omega_names, num_yaxes=4)
 plot_obj.add_time_mass("total", index_yaxis=0)

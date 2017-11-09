@@ -169,9 +169,9 @@ def case_test():
     parallel_queueing(folder_name, experiment_name,
                       num_experiments=n, timestep_size=dt)
 
-def case_1():
+def case_1(n):
     print "Starting Run #1"
-    n = 100
+    print "50% standard deviation"
     sigma = 0.5
     dt = 1e+7
     folder_name = "Case_1"
@@ -183,3 +183,10 @@ def case_1():
 if __name__ == '__main__':
     if len(sys.argv) == 1: #no cmd-line args -> test-case
         case_test()
+    elif len(sys.argv) == 2: #single cmd-line argument
+        try:
+            n = int(sys.argv[1])
+        except:
+            print "Error in cmd-line args!"
+            sys.exit("Exiting!")
+        case_1(n=n)

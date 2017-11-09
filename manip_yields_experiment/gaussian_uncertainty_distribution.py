@@ -6,7 +6,7 @@ import sys, os
 import time as tm
 import numpy as np
 import random as rn
-from bestfit_param_omega.bestfit_file_v1 import *
+from bestfit_param_omega.current_bestfit import *
 bestfit_imported = True
 from experiment import experiment
 

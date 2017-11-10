@@ -182,7 +182,7 @@ class experiment(omega):
                 #print "Fixed new yield(%s): from %1.4e to %1.4e"%(table_name,
                 #                                                  present_yield, new_yield)
 
-    def save2file(self, filename):
+    def save2file_old(self, filename):
         """ 
         Put all necesary arrays in a dictionary.
         Save dictionary to csv using Pandas.
@@ -258,6 +258,14 @@ class experiment(omega):
 
         panda_object = pd.DataFrame(data=save_dictionary)
         panda_object.to_csv(filename, compression=None)
+
+    def save2file(self, filename):
+        """
+        Description of _second_ save-function:
+        Get all relevant arrays(as a function of time), store in a (n*m)-matrix.
+        Store matrix in binary with numpys save-function.
+        """
+        
 
 if __name__ == '__main__':
     """ #Make simple test 

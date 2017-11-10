@@ -46,7 +46,7 @@ def start_experiment(folder_name, fudge_factor_tuple=()):
         #write standard deviation from fudge-factor-table to readme
         if fudge_factor_tuple:
             readme.write("Data from fudge-factors: \n")
-            readme.write("Gaussian-sigma: %1.4e \n"%sigma)
+            readme.write("Gaussian-sigma: %1.4e \n"%fudge_factor_tuple[1])
     if not os.path.exists(readme_path): #no readme-file
         print "README.md was not created"
         return False
@@ -139,6 +139,24 @@ def parallel_queueing(folder_name, experiment_name,
         print status
         print "="*len(status)
 
+    #wait for all processes to stop
+    while num_act_proc > 0:
+        #check list of processes
+        for i in range(num_act_proc):
+            proc = loa_act_proc[i]
+            act_proc_status = proc.is_alive()
+            #print proc.name, act_proc_status
+            if not act_proc_status: #process is done
+                #terminate, join, remove
+                proc.terminate()
+                proc.join()
+                loa_act_proc.pop(i) #remove from list
+                num_act_proc -= 1 #update counter
+                break #go out of for loop
+            else:
+                continue #go to next process
+        
+
     #timing
     t1 = tm.time()
     total_time = t1 - t0
@@ -147,7 +165,7 @@ def parallel_queueing(folder_name, experiment_name,
     readme_filename = folder_name + "/README.md"
     with open(readme_filename, 'a') as readme:
         #save isotope, stddev, total time, # of experiments to readme-file
-        readme.write("GCE timestep: %e yr"%timestep_size)
+        readme.write("GCE timestep: %e yr\n"%timestep_size)
         readme.write("Some parameters for the MC-simulation\n")
         readme.write("Isotope: %s \n"%isotope)
         readme.write("Total time lapsed: %1.4e s \n"%total_time)
@@ -163,11 +181,11 @@ def case_test():
     experiment_name = folder_name
     n = 10
     sigma = 0.5
-    dt = 1e+6
+    dt = 3e+8
     
-    start_experiment(folder_name, fudge_factor_tuple=(n, sigma))
-    parallel_queueing(folder_name, experiment_name,
-                      num_experiments=n, timestep_size=dt)
+    if start_experiment(folder_name, fudge_factor_tuple=(n, sigma)):
+        parallel_queueing(folder_name, experiment_name,
+                          num_experiments=n, timestep_size=dt)
 
 def case_1(n):
     print "Starting Run #1"
@@ -177,9 +195,9 @@ def case_1(n):
     folder_name = "Case_1"
     experiment_name = "Omega_MCsimulation_Re187"
 
-    start_experiment(folder_name, fudge_factor_tuple=(n, sigma))
-    parallel_queueing(folder_name, experiment_name,
-                      num_experiments=n, timestep_size=dt)
+    if start_experiment(folder_name, fudge_factor_tuple=(n, sigma)):
+        parallel_queueing(folder_name, experiment_name,
+                          num_experiments=n, timestep_size=dt)
 if __name__ == '__main__':
     if len(sys.argv) == 1: #no cmd-line args -> test-case
         case_test()

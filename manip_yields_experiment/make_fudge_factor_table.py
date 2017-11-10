@@ -36,7 +36,7 @@ def read_fudge_factor(filename, req_index=0):
     Open a datafile with indeces and fudgefactors, 
     return the value corresponding to *req_index*.
     """
-    filename = "fudge_factor_table.dat" #name of table
+    #filename = "fudge_factor_table.dat" #name of table
     req_value = False #value of requested index
     with open(filename, 'r') as infile:
         for line in infile.readlines():

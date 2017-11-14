@@ -70,7 +70,7 @@ for europium_omega in loa_europium_omega:
     #Source: _wikipedia_/wiki/Chi-squared_distribution
     O = europium_omega
     E = europium_eris
-    chi2 = np.sum( (O-E)**2/E )
+    chi2 = np.sum( (O-E)**2/np.abs(E) )
     loa_europium_chi2.append(chi2)
 
 ###Make table###
@@ -112,9 +112,9 @@ with open("table.tex", 'w') as outfile:
 
 ###Plot chi-squared vs. timestep###
 pl.figure(); pl.grid(True)
-pl.plot(loa_dt_values, loa_europium_chi2, 'k*')
+pl.plot(loa_dt_values, loa_europium_chi2, '*')
 pl.xlabel(r"timestep $\Delta t$ [yr]")
 pl.ylabel(r"$\chi^2 = \Sigma_i \frac{(O_i-E_i)^2}{E_i}$")
-pl.legend(loc="best", num_points=1)
+#pl.legend(loc="best", numoints=1)
 pl.savefig("timestep_chisquared.png")
 pl.show()

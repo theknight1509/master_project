@@ -274,7 +274,7 @@ if __name__ == '__main__':
     help_string += "\n\tAn index-value is added to the end of all data-file names."
     parser.add_argument('-f', '--name',
                         metavar="NAME", dest="name",
-                        type=int, help=help_string, nargs=2,
+                        type=str, help=help_string, nargs=2,
                         default=[default_folder_name,default_experiment_name])
     try:
         namespace = parser.parse_args()

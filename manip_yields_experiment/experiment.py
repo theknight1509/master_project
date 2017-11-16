@@ -225,7 +225,7 @@ class experiment(omega):
         save_dictionary["time"] = self.history.age
         save_dictionary["sfr"] = self.history.sfr_abs
         save_dictionary["gas_mass"] = self.history.gas_mass
-        save_dictionary["m_tot_ISM_t"] = self.history.m_tot_ISM_t
+        #save_dictionary["m_tot_ISM_t"] = self.history.m_tot_ISM_t
         save_dictionary["m_outflow_t"] = self.history.m_outflow_t
         save_dictionary["m_inflow_t"] = self.history.m_inflow_t
         save_dictionary["m_locked"] = self.history.m_locked
@@ -238,7 +238,6 @@ class experiment(omega):
         save_dictionary["m_locked"] = np.insert(save_dictionary["m_locked"], 0,0)
         save_dictionary["m_locked_agb"] = np.insert(save_dictionary["m_locked_agb"], 0,0)
         save_dictionary["m_locked_massive"] = np.insert(save_dictionary["m_locked_massive"], 0,0)
-        
         
         for number, array in zip(save_numbers, loa_number_arrays):
             key = "number_" + number
@@ -259,13 +258,119 @@ class experiment(omega):
         panda_object = pd.DataFrame(data=save_dictionary)
         panda_object.to_csv(filename, compression=None)
 
-    def save2file(self, filename):
+    def save2file(self, filename, write_index_file=False):
         """
         Description of _second_ save-function:
+        Store 288 time-sized arrays as a 2D matrix
         Get all relevant arrays(as a function of time), store in a (n*m)-matrix.
         Store matrix in binary with numpys save-function.
+
+        NOTE! #add0 means add extra zero to beginning of array for equal length arrays
         """
-        
+        n = len(self.history.age) #number of time-points in GCE
+        m = 288 #number of arrays to store
+        dim = (m,n) #dimension of matrix
+        store_arr = np.zeros(dim) #2D array to store all 1D arrays
+        index_arr = 0 #index of array in 2D array
+        loa_arr_names = [] #list of names of all arrays
+        filename = filename.split('.')[0] #remove format-suffix from filename
+
+        store_arr[index_arr,:] = self.history.age
+        loa_arr_names.append("time"); index_arr += 1
+        store_arr[index_arr,:] = self.history.sfr_abs 
+        loa_arr_names.append("sfr"); index_arr += 1 
+        store_arr[index_arr,:] = self.history.gas_mass
+        loa_arr_names.append("gas_mass"); index_arr += 1
+        store_arr[index_arr,:] = np.array([0] + list(self.history.m_outflow_t)) #add0
+        loa_arr_names.append("m_outflow"); index_arr += 1
+        store_arr[index_arr,:] = np.array([0] + list(self.m_inflow_t)) #add0
+        loa_arr_names.append("m_inflow"); index_arr += 1
+        store_arr[index_arr,:] = np.array([0] + list(self.history.m_locked)) #add0
+        loa_arr_names.append("m_locked"); index_arr += 1
+        store_arr[index_arr,:] = np.array([0] + list(self.history.m_locked_agb)) #add0
+        loa_arr_names.append("m_locked_agb"); index_arr += 1
+        store_arr[index_arr,:] = np.array([0] + list(self.history.m_locked_massive)) #add0
+        loa_arr_names.append("m_locked_massive"); index_arr += 1
+
+        #make list of elements, isotopes, yield-sources
+        save_elements = ['H','C','O','Mg','Fe','Eu','W','Re','Os','Ir']
+        save_isotopes = ['H-1', 'H-2','C-12','C-13','O-16','O-17','O-18','Mg-24','Mg-25','Mg-26','Fe-54','Fe-56','Fe-57','Fe-58','Eu-151', 'Eu-153','W-180','W-182','W-183','W-184','W-186','Re-185','Re-187','Os-184','Os-186','Os-187','Os-188','Os-189','Os-190','Os-192','Ir-191','Ir-193']
+        save_isotopes = ['Eu-151', 'Eu-153','W-180','W-182','W-183','W-184','W-186','Re-185','Re-187','Os-184','Os-186','Os-187','Os-188','Os-189','Os-190','Os-192','Ir-191','Ir-193']
+
+        save_elements_indeces = [self.history.elements.index(elem) for elem in save_elements]
+        save_isotopes_indeces = [self.history.isotopes.index(iso) for iso in save_isotopes]
+
+        #elemental abundances
+        for elem_index, elem_name in zip(save_elements_indeces, save_elements):
+            #print np.array(self.history.ism_elem_yield).shape, elem_index
+            store_arr[index_arr,:] = np.array(self.history.ism_elem_yield)[:,elem_index]
+            loa_arr_names.append("ism_elem_%s"%elem_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_elem_yield_agb)[:,elem_index]
+            loa_arr_names.append("ism_elem_%s_agb"%elem_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_elem_yield_massive)[:,elem_index]
+            loa_arr_names.append("ism_elem_%s_massive"%elem_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_elem_yield_1a)[:,elem_index]
+            loa_arr_names.append("ism_elem_%s_1a"%elem_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_elem_yield_nsm)[:,elem_index] 
+            loa_arr_names.append("ism_elem_%s_nsm"%elem_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_elem_yield_bhnsm)[:,elem_index]
+            loa_arr_names.append("ism_elem_%s_bhnsm"%elem_name); index_arr += 1
+            
+        #isotopic abundances
+        for iso_index, iso_name in zip(save_isotopes_indeces, save_isotopes):
+            store_arr[index_arr,:] = np.array(self.history.ism_iso_yield)[:,iso_index]
+            loa_arr_names.append("ism_iso_%s"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_iso_yield_agb)[:,iso_index]
+            loa_arr_names.append("ism_iso_%s_agb"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_iso_yield_massive)[:,iso_index] 
+            loa_arr_names.append("ism_iso_%s_massive"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_iso_yield_1a)[:,iso_index]
+            loa_arr_names.append("ism_iso_%s_1a"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_iso_yield_nsm)[:,iso_index]
+            loa_arr_names.append("ism_iso_%s_nsm"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.array(self.history.ism_iso_yield_bhnsm)[:,iso_index]
+            loa_arr_names.append("ism_iso_%s_bhnsm"%iso_name); index_arr += 1
+
+        #yields
+        for iso_index, iso_name in zip(save_isotopes_indeces, save_isotopes):
+            store_arr[index_arr,:] = np.insert(np.array(self.mdot)[:,iso_index],0,0) #add0
+            loa_arr_names.append("yield_%s"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.insert(np.array(self.mdot_agb)[:,iso_index],0,0) #add0
+            loa_arr_names.append("yield_%s_agb"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.insert(np.array(self.mdot_massive)[:,iso_index],0,0) #add0
+            loa_arr_names.append("yield_%s_massive"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.insert(np.array(self.mdot_1a)[:,iso_index],0,0) #add0
+            loa_arr_names.append("yield_%s_1a"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.insert(np.array(self.mdot_nsm)[:,iso_index],0,0) #add0
+            loa_arr_names.append("yield_%s_nsm"%iso_name); index_arr += 1
+            store_arr[index_arr,:] = np.insert(np.array(self.mdot_bhnsm)[:,iso_index],0,0) #add0
+            loa_arr_names.append("yield_%s_bhnsm"%iso_name); index_arr += 1
+            
+        #numbers
+        store_arr[index_arr,:] = np.array(self.history.sn1a_numbers)
+        loa_arr_names.append("num_sn1a"); index_arr += 1
+        store_arr[index_arr,:] = np.array(self.history.sn2_numbers)
+        loa_arr_names.append("num_sn2"); index_arr += 1
+        store_arr[index_arr,:] = np.array(self.history.nsm_numbers)
+        loa_arr_names.append("num_nsm"); index_arr += 1
+        store_arr[index_arr,:] = np.array(self.history.bhnsm_numbers)
+        loa_arr_names.append("num_bhnsm"); index_arr += 1
+
+        np.save(filename+".npy", store_arr)
+        print "Data written to filename: %s"%(filename+".npy")
+
+        if write_index_file:
+            #Write a file with the name of arrays and their index in the 2D-matrix
+            #find folder of filename
+            filefolder_list =  filename.split('/')[:-1]
+            filefolder = ''
+            for folder in filefolder_list:
+                filefolder += folder + '/'
+            index_filename = filefolder + "data_indeces.txt"
+            with open(index_filename, 'w') as outfile:
+                for i, arr_name in enumerate(loa_arr_names):
+                    outfile.write("%d %s \n"%(i,arr_name))
+            print "Indeces of arrays written to file: %s"%index_filename
 
 if __name__ == '__main__':
     """ #Make simple test 

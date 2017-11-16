@@ -3,6 +3,7 @@ The purpose of this script is to run MonteCarlo simulations on 'experiment.py'.
 The program uses 'gaussian_uncertainty_distribution.py' as a skeleton,
 but takes fudge_factor_values from a table.
 Paralellization is done with multiprocessing.
+Input arguments are dealt with through 'argparse', use '-h' for help.
 """
 #import vital libraries
 import sys, os
@@ -14,12 +15,13 @@ from bestfit_param_omega.current_bestfit import *
 from experiment import experiment
 from make_fudge_factor_table import write_new_table, read_fudge_factor
 
-def start_experiment(folder_name, fudge_factor_tuple=()):
+def start_experiment(folder_name, fudge_factor_tuple=(), timestep_size=0):
     """
     Function return True if succesful and False when something fails.
     readme_text is string that describes the experiment in the folder.
     fudge_factor_tuple contains number of gaussian random numbers and
     their standard deviation.
+    If *timeste_size is given(greater then zero), run a single experiment without fudgefactor
     """
     print "Attempting to create a new simulation."
     #Make sure script is called directly, from same folder
@@ -34,7 +36,7 @@ def start_experiment(folder_name, fudge_factor_tuple=()):
     os.mkdir(folder_name)
     #Initilize with a readme-file
     readme_path = folder_name + "/README.md"
-    readme_text = raw_input("Please enter the Readme-text for this simulation!")
+    readme_text = raw_input("Please enter the Readme-text for this simulation!\n")
     with open(readme_path, 'w') as readme:
         readme.write(folder_name + '\n')
         readme.write('='*len(folder_name) + '\n')
@@ -89,9 +91,28 @@ def single_experiment(experiment_index, toa_strings=(),
     exp_instance.save2file(data_filename)
     del exp_instance #delete instance
 
-def parallel_queueing(folder_name, experiment_name,
-                      num_experiments=10, timestep_size=1e+8):
+def default_experiment(toa_strings=(), isotope="Re-187", timestep_size=1e+6):
+    """
+    Run a single experiment with no fudge_factor
+    *toa_strings* - tuple of all relevant strings (folder, name)
+    *isotope* - str - name of isotope to be manipulated
+    *timestep_size* - float - size of timestep in experiment
+    """
+    exp_folder = toa_strings[0] #name of experiment folder
+    exp_name = toa_strings[1]
+    
+    fudge_factor = 1.0
+    data_filename = exp_folder + "/" + exp_name + "default.csv"
+
+    #instance of experiment-object
+    exp_instance = experiment(isotope, fudge_factor, dt=timestep_size)
+    #save data to appropriately named file
+    exp_instance.save2file(data_filename, write_index_file=True)
+    del exp_instance #delete instance
+
+def parallel_queueing(toa_strings, num_experiments=10, timestep_size=1e+8):
     """ Description: """
+    folder_name, experiment_name = toa_strings
     #timing
     t0 = tm.time()
 
@@ -182,10 +203,12 @@ def case_test():
     n = 10
     sigma = 0.5
     dt = 3e+8
-    
-    if start_experiment(folder_name, fudge_factor_tuple=(n, sigma)):
-        parallel_queueing(folder_name, experiment_name,
-                          num_experiments=n, timestep_size=dt)
+
+    start_experiment(folder_name, fudge_factor_tuple=(n, sigma),
+                     timestep_size=dt)
+    default_experiment(toa_strings=(folder_name, experiment_name), timestep_size=dt)
+    parallel_queueing(toa_strings=(folder_name, experiment_name), 
+                      num_experiments=n, timestep_size=dt)
 
 def case_1(n):
     print "Starting Run #1"
@@ -193,18 +216,76 @@ def case_1(n):
     sigma = 0.5
     dt = 1e+7
     folder_name = "Case_1"
-    experiment_name = "Omega_MCsimulation_Re187"
+    experiment_name = "Omega_MCsimulation_Re187_"
 
-    if start_experiment(folder_name, fudge_factor_tuple=(n, sigma)):
-        parallel_queueing(folder_name, experiment_name,
-                          num_experiments=n, timestep_size=dt)
+    start_experiment(folder_name, fudge_factor_tuple=(n, sigma),
+                     timestep_size=dt)
+    default_experiment(toa_strings=(folder_name, experiment_name), timestep_size=dt)
+    parallel_queueing(toa_strings=(folder_name, experiment_name), 
+                      num_experiments=n, timestep_size=dt)
+
+def case_general(exp_number, sigma, timestep_length, names):
+    start_experiment(names[0], fudge_factor_tuple=(exp_number, sigma),
+                     timestep_size=timestep_length)
+    default_experiment(toa_strings=names, timestep_size=timestep_length)
+    parallel_queueing(toa_strings=names, 
+                      num_experiments=exp_number, timestep_size=timestep_length)
+
+loa_cases = [case_1, case_general] #list of all case-functions
+
 if __name__ == '__main__':
-    if len(sys.argv) == 1: #no cmd-line args -> test-case
-        case_test()
-    elif len(sys.argv) == 2: #single cmd-line argument
-        try:
-            n = int(sys.argv[1])
-        except:
-            print "Error in cmd-line args!"
-            sys.exit("Exiting!")
-        case_1(n=n)
+    #make default arguments
+    default_sigma = 0.5
+    default_dt = 1e+8
+    default_iso = "Re-187"
+    default_folder_name = "default_folder_name"
+    default_experiment_name = "default_experiment_name"
+    
+    #Use argparse-module to sort program by cmd-line-input
+    import argparse as ap
+    prog_desc = "This is the parallelized MANIP experiment."
+    
+    parser = ap.ArgumentParser(description=prog_desc)
+    #add argument for number of experiments
+    help_string = "Number of experiments done."
+    parser.add_argument('N', #'--num_experiments',
+                        metavar="n",
+                        type=int, help=help_string)
+    #add argument for standard deviation
+    help_string = "Relative standard deviation fraction of gaussian distribution(applied to *isotope*)."
+    parser.add_argument('-s', '--standard_deviation', '--sigma',
+                        metavar="SIGMA",dest="sigma",
+                        type=float, help=help_string,
+                        default=default_sigma)
+    #add argument for lenght of timesteps
+    help_string = "Length of constant timesteps [yr]."
+    parser.add_argument('-dt', '--timestep',
+                        metavar="DT",dest="dt",
+                        type=float, help=help_string,
+                        default=default_dt)
+    #add argument for isotope
+    help_string = "Isotope to be varied with a gaussian distribution."
+    parser.add_argument('-iso', '--isotope',
+                        metavar="ISOTOPE",dest="iso",
+                        type=str, help=help_string,
+                        default=default_iso)
+    #add argument for foldder-name and experiment-name
+    help_string = "Name of folder for experiment, and name of experiment data-files."
+    help_string += "\n\tAn index-value is added to the end of all data-file names."
+    parser.add_argument('-f', '--name',
+                        metavar="NAME", dest="name",
+                        type=int, help=help_string, nargs=2,
+                        default=[default_folder_name,default_experiment_name])
+    try:
+        namespace = parser.parse_args()
+    except:
+        print "Can't get cmd-line arguments"
+        sys.exit("Exiting!")
+
+    n = namespace.N #number of experiments
+    s = namespace.sigma #standard deviation
+    dt = namespace.dt #timestep length
+    iso = namespace.iso #which isotope
+    name_strings = namespace.name #folder-name and experiment-name
+
+    case_general(exp_number=n, sigma=s, timestep_length=dt, names=name_strings)

@@ -27,7 +27,7 @@ if not bestfit_imported:
 #####################################################
 ### Class inheriting omega for experimental usage ###
 #####################################################
-class experiment(omega):
+class experiment(omega):#andreas was here
     def __init__(self, input_isotope='Re-187', input_factor=1.0,
                  input_timesteps=30, dt=0):
         self.experiment_isotope = input_isotope

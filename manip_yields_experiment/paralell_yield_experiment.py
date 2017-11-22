@@ -83,7 +83,7 @@ def single_experiment(experiment_index, toa_strings=(),
 
     fudge_factor = read_fudge_factor(filename=exp_folder+'/'+exp_fudge,
                                      req_index=experiment_index)
-    data_filename = exp_folder + "/" + exp_name + str(experiment_index) + ".csv"
+    data_filename = exp_folder + "/" + exp_name + str(experiment_index) + ".npy"
 
     #instance of experiment-object
     exp_instance = experiment(isotope, fudge_factor, dt=timestep_size)
@@ -102,7 +102,7 @@ def default_experiment(toa_strings=(), isotope="Re-187", timestep_size=1e+6):
     exp_name = toa_strings[1]
     
     fudge_factor = 1.0
-    data_filename = exp_folder + "/" + exp_name + "default.csv"
+    data_filename = exp_folder + "/" + exp_name + "default.npy"
 
     #instance of experiment-object
     exp_instance = experiment(isotope, fudge_factor, dt=timestep_size)

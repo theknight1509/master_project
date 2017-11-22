@@ -176,10 +176,13 @@ def add_path2pythonpath():
     with open(bashrc_path, "a") as bashfile_app:
         bashfile_app.write(pythonpath_string)
         return True
+
+def hume_folder(self):
+    full_path = "/net/hume.uio.no/uio/hume/student-u27/oyvinbsv/github_uio/Master/"
     
 ### START PYTHONMARKER ###
-path_of_folder = '/net/hume.uio.no/uio/hume/student-u27/oyvinbsv/github_uio/Master/'
-path_of_nupycee = '/uio/hume/student-u27/oyvinbsv/github_uio/NuPyCEE/'
+path_of_folder = '/home/oyvind/github_uio/Master/'
+path_of_nupycee = '/home/oyvind/github_uio/NuPyCEE/'
 ### END PYTHONMARKER ###
 
 if __name__ == '__main__':

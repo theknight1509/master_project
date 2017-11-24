@@ -133,10 +133,14 @@ def plotting_function(axis, x_list, y_list):
 
 def test_constant_timestep(loa_constant_timesteps):
     #make sure omega stops if succesful also (too much calculation)
+    special_timesteps = -1
     result_list = []#list for storing results
     #for all timestep-values...
-    #... check if omega-breaks
-    #... store results as True/False
+    for constant_timestep in loa_constant_timesteps:
+        #... check if omega-breaks
+        try:
+        except:
+        #... store results as True/False
     return result_list
 
 def resolution_function():

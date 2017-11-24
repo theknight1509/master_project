@@ -192,12 +192,13 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
                              relative_chi2.__name__, "time-points", "calculation time")
     special_table = []
     special_table.append(special_table_format)
+    print special_table
     #loop over special timestep tuple...
     for timestep_tuple in loa_special_tuples:
         #unpack tuple (n, I(t), n_points, calc_time)
         n, interpolation_function, n_points, calc_time = timestep_tuple
         #... calculate all chi2-values
-        omega_interpolated = interpolation_function(interpolation_time)
+        omega_interpolated = interpolation_function(interpolation_time)        
         chi2_p = pearson_chi2(omega_interpolated, eris_interpolated)
         chi2_a = astro_chi2(omega_interpolated, eris_interpolated)
         chi2_r = relative_chi2(omega_interpolated, eris_interpolated)
@@ -215,7 +216,7 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
         n = some_tuple[2]
         if n > max_n:
             max_n = n
-        loa_const_tuple.append(some_tuple)
+        loa_const_tuples.append(some_tuple)
 
     constant_table_format = ("dt", pearson_chi2.__name__, astro_chi2.__name__,
                              relative_chi2.__name__, "time-points", "calculation time")
@@ -238,10 +239,13 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
     return constant_table, special_table
 
 def save_table(filename, table):
+    print table
     #pure data file
     with open(filename+".dat", 'w') as outfile:
         for row_tuple in table:
-            filename.write( ' '.join(row_tuple) + '\n' )
+            #print row_tuple, type(row_tuple)
+            outfile.write( ' '.join(row_tuple) + '\n' )
+
     #latex file
     table_string = ""
     for row_tuple in table:
@@ -271,7 +275,11 @@ def get_single_interpolation(special_timestep=0, constant_timestep=1e+9):
     #make interpolation function from data in omega-subclass
     interpolation_function, n = get_interpolation_function(instance)
     #make tuple of relevant data
-    tuple_of_relevant_data = (special_timesteps, interpolation_function, n, t_gce)
+    if special_timestep == 0:
+        resolution = constant_timestep
+    else:
+        resolution = special_timestep
+    tuple_of_relevant_data = (resolution, interpolation_function, n, t_gce)
     return tuple_of_relevant_data
 
 def get_interpolation_function(omega_instance):
@@ -304,7 +312,7 @@ def get_eris_interpolation():
     #delete unnecessary objects
     del eris_instance; del eris_dict
     #make interpolation_function that are not 'inf'
-    mask_of_infvalues = np.logical_not(np.isinf(time_array))
+    mask_of_infvalues = np.logical_not(np.isinf(spectro_array))
     interpolation_function = interp1d(x=time_array[mask_of_infvalues],
                                       y=spectro_array[mask_of_infvalues],
                                       bounds_error=False,
@@ -314,8 +322,10 @@ def get_eris_interpolation():
 
 ### Independant functions ###
 def pearson_chi2(O,E):
-    chi2 = (O - E)**2/E
+    chi2 = (O - E)**2/np.abs(E)
     chi2 = np.sum(chi2)
+    #print O,E
+    #sys.exit()
     return chi2
 
 #pearson_chi2.__name__ = r"Pearson $\chi^2$"
@@ -341,7 +351,8 @@ relative_chi2.__str__ = r"Relative $\chi^2$"
 if __name__ == '__main__':
     import matplotlib.pyplot as pl
     #set resolution-parameters
-    constant_timesteps = [2e+7, 4e+7, 5e+7]#, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
+    constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
+    constant_timesteps = [2e+9]
     special_timesteps = [30]#, 40, 50, 100]#, 150, 200, 500]
     #calculate resolution-data
     #table-format (dt/n, chi2_p, chi2_a, chi2_r, n_points, calc_time)

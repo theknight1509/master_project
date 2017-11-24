@@ -6,15 +6,17 @@ both constant and special(logaritmic).
 """
 
 ### Imports and Global statement ###
+import sys
+import time
+import numpy as np
+
 from directory_master import Foldermap
 folder = Foldermap()
 folder.activate_environ()
 from omega import omega
 from bestfit_param_omega.current_bestfit import *
 from visualize import omega_data, eris_data
-import numpy as np
 from scipy.interpolate import interp1d
-import time
 
 global_endtime = 14e+9
 global_spectro_key = "[Eu/H]"
@@ -124,106 +126,232 @@ class timesteps_omega(omega):
 
 ### Functions for testing, comparing, and plotting ###
 def plotting_function(axis, x_list, y_list):
-    #legend?
-    #marker?
-    #labels?
+    print "plotting_function is NOT finished!"
+    marker = ""
+    label = ""
     #text?
+    #axis.set_ylabel()
+    #axis.set_xlabel()
     #log x-axis?
-    axis.plot(x_list, y_list)
+    axis.plot(x_list, y_list, marker, label=label)
+    axis.legend(num_points=1, loc='best')
+    return True
 
 def test_constant_timestep(loa_constant_timesteps):
     #make sure omega stops if succesful also (too much calculation)
     special_timesteps = -1
+    loa_constant_timesteps = list(loa_constant_timesteps)
     result_list = []#list for storing results
     #for all timestep-values...
     for constant_timestep in loa_constant_timesteps:
         #... check if omega-breaks
         try:
-        except:
+            instance = timesteps_omega(special_timesteps, constant_timestep)
+            status = True
+        except IndexError: #omega breaks down due to error in constant timestep-length
+            status = False
+        except: #don't know what's wrong
+            print "I don't know how, but you f**ked up!"
+            sys.exit("Exiting!")
         #... store results as True/False
+        result_list.append(status)
     return result_list
 
-def resolution_function():
+def resolution_function(loa_constant_timesteps, loa_special_timesteps):
+    """
+    Resolution is calculated by choosing a timestep for omega and calculate the spectrographic
+    data. The data are used to calculate a interpolation function.
+    The chi^2-values for all interpolation functions is calculated using a separate time-array
+    with twice as many time-points as the omega data with the most time-points.
+    This is done for both special timesteps and constant timesteps.
+    """
     loa_const_tuples = []
     loa_special_tuples = []
-    max_n = 0
-    #loop over all constant timestep values...
-    #... some_tuple = get_single_interpolation()
-    #... loa_const_tuple.append(some_tuple)
+    max_n = 0 #maximum number of data points among all simulations
+
+    # calculate resolution for the list of special timesteps
+
     #loop over all special timestep values...
-    #... some_tuple = get_single_interpolation()
-    #... loa_special_tuple.append(some_tuple)
-    #get_Eris_interpolation ()
-    #interpolation_time_axis = linspace(2*max_n)
-    constant_table_format = ()
-    constant_table = []
-    special_table.append(special_table_format)
-    special_table_format = ()
+    for special_timestep in loa_special_timesteps:
+        #tuple (special_n, I(t), n_points, calc_time)
+        some_tuple = get_single_interpolation(special_timestep=special_timestep) 
+        n = some_tuple[2]
+        if n > max_n:
+            max_n = n
+        loa_special_tuple.append(some_tuple)
+    eris_interpolation = get_eris_interpolation() # interpolation function for eris data
+    interpolation_time = np.linspace(0, global_endtime, 2*max_n) #interpolation time-axis
+    eris_interpolated = eris_interpolation(interpolation_time) #interpolated array
+
+    special_table_format = ("n", pearson_chi2.__name__, astro_chi2.__name__,
+                             relative_chi2.__name__, "time-points", "calculation time")
     special_table = []
     special_table.append(special_table_format)
-    #loop over constant timestep tuple...
-    #... calculate all chi2-values
-    #... make new tuple of results
-    #... add tuple of results to table
     #loop over special timestep tuple...
-    #... calculate all chi2-values
-    #... make new tuple of results
-    #... add tuple of results to table
-    #save_table()
+    for timestep_tuple in loa_special_tuples:
+        #unpack tuple (n, I(t), n_points, calc_time)
+        n, interpolation_function, n_points, calc_time = timestep_tuple
+        #... calculate all chi2-values
+        omega_interpolated = interpolation_function(interpolation_time)
+        chi2_p = pearson_chi2(omega_interpolated, eris_interpolated)
+        chi2_a = astro_chi2(omega_interpolated, eris_interpolated)
+        chi2_r = relative_chi2(omega_interpolated, eris_interpolated)
+        #... make new tuple of results (dt, chi2_p, chi2_a, chi2r, n_points, calc_time)
+        result_tuple = (n, chi2_p, chi2_a, chi2_r, n_points, calc_time)
+        #... add tuple of results to table
+        special_table.append(result_tuple)
+
+    # calculate resolution for the list of constant timesteps
+    
+    #loop over all constant timestep values...
+    for constant_timestep in loa_constant_timesteps:
+        #tuple (dt, I(t), n_points, calc_time)
+        some_tuple = get_single_interpolation(constant_timestep=constant_timestep) 
+        n = some_tuple[2]
+        if n > max_n:
+            max_n = n
+        loa_const_tuple.append(some_tuple)
+
+    constant_table_format = ("dt", pearson_chi2.__name__, astro_chi2.__name__,
+                             relative_chi2.__name__, "time-points", "calculation time")
+    constant_table = []
+    special_table.append(special_table_format)
+    #loop over constant timestep tuple...
+    for timestep_tuple in loa_const_tuples:
+        #unpack tuple (dt, I(t), n_points, calc_time)
+        dt, interpolation_function, n_points, calc_time = timestep_tuple
+        #... calculate all chi2-values
+        omega_interpolated = interpolation_function(interpolation_time)
+        chi2_p = pearson_chi2(omega_interpolated, eris_interpolated)
+        chi2_a = astro_chi2(omega_interpolated, eris_interpolated)
+        chi2_r = relative_chi2(omega_interpolated, eris_interpolated)
+        #... make new tuple of results (dt, chi2_p, chi2_a, chi2r, n_points, calc_time)
+        result_tuple = (dt, chi2_p, chi2_a, chi2_r, n_points, calc_time)
+        #... add tuple of results to table
+        constant_table.append(result_tuple)
+
+    return constant_table, special_table
 
 def save_table(table):
     #pure data file
     #latex file
-    None
+    return True
 
 def get_single_interpolation(special_timestep=0, constant_timestep=1e+9):
     #start timing
+    t0 = time.clock()
     #make instance of omega-subclass
+    instance = timesteps_omega(special_timesteps, constant_timestep)
     #stop timing
+    t1 = time.clock()
+    t_gce = t1 - t0
     #make interpolation function from data in omega-subclass
+    interpolation_function, n = get_interpolation_function(instance)
     #make tuple of relevant data
+    tuple_of_relevant_data = (special_timesteps, interpolation_function, n, t_gce)
     return tuple_of_relevant_data
 
 def get_interpolation_function(omega_instance):
-    #omega_data_instance =
-    #spectro_array = !global_spectro_key!
-    #delete both instances
-    #interpolation_function = interp1d
-    #return interpolation_function, len(spectro_array)
+    #get dictionary of data from omega-instance
+    omega_data_instance = omega_data(omega_instance)
+    data_dict = omega_data_instance.get_dictionary()
+    #get time and spectrographic arrays from dictionary
+    time_array = omega_dict["time"]
+    spectro_array = omega_dict[global_spectro_key]
+    #delete unnecessary objects
+    del omega_instance
+    del omega_data_instance
+    del data_dict
+    #make mask for removing inf-values
+    mask_of_infvalues = np.logical_not(np.isinf(spectro_array))
+    #make interpolation function with scipy
+    interpolation_function = interp1d(x=time_array[mask_of_infvalues],
+                                      y=spectro_array[mask_of_infvalues],
+                                      bounds_error=False,
+                                      fill_value="extrapolate")
+    return interpolation_function, len(time_array)
 
 def get_eris_interpolation():
-    #make instance eris_data
-    #get spectro_array !global_spectro_key!
-    #delete instance
-    #make interpolation_function
+    #get data from 'Eris'
+    eris_instance = eris_data()
+    eris_dict = eris_instance.sfgas #spectrographic data from Eris
+    #get spectro_array
+    time_array = eris_dict["time"]
+    spectro_array = eris_dict[global_spectro_key]
+    #delete unnecessary objects
+    del eris_instance; del eris_dict
+    #make interpolation_function that are not 'inf'
+    mask_of_infvalues = np.logical_not(np.isinf(time_array))
+    interpolation_function = interp1d(x=time_array[mask_of_infvalues],
+                                      y=spectro_array[mask_of_infvalues],
+                                      bounds_error=False,
+                                      fill_value="extrapolate")
     return interpolation_function
+
 
 ### Independant functions ###
 def pearson_chi2(O,E):
     chi2 = (O - E)**2/E
     chi2 = np.sum(chi2)
     return chi2
-pearson_chi2.__name__ = r"Pearson $\chi^2$"
-pearson_chi2.__str__ = r"$\chi^2_{p} = \Sigma_i \frac{(O_i-E_i)^2}{E_i}$"
+
+#pearson_chi2.__name__ = r"Pearson $\chi^2$"
+#pearson_chi2.__str__ = r"$\chi^2_{p} = \Sigma_i \frac{(O_i-E_i)^2}{E_i}$"
+pearson_chi2.__str__ = r"Pearson $\chi^2$"
 def astro_chi2(O,E):
     chi2 = (O - E)**2
     chi2 = np.sum(chi2)
     return chi2
-astro_chi2.__name__ = r"Astrophysical $\chi^2$"
-astro_chi2.__str__ = r"$\chi^2_{a} = \Sigma_i (O_i-E_i)^2$"
-def rel_chi2(O,E):
+
+#astro_chi2.__name__ = r"Astrophysical $\chi^2$"
+#astro_chi2.__str__ = r"$\chi^2_{a} = \Sigma_i (O_i-E_i)^2$"
+astro_chi2.__str__ = r"Astrophysical $\chi^2$"
+def relative_chi2(O,E):
     chi2 = (O - E)**2/len(E)
     chi2 = np.sum(chi2)
     return chi2
-rel_chi2.__name__ = r"Relative $\chi^2$"
-rel_chi2.__str__ = r"$\chi^2_{p} = \Sigma_i \frac{(O_i-E_i)^2}{n}$"
+#relative_chi2.__name__ = r"Relative $\chi^2$"
+#relative_chi2.__str__ = r"$\chi^2_{p} = \Sigma_i \frac{(O_i-E_i)^2}{n}$"
+relative_chi2.__str__ = r"Relative $\chi^2$"
 
 ### Program action ###
 if __name__ == '__main__':
+    
     import matplotlib.pyplot as pl
     #set resolution-parameters
+    constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
+    special_timesteps = [30, 40, 50, 100, 150, 200, 500]
     #calculate resolution-data
+    #table-format (dt/n, chi2_p, chi2_a, chi2_r, n_points, calc_time)
+    constant_table, special_table = resolution_function(constant_timesteps, special_timesteps)
     #save data
+    table_filename = "resolutiontable"
+    #save_table(table_filename+"_constant", constant_table)
+    #save_table(table_filename+"_special", special_table)
     #calculate "plotables" from data
+    constant_dt_values = [row[0] for row in constant_table]
+    constant_chi2_p_values = [row[1] for row in constant_table]
+    constant_chi2_a_values = [row[2] for row in constant_table]
+    constant_chi2_r_values = [row[3] for row in constant_table]
+    special_dt_values = [row[0] for row in special_table]
+    special_chi2_p_values = [row[1] for row in special_table]
+    special_chi2_a_values = [row[2] for row in special_table]
+    special_chi2_r_values = [row[3] for row in special_table]
     #make figures and axes objects for plotting difference
-    #save figures
+    fig_name_list = [pearson_chi2.__name__, astro_chi2.__name__, relative_chi2.__name__]
+    constant_value_list = [constant_chi2_p_values, constant_chi2_a_values, constant_chi2_r_values]
+    special_value_list = [special_chi2_p_values, special_chi2_a_values, special_chi2_r_values]
+    default_rectangle = (1,1,1,1)
+    for i in range(len(fig_name_list)):
+        fig = pl.figure(fig_name_list[i])
+        constant_axis = fig.add_axes(default_rectangle)
+        plotting_function(constant_axis, constant_dt_values, constant_value_list[i])
+        special_axis = constant_axis.twiny()
+        special_axis.invert_xaxis()
+        plotting_function(special_axis, special_dt_values, special_value_list[i])
+        special_axis.set_xscale('log')
+        #save figures
+        figname = "timestep_resolution_" + fig_name_list[i] + ".png"
+        print figname
+        #fig.savefig(figname)
+    #pl.show()

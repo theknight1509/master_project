@@ -125,14 +125,18 @@ class timesteps_omega(omega):
 
 
 ### Functions for testing, comparing, and plotting ###
-def plotting_function(axis, x_list, y_list):
-    print "plotting_function is NOT finished!"
-    marker = ""
-    label = ""
-    #text?
-    #axis.set_ylabel()
-    #axis.set_xlabel()
-    #log x-axis?
+def plotting_function(axis, x_list, y_list, yaxis_text,
+                      constant=False):
+    #print "plotting_function is NOT finished!"
+    if constant:
+        marker = "o"
+        label = "Constant timestep"
+        axis.set_xlabel("timestep-size [yr]")
+    else:
+        marker = "s"
+        label = "Logarithmic timestep"
+        axis.set_xlabel("number of timesteps")
+    axis.set_ylabel(yaxis_text)
     axis.plot(x_list, y_list, marker, label=label)
     axis.legend(num_points=1, loc='best')
     return True
@@ -316,7 +320,6 @@ relative_chi2.__str__ = r"Relative $\chi^2$"
 
 ### Program action ###
 if __name__ == '__main__':
-    
     import matplotlib.pyplot as pl
     #set resolution-parameters
     constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
@@ -348,8 +351,9 @@ if __name__ == '__main__':
         plotting_function(constant_axis, constant_dt_values, constant_value_list[i])
         special_axis = constant_axis.twiny()
         special_axis.invert_xaxis()
-        plotting_function(special_axis, special_dt_values, special_value_list[i])
+        special_axis.xaxis.tick_top()
         special_axis.set_xscale('log')
+        plotting_function(special_axis, special_dt_values, special_value_list[i])
         #save figures
         figname = "timestep_resolution_" + fig_name_list[i] + ".png"
         print figname

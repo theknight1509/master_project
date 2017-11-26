@@ -124,7 +124,6 @@ class timesteps_omega(omega):
             "self.special_timestep is negative, quiting omega early"
             self.external_control = True
 
-
 ### Functions for testing, comparing, and plotting ###
 def plotting_function(axis, x_list, y_list, constant=False):
     if constant:
@@ -149,6 +148,7 @@ def plotting_function(axis, x_list, y_list, constant=False):
 
 def test_constant_timestep(loa_constant_timesteps):
     #make sure omega stops if succesful also (too much calculation)
+    print "Testing constant steplengths"
     special_timesteps = -1
     loa_constant_timesteps = list(loa_constant_timesteps)
     result_list = []#list for storing results
@@ -158,14 +158,27 @@ def test_constant_timestep(loa_constant_timesteps):
         try:
             instance = timesteps_omega(special_timesteps, constant_timestep)
             status = True
+            del instance
         except IndexError: #omega breaks down due to error in constant timestep-length
             status = False
         except: #don't know what's wrong
             print "I don't know how, but you f**ked up!"
             sys.exit("Exiting!")
         #... store results as True/False
+        print "\tstatus of timestep-length %1.0e: %s"%(constant_timestep, status)
         result_list.append(status)
-    return result_list
+
+    #Make table of results
+    table = []
+    table_name = "Constant_timestep_test_table"
+    table_format = (r"$\Delta t$", "Passed?")
+    table.append(table_format)
+    for i, dt in enumerate(loa_constant_timesteps):
+        some_tuple = (dt, result_list[i])
+        table.append(some_tuple)
+    save_table(table_name, table) #save table of data
+
+    return result_list #list of T/F values
 
 def resolution_function(loa_constant_timesteps, loa_special_timesteps):
     """
@@ -356,9 +369,54 @@ relative_chi2.__str__ = r"Relative $\chi^2$"
 ### Program action ###
 if __name__ == '__main__':
     import matplotlib.pyplot as pl
-    #set resolution-parameters
+
+    #set resolution-parameters by default
+    loa_test_constant_timesteps = []
+    loa_test_constant_timesteps += range(int(1e+9), int(1e+10), int(1e+9))
+    loa_test_constant_timesteps += range(int(1e+8), int(1e+9), int(1e+8))
+    loa_test_constant_timesteps += range(int(1e+7), int(1e+8), int(1e+7))
+    loa_test_constant_timesteps += range(int(1e+6), int(1e+7), int(1e+6))
+    loa_test_constant_timesteps += range(int(1e+5), int(1e+6), int(1e+5))
     constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
     special_timesteps = [5, 10, 20, 30, 40, 50, 100, 150, 200, 500]
+
+    #get cmd-line arguments
+    num_arg = len(sys.argv)
+    if num_arg == 3:
+        first_arg = eval(sys.argv[1])
+        second_arg = eval(sys.argv[2])
+        if isinstance(first_arg, list) and isinstance(second_arg, list):
+            #two lists, use them as constant and special
+            constant_timesteps = first_arg
+            special_timesteps = second_arg
+    elif num_arg == 2:
+        first_arg = sys.argv[1]
+        if first_arg.lower() == "test":
+            print "Would you like to test the following constant timesteps?"
+            print loa_test_constant_timesteps
+            response = raw_input("y/n\n")
+            if response == "y":
+                loa_test_results = test_constant_timestep(loa_test_constant_timesteps)
+            elif response == "n":
+                response = raw_input("please give list of timesteps\n")
+                loa_test_constant_timesteps = eval(response)
+                loa_test_results = test_constant_timestep(loa_test_constant_timesteps)
+            else:
+                print "What??"
+                raise Exception
+    elif num_arg == 1:
+        print "would you like to proceed with these lists?"
+        print "constant_timesteps; ", constant_timesteps
+        print "special_timesteps; ", special_timesteps
+        response = raw_input("y/n\n")
+        if response == "y":
+            pass
+        elif response == "n":
+            sys.exit("Exiting!")
+        else:
+            print "What??"
+            raise Exception
+
     #calculate resolution-data
     #table-format (dt/n, chi2_p, chi2_a, chi2_r, n_points, calc_time)
     constant_table, special_table = resolution_function(constant_timesteps, special_timesteps)

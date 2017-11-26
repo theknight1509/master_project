@@ -126,20 +126,25 @@ class timesteps_omega(omega):
 
 
 ### Functions for testing, comparing, and plotting ###
-def plotting_function(axis, x_list, y_list, yaxis_text,
-                      constant=False):
-    #print "plotting_function is NOT finished!"
+def plotting_function(axis, x_list, y_list, constant=False):
     if constant:
+        color = "k"
         marker = "o"
         label = "Constant timestep"
-        axis.set_xlabel("timestep-size [yr]")
     else:
+        color = "b"
         marker = "s"
         label = "Logarithmic timestep"
-        axis.set_xlabel("number of timesteps")
-    axis.set_ylabel(yaxis_text)
-    axis.plot(x_list, y_list, marker, label=label)
-    axis.legend(num_points=1, loc='best')
+    """
+    #set axis-limits
+    x_max = max(x_list)
+    x_min = min(x_list)
+    delta_x = x_max - x_min
+    fraction_x = 0.1*delta_x
+    x_limits = [x_min - fraction_x, x_max + fraction_x]
+    #axis.set_xlim(x_limits)
+    """
+    axis.plot(x_list, y_list, marker=marker, color=color, label=label, linestyle='None')
     return True
 
 def test_constant_timestep(loa_constant_timesteps):
@@ -179,7 +184,8 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
     #loop over all special timestep values...
     for special_timestep in loa_special_timesteps:
         #tuple (special_n, I(t), n_points, calc_time)
-        some_tuple = get_single_interpolation(special_timestep=special_timestep) 
+        some_tuple = get_single_interpolation(special_timestep=special_timestep)
+        #print "resolution-function() - 1st special forloop - tuple: \n\t", some_tuple
         n = some_tuple[2]
         if n > max_n:
             max_n = n
@@ -189,10 +195,10 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
     eris_interpolated = eris_interpolation(interpolation_time) #interpolated array
 
     special_table_format = ("n", pearson_chi2.__name__, astro_chi2.__name__,
-                             relative_chi2.__name__, "time-points", "calculation time")
+                             relative_chi2.__name__, "time-points", "calculation-time")
+    #print "resolution-function() - special table format - tuple: \n\t", special_table_format
     special_table = []
     special_table.append(special_table_format)
-    print special_table
     #loop over special timestep tuple...
     for timestep_tuple in loa_special_tuples:
         #unpack tuple (n, I(t), n_points, calc_time)
@@ -204,6 +210,7 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
         chi2_r = relative_chi2(omega_interpolated, eris_interpolated)
         #... make new tuple of results (dt, chi2_p, chi2_a, chi2r, n_points, calc_time)
         result_tuple = (n, chi2_p, chi2_a, chi2_r, n_points, calc_time)
+        #print "resolution-function() - 2nd special forloop - tuple: \n\t", result_tuple
         #... add tuple of results to table
         special_table.append(result_tuple)
 
@@ -212,16 +219,18 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
     #loop over all constant timestep values...
     for constant_timestep in loa_constant_timesteps:
         #tuple (dt, I(t), n_points, calc_time)
-        some_tuple = get_single_interpolation(constant_timestep=constant_timestep) 
+        some_tuple = get_single_interpolation(constant_timestep=constant_timestep)
+        #print "resolution-function() - 1st constant forloop - tuple: \n\t", some_tuple
         n = some_tuple[2]
         if n > max_n:
             max_n = n
         loa_const_tuples.append(some_tuple)
 
     constant_table_format = ("dt", pearson_chi2.__name__, astro_chi2.__name__,
-                             relative_chi2.__name__, "time-points", "calculation time")
+                             relative_chi2.__name__, "time-points", "calculation-time")
+    #print "resolution-function() - constant table format - tuple: \n\t", constant_table_format
     constant_table = []
-    special_table.append(special_table_format)
+    constant_table.append(constant_table_format)
     #loop over constant timestep tuple...
     for timestep_tuple in loa_const_tuples:
         #unpack tuple (dt, I(t), n_points, calc_time)
@@ -233,23 +242,25 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
         chi2_r = relative_chi2(omega_interpolated, eris_interpolated)
         #... make new tuple of results (dt, chi2_p, chi2_a, chi2r, n_points, calc_time)
         result_tuple = (dt, chi2_p, chi2_a, chi2_r, n_points, calc_time)
+        #print "resolution-function() - 2nd constant forloop - tuple: \n\t", result_tuple
         #... add tuple of results to table
         constant_table.append(result_tuple)
 
     return constant_table, special_table
 
 def save_table(filename, table):
-    print table
     #pure data file
     with open(filename+".dat", 'w') as outfile:
         for row_tuple in table:
-            #print row_tuple, type(row_tuple)
-            outfile.write( ' '.join(row_tuple) + '\n' )
+            #turn all elements into strings
+            row = [str(row_elem) for row_elem in row_tuple]
+            outfile.write( ' '.join(row) + '\n' )
 
     #latex file
     table_string = ""
     for row_tuple in table:
-        row_string = " & ".join(row_tuple)
+        row = [str(row_elem) for row_elem in row_tuple]
+        row_string = " & ".join(row)
         table_string += row_string + " \\ \n"
     #fill in latex-syntax around table
     latex_string = r"\begin{table}[]"+'\n'
@@ -328,23 +339,18 @@ def pearson_chi2(O,E):
     #sys.exit()
     return chi2
 
-#pearson_chi2.__name__ = r"Pearson $\chi^2$"
-#pearson_chi2.__str__ = r"$\chi^2_{p} = \Sigma_i \frac{(O_i-E_i)^2}{E_i}$"
 pearson_chi2.__str__ = r"Pearson $\chi^2$"
 def astro_chi2(O,E):
     chi2 = (O - E)**2
     chi2 = np.sum(chi2)
     return chi2
 
-#astro_chi2.__name__ = r"Astrophysical $\chi^2$"
-#astro_chi2.__str__ = r"$\chi^2_{a} = \Sigma_i (O_i-E_i)^2$"
 astro_chi2.__str__ = r"Astrophysical $\chi^2$"
 def relative_chi2(O,E):
     chi2 = (O - E)**2/len(E)
     chi2 = np.sum(chi2)
     return chi2
-#relative_chi2.__name__ = r"Relative $\chi^2$"
-#relative_chi2.__str__ = r"$\chi^2_{p} = \Sigma_i \frac{(O_i-E_i)^2}{n}$"
+
 relative_chi2.__str__ = r"Relative $\chi^2$"
 
 ### Program action ###
@@ -352,8 +358,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as pl
     #set resolution-parameters
     constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
-    constant_timesteps = [2e+9]
-    special_timesteps = [30]#, 40, 50, 100]#, 150, 200, 500]
+    special_timesteps = [5, 10, 20, 30, 40, 50, 100, 150, 200, 500]
     #calculate resolution-data
     #table-format (dt/n, chi2_p, chi2_a, chi2_r, n_points, calc_time)
     constant_table, special_table = resolution_function(constant_timesteps, special_timesteps)
@@ -361,29 +366,50 @@ if __name__ == '__main__':
     table_filename = "resolutiontable"
     save_table(table_filename+"_constant", constant_table)
     save_table(table_filename+"_special", special_table)
-    #calculate "plotables" from data
-    constant_dt_values = [row[0] for row in constant_table]
-    constant_chi2_p_values = [row[1] for row in constant_table]
-    constant_chi2_a_values = [row[2] for row in constant_table]
-    constant_chi2_r_values = [row[3] for row in constant_table]
-    special_dt_values = [row[0] for row in special_table]
-    special_chi2_p_values = [row[1] for row in special_table]
-    special_chi2_a_values = [row[2] for row in special_table]
-    special_chi2_r_values = [row[3] for row in special_table]
+    #calculate "plotables" from data, extract sublists from tables and name them appropriately
+    constant_dt_values = [row[0] for row in constant_table[1:]]
+    constant_n_values = [row[4] for row in constant_table[1:]]
+    constant_chi2_p_values = [row[1] for row in constant_table[1:]]
+    constant_chi2_a_values = [row[2] for row in constant_table[1:]]
+    constant_chi2_r_values = [row[3] for row in constant_table[1:]]
+    special_n_values = [row[4] for row in special_table[1:]]
+    special_chi2_p_values = [row[1] for row in special_table[1:]]
+    special_chi2_a_values = [row[2] for row in special_table[1:]]
+    special_chi2_r_values = [row[3] for row in special_table[1:]]
     #make figures and axes objects for plotting difference
     fig_name_list = [pearson_chi2.__name__, astro_chi2.__name__, relative_chi2.__name__]
+    fig_str_list = [pearson_chi2.__str__, astro_chi2.__str__, relative_chi2.__str__]
     constant_value_list = [constant_chi2_p_values, constant_chi2_a_values, constant_chi2_r_values]
     special_value_list = [special_chi2_p_values, special_chi2_a_values, special_chi2_r_values]
-    default_rectangle = (1,1,1,1)
+    default_rectangle = (0,0,1,1) #(left, bottom, width, height) #fraction of figure dims
     for i in range(len(fig_name_list)):
         fig = pl.figure(fig_name_list[i])
-        constant_axis = fig.add_axes(default_rectangle)
-        plotting_function(constant_axis, constant_dt_values, constant_value_list[i])
+        """
+        constant_axis = fig.add_subplot(111)
+        plotting_function(constant_axis, constant_dt_values,
+                          constant_value_list[i], fig_str_list[i],
+                          constant=True)
+        #make a new axis, inverted, on top
         special_axis = constant_axis.twiny()
         special_axis.invert_xaxis()
-        special_axis.xaxis.tick_top()
         special_axis.set_xscale('log')
-        plotting_function(special_axis, special_dt_values, special_value_list[i])
+        special_axis.xaxis.tick_top()
+        plotting_function(special_axis, special_dt_values,
+                          special_value_list[i], fig_str_list[i],
+                          constant=False)
+        """
+        axis = fig.add_subplot(111)
+        axis.grid(True)
+        axis.set_title("Resolution of 'Omega' compared to 'Eris'")
+        axis.set_xlabel("number of timepoints")
+        axis.set_ylabel(fig_str_list[i])
+        plotting_function(axis, constant_n_values,
+                          constant_value_list[i],
+                          constant=True)
+        plotting_function(axis, special_n_values,
+                          special_value_list[i],
+                          constant=False)
+        axis.legend(numpoints=1, loc='best')
         #save figures
         figname = "timestep_resolution_" + fig_name_list[i] + ".png"
         fig.savefig(figname)

@@ -376,7 +376,7 @@ if __name__ == '__main__':
     loa_test_constant_timesteps += range(int(1e+8), int(1e+9), int(1e+8))
     loa_test_constant_timesteps += range(int(1e+7), int(1e+8), int(1e+7))
     loa_test_constant_timesteps += range(int(1e+6), int(1e+7), int(1e+6))
-    loa_test_constant_timesteps += range(int(1e+5), int(1e+6), int(1e+5))
+    #loa_test_constant_timesteps += range(int(1e+5), int(1e+6), int(1e+5))
     constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
     special_timesteps = [5, 10, 20, 30, 40, 50, 100, 150, 200, 500]
 
@@ -394,7 +394,7 @@ if __name__ == '__main__':
         if first_arg.lower() == "test":
             print "Would you like to test the following constant timesteps?"
             print loa_test_constant_timesteps
-            response = raw_input("y/n\n")
+            response = raw_input("y/n! ")
             if response == "y":
                 loa_test_results = test_constant_timestep(loa_test_constant_timesteps)
             elif response == "n":
@@ -404,11 +404,15 @@ if __name__ == '__main__':
             else:
                 print "What??"
                 raise Exception
+            print "Finished test of constant_timesteps"
+            print "list of timesteps: \n\t", loa_test_constant_timesteps
+            print "list of results: \n\t", loa_test_results
+            sys.exit("Exiting!")
     elif num_arg == 1:
         print "would you like to proceed with these lists?"
         print "constant_timesteps; ", constant_timesteps
         print "special_timesteps; ", special_timesteps
-        response = raw_input("y/n\n")
+        response = raw_input("y/n! ")
         if response == "y":
             pass
         elif response == "n":
@@ -461,6 +465,7 @@ if __name__ == '__main__':
         axis.set_title("Resolution of 'Omega' compared to 'Eris'")
         axis.set_xlabel("number of timepoints")
         axis.set_ylabel(fig_str_list[i])
+        axis.set_xscale('log')
         plotting_function(axis, constant_n_values,
                           constant_value_list[i],
                           constant=True)

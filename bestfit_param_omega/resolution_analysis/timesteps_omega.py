@@ -348,8 +348,6 @@ def get_eris_interpolation():
 def pearson_chi2(O,E):
     chi2 = (O - E)**2/np.abs(E)
     chi2 = np.sum(chi2)
-    #print O,E
-    #sys.exit()
     return chi2
 
 pearson_chi2.__str__ = r"Pearson $\chi^2$"
@@ -377,8 +375,10 @@ if __name__ == '__main__':
     loa_test_constant_timesteps += range(int(1e+7), int(1e+8), int(1e+7))
     loa_test_constant_timesteps += range(int(1e+6), int(1e+7), int(1e+6))
     #loa_test_constant_timesteps += range(int(1e+5), int(1e+6), int(1e+5))
-    constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
-    special_timesteps = [5, 10, 20, 30, 40, 50, 100, 150, 200, 500]
+
+    #constant_timesteps = [2e+7, 4e+7, 5e+7, 7e+7, 8e+7, 1e+8, 2e+8, 4e+8, 5e+8, 7e+8, 1e+9, 2e+9]
+    constant_timesteps = [1000000000, 2000000000, 7000000000, 100000000, 200000000, 400000000, 500000000, 700000000, 20000000, 40000000, 50000000, 70000000, 80000000]
+    special_timesteps = [5, 10, 20, 30, 40, 50, 100, 150, 200, 500, 700, 1000]
 
     #get cmd-line arguments
     num_arg = len(sys.argv)

@@ -19,7 +19,7 @@ path_of_nupycee = "" #create variable that eventually will be filled by nupyee-d
 
 selfname = sys.argv[0]# "directory.py" #sys.argv[0]?? #name of this script
 current_dir = os.getcwd() #the full path of the current dir
-loa_possible_homedirs = ["/uio/hume/student-u27/oyvinbsv", "/mn/stornext/d7/oyvinbsv"]
+loa_possible_homedirs = ["/uio/hume/student-u27/oyvinbsv", "/mn/stornext/d7/oyvinbsv", "/"]
 #home_dir = os.path.expanduser("~") #full path of home dir
 
 class Foldermap:
@@ -57,8 +57,6 @@ class Foldermap:
     def hume_folder(self):
         full_path = "/net/hume.uio.no/uio/hume/student-u27/oyvinbsv/github_uio/Master/"
         return full_path
-
-        
 
 def calibrate():
     """
@@ -161,7 +159,11 @@ def find_folder(folder_name):
             if folder_name == current_path[-1]: #found full path of folder_name
                 full_path = root
                 break
-    if full_path: #var is not empty and path was found
+        if full_path: #var is not empty and path was found
+            return full_path
+        else:
+            continue
+    if full_path:#var is not empty and path was found
         return full_path
     else:
         print "'%s' was not found"%folder_name

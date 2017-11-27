@@ -21,10 +21,12 @@ response = raw_input("What folder would you like to choose? (full path or index)
 try:
     #is response the index of folder-list?
     response = int(response)
+    input_index = response
     input_datafolder = loa_folders[response]
 except ValueError: 
     #the response cannot be integer, full path is given
     input_datafolder = response
+    input_index = loa_folders.index(input_datafolder)
     #check that folder exist in list
     if not (input_datafolder in loa_folders):
         print "Folder: %s not available"%(input_datafolder)
@@ -97,16 +99,16 @@ filename_stddev = input_datafolder + "/" + data_filename + "_stddev.npy"
 np.save(filename_stddev, all_relevant_arrays)
 if raw_input("Would you like to store results in /hume/? y/n") == "y":
     result_folder = folder.hume_folder() + "results/"
-    filename_stddev = result_folder + "/" + data_filename + "_stddev.npy"
+    filename_stddev = result_folder + data_filename + "_stddev%d.npy"%input_index
     np.save(filename_stddev, all_relevant_arrays)
 
 #add comment regarding analysis in README
 with open(input_datafolder + '/README.md', 'a') as readmefile:
     readmefile.write('\n')
-    readmefile.write("Analyzed " + filename_stddev)
-    readmefile.write("file consists of one %s array with the following arrays:"%all_relevant_arrays.shape)
-    readmefile.write("* Default array (No fudge factor) for " + array_name)
-    readmefile.write("* Mean value for " + array_name)
-    readmefile.write("* Median value for " + array_name)
-    readmefile.write("* one sigma value for " + array_name)
-    readmefile.write("* two sigma value for " + array_name)
+    readmefile.write("Analyzed " + input_datafolder + '\n')
+    readmefile.write("file consists of one %s array with the following arrays:"%(all_relevant_arrays.shape,) + '\n')
+    readmefile.write("* Default array (No fudge factor) for " + array_name + '\n')
+    readmefile.write("* Mean value for " + array_name + '\n')
+    readmefile.write("* Median value for " + array_name + '\n')
+    readmefile.write("* one sigma value for " + array_name + '\n')
+    readmefile.write("* two sigma value for " + array_name + '\n')

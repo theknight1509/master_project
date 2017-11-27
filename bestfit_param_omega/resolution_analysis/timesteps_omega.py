@@ -170,7 +170,7 @@ def test_constant_timestep(loa_constant_timesteps):
 
     #Make table of results
     table = []
-    table_name = "Constant_timestep_test_table"
+    table_name = "test_table_constant_timestep"
     table_format = (r"$\Delta t$", "Passed?")
     table.append(table_format)
     for i, dt in enumerate(loa_constant_timesteps):

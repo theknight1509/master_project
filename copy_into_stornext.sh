@@ -1,12 +1,22 @@
 #!/bin/bash
 #copy files from current working directory into 'stornext'
 stornext_folder="/mn/stornext/d7/oyvinbsv/Master/"
-loa_files=( "directory_master.py" "bestfit_param_omega/__init__.py" "bestfit_param_omega/bestfit_file.py" "bestfit_param_omega/current_bestfit.py" "bestfit_param_omega/time_sfr_Shen_2015.txt" "manip_yields_experiment/experiment.py" "manip_yields_experiment/paralell_yield_experiment.py")
+echo "stornext folder: " $stornext_folder
+loa_files=( "directory_master.py" "bestfit_param_omega/__init__.py" "bestfit_param_omega/bestfit_file.py" "bestfit_param_omega/current_bestfit.py" "bestfit_param_omega/time_sfr_Shen_2015.txt" "manip_yields_experiment/experiment.py" "manip_yields_experiment/paralell_yield_experiment.py" "manip_yields_experiment/make_fudge_factor_table.py" "manip_yields_experiment/analyze_stddev.py")
+loa_dirs=("bestfit_param_omega" "manip_yields_experiment")
 
 echo "Are you currently in home-folder on /hume? y/n"
+echo "(usage: y for yes, n for no, f for yes, but new folders are required)"
 read response
 if [ $response = "y" ]; then
-    continue
+    echo "Okay, continuing!"
+elif [ $response = "f" ]; then
+    #Loop over all directories and copy them into 'stornext'
+    for folder in "${loa_dirs[@]}"
+    do
+	echo "new folder" ${stornext_folder}$folder
+	mkdir ${stornext_folder}${folder}
+    done
 elif [ $response = "n" ]; then
     echo "Well fine then, get on it!"
     exit
@@ -16,13 +26,18 @@ else
 fi
 
 #Loop over all files and copy them into 'stornext'
-for file in "$loa_files[@]"
+for file in "${loa_files[@]}"
 do
     cp ${file} ${stornext_folder}${file}
 done
 
 #change directory, and reinitialize directory_master
-cd stornext_folder
-python directory_master.py
-
-#change directory back?
+echo "Would you like to re-initialize 'directory_master.py'? y/n"
+read response
+if [ $response = "y" ]; then
+    echo "Swapping to 'stornext'"
+    cd ${stornext_folder}
+    echo "Reinitializing 'directory_master.py'"
+    python directory_master.py #re-initialize 'directory_master'
+    bash #start a new BourneAgainSHell to get the python paths
+fi

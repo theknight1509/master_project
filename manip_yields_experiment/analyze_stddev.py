@@ -35,14 +35,19 @@ except IndexError:
     sys.exit("Exiting!")
 
 #choose array
-array_name = "Re-187"
+array_name = "ism_iso_Re-187"
 print "Using the %s arrays for analysis"%array_name
 
 #find index of array from file in folder
+array_index = False
 with open(input_datafolder + '/' + index_filename, 'r') as index_file:
     for line in index_file.readlines():
         if line.split()[1] == array_name:
             array_index = line.split()[0]
+            break
+if not array_index: #index was not found
+    print "Index of %s was not found"%array_name
+    sys.exit("Exiting!")
 
 #find default filename from known postamble
 loa_filenames = os.listdir(input_datafolder)
@@ -76,9 +81,9 @@ for i in range(num_experiments):
     data_matrix_arrays[i,:] = data_matrix[array_index,:] #store wanted array from one simulation
 
 #get median, mean, and sigma from data_matrix
-data_mean = np.mean(data_matrix_array, axis=0)
-data_median = np.median(data_matrix_array, axis=0)
-data_sigma = np.std(data_matrix_array, axis=0)
+data_mean = np.mean(data_matrix_arrays, axis=0)
+data_median = np.median(data_matrix_arrays, axis=0)
+data_sigma = np.std(data_matrix_arrays, axis=0)
 data_2sigma = 2*data_sigma
 
 #make matrix of all processed arrays

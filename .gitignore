@@ -186,3 +186,5 @@ TSWLatexianTemp*
 #NuPyCEE
 NuPyCEE/*
 *.png
+*.pyc
+directory_master.py

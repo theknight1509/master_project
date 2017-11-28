@@ -244,7 +244,7 @@ loa_cases = [case_1, case_general] #list of all case-functions
 if __name__ == '__main__':
     #make default arguments
     default_sigma = 0.5
-    default_dt = 1e+8
+    default_dt = 4e+7
     default_iso = "Re-187"
     default_folder_name = "default_folder_name"
     default_experiment_name = "default_experiment_name"

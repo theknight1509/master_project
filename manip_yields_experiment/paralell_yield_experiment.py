@@ -242,10 +242,14 @@ def case_general(exp_number, sigma, timestep_length, names):
 loa_cases = [case_1, case_general] #list of all case-functions
 
 if __name__ == '__main__':
+    import directory_master as dm
+    stornext_path = dm.Foldermap().stornext_folder()
+    
     #make default arguments
     default_sigma = 0.5
     default_dt = 4e+7
     default_iso = "Re-187"
+    default_stornext = True
     default_folder_name = "default_folder_name"
     default_experiment_name = "default_experiment_name"
     
@@ -284,6 +288,12 @@ if __name__ == '__main__':
                         metavar="NAME", dest="name",
                         type=str, help=help_string, nargs=2,
                         default=[default_folder_name,default_experiment_name])
+    #add argument for number of experiments
+    help_string = "Is the output folder supposed to be in '/stornext/'?"
+    parser.add_argument('-sn', '--stornext', 
+                        metavar="STORNEXT", dest="stornext"
+                        type=bool, help=help_string)
+    
     try:
         namespace = parser.parse_args()
     except:
@@ -294,6 +304,10 @@ if __name__ == '__main__':
     s = namespace.sigma #standard deviation
     dt = namespace.dt #timestep length
     iso = namespace.iso #which isotope
+    stornext = namespace.stornext #is destination-folder in '/stornext/'
     name_strings = namespace.name #folder-name and experiment-name
+
+    if stornext:
+        name_strings[0] = stornext_folder + name_strings[0]
 
     case_general(exp_number=n, sigma=s, timestep_length=dt, names=name_strings)

@@ -55,7 +55,11 @@ class Foldermap:
         sys.path.append(self.nupycee[:-1])
 
     def hume_folder(self):
-        full_path = "/net/hume.uio.no/uio/hume/student-u27/oyvinbsv/github_uio/Master/"
+        full_path = "/uio/hume/student-u27/oyvinbsv/github_uio/Master/"
+        return full_path
+    
+    def stornext_folder(self):
+        full_path = "/mn/stornext/d7/oyvinbsv/"
         return full_path
 
 def calibrate():

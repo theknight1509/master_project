@@ -6,10 +6,15 @@ import os, sys
 import numpy as np
 from directory_master import Foldermap
 folder = Foldermap()
+stornext_dir = folder.stornext_folder()
+
 default_filename_postamble = "default.npy" #Final string of default-datafile-name
 index_filename = "data_indeces.txt"
 
-loa_contents = os.listdir('.')
+### Set global location directory to stornext ###
+location_dir = stornext_dir
+
+loa_contents = os.listdir(location_dir)
 loa_folders = []
 for content in loa_contents: #loop over all strings in cwd
     if not ('.' in content): #string is not a filename, but folder
@@ -35,6 +40,10 @@ except IndexError:
     #index is out of range of folder-list
     print "Index: %d is not available"%response
     sys.exit("Exiting!")
+#add backslash to input-foldername
+input_datafolder += "/"
+#add location-directory to input-foldername
+input_foldername = location_dir + input_datafolder
 
 #choose array
 array_name = "ism_iso_Re-187"
@@ -42,7 +51,7 @@ print "Using the %s arrays for analysis"%array_name
 
 #find index of array from file in folder
 array_index = False
-with open(input_datafolder + '/' + index_filename, 'r') as index_file:
+with open(input_datafolder + index_filename, 'r') as index_file:
     for line in index_file.readlines():
         if line.split()[1] == array_name:
             array_index = line.split()[0]
@@ -61,7 +70,7 @@ for filename in loa_filenames:
         break
 
 #get shape and array from default experiment
-data_matrix_default = np.load(input_datafolder + '/' + default_filename)
+data_matrix_default = np.load(input_datafolder + default_filename)
 default_shape = data_matrix_default.shape
 num_arrays = default_shape[0]
 num_timepoints = default_shape[1]

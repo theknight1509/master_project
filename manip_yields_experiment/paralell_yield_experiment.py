@@ -296,7 +296,7 @@ if __name__ == '__main__':
     #add argument for number of experiments
     help_string = "Is the output folder supposed to be in '/stornext/'?"
     parser.add_argument('-sn', '--stornext', 
-                        metavar="STORNEXT", dest="stornext"
+                        metavar="STORNEXT", dest="stornext",
                         type=bool, help=help_string)
     
     try:

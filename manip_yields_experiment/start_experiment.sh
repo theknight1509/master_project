@@ -12,12 +12,15 @@ readme="This_is_run#${index}_of_MC-variant_Omega_experiment"
 
 #python-call parameters
 filename="paralell_yield_experiment.py"
-sigma_string=" -s ${sigma}"
-folder_string=" -f $folder $name $readme"
+sigma_string="-s ${sigma}"
+folder_string="-f $folder $name $readme"
 arguments="${sigma_string} ${folder_string}"
 
-#screen call parameters
-screen_string="omega_experiment${index}"
-screen_shell_cmd="sh -c 'python ${filename} ${arguments}'"
+python ${filename} ${arguments}
 
-screen -dmS ${screen_string} ${screen_shell_cmd}
+#screen call parameters
+#screen_string="omega_experiment${index}"
+#screen_shell_cmd="sh -c 'python ${filename} ${arguments}'"
+
+#echo "screen -S ${screen_string} -L ${screen_shell_cmd}"
+#screen -S ${screen_string} -L ${screen_shell_cmd}

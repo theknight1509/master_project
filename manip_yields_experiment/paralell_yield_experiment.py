@@ -15,7 +15,7 @@ from bestfit_param_omega.current_bestfit import *
 from experiment import experiment
 from make_fudge_factor_table import write_new_table, read_fudge_factor
 
-def start_experiment(folder_name, fudge_factor_tuple=(), timestep_size=0):
+def start_experiment(folder_name, fudge_factor_tuple=(), timestep_size=0, readmestring=""):
     """
     Function return True if succesful and False when something fails.
     readme_text is string that describes the experiment in the folder.
@@ -36,7 +36,10 @@ def start_experiment(folder_name, fudge_factor_tuple=(), timestep_size=0):
     os.mkdir(folder_name)
     #Initilize with a readme-file
     readme_path = folder_name + "/README.md"
-    readme_text = raw_input("Please enter the Readme-text for this simulation!\n")
+    if not readmestring:
+        readme_text = raw_input("Please enter the Readme-text for this simulation!\n")
+    else:
+        readme_text = readmestring
     with open(readme_path, 'w') as readme:
         readme.write(folder_name + '\n')
         readme.write('='*len(folder_name) + '\n')
@@ -234,7 +237,7 @@ def case_1(n):
 
 def case_general(exp_number, sigma, timestep_length, names):
     start_experiment(names[0], fudge_factor_tuple=(exp_number, sigma),
-                     timestep_size=timestep_length)
+                     timestep_size=timestep_length, readmestring=names[2])
     default_experiment(toa_strings=names, timestep_size=timestep_length)
     parallel_queueing(toa_strings=names, 
                       num_experiments=exp_number, timestep_size=timestep_length)
@@ -252,6 +255,7 @@ if __name__ == '__main__':
     default_stornext = True
     default_folder_name = "default_folder_name"
     default_experiment_name = "default_experiment_name"
+    default_readme_string = ""
     
     #Use argparse-module to sort program by cmd-line-input
     import argparse as ap
@@ -286,8 +290,9 @@ if __name__ == '__main__':
     help_string += "\n\tAn index-value is added to the end of all data-file names."
     parser.add_argument('-f', '--name',
                         metavar="NAME", dest="name",
-                        type=str, help=help_string, nargs=2,
-                        default=[default_folder_name,default_experiment_name])
+                        type=str, help=help_string, nargs=3,
+                        default=[default_folder_name,default_experiment_name,
+                                 default_readme_string])
     #add argument for number of experiments
     help_string = "Is the output folder supposed to be in '/stornext/'?"
     parser.add_argument('-sn', '--stornext', 

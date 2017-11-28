@@ -108,6 +108,14 @@ def default_experiment(toa_strings=(), isotope="Re-187", timestep_size=1e+6):
     exp_instance = experiment(isotope, fudge_factor, dt=timestep_size)
     #save data to appropriately named file
     exp_instance.save2file(data_filename, write_index_file=True)
+    #write number of timepoints to README
+    readmestring = "Data from 'default-experiment' \n"
+    readmestring += "timestep-number: %d \n"%len(exp_instance.age)
+    readmefilename = exp_folder + "/README.md"
+    with open(readmefilename, 'r') as readmefile:
+        readmefile.write('\n')
+        readmefile.write(readmestring)
+    #delete object
     del exp_instance #delete instance
 
 def parallel_queueing(toa_strings, num_experiments=10, timestep_size=1e+8):

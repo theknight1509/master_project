@@ -112,7 +112,7 @@ def default_experiment(toa_strings=(), isotope="Re-187", timestep_size=1e+6):
     readmestring = "Data from 'default-experiment' \n"
     readmestring += "timestep-number: %d \n"%len(exp_instance.age)
     readmefilename = exp_folder + "/README.md"
-    with open(readmefilename, 'r') as readmefile:
+    with open(readmefilename, 'a') as readmefile:
         readmefile.write('\n')
         readmefile.write(readmestring)
     #delete object

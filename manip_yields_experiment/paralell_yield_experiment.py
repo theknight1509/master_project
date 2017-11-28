@@ -110,7 +110,7 @@ def default_experiment(toa_strings=(), isotope="Re-187", timestep_size=1e+6):
     exp_instance.save2file(data_filename, write_index_file=True)
     #write number of timepoints to README
     readmestring = "Data from 'default-experiment' \n"
-    readmestring += "timestep-number: %d \n"%len(exp_instance.age)
+    readmestring += "timestep-number: %d \n"%len(exp_instance.history.age)
     readmefilename = exp_folder + "/README.md"
     with open(readmefilename, 'a') as readmefile:
         readmefile.write('\n')

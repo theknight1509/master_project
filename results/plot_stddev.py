@@ -20,42 +20,32 @@ Usage:
 ======
 
 """
-
+### Imports and global variables ###
+import os, sys
 ### Get file from user ###
-#get all files in directory
-#index files in a dictionary; print all options
-#if cmd-line argumnet is, and is integer, Use this as index
-#otherwise ask for user to give index or path(or full path)
-#print option selected
-""" example code from 'analyze_stddev.py'
-loa_contents = os.listdir(location_dir)
-loa_folders = []
-for content in loa_contents: #loop over all strings in cwd
-    if not ('.' in content): #string is not a filename, but folder
-        loa_folders.append(content)
-#find folder name
-print "Current available folders: ", dict(enumerate(loa_folders))
-response = raw_input("What folder would you like to choose? (full path or index)")
-try:
-    #is response the index of folder-list?
-    response = int(response)
-    input_index = response
-    input_datafolder = loa_folders[response]
-except ValueError: 
-    #the response cannot be integer, full path is given
-    input_datafolder = response
-    input_index = loa_folders.index(input_datafolder)
-    #check that folder exist in list
-    if not (input_datafolder in loa_folders):
-        print "Folder: %s not available"%(input_datafolder)
-        sys.exit("Exiting!")
-except IndexError:
-    #index is out of range of folder-list
-    print "Index: %d is not available"%response
-    sys.exit("Exiting!")
-#add backslash to input-foldername
-input_datafolder += "/"
-"""
+def get_files_cwd():
+    #get all files in directory
+    loa_files_cwd = os.listdir('.')
+    #index files in a dictionary; print all options
+    doa_files_cwd = dict(enumerate(loa_files_cwd)) #dictionary with index as key
+    print "The files, and corresponding indeces, for this directory are:"
+    print "\t %s"%doa_files_cwd
+    return doa_files_cwd
+def get_single_file_from_user():
+    doa_files_cwd = get_files_cwd
+    #if cmd-line argument is, and is integer, Use this as index
+    if len(sys.argv) > 1: #there are cmd-line args
+        try:
+            file_index = int(sys.argv[1])
+        except ValueError: #cmd-line arg could not be int
+            None
+    #otherwise ask for user to give index
+    else:
+        file_index = int(input("Give index of which data-file you want plotted!"))
+    #print option selected
+    filename = doa_files_cwd[file_index]
+    print "The file selected is %s"%filename
+    return filename
 ### Read file into separate arrays ###
 #check for numpy-extension
 #read matrix from filename

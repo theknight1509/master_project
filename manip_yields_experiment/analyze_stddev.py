@@ -75,6 +75,7 @@ default_shape = data_matrix_default.shape
 num_arrays = default_shape[0]
 num_timepoints = default_shape[1]
 default_array = np.copy(data_matrix_default[array_index,:])
+time_array = np.copy(data_matrix_default[0,:])
 #get number of experiments from README
 readmestring = "Number of experiments:"
 readmefilename = input_datafolder + "/README.md"

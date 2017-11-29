@@ -99,7 +99,7 @@ data_sigma = np.std(data_matrix_arrays, axis=0)
 data_2sigma = 2*data_sigma
 
 #make matrix of all processed arrays
-relevant_arrays = [default_array, data_mean, data_median, data_sigma, data_2sigma]
+relevant_arrays = [time_array, default_array, data_mean, data_median, data_sigma, data_2sigma]
 all_relevant_arrays = np.zeros((len(relevant_arrays), num_timepoints))
 for i in range(len(relevant_arrays)):
     all_relevant_arrays[i,:] = relevant_arrays[i]

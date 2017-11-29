@@ -22,6 +22,9 @@ Usage:
 """
 ### Imports and global variables ###
 import os, sys
+import numpy as np
+import matplotlib as pl
+
 ### Get file from user ###
 def get_files_cwd():
     #get all files in directory
@@ -46,14 +49,35 @@ def get_single_file_from_user():
     filename = doa_files_cwd[file_index]
     print "The file selected is %s"%filename
     return filename
+
 ### Read file into separate arrays ###
-#check for numpy-extension
-#read matrix from filename
-#make arrays from matrix
-#make plottable arrays 
+def extract_arrays_from_filename(filename):
+    #check for numpy-extension
+    numpy_extension = ".npy"
+    if numpy_extension in filename:
+        #read matrix from filename
+        numpy_mat = np.load(filename)
+        print "numpy-matrix extracted from '%s', shape=%s"%(filename, numpy_mat.shape)
+        return numpy_mat
+    else:
+        print "Bad usage, filename '%s' is not numpy-extension"%filename
+        return False
+def make_plottable_arrays(numpy_matrix):
+    matrix_format = ["default_array", "data_mean", "data_median", "data_sigma", "data_2sigma"]
+    print "using the following format for numpy-matrix"
+    print "\t %s"%matrix_format
+    #make arrays from matrix #Consider switching to dictionary
+    default_array = numpy_matrix[0,:]
+    data_mean = numpy_matrix[1,:]
+    data_median = numpy_matrix[2,:]
+    data_sigma = numpy_matrix[3,:]
+    data_2sigma = numpy_matrix[4,:]
+    return default_array, data_mean, data_sigma, data_sigma2, data_median
+
 ### Plotting syntax ###
 #figure/axis objects
 #plot default
 #plot mean
 #plot one-sigma area
 #plot two-sigma area
+#save figure

@@ -19,8 +19,7 @@ path_of_nupycee = "" #create variable that eventually will be filled by nupyee-d
 
 selfname = sys.argv[0]# "directory.py" #sys.argv[0]?? #name of this script
 current_dir = os.getcwd() #the full path of the current dir
-loa_possible_homedirs = ["/uio/hume/student-u27/oyvinbsv", "/mn/stornext/d7/oyvinbsv", "/"]
-#home_dir = os.path.expanduser("~") #full path of home dir
+home_dir = os.path.expanduser("~") #full path of home dir
 
 class Foldermap:
     def __init__(self):
@@ -156,18 +155,13 @@ def find_folder(folder_name):
     return full path of folder with folder_name
     """
     full_path = ""
-    for home_dir in loa_possible_homedirs:
-        for root, dirs, files in os.walk(home_dir):
-            print "searching for '%s': "%folder_name, root
-            current_path = root.split('/') #path of current dir in os.walk
-            if folder_name == current_path[-1]: #found full path of folder_name
-                full_path = root
-                break
-        if full_path: #var is not empty and path was found
-            return full_path
-        else:
-            continue
-    if full_path:#var is not empty and path was found
+    for root, dirs, files in os.walk(home_dir):
+        print "searching for '%s': "%folder_name, root
+        current_path = root.split('/') #path of current dir in os.walk
+        if folder_name == current_path[-1]: #found full path of folder_name
+            full_path = root
+            break
+    if full_path: #var is not empty and path was found
         return full_path
     else:
         print "'%s' was not found"%folder_name
@@ -192,8 +186,8 @@ def add_path2pythonpath():
         return True
     
 ### START PYTHONMARKER ###
-path_of_folder = '/uio/hume/student-u27/oyvinbsv/github_uio/Master/'
-path_of_nupycee = '/mn/stornext/d7/oyvinbsv/NuPyCEE/'
+path_of_folder = '/home/oyvind/github_uio/Master/'
+path_of_nupycee = '/home/oyvind/github_uio/NuPyCEE/'
 ### END PYTHONMARKER ###
 
 if __name__ == '__main__':

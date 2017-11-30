@@ -366,8 +366,6 @@ relative_chi2.__str__ = r"Relative $\chi^2$"
 
 ### Program action ###
 if __name__ == '__main__':
-    import matplotlib.pyplot as pl
-
     #set resolution-parameters by default
     loa_test_constant_timesteps = []
     loa_test_constant_timesteps += range(int(1e+9), int(1e+10), int(1e+9))
@@ -428,52 +426,3 @@ if __name__ == '__main__':
     table_filename = "resolutiontable"
     save_table(table_filename+"_constant", constant_table)
     save_table(table_filename+"_special", special_table)
-    #calculate "plotables" from data, extract sublists from tables and name them appropriately
-    constant_dt_values = [row[0] for row in constant_table[1:]]
-    constant_n_values = [row[4] for row in constant_table[1:]]
-    constant_chi2_p_values = [row[1] for row in constant_table[1:]]
-    constant_chi2_a_values = [row[2] for row in constant_table[1:]]
-    constant_chi2_r_values = [row[3] for row in constant_table[1:]]
-    special_n_values = [row[4] for row in special_table[1:]]
-    special_chi2_p_values = [row[1] for row in special_table[1:]]
-    special_chi2_a_values = [row[2] for row in special_table[1:]]
-    special_chi2_r_values = [row[3] for row in special_table[1:]]
-    #make figures and axes objects for plotting difference
-    fig_name_list = [pearson_chi2.__name__, astro_chi2.__name__, relative_chi2.__name__]
-    fig_str_list = [pearson_chi2.__str__, astro_chi2.__str__, relative_chi2.__str__]
-    constant_value_list = [constant_chi2_p_values, constant_chi2_a_values, constant_chi2_r_values]
-    special_value_list = [special_chi2_p_values, special_chi2_a_values, special_chi2_r_values]
-    default_rectangle = (0,0,1,1) #(left, bottom, width, height) #fraction of figure dims
-    for i in range(len(fig_name_list)):
-        fig = pl.figure(fig_name_list[i])
-        """
-        constant_axis = fig.add_subplot(111)
-        plotting_function(constant_axis, constant_dt_values,
-                          constant_value_list[i], fig_str_list[i],
-                          constant=True)
-        #make a new axis, inverted, on top
-        special_axis = constant_axis.twiny()
-        special_axis.invert_xaxis()
-        special_axis.set_xscale('log')
-        special_axis.xaxis.tick_top()
-        plotting_function(special_axis, special_dt_values,
-                          special_value_list[i], fig_str_list[i],
-                          constant=False)
-        """
-        axis = fig.add_subplot(111)
-        axis.grid(True)
-        axis.set_title("Resolution of 'Omega' compared to 'Eris'")
-        axis.set_xlabel("number of timepoints")
-        axis.set_ylabel(fig_str_list[i])
-        axis.set_xscale('log')
-        plotting_function(axis, constant_n_values,
-                          constant_value_list[i],
-                          constant=True)
-        plotting_function(axis, special_n_values,
-                          special_value_list[i],
-                          constant=False)
-        axis.legend(numpoints=1, loc='best')
-        #save figures
-        figname = "timestep_resolution_" + fig_name_list[i] + ".png"
-        fig.savefig(figname)
-    pl.show()

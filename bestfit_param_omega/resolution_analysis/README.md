@@ -32,9 +32,10 @@ Results:
 The statistical parameters are plotted below(unable to reference in GFM). The results are quite clear. Both types of timestepping converges for >100 timepoints, also constant steplength seem to be more accurate, even though logarithmic timesteps are probably more accurate compared to simulation-SFR(more intense in the beginning).
 All data can be found as tables, with step-length and calculation time.
 
-![rel_chi2](timestep_resolution_relative_chi2.png)
-![pearson_chi2](timestep_resolution_pearson_chi2.png)
-![astro_chi2](timestep_resolution_astro_chi2.png)
+These images.
+[rel_chi2](timestep_resolution_relative_chi2.png)
+[pearson_chi2](timestep_resolution_pearson_chi2.png)
+[astro_chi2](timestep_resolution_astro_chi2.png)
 
 Results part II:
 ------------------

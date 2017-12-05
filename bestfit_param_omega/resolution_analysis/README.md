@@ -41,9 +41,10 @@ Results part II:
 ------------------
 In this section the different chi^2 values are compared in more detail. One set of three chi^2 values are plotted against timestep with the interpolation steps linear and two times as many as the most detailed interpolation-data. Then, the same is done, but with a interpolation-timeaxis that matches that of 'Eris'.
 
-![astro_chi2](singleyaxis_astro_chi2.png)
-![astro_chi2](singleyaxis2_astro_chi2.png)
-![pearson_chi2](singleyaxis_pearson_chi2.png)
-![pearson_chi2](singleyaxis2_pearson_chi2.png)
-![rel_chi2](singleyaxis_relative_chi2.png)
-![rel_chi2](singleyaxis2_relative_chi2.png)
+Original (2*n\_max ~ 2000)| Follow 'Eris' (~1000)
+:------------------------:|:--------------------:
+![astro_chi2](singleyaxis_astro_chi2.png) |![astro_chi2](singleyaxis2_astro_chi2.png)
+:-:|:-:
+![pearson_chi2](singleyaxis_pearson_chi2.png)|![pearson_chi2](singleyaxis2_pearson_chi2.png)
+:-:|:-:
+![rel_chi2](singleyaxis_relative_chi2.png)|![rel_chi2](singleyaxis2_relative_chi2.png)

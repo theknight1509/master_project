@@ -203,8 +203,8 @@ def resolution_function(loa_constant_timesteps, loa_special_timesteps):
         if n > max_n:
             max_n = n
         loa_special_tuples.append(some_tuple)
-    eris_interpolation = get_eris_interpolation() # interpolation function for eris data
-    interpolation_time = np.linspace(0, global_endtime, 2*max_n) #interpolation time-axis
+    eris_interpolation, n_eris = get_eris_interpolation(return_timesteps=True) # interpolation function for eris data
+    interpolation_time = np.linspace(0, global_endtime, n_eris) #interpolation time-axis
     eris_interpolated = eris_interpolation(interpolation_time) #interpolated array
 
     special_table_format = ("n", pearson_chi2.__name__, astro_chi2.__name__,
@@ -313,10 +313,6 @@ def get_interpolation_function(omega_instance):
     #get time and spectrographic arrays from dictionary
     time_array = data_dict["time"]
     spectro_array = data_dict[global_spectro_key]
-    #delete unnecessary objects
-    del omega_instance
-    del omega_data_instance
-    del data_dict
     #make mask for removing inf-values
     mask_of_infvalues = np.logical_not(np.isinf(spectro_array))
     #make interpolation function with scipy
@@ -324,9 +320,14 @@ def get_interpolation_function(omega_instance):
                                       y=spectro_array[mask_of_infvalues],
                                       bounds_error=False,
                                       fill_value="extrapolate")
+    #delete unnecessary objects
+    del omega_instance
+    del omega_data_instance
+    del data_dict
+
     return interpolation_function, len(time_array)
 
-def get_eris_interpolation():
+def get_eris_interpolation(return_timesteps=False):
     #get data from 'Eris'
     eris_instance = eris_data()
     eris_dict = eris_instance.sfgas #spectrographic data from Eris
@@ -334,14 +335,17 @@ def get_eris_interpolation():
     time_array = eris_dict["time"]
     spectro_array = eris_dict[global_spectro_key]
     #delete unnecessary objects
-    del eris_instance; del eris_dict
     #make interpolation_function that are not 'inf'
     mask_of_infvalues = np.logical_not(np.isinf(spectro_array))
     interpolation_function = interp1d(x=time_array[mask_of_infvalues],
                                       y=spectro_array[mask_of_infvalues],
                                       bounds_error=False,
                                       fill_value="extrapolate")
-    return interpolation_function
+    del eris_instance; del eris_dict
+    if return_timesteps:
+        return interpolation_function, len(time_array)
+    else:
+        return interpolation_function
 
 
 ### Independant functions ###
@@ -421,8 +425,9 @@ if __name__ == '__main__':
 
     #calculate resolution-data
     #table-format (dt/n, chi2_p, chi2_a, chi2_r, n_points, calc_time)
-    constant_table, special_table = resolution_function(constant_timesteps, special_timesteps)
+    constant_table, special_table = resolution_function(loa_constant_timesteps=constant_timesteps,
+                                                        loa_special_timesteps=special_timesteps)
     #save data
-    table_filename = "resolutiontable"
+    table_filename = "resolutiontable2"
     save_table(table_filename+"_constant", constant_table)
     save_table(table_filename+"_special", special_table)

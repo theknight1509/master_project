@@ -167,4 +167,5 @@ if True:
         #pass
     plot_calctime()
 
-pl.show()
+if False:
+    pl.show()

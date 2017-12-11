@@ -4,10 +4,11 @@ Plot the timestep data-tables
 #import matplotlib.pyplot as pl
 import matplotlib.pyplot as pl
 import os, sys
+program_index = "2"
 
 # get list of tables
 loa_filetypes = ["constant", "special"]
-filename = lambda filetype: "resolutiontable_%s.dat"%filetype
+filename = lambda filetype: "resolutiontable%s_%s.dat"%(program_index, filetype)
 loa_filenames = [filename(filetype) for filetype in loa_filetypes]
 #get response from user
 if len(sys.argv) == 2:
@@ -100,9 +101,9 @@ def plot_2in1_filetype(fig_type):
     ax2.yaxis.label.set_color('b')
     ax2.set_ylabel(key_calctime + " [s]")
     ax.set_yscale("log")
-    fig.savefig("doubleyaxis_%s_calctime.png"%fig_type)
+    fig.savefig("doubleyaxis%s_%s_calctime.png"%(program_index, fig_type))
 
-def plot_filetype(filetype):
+def plot_filetype(fig_type, activate_ylim=False):
     """
     For a given *fig_type*; make an Figure-object and plot chi^2 against timesteps.
     """
@@ -125,9 +126,10 @@ def plot_filetype(filetype):
     ax.set_xscale('log')
     ax.set_ylabel(fig_type)
     ax.set_yscale("log")
-    #ax.set_ylim(y_limits)
+    if activate_ylim:
+        ax.set_ylim(y_limits)
 
-    fig.savefig("singleyaxis_%s.png"%fig_type)
+    fig.savefig("singleyaxis%s_%s.png"%(program_index, fig_type))
 
 def plot_calctime():
     """
@@ -155,15 +157,16 @@ def plot_calctime():
     ax.set_xscale('log')
     ax.set_ylabel(key_calctime + " [s]")
     ax.set_yscale("log")
-    fig.savefig("singleyaxis_calctime.png")
+    fig.savefig("singleyaxis%s_calctime.png"%program_index)
 
 if True:
     ### plot into three figures, one for each chi^2 method ###
 
     loa_fig_types = ["pearson_chi2", "astro_chi2", "relative_chi2"]
-    for fig_type in loa_fig_types:
-        plot_filetype(filetype=filetype)
-        plot_2in1_filetype(fig_type=fig_type)
+    loa_activate_ylim = [True, True, False]
+    for i in range(3):
+        plot_filetype(fig_type=loa_fig_types[i], activate_ylim=loa_activate_ylim[i])
+        plot_2in1_filetype(fig_type=loa_fig_types[i])
         #pass
     plot_calctime()
 

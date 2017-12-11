@@ -4,6 +4,8 @@ Do this by importing the latest file of parameters.
 """
 #import bestfit-file that sets all parameters to default
 from bestfit_param_omega.bestfit_file import *
+global bestfit_imported
+bestfit_imported = True
 
 ###################
 ### IMF and SFR ###

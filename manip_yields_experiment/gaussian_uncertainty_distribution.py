@@ -6,7 +6,7 @@ import sys, os
 import time as tm
 import numpy as np
 import random as rn
-from bestfit_param_omega.current_bestfit import *
+import bestfit_param_omega.current_bestfit as current_bestfit
 bestfit_imported = True
 from experiment import experiment
 
@@ -65,7 +65,8 @@ def gaussian_variate_experiment(folder_name, experiment_name,
         fudge_factor = rn.gauss(1.0, stddev)
         factor_array[i] = fudge_factor
         #get instance of experiment
-        exp_instance = experiment(isotope, fudge_factor, num_timesteps)
+        exp_instance = experiment(isotope, fudge_factor, num_timesteps,
+                                  bestfit_namespace=current_bestfit)
         #save data to appropriately named file
         save_filename = folder_name + "/" + experiment_name + str(i) + ".csv"
         exp_instance.save2file(save_filename)

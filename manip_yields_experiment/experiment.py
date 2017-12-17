@@ -15,21 +15,6 @@ folder.activate_environ() #set environment for omega before importing
 from omega import *
 #use pandas for data-storage
 import pandas as pd
-<<<<<<< HEAD
-
-
-#import the current bestfit parameters if not already done
-#global parameter is not defined...
-print "experiment"
-print ('bestfit_imported' in globals().keys())
-if not ('bestfit_imported' in globals().keys()):
-    bestfit_imported = False #define global parameter
-    #no bestfit-file has been imported yet...
-if not bestfit_imported:
-    from bestfit_param_omega.bestfit_file import *
-    bestfit_imported = True
-    print "Reimporting!"
-
 #import namespace of the default bestfit-parameters
 import bestfit_param_omega.bestfit_file as default_bestfit_namespace
 

@@ -11,11 +11,11 @@ from experiment import experiment
 from visualize import visualize
 
 ### set global values ###
-isotope = "Eu-151"
+isotope = "Re-187"
 stddev_ff = 0.15
 mean_ff = 1.0
 title = ""
-experiment_timesteps = 200
+experiment_timesteps = 50
 #print information
 
 ### make all experiments ###
@@ -37,5 +37,5 @@ filename = "yield_%s_5point.png"%(isotope)
 #plotting object
 vis_object = visualize(loa_experiments, loa_names, num_yaxes=1)
 #plot spectroscopic abundance
-vis_object.add_time_relabu("[Eu/H]")
+vis_object.add_time_relabu_omegaonly(isotope)
 vis_object.finalize(show=True, save=filename, title=title)

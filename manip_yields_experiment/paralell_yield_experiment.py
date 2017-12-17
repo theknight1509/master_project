@@ -11,7 +11,7 @@ import time as tm
 import numpy as np
 import random as rn
 import multiprocessing as mp
-from bestfit_param_omega.current_bestfit import *
+import bestfit_param_omega.current_bestfit as current_bestfit
 from experiment import experiment
 from make_fudge_factor_table import write_new_table, read_fudge_factor
 
@@ -89,7 +89,7 @@ def single_experiment(experiment_index, toa_strings=(),
     data_filename = exp_folder + "/" + exp_name + str(experiment_index) + ".npy"
 
     #instance of experiment-object
-    exp_instance = experiment(isotope, fudge_factor, dt=timestep_size)
+    exp_instance = experiment(isotope, fudge_factor, dt=timestep_size, bestfit_namespace=current_bestfit)
     #save data to appropriately named file
     exp_instance.save2file(data_filename)
     del exp_instance #delete instance
@@ -108,7 +108,7 @@ def default_experiment(toa_strings=(), isotope="Re-187", timestep_size=1e+6):
     data_filename = exp_folder + "/" + exp_name + "default.npy"
 
     #instance of experiment-object
-    exp_instance = experiment(isotope, fudge_factor, dt=timestep_size)
+    exp_instance = experiment(isotope, fudge_factor, dt=timestep_size, bestfit_namespace=current_bestfit)
     #save data to appropriately named file
     exp_instance.save2file(data_filename, write_index_file=True)
     #write number of timepoints to README

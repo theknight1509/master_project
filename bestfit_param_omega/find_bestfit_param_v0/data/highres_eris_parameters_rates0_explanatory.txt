@@ -1,0 +1,8 @@
+This is the explanatory file for 'data/highres_eris_parameters_rates0.npy' 
+File contains rate-arrays of sf.
+zeroth array: time 
+first array: 'Eris' 
+second array: deafult 
+third array: Milky Way default 
+fourth array: Milky Way cte default 
+Applying 'Eris' to default.

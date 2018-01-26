@@ -171,7 +171,6 @@ def add_path2pythonpath():
     #Write the path of the current folder to pythonpath in the bashrc-script.
     #NOTE! only do so if the string doesn't exist already!    
     pythonpath_string = "export PYTHONPATH=$PYTHONPATH:"+current_dir+"\n"
-    home_dir = loa_possible_homedirs[0]
     bashrc_path = home_dir + "/.bashrc"
 
     #look if string already exists in .bashrc

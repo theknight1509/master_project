@@ -1,5 +1,42 @@
-Find bestfit parameters for 'Omega'
+Best fit of 'Omega' parameters - v1
 ===========================================
+
+Set mass parameters of 'Omega' by comparing to 'Eris'.
+
+Parameters
+-----------
+- Initial total mass of gas
+- Constant inflow rate
+- Outflow rate proportional to super nova rate
+
+Methodology
+------------
+Increase initial gas mass and constant inflow rate to fit total stellar mass over time, and total baryonic mass at redshift zero and one(datapoints added NEED REFERNCE AND EXPLANATION). The initial gas is primordial in nature, as is the inflow, but the outflow consists of chemically evolved gas.
+After those criteria are met, add outflow (proportional to snr), and increase initial gas mass and inflow slightly to compensate. The outflow rate will make the results worse, but add to the realism of the model.
+
+Results/progress
+------------------
+
+First apply inflow and initial gas mass only. The best fit is an initial gas mass ~4.4e+10 M\_sol and a inflow rate of ~3.7 M\_sol/yr.
+![initial plus inflow only](data/mass_parameters_v1_n1100.png)
+
+Now increase inflow and initial gas mass slightly, and try different values for mass-loading(solar masses ejected from galaxy per solar masses exploded). 
+The inflow rate is increased to 4.0 M\_sol/yr and the initial mass of gas increased to 5.6e+10 M\_sol.
+The mass-loading factor has to be as low as 0.3 in order to not eject to much chemically evolved gas.
+![mass-loading](data/mass_parameters_v2_n300.png)
+
+If the initial gas mass is fixed to the final, total mass from the 'Eris' data, the new 'Eris-lookalike' can be compared to the 'default', 'Milky Way default', and "Milky Way cte default' already existing in 'Omega'. Increasing the initial gas mass removes the issue on "running out of gas". The results are plotted below.
+
+![final masses](data/mass_parameters_v3_masses_n300.png)
+![final rates](data/mass_parameters_v3_rates_n300.png)
+![final spectroscopic](data/mass_parameters_v3_spectro_n300.png)
+
+Comments to self
+------------------
+Datafiles to be used in thesis
+ - []()
+
+TOSS OLD SCRAP BENEATH THIS POINT
 
 Version One - Single parameters
 -----------------------------------

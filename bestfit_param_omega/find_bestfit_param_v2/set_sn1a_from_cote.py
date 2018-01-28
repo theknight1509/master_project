@@ -232,6 +232,6 @@ if __name__ == '__main__' and True:
                  version_string="v4_spectro",
                  expl_string="Changing sn1a-numbers after fitting sn1a")
 #Conclusion
-eris_bestfit.bestfit_nb_1a_per_m = 9e-4
+eris_bestfit.bestfit_nb_1a_per_m = 1e-3
 
 pl.show()

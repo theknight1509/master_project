@@ -14,7 +14,7 @@ from bestfit_param_omega.find_bestfit_param_v1.set_mass_from_eris import eris_be
 from visualize import visualize, save_data
 
 if __name__ == '__main__':
-    num_steps = 300
+    num_steps = 30
     print "Number of timesteps: ", num_steps
 
 def plot_rates(loa_omegas, loa_omega_names, version_string, expl_string):

@@ -70,7 +70,7 @@ if __name__ == '__main__' and False:
     new_list_of_models = []
     new_list_of_model_names = []
 
-    loa_nb = [1e-5, 8e-4, 1e-3, 3e-3, 1e-1, 1.0]
+    loa_nb = [1e-5, 8e-4, 1e-3, 1.5e-3, 2e-3, 3e-3, 1e-1, 1.0]
     for nb_1a in loa_nb:
         eris_bestfit.bestfit_nb_1a_per_m = nb_1a
         eris_omega = omega_new(eris_bestfit)
@@ -78,11 +78,11 @@ if __name__ == '__main__' and False:
         new_list_of_model_names.append("'Eris' bestfit w/nb1a_per_m=%1.1e"%nb_1a)
     
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v1",
-                 expl_string="Applying different sn1a-dtd to 'Eris' parameters")
+                 version_string="v1_rates",
+                 expl_string="Number of SN1a per mass")
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v1",
-                 expl_string="Applying different sn1a-dtd to 'Eris' parameters")
+                 version_string="v1_spectro",
+                 expl_string="Number of SN1a per mass")
 #Conclusion
 eris_bestfit.bestfit_nb_1a_per_m = 1e-3
 
@@ -100,7 +100,7 @@ if __name__ == '__main__' and False:
 
     eris_bestfit.bestfit_sn1a_rate = "power_law"
     def_beta = eris_bestfit.bestfit_beta_pow
-    loa_beta = [-5,-3.5,-1.0]
+    loa_beta = [-5,-3.5,-1.0,-0.1]
     for beta_pow in loa_beta:
         print "power-law sn1a dtd: beta=", beta_pow
         eris_bestfit.bestfit_beta_pow = beta_pow
@@ -110,10 +110,10 @@ if __name__ == '__main__' and False:
     eris_bestfit.bestfit_beta_pow = def_beta #return to default
 
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v2_powerlaw",
+                 version_string="v2_powerlaw_rates",
                  expl_string="Applying different power-law dtd to 'Eris' parameters")
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v2_powerlaw",
+                 version_string="v2_powerlaw_spectro",
                  expl_string="Applying different power-law dtd to 'Eris' parameters")
 
 #Gaussian dtd
@@ -147,10 +147,10 @@ if __name__ == '__main__' and False:
         new_list_of_model_names.append("'Eris' bestfit w/sn1a gauss=[%1.1e,%1.1e]"%tuple(new_gauss_dtd))
     
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v2_gauss",
+                 version_string="v2_gauss_rates",
                  expl_string="Applying different gaussian SN1a-dtd to 'Eris' parameters")
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v2_gauss",
+                 version_string="v2_gauss_spectro",
                  expl_string="Applying different gaussian SN1a-dtd to 'Eris' parameters")
     
     eris_bestfit.bestfit_gauss_dtd = def_gauss_dtd #revert back to default
@@ -163,7 +163,7 @@ if __name__ == '__main__' and False:
 
     eris_bestfit.bestfit_sn1a_rate = "exp"
     def_exp_dtd = eris_bestfit.bestfit_exp_dtd
-    loa_timescales = [1e+6, 5e+6, 5.5e+6, 6e+6, 1e+8]
+    loa_timescales = [1e+6, 5e+6, 5.1e+6, 5.2e+6, 5.3e+6, 5.4e+6, 5.5e+6, 6e+6, 1e+8]
     for timescale in loa_timescales:
         #use timescale as exponential e-folding rate
         print "e-folding rate: %1.1e"%timescale
@@ -173,10 +173,10 @@ if __name__ == '__main__' and False:
         new_list_of_model_names.append("'Eris' bestfit w/sn1a exp=%1.1e[yr]"%timescale)
 
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v2_exp",
+                 version_string="v2_exp_rates",
                  expl_string="Applying different exponential SN1a-dtd to 'Eris' parameters")
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v2_exp",
+                 version_string="v2_exp_spectro",
                  expl_string="Applying different exponential SN1a-dtd to 'Eris' parameters")
     
     eris_bestfit.bestfit_exp_dtd = def_exp_dtd#revert back to default
@@ -185,56 +185,30 @@ if __name__ == '__main__' and False:
 eris_bestfit.bestfit_sn1a_rate = "exp"
 eris_bestfit.bestfit_exp_dtd = 5.5e+6
 
-############################################
-### Set number of SN1a a new to rescale! ###
-############################################
-if __name__ == '__main__' and False:
-    #use nb_1a_per_m to scale number of SN1a
-    eris_bestfit.bestfit_special_timesteps = num_steps
-    new_list_of_models = []
-    new_list_of_model_names = []
-
-    loa_nb = [8e-4, 9e-4, 1e-3, 2e-3, 3e-3]
-    for nb_1a in loa_nb:
-        eris_bestfit.bestfit_nb_1a_per_m = nb_1a
-        eris_omega = omega_new(eris_bestfit)
-        new_list_of_models.append(eris_omega)
-        new_list_of_model_names.append("'Eris' bestfit w/nb1a_per_m=%1.1e"%nb_1a)
-    plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v3",
-                 expl_string="Changing sn1a-numbers after fitting sn1a-dtd")
-    plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v3",
-                 expl_string="Changing sn1a-numbers after fitting sn1a-dtd")
-#Conclusion
-eris_bestfit.bestfit_nb_1a_per_m = 9e-4
-
-
 ##################################################
 ### Use a yield table with better O/Fe balance ###
 ##################################################
-if __name__ == '__main__' and False:
+if __name__ == '__main__' and True:
     def_yield_table = eris_bestfit.bestfit_sn1a_table
     eris_bestfit.bestfit_special_timesteps = num_steps
     new_list_of_models = []
     new_list_of_model_names = []
 
-    #loa_yield_tables_available = ["sn1a_cnoni.txt", "sn1a_h1.txt", "sn1a_i99_CDD1.txt", "sn1a_i99_CDD2.txt", "sn1a_i99_W7.txt", "sn1a_ivo12_mix_z.txt", "sn1a_ivo12_stable_z.txt", "sn1a_ivo12_unstable_z.txt", "sn1a_ivo13_mix_z.txt", "sn1a_ivo13_stable_z.txt", "sn1a_ivo13_unstable_z.txt", "sn1a_t03.txt", "sn1a_t86.txt"]
-    loa_yield_tables_lowFe = ["sn1a_cnoni.txt", "sn1a_h1.txt", "sn1a_ivo13_unstable_z.txt", "sn1a_ivo12_unstable_z.txt"]
-
-    for table in loa_yield_tables_lowFe:
+    #see yield_table_contents for O-Fe in yield-tables
+    loa_yield_tables_available = ["sn1a_i99_CDD1.txt", "sn1a_i99_CDD2.txt", "sn1a_i99_W7.txt", "sn1a_ivo12_mix_z.txt", "sn1a_ivo12_stable_z.txt", "sn1a_ivo13_mix_z.txt", "sn1a_ivo13_stable_z.txt", "sn1a_t03.txt", "sn1a_t86.txt"]
+    
+    for table in loa_yield_tables_available:
         eris_bestfit.bestfit_sn1a_table = "yield_tables/"+table
         eris_omega = omega_new(eris_bestfit)
         new_list_of_models.append(eris_omega)
         new_list_of_model_names.append(table)
 
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v4",
+                 version_string="v3_spectro",
                  expl_string="Various sn1a yield tables")
     eris_bestfit.bestfit_sn1a_table = def_yield_table #return to default
 #Conclusion
-#See n300-files for a complete mapping, the yield-tables with lower Fe-prdouction has been picked out.
-eris_bestfit.bestfit_sn1a_table = "yield_tables/sn1a_ivo13_unstable_z.txt" #most fulfilling table with low Fe
+#no change
 
 ############################################
 ### Set number of SN1a a new to rescale! ###
@@ -252,12 +226,12 @@ if __name__ == '__main__' and True:
         new_list_of_models.append(eris_omega)
         new_list_of_model_names.append("'Eris' bestfit w/nb1a_per_m=%1.1e"%nb_1a)
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v5",
-                 expl_string="Changing sn1a-numbers after finding dtd and yields of sn1a")
+                 version_string="v4_rates",
+                 expl_string="Changing sn1a-numbers after fitting sn1a")
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v5",
-                 expl_string="Changing sn1a-numbers after finding dtd and yields of sn1a")
+                 version_string="v4_spectro",
+                 expl_string="Changing sn1a-numbers after fitting sn1a")
 #Conclusion
-#eris_bestfit.bestfit_nb_1a_per_m
+eris_bestfit.bestfit_nb_1a_per_m = 9e-4
 
 pl.show()

@@ -8,28 +8,30 @@ Parameters
 -----------
 
 - yield-tables for agb and massive stars
-- transitionmass
+- transitionmass **? mass limits where you switch between different tables?**
 - population 3 stars yield tables and IMF boundaries
 
 - number of type 1a supernovae
 - yield tables for type 1a supernovae
 - delay-time distribution of type 1a supernovae (three types plus direct normalization).
+** You should mention where all the yield tables come from (references)**
+
 
 Results
 --------
-- Other agb and massive yield tables are buggy
+- Other agb and massive yield tables are buggy **Explain how they are buggy**
 - Population III stars
-  - various tables have no effect on spectroscopic data
+  - various tables have no effect on spectroscopic data **Can you explain in two lines why? I assume it's because you're considering heavy elements that are not produced in significant amounts by popIII stars. Btw. you should probably also comment on the discrepancy in Eu first time you show it (just stating that your only partway in the parameter tuning)**
   ![pop3-tables](data/star_parameters_v3_n300.png)
-  - boundaries of initial mass function 
+  - boundaries of initial mass function **Does not appear to have any significant effect either**
   ![pop3-imf](data/star_parameters_v4_n300.png)
 - Transitionmass between AGB and massive stars have almost no effect on spectroscopic iron, 
-higher transitionmass means lower iron but the effect is neglectable. Leave as is!
+higher transitionmass means lower iron but the effect is neglectable. Leave as is! ** Rather state that you leave it at the default value of XX**
 ![transitionmass](data/star_parameters_v2_n30.png)
-- SN1a numbers scale all spectroscopic abundances up and down (unsurprisingly). Want a value somewhere between 1e-4 and 1e-3 supernovae per solar mass. This prioritizes iron over oxygen.
+- SN1a numbers ** rates?** scale all spectroscopic abundances up and down (unsurprisingly). Want a value somewhere between 1e-4 and 1e-3 supernovae per solar mass. This prioritizes iron over oxygen.
   - nb1a ~ 8e-4
 ![sn1a-numbers1](data/sn1a_parameters_v1_spectro_n30.png) 
-- SN1a delay-time distribution:
+- SN1a delay-time distribution: **Explain in few words what the delay time distribution is, and that power-law, gaussian and exponential are the standard choices (provide a reference, can possibly just be an OMEGA paper**
   - power-law: Minimal effect, flatter distribution gives slightly less iron between 1 and 6 Gyr.
   ![sn1a-power-law](data/sn1a_parameters_v2_power_spectro_n30.png)
   - gaussian: slighlty less iron for distribution with old mean.
@@ -38,7 +40,7 @@ higher transitionmass means lower iron but the effect is neglectable. Leave as i
     - ~5.5e+6
   ![sn1a-exp](data/sn1a_parameters_v2_exp_spectro_n30.png) 
 - Direct normalization of \#SN1a has no effect
-- yield tables of type 1a supernovae yield no noticable difference
+- yield tables of type 1a supernovae yield no noticable difference ** Is that because SN have little effect overall, or because the yield tables are very similar?**
 ![sn1a-tables](data/sn1a_parameters_v3_spectro_n30.png)
 - rescaling SN1a numbers
   - nb1a ~ 1e-3

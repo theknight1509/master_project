@@ -34,7 +34,17 @@ If the initial gas mass is fixed to the final, total mass from the 'Eris' data, 
 Comments to self
 ------------------
 Datafiles to be used in thesis
- - []()
+ - [Initial mass and inflow (stellar mass)](data/mass_parameters_v1_1_n1100_explanatory.txt)
+ - [Initial mass and inflow (total mass)](data/mass_parameters_v1_2_n1100_explanatory.txt)
+ - [Add mass-loading (stellar mass)](data/mass_parameters_v2_1_n300_explanatory.txt)
+ - [Add mass-loading (total mass)](data/mass_parameters_v2_2_n300_explanatory.txt)
+ - [Model comparison (stellar mass)](data/mass_parameters_v3_masses_1_n300_explanatory.txt)
+ - [Model comparison (total mass)](data/mass_parameters_v3_masses_2_n300_explanatory.txt)
+ - [Model comparison (sfr)](data/mass_parameters_v3_rates_0_n300_explanatory.txt)
+ - [Model comparison ([O/H])](data/mass_parameters_v3_spectro_0_n300_explanatory.txt)
+ - [Model comparison ([Fe/H])](data/mass_parameters_v3_spectro_1_n300_explanatory.txt)
+ 
+[Go back](../README.md)
 
 TOSS OLD SCRAP BENEATH THIS POINT
 

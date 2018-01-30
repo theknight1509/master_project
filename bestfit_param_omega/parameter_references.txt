@@ -1,0 +1,32 @@
+Source: Shen et. al. (Jul. 2015) "The history of r-process enrichment in the milky way", ApJ, 807, 115
+delay-time distribution of nsm: P(t) \propto t^{-n}, from t_cutoff to t_H
+-parameter-values: t_H = 14 Gyr, t_cutoff = [100, 200] Myr, n = [2,1]
+-'Omega' parameter input: nsm_dtd_power = [t_cutoff, t_H, -n]
+r-process mass ejected from nsm:
+-parameter-values: M_rp = [0.05,0.01] M_sol
+-'Omega' parameter input: m_ej_nsm = M_rp
+
+Source: Guedes et. al. (Dec. 2011) "Forming realistic late-type spirals in a LCDM universe: The Eris simulation", ApJ, 742, 76
+stellar mass at z=0: total stellar mass at current date
+-parameter-values: M_star = 3.9e+10 M_sol 
+stellar mass at z=1: total stellar mass at t=6.075 Gyr (H0=73km/s/Mpc, O_M=0.24, O_v=1-O_M)
+-parameter-values: M_star = 2.9e+10 M_sol
+total mass at z=0: total baryonic mass at current date
+-parameter-values: M_b = f_b*M_vir = 0.121*7.9e+11 = 9.5e+10
+total mass at z=1: total baryonic mass at t=6.075 Gyr (H0=73km/s/Mpc, O_M=0.24, O_v=1-O_M)
+-parameter-values: M_b = f_b*M_vir = 0.126*5.4e+11 = 6.8e+10
+
+Source Côté et. al. (Jun. 2016) "Uncertainties in galactic chemical evolution models", ApJ, 824, 82
+mass limits IMF:
+#TODO
+slope of IMF:
+#TODO
+SN1a:
+#TODO
+Current stellar mass:
+#TODO
+Current gas mass:
+#Todo
+SFH:
+#TODO
+

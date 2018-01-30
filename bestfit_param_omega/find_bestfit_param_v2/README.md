@@ -44,3 +44,9 @@ higher transitionmass means lower iron but the effect is neglectable. Leave as i
   - nb1a ~ 1e-3
   ![sn1a-numbers2](data/sn1a_parameters_v4_spectro_n30.png) 
 
+
+Comments to self
+------------------
+Datafiles to be used in thesis
+
+[Go back](../README.md)

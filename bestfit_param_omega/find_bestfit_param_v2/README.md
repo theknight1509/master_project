@@ -50,5 +50,23 @@ higher transitionmass means lower iron but the effect is neglectable. Leave as i
 Comments to self
 ------------------
 Datafiles to be used in thesis
+ - Files with no significant effect (thereby showing why they can be neglected).
+   - [population III stars - yield tables - [O/H]](data/star_parameters_v3_0_n300_explanatory.txt)
+   - [population III stars - yield tables - [Fe/H]](data/star_parameters_v3_1_n300_explanatory.txt)
+   - [population III stars - mass function boundaries - [O/H]](data/star_parameters_v4_0_n300_explanatory.txt)
+   - [population III stars - mass function boundaries - [Fe/H]](data/star_parameters_v4_1_n300_explanatory.txt)
+   - [transitionmass between agb and massive - [Fe/H]](data/star_parameters_v2_1_n30_explanatory.txt)
+   - [supernovae type 1a - yield tables - [Fe/H]](data/sn1a_parameters_v3_spectro_1_n30_explanatory.txt)
+ - Files with some aspect of effect.
+   - [\#SN1a - first try - [O/H]](data/sn1a_parameters_v1_spectro_0_n30_explanatory.txt)
+   - [\#SN1a - first try - [Fe/H]](data/sn1a_parameters_v1_spectro_1_n30_explanatory.txt)
+   - [dtd SN1a - power law - [O/H]](data/sn1a_parameters_v2_powerlaw_spectro_0_n30_explanatory.txt)
+   - [dtd SN1a - power law - [Fe/H]](data/sn1a_parameters_v2_powerlaw_spectro_1_n30_explanatory.txt)
+   - [dtd SN1a - gaussian - [O/H]](data/sn1a_parameters_v2_gauss_spectro_0_n30_explanatory.txt)
+   - [dtd SN1a - gaussian - [Fe/H]](data/sn1a_parameters_v2_gauss_spectro_1_n30_explanatory.txt)
+   - [dtd SN1a - exponential - [O/H]](data/sn1a_parameters_v2_exp_spectro_0_n30_explanatory.txt)
+   - [dtd SN1a - exponential - [Fe/H]](data/sn1a_parameters_v2_exp_spectro_1_n30_explanatory.txt)
+   - [\#SN1a - second try - [O/H]](data/sn1a_parameters_v4_spectro_0_n30_explanatory.txt)
+   - [\#SN1a - second try - [Fe/H]](data/sn1a_parameters_v4_spectro_1_n30_explanatory.txt)
 
 [Go back](../README.md)

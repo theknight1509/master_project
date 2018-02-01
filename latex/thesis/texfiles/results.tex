@@ -3,26 +3,51 @@
 %define full path of thesis-folder
 \newcommand\thesisfolder{/home/oyvind/github\_uio/Master/latex/thesis/}
 
-In order to have the one-zone model \omegamodel\, best reproduce the \eris\, simulation \\
+In order to have the one-zone model \omegamodel\ best reproduce the \eris\ simulation \\
 \comment{... continue introduction and description} \\
-Some parameters are decidedly locked from the \eris\, simulation directly.
-One of the most valuable result from \eris\, (for these purposes)
+Some parameters are decidedly locked from the \eris\ simulation directly.
+One of the most valuable result from \eris\ (for these purposes)
 are the star formation rate thorugh Galactic time (also known as star formation history). The Galctic age in \eris\, is 14Gyr.
-In order to produce stars, a mass function has to be set. A mass function is the statistical probability distribution of mass for a population of stars. In \eris\, the Kroupa94
+In order to produce stars, a mass function has to be set. A mass function is the statistical probability distribution of mass for a population of stars. In \eris\ the Kroupa94
 (\comment{insert reference here})\\
 (\comment{insert image of distribution here?})
 mass function is used, and the same shall also be used for \omegamodel. 
-The stellar synthesis in \eris\, postproduction comes from core collapse supernova, type 1a supernova and binary neutron star mergers.
-In the appropriate \omegamodel\, the black hole - neutron star mergers shall not be taken into effect,
+The stellar synthesis in \eris\ postproduction comes from core collapse supernova, type 1a supernova and binary neutron star mergers.
+In the appropriate \omegamodel\ the black hole - neutron star mergers shall not be taken into effect,
 and the yield table for binary neutron star mergers is chosen to be \comment{insert reference to Arnould} \comment{add comment/description about how the yield table is the r-process from the sun}, because it contains \re{187}.
 
 \comment{Explain default parameters and 'milky\_Way' and 'milky\_way\_cte'}
 
+\iffalse %comment out this entire piece of code
 \begin{figure}
   \centering
   \includegraphics[scale=0.5]{../results/plots_fitting/sfr_set_eris_param.png}
   \caption{\label{img:fitting-set-eris-sfr}\comment{Add comments and update figure}}
 \end{figure}
+\fi %end comment-block
+
+\subsection{Inserting parameters directly}
+\comment{describe parameters: sfr, tend, imf, BSNM/BHNSM, yield-tables etc.}
+\comment{add plots of sfr/ism-mass/stellar-mass}
+\subsection{Modifying masses}
+\comment{what are realistic masses, outflows, inflows?}
+\comment{what are the input used? constant inflow, ouflow proportional to SNR}
+\comment{add plots of initial mass and inflow}
+\comment{add plots of mass-loading}
+\comment{add plots of final model comparison}
+\subsection{Effect of population III stars and Type 1a Supernovae}
+\comment{what parameters are used to mess with sn1a and pop3?}
+\comment{add plots about dtd}
+\comment{add plots of \#sn1a}
+\comment{maybe add plots about the no-effects}
+\subsection{Binary neutron star mergers}
+\comment{what are realistic parameters? uncertainty of them?}
+\comment{what are the input parameter-space used?}
+\comment{add plots about dtd}
+\comment{add plots about ejecta-mass/merger-fraction/\#nsm}
+\comment{add final plots}
+\subsection{Final parameters of fitting}
+\comment{add plots from final bestfit-folder}
 
 \section{Uncertainty of yields}
 %vary yields, keep everything else constant
@@ -30,6 +55,8 @@ The 'Omega' model with 'Eris' bestfit parameters is used to calculate the amount
 A single function of 'Omega' is overwritten in order to change the stellar yields of \re{187}.
 The function multiplies the stellar yield of \re{187} ($Y_\re{187}$) with a constant, the new yield is denoted $\hat{Y}_\re{187}$.
 
+\comment{add single uncertainty of %\re{187}, \re{185}, \eu{x}-isotopes, and \os{x}-isotopes}
+}
 %plot of ISM Re-187
 %table of statistics input uncertainty vs. output uncertainty
 %conclusion - linear relationship between input/output variation

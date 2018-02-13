@@ -1,0 +1,353 @@
+\newcommand{\imagefolder}{results/plots_fitting}
+
+\section{Fitting of models}
+
+In order to have the one-zone model \omegamodel\ best reproduce the \eris\ simulation \\
+\comment{... continue introduction and description} \\
+Some parameters are decidedly locked from the \eris\ simulation directly.
+One of the most valuable result from \eris\ (for these purposes)
+are the star formation rate thorugh Galactic time (also known as star formation history). The Galctic age in \eris\, is 14Gyr.
+In order to produce stars, a mass function has to be set. A mass function is the statistical probability distribution of mass for a population of stars. In \eris\ the Kroupa94
+(\comment{insert reference here})\\
+(\comment{insert image of distribution here?})
+mass function is used, and the same shall also be used for \omegamodel. 
+The stellar synthesis in \eris\ postproduction comes from core collapse supernova, type 1a supernova and binary neutron star mergers.
+In the appropriate \omegamodel\ the black hole - neutron star mergers shall not be taken into effect,
+and the yield table for binary neutron star mergers is chosen to be \comment{insert reference to Arnould} \comment{add comment/description about how the yield table is the r-process from the sun}, because it contains \re{187}.
+
+\comment{define new commands for MWOmega/MWCteOmega/fiducccial model}
+\newcommand\mwomega{}
+\newcommand\mwcomega{}
+\newcommand\fiduccialomega{}
+\importantcomment{introduce 'our' \omegamodel\ model as the concept \textit{'fiduccial model'}}
+
+\FloatBarrier
+\subsection{Inserting parameters directly}
+\iffalse
+Filenames:
+set_sfr_plot_gas_mass.png                
+set_sfr_plot_sfr.png                     
+set_sfr_plot_spectro.png                 
+set_sfr_plot_stellar_mass.png
+\fi
+\comment{describe parameters: sfr, tend, imf, BNSM/BHNSM, yield-tables etc.}
+\comment{fix stellar mass plot data}
+The first step towards finding an appropriate parameter space for \omegamodel\ is to make \omegamodel\ follow the stellar evolution of \eris. This is achieved by setting the initial mass function to Kroupa93\comment{(insert reference)}, and the star formation history from the \eris\ simulation. By activating type 1a supernovae and binary neutron star mergers, the stellar evolution of \omegamodel\ should be similar in nature to \eris. In the star formation history of \eris, the endtime is 14Gyr, and the endtime for \omegamodel should be set to the same value. There is only one(out of two) available yield tables for binary neutron star mergers that contain output for \re{187}, in the interest of this project we naturally choose this one\comment{(add reference to yield tables)}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sfr_plot_sfr.png}
+  \caption{\label{img:fit-v0-sfr}
+    Star formation rate(measured in solar masses of stars formed from gas each year) for four models of \omegamodel\ versus time. 
+    \textit{'Eris'} refers to data directly from \eris -simulation. \textit{'Omega' default} refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} refers to the \omegamodel\ model with the star formation and mass function from \eris.
+    Firstly it is clear that star-formation is suppressed for all models except \textit{'Omega' default}. This is from the lack of gas to create stars from. Secondly the \textit{'Omega' w/'Eris'-SFR} model is the only model to accurately reproduce the \eris\ star formation at early times. While both \textit{'Omega' MW} and \textit{'Omega' MW cte} are meant to represent the milky way, they cannot be used to accurately represent \eris.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sfr_plot_stellar_mass.png}
+  \caption{\label{img:fit-v0-stellarmass}
+    Total accumulated stellar mass(cumulutaive sum of stellar mass produces from gas, measured in solar masses) for four models of \omegamodel\ versus time.
+    \textit{'Eris'} refers to data directly from \eris -simulation. \textit{'Omega' default} refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} refers to the \omegamodel\ model with the star formation and mass function from \eris.
+    This graph also shows that stellar production is suppressed at early time from lack of gas. Small amount of stars are still created from the enriched gas expelled by dying stars at late times, however this is a small contribution to the stellar production. Only \textit{'Omega' w/'Eris'-SFR} can accurately reproduce \textit{'Eris'} at early times, unlike the other \omegamodel\ models.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_sfr_plot_gas_mass.png}
+  \caption{\label{img:fit-v0-gasmass}
+    Mass of gas in the interstellar medium for four different models of \omegamodel, and the \eris\ simulation against time in Gyrs.
+    \textit{'Eris'} refers to data directly from \eris -simulation. \textit{'Omega' default} refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} refers to the \omegamodel\ model with the star formation and mass function from \eris.
+    The gas, that is the foundation for star formation, is used up before 2 Gyrs for all models except for \textit{'Omega' default}.
+  }
+\end{figure}
+The main issue for all models is clear: star formation uses up all the gas in the model and star formation is quenched.
+
+\comment{do I skip the spectroscopic plots?}
+\iffalse %blockcomment
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sfr_plot_spectro.png}
+  \caption{\label{fig:fit-v0-spectro} \comment{Explain each legend thouroughly}}
+\end{figure}
+\fi %end blockcomment
+
+\FloatBarrier
+\subsection{Modifying masses}
+\iffalse
+Filenames:
+set_mass_1_plot_stellar_mass.png
+set_mass_1_plot_total_mass.png    
+set_mass_2_plot_stellar_mass.png  
+set_mass_2_plot_total_mass.png    
+set_mass_3_plot_sfr.png           
+set_mass_3_plot_spectro_iron.png  
+set_mass_3_plot_spectro_oxy.png   
+set_mass_3_plot_stellar_mass.png  
+set_mass_3_plot_total_mass.png
+\fi
+\comment{what are realistic masses, outflows, inflows?}
+\comment{explain next step of process}
+
+In order to produce enough stars to reproduce \eris\ the galaxy-model must have more gas. The \omegamodel\ supports inflow of primordial gas from the medium around the galaxy, and outflow of chemically enriched gas into the surrounding medium. However, since \omegamodel is a \textit{one-zone} model, the chemically enriched material cannot return from the surrounding medium. That would require a two-zone model (or reater). A constant rate will be used for inflow, while a outflow rate proportional to the supernova rate will be used to create a more realistic model within the restrictions og \omegamodel.
+
+%mass-table from Guedes10
+\include{texfiles/mass_table_guedes}
+From table \ref{tab:guedes-baryonic-mass} the total baryonic content of the galaxy is known at redshift zero and one. This information is used to fix the initial mass of primordial gas and inflow of primordial gas. 
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_1_plot_total_mass.png}
+  \caption{\label{fig:fit-v1-1-total}
+    The total baryonic mass of the \omegamodel-model for four different initial/inflow parameters.
+    $M_0$ is the initial primordial gas of the galaxy(in \msol), $\dot{M}$ is the inflow (in \msol/yr).
+    This visualization shows that 44G\msol and 3.7\msol/yr are the optimal parameters to reproduce the two baryonic data-points from \eris, although more then these four were tried.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_1_plot_stellar_mass.png}
+  \caption{\label{fig:fit-v1-1-stellar}
+    Plotting the cumulative stellar mass formed in the inflow-\omegamodel-models. All four reproduce the \eris\ cumulative star formation, because these models have enough gas to form the stars.
+  }
+\end{figure}
+
+Supernova feedback will drive an outflow from the galaxy into the surrounding medium \comment{find appropriate reference}. Adding outflow proportional to the supernova rate adds some realisim to the model, and might reproduce some of the spectroscopic features.
+In \omegamodel this is activated with the parameters \verb|mass_loading|(which ejects a amount of gas relative to the stellar mass formed), and \verb|out_follows_E_rate|(which adds a timedelay to the outflow, making the outflow proportional to the supernova rate instead of the star formation rate).
+Outflow removes gas from the galaxy, or interstellar medium, lowering the total amount of mass in the galaxy. Therefor the initial primordial gas and constant inflow must be increased as well.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_2_plot_total_mass.png}
+  \caption{\label{fig:fit-v1-2-total}
+    Total baryonic mass of galaxy over time.\comment{what is the initial mass of gas and inflow rate?}
+    The outflow adds a non-linear effect to the total mass.
+  }
+\end{figure}
+\importantcomment{add spectroscopic outflow plot here!}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_2_plot_stellar_mass.png}
+  \caption{\label{fig:fit-v1-2-stellar}
+    Cumulative stellar mass formed against time for \comment{X} \omegamodel\ models, and the \eris-simulation.
+    The outflow removes mass, but there is still enough gas to form stars from the \eris\ star formation rate.
+  }
+\end{figure}
+
+Setting the initial mass, inflow and outflow, gives the desired star formation. A final comparison of the fiducial \omegamodel model, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
+For the predefined models, the initial mass of primordial gas have been increased to $9.6\times10^{10}\msol$(the final value baryon-mass from \eris) to show the full evolution of star formation.
+\comment{what are mass parameters now?}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_3_plot_total_mass.png}
+  \caption{\label{fig:fit-v1-3-total}
+    Total baryonic mass of galaxy over time for \eris, \fiduccialomega, \mwomega, \mwcomega\ and \omegamodel\ with all default parameters.
+    Only the \fiduccialomega model reproduces the total mass content found in \eris, represent by two datapoints from table \ref{tab:guedes-baryonic-mass}.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_3_plot_stellar_mass.png}
+  \caption{\label{fig:fit-v1-3-stellar}
+    Cumulative stellar mass formed over time for \eris, \mwomega, \mwcomega, \fiduccialomega\ and \omegamodel\ with all default parameters.
+    All predefined models massively undershoots or overshoots the measured star formation in \eris.
+    The \fiduccialomega\ model accurately reproduces the cumulative stellar formation with \eris. The slight variation between the \fiduccialomega\ model and \eris\ is due to low numerical resolution.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_3_plot_spectro_iron.png}
+  \caption{\label{fig:fit-v1-3-iron}
+    Spectroscopic iron over time for \eris, \mwomega, \mwcomega, \fiduccialomega\ and \omegamodel\ with all default parameters.
+    The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_3_plot_spectro_oxy.png}
+  \caption{\label{fig:fit-v1-3-oxy}
+    Spectroscopic oxygen over time for \eris, \mwomega, \mwcomega, \fiduccialomega and \omegamodel with all default parameters.
+    The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
+  }
+\end{figure}
+
+\FloatBarrier
+\subsection{Effect of AGB stars, massive stars, population III stars and Type 1a Supernovae}
+\iffalse
+set_star_plot_pop3_bound_iron.png
+set_star_plot_pop3_bound_oxy.png
+set_star_plot_pop3_yt_iron.png
+set_star_plot_pop3_yt_oxy.png
+set_star_plot_transmass.png
+\fi
+\iffalse
+set_sn1a_plot_sn1a_dtd1_iron.png         
+set_sn1a_plot_sn1a_dtd1_oxy.png          
+set_sn1a_plot_sn1a_dtd2_iron.png         
+set_sn1a_plot_sn1a_dtd2_oxy.png
+set_sn1a_plot_sn1a_dtd3_iron.png
+set_sn1a_plot_sn1a_dtd3_oxy.png
+set_sn1a_plot_sn1a_num1_iron.png
+set_sn1a_plot_sn1a_num1_oxy.png
+set_sn1a_plot_sn1a_num2_iron.png
+set_sn1a_plot_sn1a_num2_oxy.png
+set_sn1a_plot_sn1a_yt.png
+\fi
+
+\comment{what parameters are used to mess with sn1a and pop3?}
+\comment{add plot about agb/massive yield tables
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_yt_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_yt_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_yt.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_bound_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_bound_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_transmass.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_num1_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_num1_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd1_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd1_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd2_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd2_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd3_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd3_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_num2_iron.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_num2_oxy.png}
+  %\caption{\label{fig:fit-v2}}
+\end{figure}
+
+\subsection{Binary neutron star mergers}
+\iffalse
+Filenames:
+set_nsm_plot_combo_rates.png      
+set_nsm_plot_combo_spectro.png    
+set_nsm_plot_dtd.png              
+set_nsm_plot_ejmass.png           
+set_nsm_plot_final_rates.png             
+set_nsm_plot_final_spectro.png           
+set_nsm_plot_mergerfraction_rates.png    
+set_nsm_plot_mergerfraction_spectro.png  
+set_nsm_plot_nbnsm_rates.png             
+set_nsm_plot_nbnsm_spectro.png
+\fi
+
+\comment{what are realistic parameters? uncertainty of them?}
+\comment{what are the input parameter-space used?}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_dtd.png}
+  %\caption{\label{fig:fit-v3}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_ejmass.png}
+  %\caption{\label{fig:fit-v3}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_mergerfraction_rates.png}
+  %\caption{\label{fig:fit-v3}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_mergerfraction_spectro.png}
+  %\caption{\label{fig:fit-v3}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_nbnsm_rates.png}
+  %\caption{\label{fig:fit-v3}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_nbnsm_spectro.png}
+  %\caption{\label{fig:fit-v3}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_combo_rates.png}
+  \caption{\label{fig:fit-v3-combo-nsmr}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_combo_spectro.png}
+  \caption{\label{fig:fit-v3-combo-euro}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_final_rates.png}
+  \caption{\label{fig:fit-v3-nsmr}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_final_spectro.png}
+  \caption{\label{fig:fit-v3-final-euro}}
+\end{figure}
+
+\subsection{Final parameters of fitting}
+\comment{add plots from final bestfit-folder}
+

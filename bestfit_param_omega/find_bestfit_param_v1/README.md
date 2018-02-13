@@ -26,7 +26,7 @@ The inflow rate is increased to 4.0 M\_sol/yr and the initial mass of gas increa
 The mass-loading factor has to be as low as 0.3 in order to not eject to much chemically evolved gas.
 
 Outflow cannot reproduce the "valleys of death" in the spectroscopic data.
-![mass-loading](data/mass_parameters_v2_masses_n300.png)
+![mass-loading](data/mass_parameters_v2_mass_n300.png)
 ![mass-loading](data/mass_parameters_v2_spectro_n300.png)
 
 If the initial gas mass is fixed to the final, total mass from the 'Eris' data, the new 'Eris-lookalike' can be compared to the 'default', 'Milky Way default', and "Milky Way cte default' already existing in 'Omega'. Increasing the initial gas mass removes the issue on "running out of gas". The results are plotted below.

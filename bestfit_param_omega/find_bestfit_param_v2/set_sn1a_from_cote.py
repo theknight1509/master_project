@@ -208,12 +208,12 @@ if __name__ == '__main__' and True:
                  expl_string="Various sn1a yield tables")
     eris_bestfit.bestfit_sn1a_table = def_yield_table #return to default
 #Conclusion
-#no change
+eris_bestfit.bestfit_sn1a_table = "yield_tables/sn1a_ivo13_stable_z.txt" #less iron, more oxygen, VERY little effect
 
 ############################################
 ### Set number of SN1a a new to rescale! ###
 ############################################
-if __name__ == '__main__' and True:
+if __name__ == '__main__' and False:
     #use nb_1a_per_m to scale number of SN1a
     eris_bestfit.bestfit_special_timesteps = num_steps
     new_list_of_models = []

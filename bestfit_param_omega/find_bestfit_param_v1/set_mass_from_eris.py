@@ -7,8 +7,27 @@ folder.activate_environ()
 from bestfit_param_omega.omega_new import omega_new
 import matplotlib.pyplot as pl
 
-#number of timesteps in current model calculations
-num_steps = 300
+#set number of timesteps in current model calculations
+num_steps = 0
+final = False
+
+try: #check input
+    import sys
+    input_arg = sys.argv[1]
+    num_steps = int(input_arg)
+except IndexError: #no input-arguments given
+    num_steps = 10
+except ValueError: #input-argument is string or float of string
+    if input_arg == "highres":
+        num_steps = 300
+    elif input_arg == "final":
+        num_steps = 300
+        final = True
+    else:
+        num_steps = int(input("How many timesteps do you want?"))
+except:
+    num_steps = int(input("How many timesteps do you want?"))
+    
 if __name__ == '__main__':
     print "number of timesteps in simulation: ", num_steps
 
@@ -71,7 +90,7 @@ def plot_mass(loa_omegas, loa_omega_names, version_string, expl_string):
 to compare with the 'Eris' bestfit """
 ######################
 loa_omegas = []; loa_omega_names = []
-if __name__ == '__main__' and False:
+if __name__ == '__main__' and final:
     from bestfit_param_omega import bestfit_file as clean_slate
     from visualize import eris_data
     reload(clean_slate)
@@ -137,23 +156,22 @@ eris_bestfit.out_follows_E_rate = True #delayed outflow
 #add small increase to inflow to counter outflow
 eris_bestfit.bestfit_inflow_rate = 4.0
 
-if __name__ == '__main__' and True:
+if __name__ == '__main__' and False:
     new_list_of_models = []
     new_list_of_model_names = []
-    loa_ml = [0.3, 0.5, 0.7, 0.9, 2.4] #list of mass_loading values
-    eris_bestfit.bestfit_mgal = 6e+10 #increase initial gas mass to compensate for outflow
-    for ml in loa_ml:
-        #set outflow of gas from mass-loading
-        eris_bestfit.bestfit_mass_loading = ml
-        #Make instance of omega model 
-        eris_omega = omega_new(eris_bestfit) #with eris parameters
-
-        #add model to list of models
-        new_list_of_models.append(eris_omega)
-        new_list_of_model_names.append(r"'Eris' ml=%1.1f, M0=%1.1e"%(ml, eris_bestfit.bestfit_mgal))
-    loa_ml = [0.3, 0.4, 0.7]
-    loa_inflow = [4.4, 4.7, 4.4]
-    loa_init_mass = [5.4e+10, 5.4e+10, 7.6e+10]
+    
+    #list of two parameter combinations that work, well enough...
+    loa_ml = [0.3, 0.4]
+    loa_inflow = [4.3, 4.6]
+    loa_init_mass = [5.4e+10, 5.6e+10]
+    #add two options that overflow and underflow the first first well combination
+    loa_init_mass += [loa_init_mass[0]]*2
+    loa_inflow += [4.0, 4.6]
+    loa_ml += [0.5, 0.2]
+    #add two options that overflow and underflow the first second well combination
+    loa_init_mass += [loa_init_mass[1]]*2
+    loa_inflow += [4.2, 5.2]
+    loa_ml += [0.5, 0.2]
     for ml, init_mass, inflow in zip(loa_ml, loa_init_mass, loa_inflow):
         #set outflow of gas from mass-loading
         eris_bestfit.bestfit_mass_loading = ml
@@ -168,7 +186,22 @@ if __name__ == '__main__' and True:
         #add model to list of models
         new_list_of_models.append(eris_omega)
         new_list_of_model_names.append(r"'Eris' ml=%1.1f, M0=%1.1e, \dot{M}_{in}=%1.1f"%(ml,init_mass, inflow))
-        
+
+    #showcase what happens with two much outflow
+    loa_ml = [0.3, 0.5, 0.7, 0.9, 1.5, 2.0] #list of mass_loading values
+    eris_bestfit.bestfit_mgal = 6e+10 #increase initial gas mass to compensate for outflow
+    eris_bestfit.bestfit_inflow_rate = 3.7 #set inflow rate to bestfit from 
+    for ml in loa_ml:
+        #set outflow of gas from mass-loading
+        eris_bestfit.bestfit_mass_loading = ml
+        #Make instance of omega model 
+        eris_omega = omega_new(eris_bestfit) #with eris parameters
+
+        #add model to list of models
+        new_list_of_models.append(eris_omega)
+        new_list_of_model_names.append(r"'Eris' ml=%1.1f, M0=%1.1e, \dot{M}_{in}=%1.1f"%(ml, eris_bestfit.bestfit_mgal,
+                                                                                         eris_bestfit.bestfit_inflow_rate))
+    
     plot_mass(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
               version_string="v2_mass", expl_string="Adding a small contribution to outflow by ML-factor, adjusting the inflow and initial mass accordingly.")
     plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
@@ -177,12 +210,17 @@ if __name__ == '__main__' and True:
 ### conclusion 2 ###
 eris_bestfit.bestfit_in_out_control = True
 eris_bestfit.out_follows_E_rate = True #delayed outflow
-eris_bestfit.bestfit_inflow_rate = 4.0
+#option one
+eris_bestfit.bestfit_inflow_rate = 4.6
 eris_bestfit.bestfit_mgal = 5.6e+10
+eris_bestfit.bestfit_mass_loading = 0.4
+#option two
+eris_bestfit.bestfit_inflow_rate = 4.3
+eris_bestfit.bestfit_mgal = 5.4e+10
 eris_bestfit.bestfit_mass_loading = 0.3
 ####################
 
-if __name__ == '__main__' and False:
+if __name__ == '__main__' and final:
     print eris_bestfit.bestfit_galaxy
     eris_omega = omega_new(eris_bestfit) #with eris parameters
     

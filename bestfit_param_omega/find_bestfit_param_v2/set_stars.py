@@ -19,7 +19,8 @@ if __name__ == '__main__':
 
 def plot_rates(loa_omegas, loa_omega_names, version_string, expl_string):
     #plot star-formation, kilonova, and supernova rates
-    vis_obj = visualize(loa_omegas, loa_omega_names, num_yaxes=3)
+    vis_obj = visualize(loa_omegas, loa_omega_names, num_yaxes=3,
+                        loa_abu=[], loa_spectro_abu=["[O/H]", "[Fe/H]", "[Eu/H]"])
     vis_obj.add_time_rate("sf", index_yaxis=0)
     vis_obj.add_time_rate("sn", index_yaxis=1)
     vis_obj.add_time_rate("kn", index_yaxis=2)
@@ -33,10 +34,10 @@ def plot_rates(loa_omegas, loa_omega_names, version_string, expl_string):
                                        "Applying star-parameters to 'Omega' with mass-parameters determined")
         save_obj.make_numpy_file(["time", rate_key])
 
-def plot_spectro(loa_omegas, loa_omega_names, version_string, expl_string):
+def plot_spectro(loa_omegas, loa_omega_names, version_string, expl_string, exclude_eu=False):
     #Plot spectroscopic data for [O/H], [Fe/H], [Eu/H]
-    vis_obj = visualize(loa_omegas, loa_omega_names,
-                        num_yaxes=3)
+    vis_obj = visualize(loa_omegas, loa_omega_names, num_yaxes=3,
+                        loa_abu=[], loa_spectro_abu=["[O/H]", "[Fe/H]", "[Eu/H]"])
     vis_obj.add_time_relabu("[O/H]", index_yaxis=0)
     vis_obj.add_time_relabu("[Fe/H]", index_yaxis=1)
     vis_obj.add_time_relabu("[Eu/H]", index_yaxis=2)
@@ -65,7 +66,7 @@ if __name__ == '__main__' and False:
 ####################
 ### Yield-tables ###
 ####################
-if __name__ == '__main__' and False:
+if __name__ == '__main__' and True:
     def_yield_table = eris_bestfit.bestfit_table
     eris_bestfit.bestfit_special_timesteps = num_steps
     new_list_of_models = []
@@ -75,19 +76,25 @@ if __name__ == '__main__' and False:
 
     for table in loa_yield_tables:
         eris_bestfit.bestfit_table = "yield_tables/"+table
+        #skip model if the object with H,O,Fe does not execute properly
         try:
             eris_omega = omega_new(eris_bestfit)
+            h_index = eris_omega.history.elements.index("H")
+            o_index = eris_omega.history.elements.index("O")
+            fe_index = eris_omega.history.elements.index("Fe")
+            eu_index = eris_omega.history.elements.index("Eu")
+            print "Index of H, O, Fe in 'elements': ", h_index, o_index, fe_index, eu_index
         except:
             continue
         new_list_of_models.append(eris_omega)
         new_list_of_model_names.append(table)
-
-    plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v1",
-                 expl_string="Various AGB/Massive yield tables")
+    if len(new_list_of_model_names) > 0:
+        plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
+                     version_string="v1",
+                     expl_string="Various AGB/Massive yield tables")
     eris_bestfit.bestfit_table = def_yield_table #return to default
-#Conclusion
-#NOTHING BUT BUGS!
+#Conclusion (based on least amount of iron and most oxygen)
+eris_bestfit.bestfit_table="yield_tables/agb_and_massive_stars_nugrid_MESAonly_fryer12delay_wind_preexp.txt"
 
 ####################################
 ### AGB - Massive transitionmass ###

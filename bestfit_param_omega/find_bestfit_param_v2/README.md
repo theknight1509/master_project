@@ -19,7 +19,10 @@ Parameters
 
 Results
 --------
-- Other agb and massive yield tables are buggy **Explain how they are buggy**
+- Other agb and massive yield tables
+  - Found minimal variation
+  - `nugrid_MESAonly_fryer12delay_wind_preexp` seems the best fit, by having the least amount of iron and most oxygen.
+  ![agbm-tables](data/star_parameters_v1_n30.png)
 - Population III stars
   - various tables have no effect on spectroscopic data **Can you explain in two lines why? I assume it's because you're considering heavy elements that are not produced in significant amounts by popIII stars. Btw. you should probably also comment on the discrepancy in Eu first time you show it (just stating that your only partway in the parameter tuning)**
   ![pop3-tables](data/star_parameters_v3_n300.png)

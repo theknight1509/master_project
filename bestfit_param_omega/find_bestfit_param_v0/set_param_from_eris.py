@@ -28,6 +28,7 @@ bestfit_bhnsmerger_table='yield_tables/r_process_arnould_2007.txt'
 ###
 bestfit_sn1a_on = True
 bestfit_tend = 14e+9 #14Gyr simulation
+bestfit_dt = 14e+6 #1000 timesteps in simulation (approximately same as 'Eris'-data) (only in effect when special_timesteps = 0)
 
 if __name__ == '__main__':
     from directory_master import Foldermap
@@ -80,7 +81,7 @@ if __name__ == '__main__':
     loa_omega_names = ["'Eris'", "deafult", "Milky Way default",
                        "Milky Way cte default"]
 
-    if True:
+    if False:
         #plot star-formation, kilonova, and supernova rates
         vis_obj = visualize(loa_omegas, loa_omega_names, num_yaxes=3)
         vis_obj.add_time_rate("sf", index_yaxis=0)
@@ -96,7 +97,7 @@ if __name__ == '__main__':
                                            "Applying 'Eris' to default")
             save_obj.make_numpy_file(["time", rate_key])
 
-    if True:
+    if False:
         #Plot spectroscopic data for [O/H], [Fe/H], [Eu/H]
         vis_obj = visualize(loa_omegas, loa_omega_names,
                             num_yaxes=3)

@@ -15,8 +15,28 @@ import matplotlib.pyplot as pl
 from bestfit_param_omega.find_bestfit_param_v2.set_sn1a_from_cote import eris_bestfit
 from visualize import visualize, save_data
 
+#set number of timesteps in current model calculations
+num_steps = 0
+final = False
+
+try: #check input
+    import sys
+    input_arg = sys.argv[1]
+    num_steps = int(input_arg)
+except IndexError: #no input-arguments given
+    num_steps = 10
+except ValueError: #input-argument is string or float of string
+    if input_arg == "highres":
+        num_steps = 300
+    elif input_arg == "final":
+        num_steps = 300
+        final = True
+    else:
+        num_steps = int(input("How many timesteps do you want?"))
+except:
+    num_steps = int(input("How many timesteps do you want?"))
+
 if __name__ == '__main__':
-    num_steps = 300
     print "Number of timesteps: ", num_steps
 
 def plot_rates(loa_omegas, loa_omega_names, version_string, expl_string):
@@ -53,7 +73,7 @@ def plot_spectro(loa_omegas, loa_omega_names, version_string, expl_string):
         save_obj.make_numpy_file(["time", spectro_string])
 
 ##############################
-### Repeat mass parameters ###
+### Repeat star parameters ###
 ##############################
 if __name__ == '__main__' and False:
     eris_bestfit.bestfit_special_timesteps = 30
@@ -189,15 +209,14 @@ if __name__ == '__main__' and False:
 
     #loa_fractions = [8e-4, 9e-4]
     fraction = 8e-4
-    loa_ej_mass = [6e-2, 8e-2, 2e-1, 3e-1]
-    #for fraction, ej_mass in zip(loa_fractions, loa_ej_mass):
+    loa_ej_mass = [6e-2, 8e-2, 9e-2, 2e-1, 3e-1]
     for ej_mass in loa_ej_mass:
         eris_bestfit.bestfit_f_merger = fraction
         eris_bestfit.bestfit_m_ej_nsm = ej_mass
         eris_omega = omega_new(eris_bestfit)
         
         new_list_of_models.append(eris_omega)
-        new_list_of_model_names.append("'Eris' bestfit M_ej=%1.1e f_m=%1.1e"%(fraction, ej_mass))
+        new_list_of_model_names.append("'Eris' bestfit M_ej=%1.1e f_m=%1.1e"%(ej_mass, fraction))
 
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
                  version_string="v3_rates",
@@ -209,7 +228,7 @@ if __name__ == '__main__' and False:
 #Grand conclusion
 #use realistic ejecta mass and appropriate dtd/merger fractions
 #eris_bestfit_nsm_dtd_power #already set
-eris_bestfit.bestfit_m_ej_nsm = 2e-1
+eris_bestfit.bestfit_m_ej_nsm = 3e-1
 eris_bestfit.bestfit_f_merger = 8e-4
 print "The grand NSM conclusion:"
 print "Dtd power-law: ", eris_bestfit.bestfit_nsm_dtd_power

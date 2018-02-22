@@ -9,11 +9,11 @@ folder.activate_environ()
 from bestfit_param_omega.omega_new import omega_new
 import matplotlib.pyplot as pl
 #get eris-parameters from 'mass-file'
-from bestfit_param_omega.find_bestfit_param_v1.set_mass_from_eris import eris_bestfit
+from bestfit_param_omega.find_bestfit_param_v2.set_stars import eris_bestfit
 from visualize import visualize, save_data
 
 if __name__ == '__main__':
-    num_steps = 30
+    num_steps = 300
     print "Number of timesteps: ", num_steps
 
 def plot_rates(loa_omegas, loa_omega_names, version_string, expl_string):
@@ -62,6 +62,7 @@ if __name__ == '__main__' and False:
     vis_obj.finalize(show=True)
 
 ##########################
+
 ### Set number of SN1a ###
 ##########################
 if __name__ == '__main__' and False:
@@ -188,7 +189,7 @@ eris_bestfit.bestfit_exp_dtd = 5.5e+6
 ##################################################
 ### Use a yield table with better O/Fe balance ###
 ##################################################
-if __name__ == '__main__' and True:
+if __name__ == '__main__' and False:
     def_yield_table = eris_bestfit.bestfit_sn1a_table
     eris_bestfit.bestfit_special_timesteps = num_steps
     new_list_of_models = []

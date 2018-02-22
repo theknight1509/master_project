@@ -1,0 +1,13 @@
+#Conclusion from 'set_mass_from_eris'
+eris_bestfit.bestfit_in_out_control = True
+eris_bestfit.out_follows_E_rate = True #delayed outflow
+eris_bestfit.bestfit_inflow_rate = 4.0
+eris_bestfit.bestfit_mgal = 5.6e+10
+eris_bestfit.bestfit_mass_loading = 0.3
+
+#Conclusion from 'set_sn1a_from_cote'
+bestfit_sn1a_rate = "exp"
+bestfit_exp_dtd = 5.5e+6
+bestfit_nb_1a_per_m = 9e-4
+
+#Conclusion from 'set_nsm_from_eris'

@@ -23,20 +23,20 @@ Results
   - Found minimal variation
   - `nugrid_MESAonly_fryer12delay_wind_preexp` seems the best fit, by having the least amount of iron and most oxygen.
   ![agbm-tables](data/star_parameters_v1_n30.png)
+- Transitionmass between AGB and massive stars have almost no effect on spectroscopic iron, 
+higher transitionmass means lower iron but the effect is neglectable. Leave as is! ** Rather state that you leave it at the default value of XX**
+![transitionmass](data/star_parameters_v2_n30.png)
 - Population III stars
   - various tables have no effect on spectroscopic data **Can you explain in two lines why? I assume it's because you're considering heavy elements that are not produced in significant amounts by popIII stars. Btw. you should probably also comment on the discrepancy in Eu first time you show it (just stating that your only partway in the parameter tuning)**
   ![pop3-tables](data/star_parameters_v3_n300.png)
   - boundaries of initial mass function **Does not appear to have any significant effect either**
   ![pop3-imf](data/star_parameters_v4_n300.png)
-- Transitionmass between AGB and massive stars have almost no effect on spectroscopic iron, 
-higher transitionmass means lower iron but the effect is neglectable. Leave as is! ** Rather state that you leave it at the default value of XX**
-![transitionmass](data/star_parameters_v2_n30.png)
 - SN1a numbers ** rates?** scale all spectroscopic abundances up and down (unsurprisingly). Want a value somewhere between 1e-4 and 1e-3 supernovae per solar mass. This prioritizes iron over oxygen.
   - nb1a ~ 8e-4
 ![sn1a-numbers1](data/sn1a_parameters_v1_spectro_n30.png) 
 - SN1a delay-time distribution: **Explain in few words what the delay time distribution is, and that power-law, gaussian and exponential are the standard choices (provide a reference, can possibly just be an OMEGA paper**
   - power-law: Minimal effect, flatter distribution gives slightly less iron between 1 and 6 Gyr.
-  ![sn1a-power-law](data/sn1a_parameters_v2_power_spectro_n30.png)
+  ![sn1a-power-law](data/sn1a_parameters_v2_powerlaw_spectro_n30.png)
   - gaussian: slighlty less iron for distribution with old mean.
   ![sn1a-gauss](data/sn1a_parameters_v2_gauss_spectro_n30.png)
   - exponential: weird effect with exponential decay-time lower then 5 Myr(see plots).

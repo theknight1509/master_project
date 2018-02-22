@@ -19,20 +19,20 @@ Results/progress
 
 First apply inflow and initial gas mass only. The best fit is an initial gas mass ~4.4e+10 M\_sol and a **constant** inflow rate of ~3.7 M\_sol/yr.
 ![initial plus inflow only](data/mass_parameters_v1_n1100.png)
-** Maybe it's worth do do some of these plots relative to ERIS rather than just comparing?**
+**Maybe it's worth do do some of these plots relative to ERIS rather than just comparing?**
 
 Now increase inflow and initial gas mass slightly, and try different values for mass-loading(solar masses ejected from galaxy per solar masses exploded). 
 The inflow rate is increased to 4.0 M\_sol/yr and the initial mass of gas increased to 5.6e+10 M\_sol.
 The mass-loading factor has to be as low as 0.3 in order to not eject to much chemically evolved gas.
 
-Outflow cannot reproduce the "valleys of death" in the spectroscopic data.
+Outflow cannot reproduce the "valleys of death" in the spectroscopic data, only slight variation around dips.
 ![mass-loading](data/mass_parameters_v2_mass_n300.png)
 ![mass-loading](data/mass_parameters_v2_spectro_n300.png)
 
 If the initial gas mass is fixed to the final, total mass from the 'Eris' data, the new 'Eris-lookalike' can be compared to the 'default', 'Milky Way default', and "Milky Way cte default' already existing in 'Omega'. Increasing the initial gas mass removes the issue on "running out of gas". The results are plotted below.
 
 ![final masses](data/mass_parameters_v3_masses_n300.png)
-** Where do the Mb data points come from? Observations/simulations?**
+**Where do the Mb data points come from? Observations/simulations?**
 ![final rates](data/mass_parameters_v3_rates_n300.png)
 ![final spectroscopic](data/mass_parameters_v3_spectro_n300.png)
 

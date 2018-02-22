@@ -20,3 +20,6 @@ bestfit_t_nsm_coal = 1.0e+6
 #imf_bdys is unchanged
 #f_arfo is unchanged
 
+import sys
+sys.exit("This module is currently outdated!")
+

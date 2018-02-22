@@ -66,7 +66,7 @@ if __name__ == '__main__' and False:
 ####################
 ### Yield-tables ###
 ####################
-if __name__ == '__main__' and True:
+if __name__ == '__main__' and False:
     def_yield_table = eris_bestfit.bestfit_table
     eris_bestfit.bestfit_special_timesteps = num_steps
     new_list_of_models = []
@@ -178,3 +178,4 @@ if __name__ == '__main__' and False:
 #no effect
 
 pl.show()
+

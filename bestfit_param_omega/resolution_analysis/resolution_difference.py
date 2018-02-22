@@ -127,7 +127,7 @@ def save_table_latex(loa_data_string, filename):
         outfile.write(header + '\n')
         outfile.write(horiz + '\n')
         for line in loa_data_strings:
-            modified_line = latex_col_sep.join(header.split(",")) \
+            modified_line = latex_col_sep.join(line.split(",")) \
                             + latex_row_sep
             outfile.write(modified_line + '\n')
     return

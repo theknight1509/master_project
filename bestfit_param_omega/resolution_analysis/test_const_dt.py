@@ -12,6 +12,9 @@ from bestfit_param_omega import current_bestfit as cbf
 from bestfit_param_omega.omega_new import omega_new
 #import "old-omega" model
 from omega import omega
+#turn all warnings into errors
+import warnings
+warnings.filterwarnings("error")
 
 def test_timestep(timestepsize):
     """
@@ -31,6 +34,8 @@ def test_timestep(timestepsize):
         time_string = O_obj._gettime()
     except IndexError: #same old error, cannot create timestep-list
         result_old += "IndexError"
+    except RuntimeWarning: #invalid value in slope in double_scalars
+        result_old += "RuntimeWarning"
     except: #Some other error
         result_old += "Unknown Error"
     else: #Did not fail
@@ -45,7 +50,10 @@ def test_timestep(timestepsize):
         time_string = O_obj._gettime()
     except IndexError: #same old error, cannot create timestep-list
         result_new += "IndexError"
+    except RuntimeWarning: #invalid value in slope in double_scalars
+        result_old += "RuntimeWarning"
     except: #Some other error
+        raise
         result_new += "Unknown Error"
     else: #Did not fail
         result_new += "Success! %d timesteps %s"%(n_steps, time_string)

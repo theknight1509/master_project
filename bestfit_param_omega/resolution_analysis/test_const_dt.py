@@ -112,24 +112,30 @@ if __name__ == '__main__':
     #remove whitespace, add underscore
     comp_string = "_" + "".join(comp_string.split(" "))
 
-    #Find minimum exponent
-    min_exponent = int(input("What is the minimum exponent?"))
-    
-    #make steplengths between 10^5 and 10^10 years
     loa_constdt_values = []
-    for exponent in range(min_exponent, 10)[::-1]:
-        step = int(10**exponent)
-        start = step
-        stop = int(10**(exponent+1))
-        loa_constdt_values += range(start,stop, step)
+    if comp_string == "_specialcaseMyr":
+        #Make special case where Myrs are tested.
+        multiples = range(1, 30)
+        for m in multiples:
+            dt_value = m*1e+6
+            loa_constdt_values.append(dt_value)
+    else:
+        #Use dt-values between minimum_exponent and 10^10
+        #Find minimum exponent                                                                                                                 
+        min_exponent = int(input("What is the minimum exponent?"))
+        for exponent in range(min_exponent, 10)[::-1]:
+            step = int(10**exponent)
+            start = step
+            stop = int(10**(exponent+1))
+            loa_constdt_values += range(start,stop, step)
 
     #loop over constant timesteps
     loa_data_strings = ["dt, default-omega result, bestfit-omega result"]
     for i,constdt in enumerate(loa_constdt_values):
-        print "Number %d, timesteplength %1.0e yr"%(i,constdt)
+        print "Number %d, timesteplength %1.2e yr"%(i,constdt)
         result_old, result_new = test_timestep(constdt)
         data_tuple = (constdt, result_old, result_new)
-        data_string = "%1.0e, %s, %s"%data_tuple
+        data_string = "%1.2e, %s, %s"%data_tuple
         loa_data_strings.append(data_string)
 
     #save data into table-files

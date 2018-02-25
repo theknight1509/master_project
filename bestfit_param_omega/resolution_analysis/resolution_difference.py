@@ -137,7 +137,9 @@ if __name__ == __main__:
     #Execute analysis of difference in resolution!
     
     #make list of appropriate timestep-values (constant and special)
-    loa_const_dt_values = [] #from test_const_dt
+    loa_const_dt_values = [1.6e+7, 2.0e+7, 2.5e+7, 2.8e+7, 4.0e+7,
+                           5.0e+7, 7.0e+7, 8.0e+7, 1.0e+8, 2.0e+8,
+                           4.0e+8, 5.0e+8, 7.0e+8, 1.0e+9, 2.0e+9, 7.0e+9] #from test_const_dt
     loa_special_timestep_numbers = [] #fill while calculating constant timesteps
 
     #loop over all __constant__ timestep number

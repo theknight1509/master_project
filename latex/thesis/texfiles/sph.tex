@@ -1,0 +1,52 @@
+Smooth particle hydrodynamics:
+
+Particle physics can be simulated by calculating the forces acting on each particle, then using newtons second law to get the acceleration of each particle.
+By integrating in time, with a large variety of numerical methods, the acceleration will give correction to the velocity in the next timestep.
+In a similar fashion the velocity of each particle will give the position in the next timestep.
+Examples of such numerical methods are Euler's method, Euler-Cromer's method, Velocity Verlet, Runge-Kutta 4.
+%TODO add equations?
+Numerical particle physics approximates all matter to discrete points in time and space. Due to limited numerical capabilities, and the sheer scale of astronomical dimensions it will not be able to resolve an entire galaxy.
+%add equations of gravity
+
+Alternatively to representing a galaxy by many discrete points, is representing a galaxy as a meshgrid of average physical properties.
+This meshgrid holds physical properties like density, pressure, velocity and internal energy. Flow of mass and energy between the gridspaces is done according to hydrodynamics.
+%TODO add equations?
+%momentum equation
+%continuity equation
+%thermal energy equation
+%gravitational potential/poisson eq.
+
+Smoothed particle hydrodynamics represent an effort to combine the two different approaches. Point particles representing a sphere of gas/stars/dark matter with a kernel function to extend the sphere around the point particle.
+The kernel function is historically represented by a gaussian, but for numerical ease modern methods use a spline-function that is zero outside a given range.
+Hydrodynamical effects on a particle from another nearby particle is given by the overlapping kernel functions, which represent a higher density/pressure/internal energy region. The hydrodynamical equations then govern change in velocity and temperature.
+%Add hydrodynamical equations
+%kernel function equations
+%rewrite hydrodynamical equations to kernel-functions
+
+Tree-structure method:
+
+If a group of bodies is far away from an observer, the sum force of each body is similar to force to the mass-center with a mass equal to the sum of indivdual masses.
+This is exploited numerically by splitting the point particles into ``trees'' where the force on one body from a group of smaller bodies far away is given by the distance to the mass-center of said group and the sum of masses.
+Numerically this is done by calculating the mass-center of all bodies, then splitting the simulation in two sections with equal number of particles and calculate the mass-center of these two sections. This process is repeated iteratively until a single body/point particle is left. In other words; the ``tree'' tretches into many ``branches'' with a single particle at the end of each branch. Nearby particles are also grouped together into ``leaves''.
+When calculating the force acting on a single particle one calculates the force from each neighbour, but as the distance increases the mass-center for a large ``branch'' is used instead of all individual ``leaves''.
+%refer to gravity calculation, remove some sums with high distance and swap out with mass-center.
+
+Gasoline:
+%Add reference to gasoline article
+
+Gasoline is a parallelized tree-smoothed-particle-hydrodynamics code that is designed to be modular and easy to apply to many different systems.
+``Astrophysicist have always been keen to exploit technology to better understand the universe.''(add citation).
+Gasoline tracks particles with a selfgravitating sphere of density, represented by a kernel function around the particle, extending a certain distance from the particle.
+The code builds a tree to connect all the particles, in order to calculate gravitational forces more efficiently. The tree is also reproduced to calculate periodic boundary conditions more efficiently.
+
+The simulation consists of four separate layers; the master layer, the processor set tree, the machine dependant layer, and the parallel K-D layer. The Master layer handles all code and processors, the processor set tree handles processes and information flow. The machine dependant layer is a short piece of code to handle function calls and memeory sharing for various machine setups. The last layer is where all the interactions and calculations are made. This means that the simulation is easy to modify for different machine architectures and can take many different physical effects into account without diving deeply into the entire workings of the code.
+
+Particle hydrodynamics is only relevant when two smoothing kernels (representing the extension of gas) overlap. When the edges of two kernels start overlapping, the density and pressure the kernel represent increase causing a repulsive force from the hydrodynamical equations of motion and continuity.
+
+Cooling in gasoline
+Energy transport in Gasoline can follow a wide range of procedures, like adiabatic and isothermal cooling processes, hydrogen/helium cooling processes with ionization fractions in addition to ultraviolet feedback from star formation and cosmic background.
+
+Timestepping in gasoline
+With many different timescales originating from the large density variations, as well as different processes.
+Using a constant timestep in the integration, the velocity and other hydrodynamical quantities are updated within half of this timestep.
+The position on the other hand is updated to one full timestep while the the rest of qunatities are integrated for another half-step to catch up. This process of splitting up steps is repeated if necessary in the so-called Kick-Drift-Kick timestep scheme.

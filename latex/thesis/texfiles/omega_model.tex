@@ -1,0 +1,87 @@
+\section{The \omegamodel\ model}
+\label{sec:omega}
+OMEGA stands for 'One-zone Model of the Evolution of Galaxies' and evolves the isotopic content of a galaxy.
+The model is a one-zone model, which means that the entire galaxy is simplified to a single point.
+A zero-space-dimensional galaxy model seems unrealistic, but it can be imagined as the mean value for a three-space-dimensional galaxy model.
+\comment{Add reference to cote-paper}
+
+\subsection{Process}
+\label{sec:omega-process}
+The \omegamodel\ model emulates the chemical evolution of a galaxy by representing the initial primordial gas. A simple stellar population is created by integrating the star formation rate in time.
+The star formation rate is calculated either by using a constant star formation rate, the Kennicut-Schmidt law, or by using an input star formation rate and interpolate over those values.
+
+The stellar populations represent a cluster of stars, with a total mass, initial mass distribution, and initial metallicity distribution.
+The initial mass distributions are given as one of the standard distributions, Salpeter, Kroupa, Chabrier, or a power-law, all between some minimum and maximum mass limit.
+The initial metallicity distribution is the mass of each single isotope tracked, then scaled to one to get the relative amount of each isotope.
+
+Stellar evolution codes calculate the amount of ejected material, for each isotope, for a star with a given initial metallicity and initial mass. These codes are used to create \textbf{yield tables} for certain kind of stars with different initial mass and metallicity.
+
+In the simple stellar population in the galactic chemical evolution model, these yield tables are used to calculate the chemical composition and mass of ejecta from a group of stars. The ejecta are disspersed back into the interstellar medium (gas of the galaxy model) at delay-times appropriate for each mass of star.
+E.g. For a given mass-bin the total mass of stars, number, and age of stars, with initial mass in that bin, are calculated using the total mass of the total stellar mass and mass function chosen. By choosing the yield tables closest in initial mass and initial metallicity the total ejecta composition is calculated and added to the interstellar medium at the age where those stars would have gone supernova.
+The material that is not ejected is left as remnants and total mass and number of remnants are also added to the simulation at the time these stars would have gone supernova.
+
+In \omegamodel\ the creation and treatment of simple stellar population is done by another python-program called \texttt|SYGMA|.
+
+Another key effect that dictates chemical evolution is outflow and inflow. Outflow created from supernova feedback, active galactic nucleus, stellar kick or similar, and inflow from matter outside the galaxy into ``box'' that is our model.
+To describe the chemical evolution one needs to know the total content of the galaxy (or box) and the distribution. In other words, how much of the total mass is stored as each isotope. Material with the same composition as the box is ejected from the box, and material with another composition falls into the box.
+
+The \omegamodel\ model is a \textit{one-zone} model, meaning that everything inside the box has been enriched from stellar lifecycles. Everything outside the box is untouched since ``it's creation'', and has the same composition as the material inside the box had to start with.
+This composition is called the primordial composition (three parts hydrogen, one part helium and trace amounts of lithium and beryllium), and is derived from the big bang nucleosynthesis \comment{(add reference here or in theory part 1)}.
+\comment{More on outflow/inflow}
+
+\comment{uncertainty of parameters and summary of article (cote16a)}
+
+\subsection{Relevant parameters}
+\label{sec:omega-parameters}
+\omegamodel\ has many input parameters, both numerical and physical in nature\footnote{A physical input parameters are model parameters, while a numerical parameter decides on which calculations to choose from and where to get data. E.g initial gas of galaxy is considered physical, while the boolean switch to turn on neutron star mergers are considered numerical.}, to guide the evolution of the galaxy.
+
+This section will describe the most relevant ones.
+
+\begin{description}
+\item[galaxy]
+  This string option chooses predefined parameters to best match a certain galaxy on record.
+  The relevant options are:
+  \begin{description}
+  \item[None] No parameters determined.
+  \item[milky\_way\_cte] Set present dark matter mass to $10^{12} \msol$ and present stellar mass to $5\times10^{10} \msol$, and use a constant star formation rate of $1 \frac{\msol}{yr}$
+  \item[milky\_way] Set present dark matter mass to $10^{12} \msol$ and present stellar mass to $5\times10^{10} \msol$, and use the star formation rate from Chiappini et al. (2001) \comment{add proper reference}
+  \end{description}
+\item[dt] Length of first timestep (in yrs)
+\item[special\_timesteps] Number of logarithmic timesteps
+\item[tend] Final point in time (in yrs)
+\item[mgal] Initial mass of gas (if not calculated by other means), defaults to $10^{10} \msol$
+\item[imf\_type] Which form to use for the initial mass function\comment{explain this somewhere}. 
+\item[sfh\_array] Two one-dimensional arrays, time and star formation rate, that \omegamodel will interpolate over in order to find the star formation rate at a given time.
+\item[in\_out\_control] Boolean switch to turn on or off inflow and outflow.
+\item[inflow\_rate] Constant inflow rate in $\frac{\msol}{yr}$. Gas with primordial composition \comment{(reference to BBN?)} flows into the galaxy.
+\item[outflow\_rate] \comment{remove this?} Constant outflow rate in $\frac{\msol}{yr}$. Enriched gas from the interstellar medium is removed from the galaxy.
+\item[mass\_loading] Fraction of solar masses ejected per solar mass created as star. A different way of calculating outflow based on star formation rate.
+\item[out\_follows\_E\_rate] Adds a time-delay to outflow with mass\_loading such that outflow follows supernova rate.
+\item[transitionmass=8]
+  Mass-limit that separates the AGB stars from the massive stars\comment{explain these stars somewhere}.
+  Defaults to $8\msol$
+\item[popIII\_on] Boolean switch that turn on or off the use of Population III stars
+\item[pop3\_table] Yield tables for population III stars
+\item[imf\_bdys\_pop3] The boundaries of the initial mass function of population III stars.
+\item[sn1a\_on] Boolean switch that turn on or off the use of type 1a supernovae.
+\item[nb\_1a\_per\_m] The number of type 1a supernovae per solar mass formed.
+  Used to calculate the number of type 1a supernovae from star formation rate.
+\item[sn1a\_table] Yield table for type 1a supernovae
+\item[sn1a\_rate] This string option chooses which distribution to calculate the rate of type 1a supernovaefrom.
+  Options are powerlaw, gaussian, and exponential distribution.
+  \begin{description}
+  \item[beta\_pow] Set the power of the power law distribution if 'sn1a\_rate' is "power\_law" 
+  \item[gauss\_dtd] Set the mean and standard deviation of the gaussian distribution if 'sn1a\_rate' is "gauss" 
+  \item[exp\_dtd] Set the e-folding time of the exponential distribution if 'sn1a\_rate' is "exp"
+  \end{description}
+\item[ns\_merger\_on] Boolean switch to turn on or off binary neutron star mergers
+\item[bhns\_merger\_on] Boolean switch to turn on or off black hole neutron star mergers
+\item[nsmerger\_table] Yield table of binary neutron star mergers
+\item[nb\_nsm\_per\_m] Set the number of neutron star mergers per solar mass formed as stars.
+\item[t\_nsm\_coal] Set the time after which all neutron stars collide/merge
+\item[nsm\_dtd\_power] Set the powerlaw distribution of the neutron star merger delay-time distribution \comment{explain this somewhere}.
+\item[f\_merger] Fraction of binary systems that eventually merge. All systems are considered binary. This is instead of 'nb\_nsm\_per\_m'
+\item[m\_ej\_nsm] solar masses ejected per neutron star merger.
+\end{description}
+
+\newpage

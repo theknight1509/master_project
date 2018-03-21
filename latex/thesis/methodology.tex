@@ -1,13 +1,23 @@
 \section{Methodology}
+\comment{divide this section into more logical subsections?}
 
 In this thesis the goal is to examine the influence of uncertainty in models and parameters
 with regards to r-process nucleosynthesis. This will be done by comparing simple galactic chemical evolution models to high resolution smoothed particle hydrodynamics simulations.
 
 The chemical evolution used is \omegamodel, due to it's simplicity and versatility in executing. \omegamodel\ also demonstrates a much larger resolution in mass, resolving the mass into many different isotopes.
-The smoothed particle hydrodynamics simulation \eris is a highresoltuion simulation that resembles the Milky Way Galaxy in many aspects, and is therefor a great candidate for a Milky Way Proxy. Assuming that the evolution of \eris also resembles the evolution of the Milky Way allows us to use the star formation history and baryonic content data from \eris in order to match the generated data from \omegamodel.
-
-blahblahblah
+The smoothed particle hydrodynamics simulation \eris\ is a highresoltuion simulation that resembles the Milky Way Galaxy in many aspects, and is therefor a great candidate for a Milky Way Proxy. Assuming that the evolution of \eris also resembles the evolution of the Milky Way allows us to use the star formation history and baryonic content data from \eris\ in order to match the generated data from \omegamodel.
 
 %fitting of eris/omega
+The first step is to find the parameters for \omegamodel that best reproduce the results from \eris\cite{shen15}. This is done stepwise, and explained further in section \comment{point to correct section in results}.
+To fit the \omegamodel\ model to \eris, the star formation rate calculated for each timestep is used as the star formation history in \omegamodel. This ensures that for sufficiently large timesteps \omegamodel will use the same star formation rate as \eris.
+Otherwise, the parameters of \omegamodel are probed in order to best reproduce the total baryonic content of the simulation, as well as the spectroscopic abundance of [O/H], [Fe/H], and [Eu/H].
+
 %variation of isotope-yield
+Attempting to probe the uncertainties of nuclear observables is difficult, because both \eris\ and \omegamodel\ both use the observed r-process abundance from the \sos\ as the yield tables for all r-process events (\nsm\-s). This mean that all r-process events assume to generate the same distribution of heavy metals, and that distribution is the same as the component measured in the \sos.
+In order to vary these values in \omegamodel\ a single isotope is chosen, along with a factor that applies to the yield of that isotope. When using \omegamodel, all yield tables will multiply with this factor for that specific isotope alone. E.g. ('C-14', 1.3) would mean that the yields for \isotope{C}{6}{14} will be multiplied with 1.3 in all yield tables.
+This method does not only probe the nuclear uncertianties, varying the yield-tables of a chemical evolution code finds the effect of the accumulated uncertainty of the stellar evolution applied to chemical evolution methods.
+\comment{add more details of stellar evolution codes in theory part I}
+
 %variation of multiple parameters and montecarlo simulations
+There are many parameters that affect r-process production alone. Ejecta distribution and size from \nsm and type II supernovae, and the ratio of ejecta and frequency between the two. Even in relatively simple galactic chemical evolution models, these parameters can interact in unpredictable ways. In order to get a complete picture of errors and uncertainty in numerical models, a common approach has been Monte Carlo style simulation\comment{do I need a reference for this?}. Each parameter is randomly drawn from a distribution correspondin g to their ``determined'' uncertainty (usually the chosen distributions are gaussian), and after many repetitions of randomly drawing, the result can be viewed statistically in order to determine uncertainty behavior.
+This thesis will such an experiment with \comment{list parameters here} and see how the uncertainties of the r-process affect the uncertainty of the Re-Os dating method.

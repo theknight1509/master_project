@@ -29,7 +29,71 @@ The \omegamodel\ model is a \textit{one-zone} model, meaning that everything ins
 This composition is called the primordial composition (three parts hydrogen, one part helium and trace amounts of lithium and beryllium), and is derived from the big bang nucleosynthesis \comment{(add reference here or in theory part 1)}.
 \comment{More on outflow/inflow}
 
+\subsection{Uncertainty of parameters}
 \comment{uncertainty of parameters and summary of article (cote16a)}
+
+Galaxies consist of many different, widely varying, scales for both spatial and temporal resolution.
+Galaxies span hydrodynamical evolution on many kpcs and Gyrs, while their stars and supernovae span scales closer to seconds and meters.
+The nuclear processes within stars span nanometer and millisecond timescales, even though stars can last for billion years(with short timescale bursts in between).
+Simulations cannot cover all these scales at once, that is when subgrid methods are used. Stellar evolution simulations predict the fate and output from a stellar life based on input parameters. These solutions are then simplified and applied to more complex galaxy simulations.
+Output from stars are ``looked up in a table'' and applied to the nearby interstellar medium.
+All these methods and linked applications create some uncertainties, both physical and numerical, and these uncertainties are inherited through all methods based on applications of these models. In order to probe how these uncertainties manifest through the resulting galaxy evolution, this article presents a simple one-zone, closed-box model of galaxy evolution, called \omegamodel.
+
+SYGMA creates the simplified stellar populations(mass function, total mass, lifetime distribution, initial metallicity).
+OMEGA combines several stellar populations to emulate a galaxy evolution.
+
+Stellar yields are tables from stellar evolution simulations.
+The tables used in OMEGA are taken from NuGrid and include AGB stars between 1 and 7 msol, massive stars between 12 and 25 msol, all with metallicities at 0.02, 0.01, 0.006, 0.001, 0.0001. These tables contain many isotopes between hydrogen and bismuth.
+
+The stellar evolution was calculated with MESA, post-processing was done with MPPNP, the same nuclear reaction rates were used in all calculations, explosive nucleosynthesis was done with semi-analytical models. Yields are complemeted with SN1a yields from Thielemann and population III yields from Heger\&Woosley.
+
+The probability distribution functions are created from values and uncertainties in the literature.
+Methodologically there are, for each input parameter, gathered a list of literature values and uncertainties.
+The errors are considered gaussian in nature and distributions are created thereafter,
+all the distributions are then averaged to a single distribution.
+Then a single gaussian is fitted atop the ``average of gaussians from the literature'',
+and the median and standard deviation from
+the final fit is used as value and uncertainty for the input parameter in question.
+
+The parameter space was sampled by running 300 simulations where each parameter was varied within their gaussian probability distribution.
+Then a set of 700 simulations where run with all parameters sampled randomly from their gaussian probability distribution.
+A final set of 300 simulations where also run with varying final stellar and gas mass.
+
+The mass limits of the IMF generate little uncertainty.
+
+Modifying final stellar-gas ratio, the uncertainty is manifested in low [Fe/H] values, because more stars produce more iron and and more gas means more hydrogen. However the relative ratio of ejecta is unchanged, meaning [X/Fe] are not affected.
+In the grand scheme, uncertainties from final stellar mass and gas mass are not significant.
+
+Uncertainty in number of type 1a supernovae does not manifest as uncertainty in abundance until after delay time of those supernovae.
+The abundance has no uncertainty until [Fe/H] ~ -1.5 associated with 150 Myr.
+The unusual low iron abundance (milky way is believed to have type 1a supernovae onset at [Fe/H]~1) is due to the closed-box
+approximation.
+Type 1a supernovae add mostly iron to the interstellar abundance, increasing [Fe/H], decreasing [X/Fe].
+CNO-elements that are not produced much in SN1a are most affected.
+
+Slope of the IMF has the most effect, increasing it allows for more massive stars with quick and much ejecta.
+These stars quickly enrich the surounding gas.
+
+Overall uncertainty is calculated by varying all parameters simultaneously.
+Since the previous analysis depended on the uncertainty of a single variable, while keeping the other parameters constant,
+this becomes only an estimate of the uncertainty. However it will grant some valueble insight into which parameter affects
+the uncertainty the most.
+
+Parameters with the most impact: Slope of the IMF, total number of type 1a supernovae and final gas mass of galaxy.
+
+Varying seven input parameters stochastichally and in a monte carlo type fashion.
+The main conclusions are:
+\begin{enumerate}
+\item{Overall uncertainties between 0 and 0.6 dex. Metaliccity dependant uncertainties.}
+\item{Mass of gas and stars affect the uncertainties below [Fe/H] ~ -2,
+  with the delay-time distribution and number of type 1a supernovae affect the uncertainties above [Fe/H] ~ -1.5,
+  slope of the IMF affects uncertainty at all metallicities.}
+\item{Slope of IMF and number of type 1a supernovae affect uncertainty the most when plotting against metallicity.
+  Uncertainty is greatest when cosidered element and reference element is not the same. }
+\item{Features in [X/Fe]-[Fe/H] and [X/Mg]-[Mg/H] share the same characteristics. Such variations
+  are mostly caused by stellar yields, type of galaxy and star formation history.}
+\end{enumerate}
+
 
 \subsection{Relevant parameters}
 \label{sec:omega-parameters}
@@ -83,5 +147,3 @@ This section will describe the most relevant ones.
 \item[f\_merger] Fraction of binary systems that eventually merge. All systems are considered binary. This is instead of 'nb\_nsm\_per\_m'
 \item[m\_ej\_nsm] solar masses ejected per neutron star merger.
 \end{description}
-
-\newpage

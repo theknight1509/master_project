@@ -10,8 +10,11 @@ call the 'directory_master.py'-script to calibrate the directory for your own sp
 
 Useful links
 -----------------------
+[Thesis-pdf](latex/thesis/chapter_theory2_firstdraft.pdf)
+
 [Fitting work](bestfit_param_omega)
 [Resolution folder](bestfit_param_omega/resolution_analysis)
-[Thesis-pdf](latex/thesis/single_section_only.pdf)
 
-Suggestion for presentation-title: "Spatial dimensions are exaggerated"
+Suggestion for presentation-title: 
+ - Spatial dimensions are exaggerated
+ - A behavioral study in stressed masterstudents

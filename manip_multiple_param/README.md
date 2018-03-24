@@ -27,7 +27,6 @@ it's parent, which calls the init of 'Omega'
 
 This class also contains functions that override some functions in 'chemevol'.
 This is to make sure the "fudge factors" for the isotope-yields are properly applied.
-**Need to fix function to handle lists of multiple isotopes and factors**
 
 Parallelized Monte-Carlo method
 --------------------------------
@@ -45,6 +44,9 @@ then picks a set of "fudge factors" from the fudge-factor-parameter-datafile.
 The "fudge factors" are used to make an instance of 'Experiment', and the relevant 
 data are stored to a 2D-numpy-array, with n number of m long arrays in time.
 The new process will return a list of arrays in the data-matrix if the experiment is successful.
+
+**Based on existing parallel script**
+**Look into configparser in order to sort out argparse**
 
 Data storage
 -------------

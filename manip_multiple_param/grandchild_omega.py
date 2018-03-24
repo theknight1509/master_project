@@ -12,10 +12,15 @@ from child_omega import child_omega
 
 class grandchild_omega(child_omega):
     def __init__(self, namespace):
+        #Make list of isotopes and factors to apply to yields
+        self.loa_manip_isotopes = []
+        self.loa_manip_yields = []
+
+        #call __init__ and run model.
         child_omega.__init__(namespace=namespace)
         return
 
-        ##############################################
+    ##############################################
     #              Set Yield Tables              #
     ##############################################
     def _chem_evol__set_yield_tables(self): 
@@ -122,22 +127,21 @@ class grandchild_omega(child_omega):
                 #get list of masses for each metallicity
                 loa_masses = table_object.get(Z=Z, quantity="masses")
                 for M in loa_masses:
-                    #get current yield
-                    try:
-                        present_yield = table_object.get(M=M, Z=Z, quantity="Yields",
-                                                         specie=self.experiment_isotope)
-                    except IndexError: #this means that isotope doesn't exist for this table
-                        continue
-                    #modify yield by some factor
-                    new_yield = present_yield*self.experiment_factor
-                    #"insert" new yield back into table
-                    table_object.set(M=M, Z=Z, specie=self.experiment_isotope, value=new_yield)
-                    #print "Fixed new yield(%s): from %1.4e to %1.4e"%(table_name,
-                    #                                                  present_yield, new_yield)
+                    #loop over all isotopes to manipulate
+                    for manip_isotope, manip_factor in zip():
+                        #get current yield 
+                        try:
+                            present_yield = table_object.get(M=M, Z=Z, quantity="Yields",
+                                                             specie=manip_isotope)
+                        except IndexError: #this means that isotope doesn't exist for this table
+                            continue
+                        #modify yield by some factor
+                        new_yield = present_yield*manip_factor 
+                        #"insert" new yield back into table
+                        table_object.set(M=M, Z=Z, specie=manip_isotope, value=new_yield)
+                        #print "Fixed new yield(%s): from %1.4e to %1.4e"%(table_name,present_yield, new_yield)
                         
         # SN1a, NS-NS merger, BH-NS merger
-        # get index of isotope
-        index_iso = self.history.isotopes.index(self.experiment_isotope)
         #loop over different objects
         for table_object, table_name in zip(
                 [self.ytables_1a, self.ytables_nsmerger, self.ytables_bhnsmerger],
@@ -146,15 +150,18 @@ class grandchild_omega(child_omega):
             loa_metallicities = table_object.metallicities
             #loop over metallicities
             for i_Z, Z in enumerate(loa_metallicities):
-                #get current yield
-                try:
-                    present_yield = table_object.yields[i_Z][index_iso]
-                except IndexError: #this means that isotope doesn't exist for this table
-                    continue
-                #modify yield by some factor
-                new_yield = present_yield*self.experiment_factor
-                #"insert" new yield back into table
-                table_object.yields[i_Z][index_iso] = new_yield
-                #print "Fixed new yield(%s): from %1.4e to %1.4e"%(table_name,
-                #                                                  present_yield, new_yield)
+                #loop over all isotopes to manipulate
+                for manip_isotope, manip_factor in zip():
+                    # get index of isotope
+                    index_iso = self.history.isotopes.index(manip_isotope)
+                    #get current yield
+                    try:
+                        present_yield = table_object.yields[i_Z][index_iso]
+                    except IndexError: #this means that isotope doesn't exist for this table
+                        continue
+                    #modify yield by some factor
+                    new_yield = present_yield*manip_factor
+                    #"insert" new yield back into table
+                    table_object.yields[i_Z][index_iso] = new_yield
+                    #print "Fixed new yield(%s): from %1.4e to %1.4e"%(table_name,present_yield, new_yield)
         return

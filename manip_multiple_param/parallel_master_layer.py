@@ -1,6 +1,6 @@
 """
 This is the master-script for handling subprocesses of MonteCarlo 
-experiment.
+experiment. Performing code exists in bottom if-test.
 
 Stepwise process:
 -create subdirectory for all data
@@ -22,3 +22,8 @@ Input arguments:
 parameter-names, parameter-means, parameter-stddev, num-processes,
 num-processors, bestfit-namespace,
 """
+
+if __name__ == '__main__':
+    #Perform 'stepwise process' from doc-string
+
+    #create new subdirectory

@@ -1,0 +1,46 @@
+
+%packages
+\usepackage{color} %color-package for text
+\usepackage{mhchem} %nuclear notation package
+\usepackage[english]{babel} %english language package
+\usepackage{amsmath} %math-mode package
+\usepackage{wasysym} %astrological symbols package
+\usepackage{ifthen} %logical operations for new commands
+\usepackage{graphicx}
+\usepackage{placeins} %Use for floatbarrier-function
+%commands
+\newcommand{\comment}[1]{ {\color{red}#1} }
+\newcommand{\importantcomment}[1]{ {\Huge \comment{#1}} }
+
+%Packages and styles
+\usepackage{natbib}
+\bibliographystyle{../references/apj}
+
+%Citation commands
+\newcommand\araa{ARA\&A}
+\newcommand\aaps{A\&AS}
+\newcommand\apj{ApJ}
+\newcommand\mycite[1]{{\footnotesize \it \citep{#1}}}
+
+\newcommand{\isotope}[3]{{\footnotesize\ce{^{#3}_{#2}{#1}}}}
+\newcommand{\eu}[1]{\isotope{Eu}{63}{#1}}
+\newcommand{\re}[1]{\isotope{Re}{75}{#1}}
+\newcommand{\os}[1]{\isotope{Os}{76}{#1}}
+\renewcommand{\u}[1]{\isotope{U}{92}{#1}}
+\newcommand{\pb}[1]{\isotope{Pb}{82}{#1}}
+\renewcommand{\th}[1]{\isotope{Th}{90}{#1}}
+\newcommand{\w}[1]{\isotope{W}{74}{#1}}
+
+\newcommand{\sos}{Solar system}
+\newcommand\betadecay{$\beta^-$-decay }
+\newcommand\halflife{
+  \ifmmode \tau_{\text{\tiny 1/2}}
+  \else $\tau_{\text{\tiny 1/2}}$ \fi
+}
+\newcommand\msol{
+  \ifmmode M_{\astrosun}
+  \else $M_{\astrosun}$ \fi
+}
+\newcommand\omegamodel{\texttt{'Omega'}}
+\newcommand\eris{\texttt{'Eris'}}
+\newcommand\nsm{neutron star merger}

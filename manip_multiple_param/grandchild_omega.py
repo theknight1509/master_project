@@ -11,10 +11,11 @@ Description:
 from child_omega import child_omega
 
 class grandchild_omega(child_omega):
-    def __init__(self, namespace):
+    def __init__(self, namespace, loa_manip_isotopes,
+                 loa_manip_yields):
         #Make list of isotopes and factors to apply to yields
-        self.loa_manip_isotopes = []
-        self.loa_manip_yields = []
+        self.loa_manip_isotopes = loa_manip_isotopes
+        self.loa_manip_yields = loa_manip_yields
 
         #call __init__ and run model.
         child_omega.__init__(namespace=namespace)

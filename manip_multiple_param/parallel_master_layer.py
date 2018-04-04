@@ -24,13 +24,15 @@ num-processors, bestfit-namespace,
 """
 import sys, os
 import time as tm
-#import numpy as np
 import multiprocessing as mp
-#from experiment import experiment
-#from make_fudge_factor_table import write_new_table, read_fudge_factor
-#from readme... import readme...
 
-def setup(subdirname):
+from write_experiment_readme import readme
+from parameter_table import make_table, read_table
+from grandchild_omega import grandchild_omega
+
+def setup(subdirname, param_filename, readme_filename,
+          loa_parameter_tuples, num_experiments,
+          num_processors):
     """ function for setting up experiment """
     try:
         os.mkdir(subdirname) #create new subdirectory
@@ -40,15 +42,26 @@ def setup(subdirname):
         if response == "n":
             sys.exit("Exiting!")
         elif response == "y":
-            continue
+            pass
         else:
             print "Unintelligable"
             sys.exit("Exiting!")
     os.chdir(subdirname) #change to new directory
     print "Changing to directory: %s"%(os.getcwd())
+    
     #create data-file of parameters
+    make_table(filename=param_filename,
+               loa_parameter_tuples=loa_parameter_tuples,
+               N=num_experiments)
     #create readme-file
-    return
+    readme_object = readme(filename=readme_filename)
+    date = tm.asctime(tm.localtime(tm.time()))
+    readme_object.add_header(date=date)
+    readme_object.add_param_info(filename=param_filename,
+                                 parameter_tuples=loa_parameter_tuples)
+    readme_object.add_mc_info(num_processes=num_experiments, num_processors=num_processors)
+    readme_object.write_new_file()
+    return readme_object
 
 def queue_processes(n_procs, n_processors, bestfit_namespace, parameter_filename, data_filename_base):
     """function to spawn new processes in queue-system"""
@@ -97,21 +110,48 @@ def wait(loa_active_procs, limit_procs):
 
 def experiment_process(process_index, bestfit_namespace, parameter_filename, data_filename):
     """function to pass to parallel process"""
-    print "This is a test: pid %d"%(process_index)
-    tm.sleep(5)
-    print "pid %d has waited 5 seconds"%(process_index)
     #get parameters from P-filename and index
+    loa_parameter_tuples = read_table(filename=parameter_filename,
+                                     index=process_index)
     #modify bestfit-namespace
+    bestfit_namespace, loa_yield_isotopes, loa_yield_values \
+        = modify_namespace(bestfit_namespace, loa_parameter_tuples)
+
     #create omega-instance with bestfit-namespace and fudge-factors
-    #save data
+    t0 = tm.time()
+    try:
+        experiment_object = grandchild_omega(bestfit_namespace,
+                                         loa_yield_isotopes,
+                                         loa_yield_values)
+        #save data
+        experiment_object.save2file(data_filename)
+        time_string = experiment_object.chemevol_gettime()
+        status_string = "success"
+    except:
+        time_string = tm.time() - t0
+        status_string = "failed"
+
     #return time and status and name of filename
-    return
+    return time_string, status_string, data_filename
+
+def modify_namespace(bestfit_namespace, loa_parameter_tuples):
+    sys.exit("Exiting!")
+    loa_yield_isotopes = []
+    loa_yield_values = []
+    for parameter_tuple in loa_parameter_tuples:
+        continue
+    return bestfit_namespace, loa_yield_isotopes, loa_yield_values
 
 if __name__ == '__main__':
     import bestfit_param_omega.current_bestfit as CBF 
     #Perform 'stepwise process' from doc-string
 
-    setup(subdirname="test")
+    readme_object = setup(subdirname="test",
+                          param_filename="",
+                          readme_filename="",
+                          loa_parameter_tuples="",
+                          num_experiments="",
+                          num_processors="")
     sys.exit()
     queue_processes(n_procs=5, n_processors=3, bestfit_namespace=CBF,
                     parameter_filename="test", data_filename_base="test")

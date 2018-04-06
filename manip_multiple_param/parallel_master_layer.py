@@ -125,11 +125,12 @@ def experiment_process(process_index, bestfit_namespace, parameter_filename, dat
                                          loa_yield_values)
         #save data
         experiment_object.save2file(data_filename)
-        time_string = experiment_object.chemevol_gettime()
+        time_string = experiment_object._gettime()
         status_string = "success"
     except:
         time_string = tm.time() - t0
         status_string = "failed"
+        raise
 
     #return time and status and name of filename
     return time_string, status_string, data_filename
@@ -141,15 +142,15 @@ def modify_namespace(bestfit_namespace, loa_parameter_tuples):
         parameter_name = parameter_tuple[0]
         parameter_value = float(parameter_tuple[1])
         if parameter_name == "ej_mass":
-            print "Old ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
+            #print "Old ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
             bestfit_namespace.bestfit_m_ej_nsm *= parameter_value
-            print "Parameter value applied: ", parameter_value
-            print "New ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
+            #print "Parameter value applied: ", parameter_value
+            #print "New ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
         elif parameter_name == "f_merger":
-            print "Old ejecta mass: ", bestfit_namespace.bestfit_f_merger
+            #print "Old merger fraction: ", bestfit_namespace.bestfit_f_merger
             bestfit_namespace.bestfit_f_merger *= parameter_value
-            print "Parameter value applied: ", parameter_value
-            print "New ejecta mass: ", bestfit_namespace.bestfit_f_merger
+            #print "Parameter value applied: ", parameter_value
+            #print "New merger fraction: ", bestfit_namespace.bestfit_f_merger
         elif '-' in parameter_name: #parameter is a isotope-yield
             loa_yield_isotopes.append(parameter_name)
             loa_yield_values.append(parameter_value)
@@ -183,7 +184,7 @@ if __name__ == '__main__':
 
     ### Get experiment setup from config file and parser ###
     config_filename = "test_config_file.ini"
-    import comfigparser as cp
+    import configparser as cp
     config = cp.ConfigParser()
     config.read(config_filename)
 
@@ -191,17 +192,17 @@ if __name__ == '__main__':
     data_files_name = config["montecarlo parameters"]["datafiles_name"]
     parameter_file_name = "parameter_files.dat"
     readme_file_name = "README.md"
-    num_experiments = config["montecarlo parameters"]["n_experiments"]
-    num_processors = config["montecarlo parameters"]["n_processors"]
+    num_experiments = int(config["montecarlo parameters"]["n_experiments"])
+    num_processors = int(config["montecarlo parameters"]["n_processors"])
 
     loa_parameter_tuples = param_dict2tuplelist(config["model parameters"])
 
-    print "Using %s as config file for parameters"
+    print "Using %s as config file for parameters"%(config_filename)
     
     #Perform 'stepwise process' from doc-string
 
     readme_object = setup(subdirname=subdir_name,
-                          param_filename=parameter_fil_name,
+                          param_filename=parameter_file_name,
                           readme_filename=readme_file_name,
                           loa_parameter_tuples=loa_parameter_tuples,
                           num_experiments=num_experiments,

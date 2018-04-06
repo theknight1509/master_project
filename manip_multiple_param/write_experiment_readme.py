@@ -58,11 +58,11 @@ class readme(object):
         key = "param_info"
         input_list = [filename,parameter_tuples,opt_namespace_info]
         if key in self.content_dict.keys(): #data-tuple exists
-            old_data_tuple = content_dict[key]
+            old_data_tuple = self.content_dict[key]
             #if input data is True, add input data, else use old
             new_data_list = [input_data if input_data else old_data
                              for old_data, input_data
-                             in zip(old_data_list, input_list)]
+                             in zip(old_data_tuple, input_list)]
             self.content_dict[key] = tuple(new_data_list)
         else: #fill dict with empty values
             self.content_dict[key] = tuple(input_list)
@@ -92,11 +92,11 @@ class readme(object):
         key = "mc_info"
         input_list = [num_processes, num_processors, tot_time]
         if key in self.content_dict.keys(): #data-tuple exists
-            old_data_tuple = content_dict[key]
+            old_data_tuple = self.content_dict[key]
             #if input data is True, add input data, else use old
             new_data_list = [input_data if input_data else old_data
                              for old_data, input_data
-                             in zip(old_data_list, input_list)]
+                             in zip(old_data_tuple, input_list)]
             self.content_dict[key] = tuple(new_data_list)
         else: #fill dict with empty values
             self.content_dict[key] = tuple(input_list)

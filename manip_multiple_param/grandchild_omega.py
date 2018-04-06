@@ -18,7 +18,7 @@ class grandchild_omega(child_omega):
         self.loa_manip_yields = loa_manip_yields
 
         #call __init__ and run model.
-        child_omega.__init__(namespace=namespace)
+        child_omega.__init__(self,bestfit_namespace=namespace)
         return
 
     ##############################################
@@ -29,6 +29,11 @@ class grandchild_omega(child_omega):
         This function sets the variables associated with the yield tables
         and the stellar lifetimes used to calculate the evolution of stars.
 	'''
+        import read_yields as ry
+        import os
+        import sys
+        global_path = os.environ['SYGMADIR'] + '/'
+        
         # Set if the yields are the default ones or not
         if not int(self.iniZ) == int(-1):
             default_yields = True

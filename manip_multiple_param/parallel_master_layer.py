@@ -135,23 +135,79 @@ def experiment_process(process_index, bestfit_namespace, parameter_filename, dat
     return time_string, status_string, data_filename
 
 def modify_namespace(bestfit_namespace, loa_parameter_tuples):
-    sys.exit("Exiting!")
     loa_yield_isotopes = []
     loa_yield_values = []
     for parameter_tuple in loa_parameter_tuples:
-        continue
+        parameter_name = parameter_tuple[0]
+        parameter_value = float(parameter_tuple[1])
+        if parameter_name == "ej_mass":
+            print "Old ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
+            bestfit_namespace.bestfit_m_ej_nsm *= parameter_value
+            print "Parameter value applied: ", parameter_value
+            print "New ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
+        elif parameter_name == "f_merger":
+            print "Old ejecta mass: ", bestfit_namespace.bestfit_f_merger
+            bestfit_namespace.bestfit_f_merger *= parameter_value
+            print "Parameter value applied: ", parameter_value
+            print "New ejecta mass: ", bestfit_namespace.bestfit_f_merger
+        elif '-' in parameter_name: #parameter is a isotope-yield
+            loa_yield_isotopes.append(parameter_name)
+            loa_yield_values.append(parameter_value)
+        else:
+            print "Warning in 'modify_namespace'! Parameter %s not applied to namespace or yields"%(parameter_name)
+
     return bestfit_namespace, loa_yield_isotopes, loa_yield_values
 
+def param_dict2tuplelist(param_dict):
+    """ Turn dictionary of string keys and and string values 
+    to list of tuples with gaussian parameters.
+    e.g. (param1, mean1, rel_stddev1) """
+    param_list = []
+    for key in param_dict.keys():
+        try:
+            val = float(param_dict[key])
+            parameter_name = key
+            if '-' in parameter_name: #name is a isotope yield
+                parameter_name = parameter_name.capitalize()
+            param_tuple = (parameter_name, 1.0, val)
+            param_list.append(param_tuple)
+        except ValueError: #cannot turn value of key to float
+            continue
+        except: #Any other error
+            continue
+    return param_list
+
 if __name__ == '__main__':
-    import bestfit_param_omega.current_bestfit as CBF 
+    ### Get parameters  to omega ###
+    import bestfit_param_omega.current_bestfit as CBF
+
+    ### Get experiment setup from config file and parser ###
+    config_filename = "test_config_file.ini"
+    import comfigparser as cp
+    config = cp.ConfigParser()
+    config.read(config_filename)
+
+    subdir_name = config["montecarlo parameters"]["directory_name"]
+    data_files_name = config["montecarlo parameters"]["datafiles_name"]
+    parameter_file_name = "parameter_files.dat"
+    readme_file_name = "README.md"
+    num_experiments = config["montecarlo parameters"]["n_experiments"]
+    num_processors = config["montecarlo parameters"]["n_processors"]
+
+    loa_parameter_tuples = param_dict2tuplelist(config["model parameters"])
+
+    print "Using %s as config file for parameters"
+    
     #Perform 'stepwise process' from doc-string
 
-    readme_object = setup(subdirname="test",
-                          param_filename="",
-                          readme_filename="",
-                          loa_parameter_tuples="",
-                          num_experiments="",
-                          num_processors="")
-    sys.exit()
-    queue_processes(n_procs=5, n_processors=3, bestfit_namespace=CBF,
-                    parameter_filename="test", data_filename_base="test")
+    readme_object = setup(subdirname=subdir_name,
+                          param_filename=parameter_fil_name,
+                          readme_filename=readme_file_name,
+                          loa_parameter_tuples=loa_parameter_tuples,
+                          num_experiments=num_experiments,
+                          num_processors=num_processors)
+    queue_processes(n_procs=num_experiments,
+                    n_processors=num_processors,
+                    bestfit_namespace=CBF,
+                    parameter_filename=parameter_file_name,
+                    data_filename_base=data_files_name)

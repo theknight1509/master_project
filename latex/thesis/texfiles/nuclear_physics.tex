@@ -1,0 +1,193 @@
+\section{Nuclear physics \comment{The entire section is ``taken'' from \cite{iliadis2015}}}
+
+The atom is build up of electrons around a core of protons and neutrons.
+The electric coulomb forces keep the negatively charged electrons around the positively charged
+protons in the core. The protons and the neutrons are bound together by the strong nuclear force.
+
+The quantum mechanical model of the atom is build up by quantum particles (electrons)
+in the coulomb potential of the core. The energy of the electrons is defined by their
+radial quantum number, angular momentum quantum number, and intrinsic spin (analogous to
+rotation about the particles own axis).
+
+The strong force that holds the core together is not as well understood as the electric coulomb
+force. In order to make a quantum mechanical model of the core it is assumed that all the
+particles in the core combined make up a central potential. The protons and neutrons are
+then solved as quantum mechanical particles in the central field.
+The central potential is traditionally either an harmonic oscillator or WS potential.
+The states of the different particles is given by the radial, angular momentum and intrinsic
+spin of the particles/nucleons (the neutrons and protons). Just as in the atomic model.
+The energy of these state do not stack linearly, but group together in seemingly clumsy manners.
+If particularly many energy states are grouped together, with a large gap in energy until the next
+available energy state, the group is called a magic number (because they show up quite regularly in theory
+and observations).
+
+%Nuclear mass, binding energy, and reactions
+The total mass of the nucleus is given by the sum it's consituents, the nucleons, and dividing by
+the mass number (number of nucleons in the core) one gets the average mass per nucleon.
+This should be pretty elementary, but it turns out that the mass per nucleon dimishes
+as mass number increases. Each proton and neutron becomes lighter as more protons and neutrons are stacked
+into the central potential of the core.
+This energy is analogous to the energy needed to release nucleons from the nucleus potential.
+A classical example is two lighter nuclei colliding to one heavier nucleus. Since
+the mass per nucleon is lower, but the total number of particles before and after has not changed the total
+energy has lowered. This excess energy (or mass) is radiated away as thermal photons.
+\comment{ADD A PLOT OF BINDING ENERGY PER NUCLEON FOR ATOMIC NUMBER}
+This implies that synthesizing heavier elements up to iron (peak binding energy) from
+lighter elements releases energy.
+Since protons and neutrons are fermions they follow the pauli exclusion principle,
+stating that a maximum of two particles can exist in any given quantum state in a bound system.
+E.g. Take a nucleus and continue to stack neutrons onto it, as the neutrons take on
+higher and higher energy states (from the pauli exclusion principle) the nucleus eventually reaches
+a level where any new neutron would no longer be bound. The neutrons would therefore be immediately expelled.
+If some protons were added, the strong force would be even stronger and more neutrons could be
+added to the nucleus. The reverse is also true if protons were added continously.
+This point in the nuclear chart (neutron number - proton number map) is called the neutron drip line
+and proton drip line respectively.
+
+A nuclear reaction in stellar environments is usually depicted as two quantum particles, 1 and 2,
+interacting to make two new quantum particles, 3 and 4.
+Written as: $1+2 \rightarrow 3+4$ or $1(2,3)4$ where 2 and 3 are \textit{usually} the lighter particles
+``impacting onto'' or ``emitting from'' the larger nuclei 1 and 4.
+If particle 2 is a photon, light absorption, the process is a photodisintegration process and the
+energy released is negative.
+If particle 3 is a photon, then energy is created from two nuclei colliding and merging to a single nucleus,
+the energy released is positive.
+The probability of a given reaction happening is called the nuclear cross-section, in area-units.
+Since particles with higher velocity have a greater chance of colliding, the cross-section is velocity dependant.
+The reaction probability in a stellar volume is therefore the integral of cross-section over the velocity distribution,
+for thermal velocities the maxwell distribution can be adopted.
+The reaction rate then is the probability times the number density of each nuclear specie, as more particles closer together means
+more possible reactions.
+The end result is that nuclear reactions are dependent on the density and
+thermal velocity (temperature) in stellar environments, and produces energy as long as
+the fusing particles are lighter then iron.
+
+%weak interactions
+Interactions with the weak force cause different decay reactions. The most common weak interactions are listed below
+\iffalse
+\begin{align*}
+  %n &\rightarrow p^+ + e^- + \bar{\nu_e} \textrm{\flushright free neutron decay} \\
+  %\ce{^{A}_{Z}X_{N}} &\rightarrow \ce{^{A}_{Z+1}Y_{N-1}} + e^{-} + \bar{\nu} \textrm{\flushright $beta^-$ decay} \\
+  %\ce{^{A}_{Z}X_{N}} &\rightarrow \ce{^{A}_{Z-1}Y_{N+1}} + e^{+} + \nu \textrm{\flushright $beta^+$ decay} \\
+  %\ce{^{A}_{Z}X_{N}}  + e^{-} &\rightarrow \ce{^{A}_{Z-1}Y_{N+1}} + \nu \textrm{\flushright electron capture} \\
+  %\ce{^{A}_{Z}X_{N}} + \bar{\nu} &\rightarrow \ce{^{A}_{Z+1}Y_{N-1}} + e^{-} \textrm{\flushright anti-neutrino capture}\\
+  \ce{^{A}_{Z}X_{N}} + \nu &\rightarrow \ce{^{A}_{Z-1}Y_{N+1} + e^{+}} %\textrm{\flushright anti-neutrino capture}
+\end{align*}
+\fi
+\begin{description}
+  \item[free neutron decay] \ce{n \rightarrow p^+ + e^- + $\bar{\nu_e}$} \\%\textrm{\flushright free neutron decay} \\
+  \item[\betadecay] \ce{^{A}_{Z}X_{N} \rightarrow ^{A}_{Z+1}Y_{N-1} + e^{-} + $\bar{\nu_e}$} \\%\textrm{\flushright $beta^-$ decay} \\
+  \item[$beta^+$ decay] \ce{^{A}_{Z}X_{N} \rightarrow ^{A}_{Z-1}Y_{N+1} + e^{+} + \nu} \\%\textrm{\flushright $beta^+$ decay} \\
+  \item[electron capture] \ce{^{A}_{Z}X_{N}  + e^{-} \rightarrow ^{A}_{Z-1}Y_{N+1} + \nu} \\%\textrm{\flushright electron capture} \\
+  \item[anti-neutrino capture] \ce{^{A}_{Z}X_{N} + $\bar{\nu}$ \rightarrow ^{A}_{Z+1}Y_{N-1} + e^{-}} \\%\textrm{\flushright anti-neutrino capture}\\
+  \item[neutrino capture] \ce{^{A}_{Z}X_{N} + \nu \rightarrow ^{A}_{Z-1}Y_{N+1} + e^{+}} \\%\textrm{\flushright anti-neutrino capture} 
+\end{description}
+
+%beta decay probability
+The beta decay transitions depend on the initial and final quantum states of the entire nucleus.
+Transitions which are independant lepton energies are most likely to occur (out of all the weak interactions considered)
+and are called allowed transitions.
+The forbidden transitions are weak interactions that are less probable.
+%beta decay in stellar plasma
+In stellar environments with high temperature the nuclei in question can be excited to higher energies.
+The increased number of possible states increases the reaction probability and therefore the overall decay rate.
+%radioactive decay
+Assuming that a radioactive decay occurs at a random point in time, with a uniform distribution in time,
+The probability of decay of a single particle is proportionale with time.
+The probaiblity of decay of two particles will be twice as much, meaning decay probability is
+proportional to the amount of radioactive particles present.
+Consider then an amount of particles, N,  large enough to turn probability into observable decays,
+even at infinitesimal timescales. The number of decays, d$N$, is then given by:
+\begin{align*}
+  \textrm{d}N &\propto N \textrm{d}t \\
+  \textrm{d}N &= C_{\textrm{decay}} N \textrm{d}t = -\lambda N \textrm{d}t\\
+  \frac{\textrm{d}N}{\textrm{d}t} &= -\lambda N \\
+  N(t) &= N_0 e^{-\lambda (t - t_0)}
+\end{align*}
+d$t$ is the infinitesimal timeinterval, $C_{\textrm{decay}}$ is the proportionality constant. Since the decay removes number of species it will always be negative, $\lambda$ is the positive proporitonality constant, called the decay constant (will be constant for a given reaction with constant density and constant temperature). Solving the differentialequation gives the time evolution of number of particles with initial number of particles $N_0$ at time $t_0$.
+The half-life, amount of time until the number abundance is half of it's original value, $T_{1/2} = \frac{\ln 2}{\lambda}$.
+Mean lifetime, integrated mean lifetime for all particles, is given by $\tau = \frac{1}{\lambda}$.
+%half-life of free neutrons, C-14, Re-187
+Some relevant half-lifes free neutrons, \isotope{14}{6}{C}, \re{187}.
+Nuclear Data Service\footnote{\url{https://www-nds.iaea.org/relnsd/vcharthtml/VChartHTML.html}}
+\begin{align*}
+  T_{1/2}(n) &= 10.2 min \textrm{\vspace{1cm} from chapter 1.8 in \cite{iliadis2015}} \\
+  T_{1/2}(\isotope{14}{6}{C}) &= 5700 yr \textrm{\vspace{1cm}from NDS} \\
+  T_{1/2}(\re{187} \textrm{ground state}) &= 4.33 \times 10^{10} yr \textrm{\vspace{1cm}from NDS} \\
+  T_{1/2}(\re{187} \textrm{first excited state}) &= 4.33 \times 555.3 ns \textrm{\vspace{1cm}from NDS} \\
+  T_{1/2}(\re{187} \textrm{second excited state}) &= 4.33 \times 114 ns \textrm{\vspace{1cm}from NDS} \\
+\end{align*}
+
+Chart of nuclides is a two dimensional map of all nuclides with amount of protons on the y-axis and neutrons on the x-axis.
+\comment{\\ Include image here}
+
+%thermonuclear reactions
+%q-value and cross-sections
+%rate of nuclear reactions
+%abundance evolution
+
+%nuclear burning
+%hydrostatic hydrogen burning
+%hydrostatic helium burning
+%carbon burning
+%neon burning
+%oxygen burning
+%silicon burning
+%explosive burning in CCSN
+
+%nucleosynthesis beyond iron peak
+For elements heavier than iron, collision with other elements will cost energy instead of release energy.
+In stellar environments the temperature, and excess energy, is very high so some heavier elements can form from
+energetic light particles colliding with energetic iron particles. However this will be in trace amounts
+and does not explain the relatively high amount of heavy elements found in the solar system.
+
+In order to create heavier elements than iron, seeds close to the iron peak \comment{(see plot with binding energy)}
+are bombarded by light particles in order to increase mass-number one collision at a time.
+Light particles have the highest reaction probability, meaning that the most probable particles to collide with the heavy seed
+are protons and neutrons.
+These processes of creating heavier elements are called proton capture process and neutron capture processes.
+Due to the additional coulomb barrier between protons, neutron capture processes are more probable and likely to occur.
+
+Imagine a stream of neutrons onto some heavy seed nuclei, there are two competing reactions that take place. The capture of a neutron onto the seed nuclei and the radioactive $\beta^-$-decay (in a neutron heavy nucleus the electron emission is more probable then the positron emission).
+%s-process
+If the neutron capture is much slower then the radioactive decay any new
+isotope from neutron capture must be stable or will decay to a stable isotope
+with the same mass number. This is called the slow neutron capture process, or s-process for short.
+It will create heavy nuclei along the valley of stability (line of all stable isotopes in chart of nuclides).
+For such a process to occur in stellar environments there must be access to a high density of neutrons and heavy seed nuclei from the iron peak.
+The heavy seed nuclei can just as easily have been produced by another massive star and ejected into the interstellar medium. Free neutrons on the other hand have a short lifespan and must have been created in the stellar environments.
+Some processes in the hydrostatic helium burning processes produce excess amounts of neutrons, as do the subsequent $\alpha$-capture processes in carbon burning.
+In addition to high neutron density requirements, the temperature must be high enough for thermal reactions to occur, but can not be so hot that most of the heavy seed nuclei are photodisintegrated before a significant amount of heavy nuclei can be synthesized.
+This means that the optimal site for most of s-process nucleosynthesis is later in the helium-burning phase of stars with relatively low mass. These are asymptotic giant branch stars with mass below roughly three solar masses.
+Numerical nuclear reaction networks in stars of this kind have lead to synthesis distributions that correspond with s-only abundances in the solar system.
+The exact site can include many stellar mass range and mixing episodes between different layers of the stellar interior, which can cause some new sites.
+\comment{\\Insert images here}
+
+%r-process
+Modelling the s-process contributions and scaling them to fit the solar observed number abundances results in a differential pattern with clear structure.
+\comment{\\Include r-process pattern here}
+This pattern is from a separate process called rapid neutron capture process, where the neutron capture rate is much higher than the $\beta^-$-decay rate. In such a process the heavy seed nuclei (assumed to be iron peak nuclei from a old supernova), will capture many neutrons and emit neutrons as the nucleons become filled/saturated with neutrons. A distribution of neutron heavy isotopes for a given seed specie is then left over time, kept in equilibrium by the constant bombardment of high energy neutrons. The distribution will have a maximum given by the equilibrium conditions where most heavy isotopes will reside and these isotopes will $\beta^-$-decay in greatest numbers to a heavier element. An isobar with greater atomic number.
+In the havier element the process begins a new, with neutrons captured onto the nucleus and eventually escaping until a equilibrium distribution is reached. This process is faster then the $\beta^-$-decay process (by definition) and will reach equilibrium before a significant fraction of nuclei decay to isobars with higher atomic number.
+\comment{\\include image of isotope equilibrium distributions here}
+When the high energy neutrons are no longer available in the same quantities, the r-process will stop and leave distributions of neutron-heavy isotopes that eventually will decay to stable isotopes far heavier then iron.
+This sort of process require a much higher number density of neutrons then the s-process described above, and the scales of $10^{21} cm^{-3}$.
+The astrophysical site, and details, of this process, are greatly debated. The output yields of the process are observed in our sun as well as old stars, but these stars could not have created those elements themselves so the process must be relatively quick in order to eject elements into the interstellar medium to be absorbed by our sun and other older stars.
+\comment{\\include plot about s-process r-process in nuclear chart}
+\comment{\\possible r-process sites?}
+
+%briefly mention p-process
+As mentioned, there same process can happen to the proton heavy side of nuclei, with dense regions of high energy protons. This is less likely to occur due to the added repulsive coulomb force and will therefore have smaller rates, but is necessary to explain the natural occurance of some isotopes in the nuclear chart.
+
+%Big bang nucleosynthesis
+Stars create heavier elements from lighter elements and produce energy as a result. Given the age of the universe and the stellar populations helium could not have been created in stars in the observed abundances from extra solar stars.
+Starting with the big bang model of the universe, what elements would have been synthezised to create the nuclear abundances that would later become the first stars?
+After inflation separates quantum fluctuations into particles, the universe was very dense and very hot. All matter (baryons, leptons, and dark matter) and energy tightly packed, interating and coupled. As the universe expands temperature and density drops accordingly.
+After the hadrons form, nuclear matter can form.
+Due to thermal equilibrium between neutrinos, electrons, and baryons the neutron-proton ratio is related by the boltzmann distribution. At the temperatures of weak interaction freeze-out, when this thermal equlibirum is no longer valid, the neutron proton ratio is two-to-five.
+Since it takes some time for nucleosynthesis to take place and eventually form nuclear particles that are not instantly photodisintegrated.
+During this time free neutrons decay to protons with a half-life of ten minutes, diminishing the final neutron proton ratio to one-to-seven at the time of nucleosynthesis. This means that there are two neutrons for every fourteen protons when nuclei can form.
+Some basic math produces one $\alpha$-particle for every twelve free protons. The mass fraction of helium is therefore one fourth of the total nuclear mass budget in the universe, while hydrogen makes of three fourths of the total budget.
+More detailed calculations of nucleosynthesis yield trace amount of \isotope{1}{3}{H}, \isotope{2}{3}{He}, \isotope{3}{7}{Li}, \isotope{4}{7}{Be}, but the dominant products are \isotope{1}{1}{H} with $\simeq75\%$ of the mass in the universe and \isotope{2}{4}{He} with $\simeq25\%$.
+\comment{\\ include image of big bang model}
+
+%\importantcomment{Find alpha-beta-gamma-48, Rosswog-99, BBFH, Lattimer&Schramm}

@@ -1,0 +1,65 @@
+\section{The \re{187}-\os{187} chronometer\cite{clayton64a}}
+
+In the lanthanides there is a chain of heavy elements with atomic number 74 through 77.
+These are wolfram, rhenium, osmium, and iridium and a subsection of the chart of nuclides is \comment{refereence to figure}.
+
+\importantcomment{include chart of nuclide section}
+
+From the chart on can see the usual path for slow neutron capture along the valley of stability.
+This is the main contribution to \os{187}. In a standard s-process analysis, \w{185} and \re{186} are unstable, and will decay before they can capture neutrons. The s-process path will never synthesize \re{187}. However if the neutron capture rate is comparable to the \betadecay rates of those nuclides a branching point can occur. A branching point is a point where the synthesizing path of the s-process split due to competing nuclear reactions. In this case a significant fraction of the s-process path can go through \re{186} to \re{187} or through \w{185} to \w{186} (which is stable) and onwards to \re{187}. Apart from these effects \re{187} is shielded from s-process contribution.
+
+The rapid neutron capture maintains very high neutron numbers until the neutron source ``shuts off'', at that point the isotopes \betadecay to the valley of stability. Given the long \halflife of \re{187} it can be considered stable, so the \os{187} isotope is shielded from r-process contribution because almost all \betadecay on the 187-isobar will stop at \re{187}.
+
+Since \re{187} is radioactive with a halflife of \comment{add here} some \re{187} in the interstellar or stellar medium will decay to \os{187}. This amount is called the cosmoradiogenic \os{187}. The fraction between cosmoradiogenic \os{187} and current \re{187} is given by the exponential decay-function (assuming ofcourse that the nuclear decay rate is constant for all time, including stellar environments), meaning the time of nucleosynthesis can be calculated from the observed fraction of daughter-parent nuclei.
+
+Clayton\cite{clayton64a} attempts to calculate the fraction of cosmoradiogenic osmium and the age of nucleosynthesis from these principles.
+A brief summary follows:
+
+The abundance of \os{186} is due to s-process only, and the abundance of \os{187} is due to s-process (from \os{186}) and cosmo radiogenic enrichment from \re{187} beta-decay.
+The s-process contribution from \os{186} is given by the \os{186} abundance and the ratio between the cross-section of the isotopes. It is shown from nebular Samarium that the two s-only isotopes have nearly identical cross-section times abundance. Extrapolating this to other s-process isotopes, the result is:
+(denoting abundance of isotope by their chemical name instead of N for simplicity)
+\begin{equation}
+  \bar{\sigma}_{\os{186}}{\os{186}} = \bar{\sigma}_{\os{187}}{\os{186}_S}
+  \quad \rightarrow \quad
+  {\os{186}_S} = \frac{\bar{\sigma}_{\os{186}}}{\bar{\sigma}_{\os{187}}}{\os{186}}
+\end{equation}
+$\bar{\sigma}$ are the neutron-capture cross-sections averaged over the appropriate thermal velocity distributions.
+The cosmoradiogenic component of \os{187} is therefor the remaining part.
+\begin{equation}
+  \os{187}_c = \os{187} - \os{187}_s = \os{187} - \frac{\bar{\sigma}_{\os{186}}}{\bar{\sigma}_{\os{187}}}{\os{186}}
+\end{equation}
+Rewriting equation to relative units.
+\begin{equation}
+  \frac{\os{187}_c}{\re{187}} = \frac{\os{187} - \frac{\bar{\sigma}_{\os{186}}}{\bar{\sigma}_{\os{187}}}{\os{186}}}{\re{187}} =
+  \frac{
+    \left(\frac{\os{187}}{Os}\right) -
+    \frac{\bar{\sigma}_{\os{186}}}{\bar{\sigma}_{\os{187}}}
+    \left(\frac{\os{186}}{Os}\right)
+  }{
+    \left(\frac{\re{187}}{Re}\right)
+  }
+  \left(\frac{Os}{Re}\right)
+\end{equation}
+Origin of time, t=0, is set to \sos formation. Assuming that r-process events are supernovae and they began occuring at time T before \sos formation(t=0), and the frequency of events decreases exponentially as $f_0e^{\Lambda t}$, where $f_0$ is the initial supernovae freqency.
+According to this model, and Clayton, the amount of cosmoradiogenic \os{187} is given by
+\begin{equation}
+  \frac{\os{187}_c}{\re{187}} = \left[
+    \frac{\Lambda-\lambda}{\Lambda}
+    e^{\lambda T}
+    \frac{1-e^{-\Lambda T}}{1-e^{-(\Lambda-\lambda) T}}
+    \right] - 1
+\end{equation}
+And the two special cases. \\
+Sudden synthesis ($\Lambda\rightarrow\infty$)
+\begin{equation}
+  \frac{\os{187}_c}{\re{187}} = e^{\lambda t} - 1
+\end{equation}
+Uniform synthesis ($\Lambda\rightarrow 0$)
+\begin{equation}
+  \frac{\os{187}_c}{\re{187}} = \frac{\lambda T}{1-e^{-\lambda t}} - 1
+\end{equation}
+
+\comment{end of direct summary}
+
+In short, by modelling r-process nucleosynthesis and s-process nucleosynthesis, the fraction of \re{187}-\os{187} in the \sos can predict the time of nucleosynthesis from non-cosmological methods.
+\comment{\\ What do I mean about the age of nucleosynthesis?}

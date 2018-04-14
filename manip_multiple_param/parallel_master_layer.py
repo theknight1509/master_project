@@ -142,20 +142,27 @@ def modify_namespace(bestfit_namespace, loa_parameter_tuples):
         parameter_name = parameter_tuple[0]
         parameter_value = float(parameter_tuple[1])
         if parameter_name == "ej_mass":
-            #print "Old ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
             bestfit_namespace.bestfit_m_ej_nsm *= parameter_value
-            #print "Parameter value applied: ", parameter_value
-            #print "New ejecta mass: ", bestfit_namespace.bestfit_m_ej_nsm
         elif parameter_name == "f_merger":
-            #print "Old merger fraction: ", bestfit_namespace.bestfit_f_merger
             bestfit_namespace.bestfit_f_merger *= parameter_value
-            #print "Parameter value applied: ", parameter_value
-            #print "New merger fraction: ", bestfit_namespace.bestfit_f_merger
+        elif parameter_name == "nsm_dtd_slope":
+            l_dtd = bestfit_namespace.bestfit_nsm_dtd_power #[min,max,slope]
+            #Choose either -2 or -1 randomly from parameter value
+            if parameter_value <= 1.0:
+                l_dtd[2] = -2
+            else:
+                l_dtd[2] = -1
+            #insert list back into namespace
+            bestfit_namespace.bestfit_nsm_dtd_power = l_dtd
         elif '-' in parameter_name: #parameter is a isotope-yield
             loa_yield_isotopes.append(parameter_name)
             loa_yield_values.append(parameter_value)
         else:
             print "Warning in 'modify_namespace'! Parameter %s not applied to namespace or yields"%(parameter_name)
+
+    bestfit_namespace.bestfit_special_timesteps = 0
+    dt_val = bestfit_namespace.bestfit_dt
+    print "Setting special-steps to zero, timestep-size:", dt_val
 
     return bestfit_namespace, loa_yield_isotopes, loa_yield_values
 

@@ -28,6 +28,7 @@ param["re-185"] = "0.15"
 param["os-187"] = "0.10"
 param["ej_mass"] = "0.1"
 param["f_merger"] = "0.1"
+param["nsm_dtd_slope"] = "1.0"
 
 ### Write results to file ###
 output_filename = "test_config_file.ini"

@@ -188,9 +188,16 @@ def param_dict2tuplelist(param_dict):
 if __name__ == '__main__':
     ### Get parameters  to omega ###
     import bestfit_param_omega.current_bestfit as CBF
+    minimum_dt = 14e+6
+    multiple_dt = 2
+    CBF.bestfit_dt = multiple_dt*minimum_dt
+    print "Using constant timestep with %d times the 'Eris' timestep"%(multiple_dt)
 
     ### Get experiment setup from config file and parser ###
-    config_filename = "test_config_file.ini"
+    loa_config_files = [filename for filename in os.listdir('.')
+                        if ('.ini' in filename)]
+    print "All config-files: ", loa_config_files
+    config_filename = raw_input("Which config-file to use? ")
     import configparser as cp
     config = cp.ConfigParser()
     config.read(config_filename)

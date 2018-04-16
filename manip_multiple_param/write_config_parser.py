@@ -5,8 +5,16 @@ import configparser as cp
 import sys
 
 #list of acceptable parameter names (and default values)
-loa_acc_param = ["re-187", "re-185", "os-187", "ej_mass", "f_merger", "nsm_dtd_slope"]
-loa_def_values = ["0.15", "0.15", "0.1", "0.1", "0.1", "1.0"]
+loa_acc_param = ["ej_mass", "f_merger", "nsm_dtd_slope"] #nsm-param
+loa_def_values = ["0.1", "0.1", "1.0"]
+loa_acc_param += ["re-185", "re-187", 
+                  "os-188","os-189",
+                  "eu-151","eu-153"] #rncp
+loa_def_values += ["0.2715", "0.1655",
+                   "0.1046", "0.0669",
+                   "0.4092", "0.0707"]
+loa_acc_param += ["os-187","os-186"] #sncp
+loa_def_values += ["0.1", "0.1"]
 
 def write_config_file(num_exp, num_proc, dir_name, file_name,
                       dict_sigma_param):

@@ -9,7 +9,11 @@
 \usepackage{ifthen} %logical operations for new commands
 \usepackage{graphicx}
 \usepackage{placeins} %Use for floatbarrier-function
+%\usepackage{float}
+\usepackage{subcaption}
+\usepackage{python} %use for python-environment
 \usepackage{hyperref}
+
 %commands
 \newcommand{\comment}[1]{ {\color{red}#1} }
 \newcommand{\importantcomment}[1]{ {\Huge \comment{#1}} }
@@ -22,6 +26,7 @@
 \newcommand\araa{ARA\&A}
 \newcommand\aaps{A\&AS}
 \newcommand\apj{ApJ}
+\newcommand\physrep{Phys.Rep.}
 \newcommand\mycite[1]{{\footnotesize \it \citep{#1}}}
 
 \newcommand{\isotope}[3]{{\footnotesize\ce{^{#3}_{#2}{#1}}}}

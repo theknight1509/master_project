@@ -1,0 +1,85 @@
+%Make a table with the r-process quantities of the sun from Arnould et. al. and add calculations.
+
+\subsection{r-process standard deviation from \cite{arnould07}}
+Most elements heavier than iron in the solar system can be attributed to synthesis by the slow neutron capture process or rapid neutron capture process. Since the astrophysical sites of s-process nucleosynthesis is relatively well known the isotopic distribution can be well approximated by simulations and nuclear reaction networks.
+
+By measuring the isotopic content of the solar system (from photosphere measurements and meteorites that are similar to the solar distribution), the total contribution from s-process and r-process is observed. Scaling the well known s-process distribution to s-only isotopes\footnote{Isotopes which are shielded from r-process nucleosynthesis and produced solely through the s-process.}, gives the distribution of r-process isotopes.
+
+\begin{table}
+  \input{texfiles/arnould_table_modified.tex}
+  \caption{\label{tab:rncp-yield-sigma}
+    Table taken from \cite[table 1]{arnould07}
+    $\sigma_{lower}$, $\sigma_{upper}$ are calculated by the relative fraction between standard value and min, max respectively.
+    Upper standard deviation is the relative difference between standard value and maximum value, and lower standard deviation is the relative difference between standard value and minimum value.
+  }
+\end{table}
+\FloatBarrier
+
+The issue with table \ref{tab:rncp-yield-sigma} is in the interpretation of the values. If the uncertianty is assumed to be gaussian in nature (which is a difficault assumtion to argue for), the standard value is interpreted as the mean value of the distributions, while the minimum and maximum values are the -1 $\sigma$ and +1 $\sigma$ values of the distributions. From the calculated values in column 4 and 5 in table \ref{tab:rncp-yield-sigma} the sigma values are not equal. There is not always a linear relationship between the minimum, standard, and maximum values.
+Which value to use? Below, in figure \ref{fig:arnould-gauss-dist}, is a set of gaussian distributions using both  the lower standard deviation, the upper standard deviation, and the average of the two.
+In order to see for which isotope the effect is greatest.
+
+From figure \ref{fig:arnould-gauss-dist} the greatest difference lies in \eu{151} and \re{185}. For both isotopes, the lower limit is the greatest uncertainty/standard deviation. By using the greatest standard deviations, more uncertainty in the observations are covered, but it is uncertain if the uncertainties can be extended in both directions of the standard value.
+%all gaussian plots
+\newlength{\subfiglength}
+\setlength{\subfiglength}{0.24\textwidth}
+
+\begin{figure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Re-187}
+    \caption{Upper, lower, and mean standard deviation for \re{187}.}
+  \end{subfigure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Re-185}
+    \caption{Upper, lower, and mean standard deviation for \re{185}.}
+  \end{subfigure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Eu-151}
+    \caption{Upper, lower, and mean standard deviation for \eu{151}.}
+  \end{subfigure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Eu-153}
+    \caption{Upper, lower, and mean standard deviation for \eu{153}.}
+  \end{subfigure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Os-188}
+    \caption{Upper, lower, and mean standard deviation for \os{188}.}
+  \end{subfigure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Os-189}
+    \caption{Upper, lower, and mean standard deviation for \os{189}.}
+  \end{subfigure}
+  %final line of plots
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Os-190}
+    \caption{Upper, lower, and mean standard deviation for \os{190}.}
+  \end{subfigure}
+  \begin{subfigure}{\subfiglength}
+    \centering
+    \includegraphics[width=\textwidth]{other_data/arnould_plots/isotope_gaussian_Os-192}
+    \caption{Upper, lower, and mean standard deviation for \os{192}.}
+  \end{subfigure}
+  \caption{\label{fig:arnould-gauss-dist}
+    Figures a-h show the two different standard deviations calculated from table \ref{tab:rncp-yield-sigma} and their average, plotted as gaussian distributions.
+    1.0 on the x-axis represent the standard value, and all distributions have a maximum of 1.0 on the y-axis.
+    The plots are merely to visualize the values of table \ref{tab:rncp-yield-sigma} as gaussian probability distributions, and the axes are therefore intentionally unlabelled.
+  }
+\end{figure}
+\FloatBarrier
+
+\subsection{s-process standard deviation from \cite{landolt93}}
+``The quality of these data has continually improved and the most recent compilation by
+Anders and Grevesse [89A] lists 37 elements, determined in the photosphere of the Sun, with errors below
+25\%''\cite[p.197]{landolt93}
+
+Estimated accuracy of elemental osmium is 5\% from CI chondrites\footnote{A type of carbonaceous meteorites with an near solar composition\url{https://en.wikipedia.org/wiki/CI_chondrite}.}\cite[table2, p.203]{landolt93}.
+
+The number abundance of elemental osmium ($\log N(N(H)\equiv 10^{12}$) is given in log value. The uncertainty of the meteorite abundances is then $\simeq 1.45\%$ and the uncertainty in solar photosphere composition is $\simeq 6.90\%$. The difference between the two observations are $20\%$ with respect to the meteorite number abundance\cite[table3, p.205]{landolt93}, for other types of meteorites the difference is greater.
+

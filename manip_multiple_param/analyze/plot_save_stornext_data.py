@@ -22,7 +22,7 @@ loa_yield_isos = ["yield_"+iso for iso
                   in loa_re_isos+loa_os_isos]
 loa_array_strings = ["num_nsm", "m_locked"] + \
                     loa_ism_isos + loa_ism_elem + \
-                    loa_yield_isos + loa_yield_elem
+                    loa_yield_isos
 
 if __name__ == '__main__':
     print "Plotting data for the following arrays:"

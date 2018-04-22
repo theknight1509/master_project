@@ -30,5 +30,5 @@ if __name__ == '__main__':
 
     dir_experiment = dir_stornext + "MCExperiment1/"
 
-    loa_figs = plot_all_mean_sigma_extrema(dir_experiment,
+    doa_figs = plot_all_mean_sigma_extrema(dir_experiment,
                                            loa_array_strings)

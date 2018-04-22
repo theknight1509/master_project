@@ -18,9 +18,8 @@ loa_os_isos = ["Os-187", "Os-188"]
 loa_ism_isos = ["ism_iso_"+iso for iso
                 in loa_re_isos+loa_os_isos]
 loa_ism_elem = ["ism_elem_"+elem for elem in loa_elem]
-loa_yield_isos = ["yield_iso_"+iso for iso
+loa_yield_isos = ["yield_"+iso for iso
                   in loa_re_isos+loa_os_isos]
-loa_yield_elem = ["yield_elem_"+elem for elem in loa_elem]
 loa_array_strings = ["num_nsm", "m_locked"] + \
                     loa_ism_isos + loa_ism_elem + \
                     loa_yield_isos + loa_yield_elem

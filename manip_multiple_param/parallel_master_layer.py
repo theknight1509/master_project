@@ -190,7 +190,7 @@ if __name__ == '__main__':
     ### Get parameters  to omega ###
     import bestfit_param_omega.current_bestfit as CBF
     minimum_dt = 14e+6
-    multiple_dt = 2
+    multiple_dt = 1
     CBF.bestfit_dt = multiple_dt*minimum_dt
     print "Using constant timestep with %d times the 'Eris' timestep"%(multiple_dt)
 

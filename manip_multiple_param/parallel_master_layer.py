@@ -6,6 +6,7 @@ Stepwise process:
 -create subdirectory for all data
 -create data-file of all parameters
 -create readme-file for subdirectory
+-run single experiment and write indeces of datadiles to separate file
 -spawn subprocess with experiment until maximum count
 -store timing of processes
 
@@ -108,7 +109,7 @@ def wait(loa_active_procs, limit_procs):
                 continue
     return loa_active_procs
 
-def experiment_process(process_index, bestfit_namespace, parameter_filename, data_filename):
+def experiment_process(process_index, bestfit_namespace, parameter_filename, data_filename, write_index_file=False):
     """function to pass to parallel process"""
     #get parameters from P-filename and index
     loa_parameter_tuples = read_table(filename=parameter_filename,
@@ -124,7 +125,7 @@ def experiment_process(process_index, bestfit_namespace, parameter_filename, dat
                                          loa_yield_isotopes,
                                          loa_yield_values)
         #save data
-        experiment_object.save2file(data_filename)
+        experiment_object.save2file(data_filename, write_index_file=write_index_file)
         time_string = experiment_object._gettime()
         status_string = "success"
     except:
@@ -214,13 +215,22 @@ if __name__ == '__main__':
     print "Using %s as config file for parameters"%(config_filename)
     
     #Perform 'stepwise process' from doc-string
-
+    #create directory, readme, and paramter-values
     readme_object = setup(subdirname=subdir_name,
                           param_filename=parameter_file_name,
                           readme_filename=readme_file_name,
                           loa_parameter_tuples=loa_parameter_tuples,
                           num_experiments=num_experiments,
                           num_processors=num_processors)
+    #Run single experiment with last experiment-index
+    experiment_process(process_index=num_experiments,
+                       bestfit_namespace=CBF,
+                       parameter_filename=parameter_file_name,
+                       data_filename=data_files_name + \
+                       "_pid%d"%num_experiments,
+                       write_index_file=True)
+    num_experiments -= 1
+    #Run list of subprocesses
     queue_processes(n_procs=num_experiments,
                     n_processors=num_processors,
                     bestfit_namespace=CBF,

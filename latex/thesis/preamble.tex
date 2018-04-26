@@ -9,7 +9,7 @@
 \usepackage{ifthen} %logical operations for new commands
 \usepackage{graphicx}
 \usepackage{placeins} %Use for floatbarrier-function
-%\usepackage{float}
+\usepackage{listings} %for adding code
 \usepackage{subcaption}
 \usepackage{python} %use for python-environment
 \usepackage{hyperref}
@@ -50,4 +50,30 @@
 }
 \newcommand\omegamodel{\texttt{'Omega'}}
 \newcommand\eris{\texttt{'Eris'}}
+\newcommand\chemevol{\texttt{'Chem\_Evol'}}
 \newcommand\nsm{neutron star merger}
+
+%define formatting for code-snippets
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.9,0.9,0.9}
+\lstdefinestyle{custompython}{
+    language=python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegray},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\scriptsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+} %style for python-snippets

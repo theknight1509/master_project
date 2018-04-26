@@ -1,8 +1,28 @@
 \section{Uncertainty of yields}
+
+\subsection{quick recap of purpose and method}
 %vary yields, keep everything else constant
 The 'Omega' model with 'Eris' bestfit parameters is used to calculate the amount on \re{187}.
 A single function of 'Omega' is overwritten in order to change the stellar yields of \re{187}.
 The function multiplies the stellar yield of \re{187} ($Y_\re{187}$) with a constant, the new yield is denoted $\hat{Y}_\re{187}$.
+
+The yield table for binary neutron star mergers is taken from \cite{arnould07} and is the calculated distribution of r-process isotopes in the \sos. The \sos-distribution of isotopes is measured from the solar photosphere and chondrite meteorites in \cite{landolt93}. The s-process distribution can be calculated from nuclear reaction networks, and the r-process/p-process distributions are calculated by subtracting the s-process distribution after fitting to the \sos-abundances.
+The basic assumption is that all neutron star mergers eject material with the same isotopic distribution, and this distribution matches the observed solar distribution.
+In short, the yield-table used is the \textit{observed} r-process distribution of the \sos, and this distribution is applied to every neutron star mergers.
+
+In \eris-postprocessing\cite{shen15} the yield-table applied to all neutronstar mergers is a different one. The yield table was based on simulations by Rosswog\comment{(Need some reference?)} of neutron star mergers. Those yield-tables however does not contain any output of \re{187}, which is essential for the purpose of this thesis.
+
+\textit{What are the underlying uncertainties of the yield-tables that we so generously apply to our simulations?}
+The yield-tables represent the distribution of isotopes and elements ejected from a star during the end of it's lifetime. This information comes from stellar evolution codes like \cite{paxton11} and the nuclear reaction networks applied to them, like \cite{pignatari16}.
+Uncertainties in nuclear reaction rates, stellar interior environments and ejecta composition all add together to create a total uncertainty of yield tables which are hard to separate.
+In this case, the neutron star mergers are \textit{assumed} to be the dominant contributer to r-process isotopes in the galaxy, and the distribution is \textit{assumed} to follow observed r-process distribution in our \sos (this is ultimately an assumption of homogeneity).
+Following these assumptions, the uncertainties in nucleosynthesis of r-process isotopes will simply be the uncertainty \sos-observations\cite{arnould07}.
+Simulations suggest\comment{(some reference to Rosswog)} that the ejecta yield of binary neutron star mergers are somewhat dependant on the electron-fraction of the initial neutron stars, not taking inhomogeneities, rotation, and magnetic field of the initial neutron stars into account. Also given the rarity of kilonovas (compact object mergers) the assumption of homogeneity is questionable.
+
+\input{texfiles/modification_omega}
+
+The isotopic uncertainties of the observed s-process and r-process in the \sos\ are taken from \cite{arnould07} and \cite{landolt93}
+\importantcomment{Add table with uncertainties}
 
 %\comment{add single uncertainty of %\re{187}, \re{185}, \eu{x}-isotopes, and \os{x}-isotopes} }
 %Plots of Eu-151
@@ -207,8 +227,7 @@ The function multiplies the stellar yield of \re{187} ($Y_\re{187}$) with a cons
 \begin{table}
   \input{results/data_yields/table_Re-187.dat}
 \end{table}
+
 %conclusion - linear relationship between input/output variation
 % - most uncertainties come from stellar evolution simulations
-
-%\section{Uncertianty of parameters}
-%\importantcomment{FUCK OFF!}
+\FloatBarrier

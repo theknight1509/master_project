@@ -64,6 +64,7 @@ def get_timepoint_array(time_array, numpy_matrix, timepoint):
         numpy_array = lower_interp_numpy_array + delta_interp_numpy_array #interpolated array
     else:
         print "Extrapolation not considered! Fuck off!"
+        print "timepoint", timepoint, time_array[0], time_array[-1]
         return False
     return numpy_array
 

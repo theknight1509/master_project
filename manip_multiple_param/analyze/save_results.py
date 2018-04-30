@@ -10,8 +10,11 @@ def save_results(get_directory, save_directory, experiment, loa_array_strings, l
     #get all matrices
     doa_2Darrays = get_all_arrays(dir_name=get_directory,
                                   loa_array_strings=loa_array_strings)
-    time_array = get_single_array(dir_name=get_directory,
-                                  array_string="time")
+    if "test_dir" in get_directory: #test script
+        time_array = get_single_array(dir_name=get_directory,numpy_filename="../test_dir/test_files_pid0.npy", array_string="time")
+    else:
+        time_array = get_single_array(dir_name=get_directory,
+                                      array_string="time")
     for array_string in loa_array_strings:
         #create outfilename dir+resultfile+exp+arrstr+type
         outfilename = lambda string: save_directory + \

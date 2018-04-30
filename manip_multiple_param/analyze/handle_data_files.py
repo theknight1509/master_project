@@ -40,6 +40,8 @@ def get_single_array(dir_name, numpy_filename=False, array_string="time"):
     index_filename = dir_name + "data_indeces.txt"
     if not numpy_filename: #not given, use any
         numpy_filename = get_all_numpy_filenames(dir_name)[0]
+        if not "_pid" in numpy_filename:
+            print "No pid-marker in time-filename"
     single_matrix = np.load(numpy_filename)
     array_index = get_indeces_from_file(index_filename, [array_string])[0]
     single_array = single_matrix[array_index,:]
@@ -64,8 +66,11 @@ def get_all_arrays(dir_name, loa_array_strings, index_filename="data_indeces.txt
         single_numpy_matrix = np.load(data_filename)
         # loop over all array-string
         for array_string, array_index in zip(loa_array_strings, loa_array_indeces):
-            current_array = single_numpy_matrix[array_index, :]
-            doa_2Darrays[array_string].append(current_array)
+            try:
+                current_array = single_numpy_matrix[array_index,:]
+                doa_2Darrays[array_string].append(current_array)
+            except:
+                print "matrix not large enough for file: %s"%(data_filename)
             
     # stack list of arrays to 2D matrix
     for array_string in loa_array_strings:

@@ -74,6 +74,8 @@ def save_results(get_directory, save_directory, experiment, loa_array_strings, l
             print "Writing results to ", outfilename("_etc")
         except: #something wrong happened
             all_good = False
+            print "something went wrong with writing to file!"
+            raise 
     if all_good:
         return True
     else:

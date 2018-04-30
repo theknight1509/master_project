@@ -18,9 +18,8 @@ if __name__ == '__main__':
     response = int(raw_input(question))
     
     experiment = inventory[response]
-    experiment += '/'
-    get_directory = stornext_folder + experiment
-    save_directory = hume_folder + results_folder + experiment
+    get_directory = stornext_folder + experiment + "/"
+    save_directory = hume_folder + results_folder + experiment + "/"
     
     #which arrays?
     loa_array_strings = []
@@ -31,10 +30,9 @@ if __name__ == '__main__':
     elem_list = ["Re", "Os", "W"]
     for iso in iso_list:
         loa_array_strings.append("ism_iso_%s"%(iso))
-        loa_array_strings.append("yield_iso_%s"%(iso))
+        loa_array_strings.append("yield_%s"%(iso))
     for elem in elem_list:
         loa_array_strings.append("ism_elem_%s"%(elem))
-        loa_array_strings.append("yield_elem_%s"%(elem))
     
     #which timepoints? (9.5Gyr, 14Gyr)
     loa_timepoints = [9.5e+9, 14e+9]

@@ -9,6 +9,7 @@ from directory_master import Foldermap
 folder = Foldermap()
 stornext_folder = folder.stornext_folder()
 hume_folder = folder.hume_folder()
+results_folder = "latex/thesis/results/" #direction to thesis-results-folder from /Master/
 
 if __name__ == '__main__':
     #which experiment?
@@ -19,7 +20,6 @@ if __name__ == '__main__':
     experiment = inventory[response]
     experiment += '/'
     get_directory = stornext_folder + experiment
-    results_folder = experiment # write results to subfolder with experiment name
     save_directory = hume_folder + results_folder + experiment
     
     #which arrays?

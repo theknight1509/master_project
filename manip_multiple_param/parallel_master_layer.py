@@ -146,15 +146,15 @@ def modify_namespace(bestfit_namespace, loa_parameter_tuples):
             bestfit_namespace.bestfit_m_ej_nsm *= parameter_value
         elif parameter_name == "f_merger":
             bestfit_namespace.bestfit_f_merger *= parameter_value
-        elif parameter_name == "nsm_dtd_slope":
-            l_dtd = bestfit_namespace.bestfit_nsm_dtd_power #[min,max,slope]
-            #Choose either -2 or -1 randomly from parameter value
-            if parameter_value <= 1.0:
-                l_dtd[2] = -2
-            else:
-                l_dtd[2] = -1
-            #insert list back into namespace
-            bestfit_namespace.bestfit_nsm_dtd_power = l_dtd
+        # elif parameter_name == "nsm_dtd_slope":
+        #     l_dtd = bestfit_namespace.bestfit_nsm_dtd_power #[min,max,slope]
+        #     #Choose either -2 or -1 randomly from parameter value
+        #     if parameter_value <= 1.0:
+        #         l_dtd[2] = -2
+        #     else:
+        #         l_dtd[2] = -1
+        #     #insert list back into namespace
+        #     bestfit_namespace.bestfit_nsm_dtd_power = l_dtd
         elif '-' in parameter_name: #parameter is a isotope-yield
             loa_yield_isotopes.append(parameter_name)
             loa_yield_values.append(parameter_value)
@@ -190,7 +190,7 @@ if __name__ == '__main__':
     ### Get parameters  to omega ###
     import bestfit_param_omega.current_bestfit as CBF
     minimum_dt = 14e+6
-    multiple_dt = 1
+    multiple_dt = 2
     CBF.bestfit_dt = multiple_dt*minimum_dt
     print "Using constant timestep with %d times the 'Eris' timestep"%(multiple_dt)
 

@@ -24,11 +24,11 @@ def save_results(get_directory, save_directory, experiment, loa_array_strings, l
         #get time evolution arrays
         ###get arrays
         mean, pos_sigma, neg_sigma, maximum, minimum = get_mean_sigma_extrema(numpy_matrix=doa_2Darrays[array_string])
-        loa_save_arrays_timeevol = [mean, pos_sigma, neg_sigma, maximum, minimum]
+        loa_save_arrays_timeevol = [time_array, mean, pos_sigma, neg_sigma, maximum, minimum]
         ###get filename type=timeevol.npy
         filename_timeevol = outfilename("timeevol.npy")
         ###get desc. string of all arrays
-        loa_save_desc_timeevol = ["mean", "mean + 1 sigma",
+        loa_save_desc_timeevol = ["time", "mean", "mean + 1 sigma",
                                   "mean + 1 sigma", "maximum",
                                   "minimum"]
 

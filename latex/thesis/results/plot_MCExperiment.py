@@ -5,7 +5,7 @@ import matplotlib.pyplot as pl
 import numpy as np
 
 from matplotlib import rcParams
-print rcParams.keys()
+#print rcParams.keys()
 rcParams[u"lines.linewidth"] = 2.0
 
 def plot_timeevol(filename_timeevol, filename_desc):
@@ -13,7 +13,7 @@ def plot_timeevol(filename_timeevol, filename_desc):
     with open(filename_desc,'r') as desc_file:
         loa_desc_rows = desc_file.readlines()
     #get all all arrays
-    all_arrays = np.load(filename)
+    all_arrays = np.load(filename_timeevol)
     time = all_arrays[0,:]
     mean = all_arrays[1,:]
     pos_sigma = all_arrays[2,:]
@@ -38,18 +38,20 @@ def plot_hist(filename_hist, filename_desc):
     with open(filename_desc,'r') as desc_file:
         loa_desc_rows = desc_file.readlines()
     #get all all arrays
-    all_arrays = np.load(filename)
+    all_arrays = np.load(filename_hist)
     sos_formation = all_arrays[0,:]
     now = all_arrays[1,:]
     #make figure
     fig = pl.figure()
-    loa_ax = fig.subplots(nrows=2,ncols=1)
-    loa_ax[0].grid(True)
-    loa_ax[0].hist(sos_formation, nbins=50, label="t=9.5Gyr")
-    loa_ax[0].legend(loc=1)
-    loa_ax[1].grid(True)
-    loa_ax[1].hist(now, nbins=50, label="t=14Gyr")
-    loa_ax[1].legend(loc=1)
+    loa_ax = fig.subplots(nrows=2,ncols=1, sharex=True)
+    for ax, array, label in zip(loa_ax, [sos_formation, now], 
+                                 ["t=9.5Gyr","t=14Gyr"]):
+        ax.grid(True)
+        ax.hist(array, bins=50, label=label)
+        ax.axvline(np.mean(array), label="<X>", color='k')
+        ax.axvline(np.mean(array)-np.std(array), label=r"-1$\sigma$", color='k')
+        ax.axvline(np.mean(array)+np.std(array), label=r"+1$\sigma$", color='k')
+        ax.legend(loc=1)
     
     return fig
 
@@ -67,7 +69,7 @@ def get_filenames(experiment_folder):
                           and (physical_quantity in filename)]
     
     if len(quantity_file_list) != 3:
-        print "Error in number of filenames! only %d"len(quantity_file_list)
+        print "Error in number of filenames! only %d"%len(quantity_file_list)
         
     for filename in quantity_file_list:
         if 'hist' in filename:
@@ -85,5 +87,7 @@ plots_folder = "plots_MCExperiment"
 if __name__ == '__main__':
     hist_filename, timeevol_filename, desc_filename\
         = get_filenames(experiment_folder=experiment_folder)
-    fig_hist = plot_hist(hist_filename, desc_filename)
+    fig_hist = plot_hist(experiment_folder+'/'+hist_filename, 
+                         experiment_folder+'/'+desc_filename)
     fig_hist.show()
+    raw_input()

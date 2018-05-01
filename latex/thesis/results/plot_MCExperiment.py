@@ -24,12 +24,18 @@ def plot_timeevol(filename_timeevol, filename_desc):
     #make figure
     fig = pl.figure(); ax = fig.gca(); ax.grid(True)
 
+    #scale time to Gyr
+    time /= 1.0e+9
+    ax.set_xlabel("time [Gyr]")
+    
+    #plot mean, sigmas, extremas and shaded region
     ax.plot(time, mean, label="<>", color='k')
     ax.fill_between(time, pos_sigma, neg_sigma, color='g')
     loa_surrounding_array = [pos_sigma, neg_sigma, maximum, minimum]
     loa_surrounding_name = [r"+1$\sigma$",r"-1$\sigma$","max","min"]
     for y,y_name in zip(loa_surrounding_array,loa_surrounding_name):
         ax.plot(time, y, linestyle='--', color='g', label=y_name)
+    ax.legend(loc="upper left")
 
     return fig
 
@@ -48,18 +54,15 @@ def plot_hist(filename_hist, filename_desc):
                                  ["t=9.5Gyr","t=14Gyr"]):
         ax.grid(True)
         ax.hist(array, bins=50, label=label)
-        ax.axvline(np.mean(array), label="<X>", color='k')
-        ax.axvline(np.mean(array)-np.std(array), label=r"-1$\sigma$", color='k')
-        ax.axvline(np.mean(array)+np.std(array), label=r"+1$\sigma$", color='k')
+        ax.axvline(np.mean(array), color='k', 
+                   label=r"$\langle X \rangle \pm 1 \sigma$")
+        ax.axvline(np.mean(array)-np.std(array), color='k')
+        ax.axvline(np.mean(array)+np.std(array), color='k')
         ax.legend(loc=1)
     
     return fig
 
-def get_filenames(experiment_folder):
-    #decide on isotope_ism, isotope_yield, element_ism, num_nsm
-    nuclear_quantity = "Re-187" #isotope or element
-    physical_quantity = "ism" #ism or yield
-    
+def get_filenames(experiment_folder, nuclear_quantity, physical_quantity):    
     #get list of filenames in experiment-folder
     file_list = os.listdir(experiment_folder)
     
@@ -78,16 +81,35 @@ def get_filenames(experiment_folder):
             timeevol_filename = filename
         elif 'desc' in filename:
             desc_filename = filename
+    try:
+        return hist_filename, timeevol_filename, desc_filename
+    except:
+        print "Error in returning filenames! list: %s"%quantity_file_list
 
-    return hist_filename, timeevol_filename, desc_filename
+def plot_ism_isos(experiment_folder, iso="Re-187"):
+    #Plot all instances of ism and desired isotope, both histogram and timeevolution
+    hist_filename, timeevol_filename, desc_filename\
+        = get_filenames(experiment_folder=experiment_folder, nuclear_quantity=iso, physical_quantity="ism")
+    fig_hist = plot_hist(experiment_folder+'/'+hist_filename, 
+                         experiment_folder+'/'+desc_filename)
+    fig_hist.suptitle("Mass of %s in inter stellar medium"%iso)
+    fig_hist.show()
+    fig_timeevol = plot_timeevol(experiment_folder+'/'+timeevol_filename, 
+                                experiment_folder+'/'+desc_filename)
+    fig_timeevol.suptitle("Mass of %s in inter stellar medium"%iso)
+    fig_timeevol.show()
+    raw_input("Waiting for input to quit\n")
+    return
 
 experiment_folder = "MCExperiment_highN_highRes"
 plots_folder = "plots_MCExperiment"
+loa_isos = ["Re-185", "Re-187", "Os-186", "Os-187", "Os-187", "W-184"]
 
 if __name__ == '__main__':
-    hist_filename, timeevol_filename, desc_filename\
-        = get_filenames(experiment_folder=experiment_folder)
-    fig_hist = plot_hist(experiment_folder+'/'+hist_filename, 
-                         experiment_folder+'/'+desc_filename)
-    fig_hist.show()
-    raw_input()
+    # hist_filename, timeevol_filename, desc_filename\
+    #     = get_filenames(experiment_folder=experiment_folder)
+    # fig_hist = plot_hist(experiment_folder+'/'+hist_filename, 
+    #                      experiment_folder+'/'+desc_filename)
+    # fig_hist.show()
+    
+    plot_ism_isos(experiment_folder=experiment_folder)

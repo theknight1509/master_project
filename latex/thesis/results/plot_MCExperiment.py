@@ -53,29 +53,37 @@ def plot_hist(filename_hist, filename_desc):
     
     return fig
 
+def get_filenames(experiment_folder):
+    #decide on isotope_ism, isotope_yield, element_ism, num_nsm
+    nuclear_quantity = "Re-187" #isotope or element
+    physical_quantity = "ism" #ism or yield
+    
+    #get list of filenames in experiment-folder
+    file_list = os.listdir(experiment_folder)
+    
+    #get list of filenames with desired quantities
+    quantity_file_list = [filename for filename in file_list
+                          if (nuclear_quantity in filename)
+                          and (physical_quantity in filename)]
+    
+    if len(quantity_file_list) != 3:
+        print "Error in number of filenames! only %d"len(quantity_file_list)
+        
+    for filename in quantity_file_list:
+        if 'hist' in filename:
+            hist_filename = filename
+        elif 'timeevol' in filename:
+            timeevol_filename = filename
+        elif 'desc' in filename:
+            desc_filename = filename
+
+    return hist_filename, timeevol_filename, desc_filename
+
 experiment_folder = "MCExperiment_highN_highRes"
 plots_folder = "plots_MCExperiment"
-isotope = "Re-187"
 
-#get list of filenames in experiment-folder
-file_list = os.listdir(experiment_folder)
-
-#get list of filenames with isotope
-iso_file_list = [filename for filename in file_list
-                 if (isotope in filename)
-                 and ("ism" in filename)
-                 and ("desc" not in filename) ]
-
-for index in range(len(iso_file_list)):
-    if 'timeevol' in iso_file_list[i]:
-        id_timeevol = index
-    elif 'hist' in iso_file_list[i]:
-        id_hist = index
-
-timeevol_matrix = np.load(iso_file_list[id_timeevol])
-hist_matrix = np.load(iso_file_list[id_hist])
-
-fig = pl.figure
-ax = fig.gca()
-ax.grid(True)
-ax.plot()
+if __name__ == '__main__':
+    hist_filename, timeevol_filename, desc_filename\
+        = get_filenames(experiment_folder=experiment_folder)
+    fig_hist = plot_hist(hist_filename, desc_filename)
+    fig_hist.show()

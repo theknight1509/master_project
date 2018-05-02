@@ -101,15 +101,15 @@ def plot_ism_isos(experiment_folder, iso="Re-187", save=False):
                                 experiment_folder+'/'+desc_filename)
     fig_timeevol.suptitle("Mass of %s in inter stellar medium"%iso)
     if not save:
-        fig_hist.show()
+        fig_timeevol.show()
     else: #use save argumnet as filename
-        fig_hist.savefig(save+"_timeevol.png")
+        fig_timeevol.savefig(save+"_timeevol.png")
     #raw_input("Waiting for input to quit\n")
     return
 
 experiment_folder = "MCExperiment_highN_highRes"
 plots_folder = "plots_MCExperiment"
-loa_isos = ["Re-185", "Re-187", "Os-186", "Os-187", "Os-187", "W-184"]
+loa_isos = ["Re-185", "Re-187", "Os-186", "Os-187", "Os-188", "W-184"]
 
 if __name__ == '__main__':
     # hist_filename, timeevol_filename, desc_filename\

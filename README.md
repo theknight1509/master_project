@@ -10,6 +10,8 @@ call the 'directory_master.py'-script to calibrate the directory for your own sp
 
 Useful links
 -----------------------
+[Recent plots in results](latex/thesis/results/plots_MCExperiment)
+
 [Thesis-pdf](latex/thesis/chapter_theory2_firstdraft.pdf)
 
 [Fitting work](bestfit_param_omega)

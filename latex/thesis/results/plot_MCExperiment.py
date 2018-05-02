@@ -86,19 +86,25 @@ def get_filenames(experiment_folder, nuclear_quantity, physical_quantity):
     except:
         print "Error in returning filenames! list: %s"%quantity_file_list
 
-def plot_ism_isos(experiment_folder, iso="Re-187"):
+def plot_ism_isos(experiment_folder, iso="Re-187", save=False):
     #Plot all instances of ism and desired isotope, both histogram and timeevolution
     hist_filename, timeevol_filename, desc_filename\
         = get_filenames(experiment_folder=experiment_folder, nuclear_quantity=iso, physical_quantity="ism")
     fig_hist = plot_hist(experiment_folder+'/'+hist_filename, 
                          experiment_folder+'/'+desc_filename)
     fig_hist.suptitle("Mass of %s in inter stellar medium"%iso)
-    fig_hist.show()
+    if not save:
+        fig_hist.show()
+    else: #use save argumnet as filename
+        fig_hist.savefig(save+"_hist.png")
     fig_timeevol = plot_timeevol(experiment_folder+'/'+timeevol_filename, 
                                 experiment_folder+'/'+desc_filename)
     fig_timeevol.suptitle("Mass of %s in inter stellar medium"%iso)
-    fig_timeevol.show()
-    raw_input("Waiting for input to quit\n")
+    if not save:
+        fig_hist.show()
+    else: #use save argumnet as filename
+        fig_hist.savefig(save+"_timeevol.png")
+    #raw_input("Waiting for input to quit\n")
     return
 
 experiment_folder = "MCExperiment_highN_highRes"
@@ -112,4 +118,6 @@ if __name__ == '__main__':
     #                      experiment_folder+'/'+desc_filename)
     # fig_hist.show()
     
-    plot_ism_isos(experiment_folder=experiment_folder)
+    for isotope in loa_isos:
+        plot_ism_isos(experiment_folder=experiment_folder, iso=isotope, 
+                      save=plots_folder+'/'+experiment_folder+"_ism_%s"%isotope)

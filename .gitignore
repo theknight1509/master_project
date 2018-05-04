@@ -188,3 +188,5 @@ NuPyCEE/*
 *.png
 *.pyc
 directory_master.py
+*.npy
+*_explanatory.txt

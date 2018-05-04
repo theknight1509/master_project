@@ -134,7 +134,7 @@ class grandchild_omega(child_omega):
                 loa_masses = table_object.get(Z=Z, quantity="masses")
                 for M in loa_masses:
                     #loop over all isotopes to manipulate
-                    for manip_isotope, manip_factor in zip():
+                    for manip_isotope, manip_factor in zip(self.loa_manip_isotopes,self.loa_manip_yields):
                         #get current yield 
                         try:
                             present_yield = table_object.get(M=M, Z=Z, quantity="Yields",
@@ -157,7 +157,7 @@ class grandchild_omega(child_omega):
             #loop over metallicities
             for i_Z, Z in enumerate(loa_metallicities):
                 #loop over all isotopes to manipulate
-                for manip_isotope, manip_factor in zip():
+                for manip_isotope, manip_factor in zip(self.loa_manip_isotopes,self.loa_manip_yields):
                     # get index of isotope
                     index_iso = self.history.isotopes.index(manip_isotope)
                     #get current yield

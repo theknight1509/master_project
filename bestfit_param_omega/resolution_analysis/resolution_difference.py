@@ -41,29 +41,35 @@ def calculate_chi2_values(omega_inst):
     #dictionary to store pearson chi^2 values per array
     doa_chi2_values = {}
 
-    #loop over desired arrays
-    loa_desired_arrays = ["sfr"] + loa_spectro
-    for array_key in loa_desired_arrays:
+    #first do sfr arrays
+    #get time and array from omega
+    Odata_time = Odata_obj.get_dictionary()["time_rate"]
+    Odata_array = Odata_obj.get_dictionary()["sf"]
+    #make interpolation-function from time and array of omega
+    Odata_intpol = make_interpolation_object(Odata_time,
+                                             Odata_array)
+    #get time and array from eris
+    Edata_time = eris_data().sfr["time"]
+    Edata_array = eris_data().sfr["sfr"]
+    #calculate array of omega, interpolated onto time-array of eris
+    Ointerp_array = Odata_intpol(Edata_time)
+    #calculate chi^2_p of array from eris-data and interpolated omega-data
+    chi2_p = pearson_chi2(Ointerp_array, Edata_array)
+    #store chi^2_p in dictionary
+    doa_chi2_values["sfr"] = chi2_p
+
+    #loop over spectroscopic arrays
+    for array_key in loa_spectro:
         #get time and array from omega
-        Odata_time = Odata_obj.get_dict()["time"]
-        Odata_array = Odata_obj.get_dict()[array_key]
+        Odata_time = Odata_obj.get_dictionary()["time"]
+        Odata_array = Odata_obj.get_dictionary()[array_key]
         #make interpolation-function from time and array of omega
         Odata_intpol = make_interpolation_object(Odata_time,
                                                  Odata_array)
-        #get time and array from eris
-        if array_key == "sfr":
-            #use sfr-dictionary in 'eris_data'
-            Edata_time = eris_data().sfr["time"]
-            Edata_array = eris_data().sfr[array_key]
-        elif array_key in loa_spectro:
-            #use sfgas-dictionary in 'eris_data
-            Edata_time = eris_data().sfgas["time"]
-            Edata_array = eris_data().sfgas[array_key]
-        else:
-            print "How the fuck did you manage this?!"
-            print '\t'+"Error occuring in:"
-            sys.exit("Exiting!")
-
+        #use sfgas-dictionary in 'eris_data
+        Edata_time = eris_data().sfgas["time"]
+        Edata_array = eris_data().sfgas[array_key]
+        
         #calculate array of omega, interpolated onto time-array of eris
         Ointerp_array = Odata_intpol(Edata_time)
         #calculate chi^2_p of array from eris-data and interpolated omega-data
@@ -74,7 +80,14 @@ def calculate_chi2_values(omega_inst):
     return doa_chi2_values
 
 def pearson_chi2(O,E):
-    chi2 = (O - E)**2/np.abs(E)
+    #remove any zeros from 'E'
+    zero_mask = (E != 0.0) #mask away values where E is zero
+    E_masked = E[zero_mask]
+    O_masked = O[zero_mask]
+    inf_mask = np.logical_not(np.isinf(E)) #mask away values where E is inf
+    E_masked = E[inf_mask]
+    O_masked = O[inf_mask]
+    chi2 = (O_masked - E_masked)**2/E_masked
     chi2 = np.sum(chi2)
     return chi2
 
@@ -124,27 +137,33 @@ def save_table_latex(loa_data_string, filename):
     #make row (horizontal line) that separates header from table
     horiz = r"\hline"
     with open(filename+".tex", 'w') as outfile:
+        outfile.write(r"\begin{table}" + '\n')
+        outfile.write(r"\begin{tabular}" + '\n')
         outfile.write(header + '\n')
         outfile.write(horiz + '\n')
         for line in loa_data_strings:
             modified_line = latex_col_sep.join(line.split(",")) \
                             + latex_row_sep
             outfile.write(modified_line + '\n')
+        outfile.write(r"\end{tabular}" + '\n')
+        outfile.write(r"\end{table}" + '\n')
     return
 
 
-if __name__ == __main__:
+if __name__ == '__main__':
     #Execute analysis of difference in resolution!
     
-    #make list of appropriate timestep-values (constant and special)
+    #make list of appropriate timestep-values (constant and special) from test_const_dt
     loa_const_dt_values = [1.6e+7, 2.0e+7, 2.5e+7, 2.8e+7, 4.0e+7,
                            5.0e+7, 7.0e+7, 8.0e+7, 1.0e+8, 2.0e+8,
-                           4.0e+8, 5.0e+8, 7.0e+8, 1.0e+9, 2.0e+9, 7.0e+9] #from test_const_dt
+                           4.0e+8, 5.0e+8, 7.0e+8, 1.0e+9, 2.0e+9, 7.0e+9] 
+    loa_const_dt_values = loa_const_dt_values[::-1] #reverse order
     loa_special_timestep_numbers = [] #fill while calculating constant timesteps
 
     #loop over all __constant__ timestep number
     loa_data_strings = [r"n, \chi^2_{sfr}, \chi^2_{[O/H]}, \chi^2_{[Fe/H]}, \chi^2_{[Eu/H]}, t_{calc}"]
     for constdt in loa_const_dt_values:
+        print "constant timestep: %1.4e yr"%constdt
         #set timesteps
         cbf.bestfit_special_timesteps = 0
         cbf.bestfit_dt = constdt
@@ -160,7 +179,7 @@ if __name__ == __main__:
         loa_data_strings.append(data_str)
         loa_special_timestep_numbers.append(n_time) #reuse number of timesteps
     #write data-file from list of all data-strings
-    fname = sys.argv[0].split()[0] + "_constdt" #use self-filename
+    fname = sys.argv[0].split('.')[0] + "_constdt" #use self-filename
     save_table_datafile(loa_data_strings, fname)
     save_table_markdown(loa_data_strings, fname)
     save_table_latex(loa_data_strings, fname)
@@ -168,6 +187,7 @@ if __name__ == __main__:
     #loop over all __special__ timestep number
     loa_data_strings = [r"n, \chi^2_{sfr}, \chi^2_{[O/H]}, \chi^2_{[Fe/H]}, \chi^2_{[Eu/H]}, t_{calc}"]
     for num_dt in loa_special_timestep_numbers:
+        print "logarithmic timestep: %d timesteps"%num_dt
         #set timesteps
         cbf.bestfit_special_timesteps = num_dt
         #calculate omega-model
@@ -176,12 +196,12 @@ if __name__ == __main__:
         time_str = omega_obj._gettime() #get current calculation time
         doa_chi2_values = calculate_chi2_values(omega_obj)
         #make data-string with age-length, chi^2_p-values, time_str
-        data_tuple = (num_steps, doa_chi2_values["sfr"], doa_chi2_values["[O/H]"],
+        data_tuple = (n_time, doa_chi2_values["sfr"], doa_chi2_values["[O/H]"],
                       doa_chi2_values["[Fe/H]"], doa_chi2_values["[Eu/H]"], time_str)
         data_str = r"%d, %1.4e, %1.4e, %1.4e, %1.4e, %s"%data_tuple
         loa_data_strings.append(data_str)
     #write data-file from list of all data-strings 
-    fname = sys.argv[0].split()[0] + "_logdt" #use self-filename
+    fname = sys.argv[0].split('.')[0] + "_logdt" #use self-filename
     save_table_datafile(loa_data_strings, fname)
     save_table_markdown(loa_data_strings, fname)
     save_table_latex(loa_data_strings, fname)

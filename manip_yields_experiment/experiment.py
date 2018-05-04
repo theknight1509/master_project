@@ -174,8 +174,6 @@ class experiment(omega):
                 new_yield = present_yield*self.experiment_factor
                 #"insert" new yield back into table
                 table_object.yields[i_Z][index_iso] = new_yield
-                #print "Fixed new yield(%s): from %1.4e to %1.4e"%(table_name,
-                #                                                  present_yield, new_yield)
 
     def save2file_old(self, filename):
         """ 

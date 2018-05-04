@@ -94,4 +94,6 @@ def plot_all_time_hist(dir_name, loa_array_strings, timepoint=1.4e+10):
 if __name__ == '__main__':
     dir_name = "../test_dir/"
     loa_array_strings = ["num_nsm", "ism_iso_Re-187", "ism_iso_Os-187"]
-    plot_all_mean_sigma_extrema(dir_name, loa_array_strings)
+    doa_figs = plot_all_mean_sigma_extrema(dir_name, loa_array_strings)
+    for key in doa_figs.keys():
+        doa_figs[key].suptitle(key)

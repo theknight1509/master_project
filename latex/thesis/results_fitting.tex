@@ -16,9 +16,9 @@ In the appropriate \omegamodel\ the black hole - neutron star mergers shall not 
 and the yield table for binary neutron star mergers is chosen to be \comment{insert reference to Arnould} \comment{add comment/description about how the yield table is the r-process from the sun}, because it contains \re{187}.
 
 \comment{define new commands for MWOmega/MWCteOmega/fiducccial model}
-\newcommand\mwomega{}
-\newcommand\mwcomega{}
-\newcommand\fiduccialomega{}
+\newcommand\mwomega{TEMP-MWOmega}
+\newcommand\mwcomega{TEMP-MWcteOmega}
+\newcommand\fiduccialomega{TEMP-fiduccial}
 \importantcomment{introduce 'our' \omegamodel\ model as the concept \textit{'fiduccial model'}}
 
 \FloatBarrier
@@ -134,9 +134,20 @@ Outflow removes gas from the galaxy, or interstellar medium, lowering the total 
     The outflow removes mass, but there is still enough gas to form stars from the \eris\ star formation rate.
   }
 \end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_mass_2_plot_iron.png}
+  \caption{\label{fig:fit-v1-2-iron}
+    Iron abundance in the models with varying mass-loading parameters(solar masses of outflow per solar mass of supernova). The data from \eris\ show two 'dips' from the increasing tendency.
+    The dips could not be reproduced by outflow of enriched material and inflow of hydrogen. Outflow peaks over the 'dips', reducing the spectroscopic abundance, however the effect is wide and smeared out over a time range beyond both 'dips'.
+  }
+\end{figure}
 
 Setting the initial mass, inflow and outflow, gives the desired star formation. A final comparison of the fiducial \omegamodel model, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
 For the predefined models, the initial mass of primordial gas have been increased to $9.6\times10^{10}\msol$(the final value baryon-mass from \eris) to show the full evolution of star formation.
+Two prominent features in the spectroscopic data of \eris\ is the two 'dips' around universal time t=5 and t=8 Gyrs. These dips might be reproduced by adding primordial inflow, hydrogen, and enriched outflow, concentrated on on those periods($t\simeq5Gyr$ and $t\simeq8Gyr$), since these periods might coincide with the death of stars from the star forming peak in figure \ref{img:fit-v0-sfr}.
+Varying supernova-related outflow(known as the \texttt{mass\_loading} parameter) gives an expected result. In figure \ref{fig:fit-v1-2-iron} variation in the spectroscopic iron abundance can be seen the desired region, around the two 'dips', but the effect is too small to reproduce the two dips. The effect is also too wide and more closely similar to one big 'dip'. One unexpected result is that the smalles \texttt{mass\_loading} parameter yields the lowest dip(not really a dip at all, but more flat in the desired direction). suggesting that the outflow from supernovae occur later than the two 'dips'.
+This means that the two 'dips' cannot be reproduced by outflow and inflow.
 \comment{what are mass parameters now?}
 
 \begin{figure}[h]
@@ -196,37 +207,73 @@ set_sn1a_plot_sn1a_num2_oxy.png
 set_sn1a_plot_sn1a_yt.png
 \fi
 
-\comment{what parameters are used to mess with sn1a and pop3?}
-\comment{add plot about agb/massive yield tables
+\comment{what parameters are used to mess with stars?}
+
+Chemical enrichment of galactic gas (the interstellar medium), comes from stars.
+\comment{quick recap of theory section} Hydrogen and helium from the primordial gas is locked into a star, where fusion processes transmutates the elements into heavier elements up to iron. In the process some heavier elements are created, mostly by neutron capture processes. At the end of the stars life some of the material will be ejected back into the interstellar medium.
+Asymptotic giant branch stars are low mass stars at the end of their life, they eject mass via episodes known as helium flashes, leaving a white dwarf behind.
+Massive stars end their life as typeII supernovae, ejecting most of their enriched material leaving a neutron star or black hole behind.
+The very first stars, with no initial chemical enrichment, or metallicity, are called population III stars. They are generally believed to have a slightly different initial mass distribution function, and could produce slightly different distributions of metals.
+The exact science of population III stars is not well defined, as none has been observed, but the stellar population is one of the options of the \omegamodel\ model and should therefor be taken into consideration when comparing \eris and \omegamodel.
+The remnants, white dwarves, neutron stars and black holes, are not the end of the story, binary star systems can bring new life to these dead bodies. A white dwarf accreting plasma from the envelope of a binary star can accumulate enough mass to ignite a core-collapse that ejects more enriched matter into the interstellar medium. Two neutron stars in orbit around eachother can loose gravitational energy to gravitational waves and merge. Such an energetic event will create alot of heavy elements and eject alot of the mass of the binary system with great velocity. Similar gravitational events can occur between two black holes and a black hole and a neutron star. The last two event will be ignored because two black holes do not create or eject any heavy elements (or any elements at all), while black hole neutron star merger is not included in \eris.
+
+\comment{add plot about agb/massive yield tables}
 \begin{figure}[h]
   \centering
-  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_yt_iron.png}
-  %\caption{\label{fig:fit-v2}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_yt_oxy.png}
-  %\caption{\label{fig:fit-v2}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_yt.png}
-  %\caption{\label{fig:fit-v2}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_bound_iron.png}
-  %\caption{\label{fig:fit-v2}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_bound_oxy.png}
-  %\caption{\label{fig:fit-v2}}
+  \importantcomment{plot yield tables here}
+  %\includegraphics[scale=0.5]{\imagefolder/set_star_plot_yt.png}
+  %\caption{\label{fig:fit-v2-agbm-yt}}
 \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_star_plot_transmass.png}
-  %\caption{\label{fig:fit-v2}}
+  \caption{\label{fig:fit-v2-agbm-transmass}
+    The transitionmass is the value where the star goes from being considered an asymptotic giant branch star to a massive star and usually considered to be 8\msol.
+    Stars with initial mass below this threshold leave the main sequence to become asymptotic giant branch star that ejects enriched mass in helium flashes and leaves a white dwarf.
+    Stars with initial mass above this threshold leave the main sequence, goes through the giant branch burning heavier layers of stellar material, ending their life as a core collapse supernova.
+    It is clear from the plot that varying the transitionmass between 7\msol and 10\msol does not significantly change the yield output of the \omegamodel\ model
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_yt_iron.png}
+  \caption{\label{fig:fit-v2-pop3-yt-iron}
+    The plot shows iron abundance for \eris\ data and \omegamodel with different yield tables for population III stars.
+    Population III stars are stars with no initial metallicity, meaning the first stars. These stars are believed to be bigger, but have not been observed.
+    It is clear that the different yield tables gives no variation in iron abundance, even in early times.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_yt_oxy.png}
+  \caption{\label{fig:fit-v2-pop3-yt-oxy}
+    The plot shows oxygen abundance for \eris\ data and \omegamodel with different yield tables for population III stars.
+    Population III stars are stars with no initial metallicity, meaning the first stars. These stars are believed to be bigger, but have not been observed. The yield tables gives the isotopic ejecta from supernovae.
+    It is clear that the different yield tables gives no variation in iron abundance, even in early times.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_yt.png}
+  %\caption{\label{fig:fit-v2-sn1a-yt}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_bound_iron.png}
+  \caption{\label{fig:fit-v2-pop3-imfb-iron}
+    The plot shows iron abundance for \eris\ data and \omegamodel with different mass-function boundaries for population III stars.
+    Population III stars are stars with no initial metallicity, meaning the first stars. These stars are believed to be bigger, but have not been observed. The boundaries of the mass function change the distribution of initial mass of the population III stars.
+    It is clear that the different yield tables gives no variation in iron abundance, even in early times.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{\imagefolder/set_star_plot_pop3_bound_oxy.png}
+  \caption{\label{fig:fit-v2-pop3-imfb-oxy}
+    The plot shows oxygen abundance for \eris\ data and \omegamodel with different mass-function boundaries for population III stars.
+    Population III stars are stars with no initial metallicity, meaning the first stars. These stars are believed to be bigger, but have not been observed. The boundaries of the mass function change the distribution of initial mass of the population III stars.
+    It is clear that the different yield tables gives no variation in iron abundance, even in early times.
+  }
 \end{figure}
 \begin{figure}[h]
   \centering
@@ -241,7 +288,7 @@ set_sn1a_plot_sn1a_yt.png
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_sn1a_plot_sn1a_dtd1_iron.png}
-  %\caption{\label{fig:fit-v2}}
+  \caption{\label{fig:fit-v2-dtd1-iron}}
 \end{figure}
 \begin{figure}[h]
   \centering
@@ -279,6 +326,7 @@ set_sn1a_plot_sn1a_yt.png
   %\caption{\label{fig:fit-v2}}
 \end{figure}
 
+\FloatBarrier
 \subsection{Binary neutron star mergers}
 \iffalse
 Filenames:
@@ -300,32 +348,42 @@ set_nsm_plot_nbnsm_spectro.png
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_dtd.png}
-  %\caption{\label{fig:fit-v3}}
+  \caption{\label{fig:fit-v3-dtd}
+    Abundance of europium in \eris\ simulation and \omegamodel\ models for galactic time in Gyrs.
+    There are two main ways to calculate the delay-time of a neutron star merger in \omegamodel: one is a powerlaw distribution in time(with boundaries at minimum and maximum time), while another is setting a time after which all neutron star binaries merge, called a coalescence time.
+    \\ \comment{what does \eris\ use?} \\
+    In order to reproduce the \eris\ spectroscopic abundances, \omegamodel\ must synthesize more europium at an earlier time, this is achieved by a steep distribution with early minimum-time. It is clear from the plot that all models behave similar at late times, regardless of delay-time distribution. There is also little difference between a short coalescence time or a powerlaw distribution with short minimum time.
+  }
 \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_ejmass.png}
-  %\caption{\label{fig:fit-v3}}
+  \caption{\label{fig:fit-v3-ejecta}
+    Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models. In the models the mass ejected from each neutron star merger have been modified.
+    Modifying the mass ejected from each event will just scale the total europium content up and down.
+    Ejecting 0.2-0.3 \msol per event gives a pretty decent fit to late time europium and early time europium.
+    However for the 'dips' between 2 and 8 Gyrs, the \omegamodel\ model overshoots the \eris\ data.
+  }
 \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_mergerfraction_rates.png}
-  %\caption{\label{fig:fit-v3}}
+  \caption{\label{fig:fit-v3-mergerfrac-nsmr}}
 \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_mergerfraction_spectro.png}
-  %\caption{\label{fig:fit-v3}}
+  \caption{\label{fig:fit-v3-mergerfrac-euro}}
 \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_nbnsm_rates.png}
-  %\caption{\label{fig:fit-v3}}
+  \caption{\label{fig:fit-v3-number-nsmr}}
 \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{\imagefolder/set_nsm_plot_nbnsm_spectro.png}
-  %\caption{\label{fig:fit-v3}}
+  \caption{\label{fig:fit-v3-number-euro}}
 \end{figure}
 \begin{figure}[h]
   \centering
@@ -348,6 +406,11 @@ set_nsm_plot_nbnsm_spectro.png
   \caption{\label{fig:fit-v3-final-euro}}
 \end{figure}
 
+\FloatBarrier
+\subsection{Size of timesteps}
+\comment{add plots from timestep analysis}
+
+\FloatBarrier
 \subsection{Final parameters of fitting}
 \comment{add plots from final bestfit-folder}
 

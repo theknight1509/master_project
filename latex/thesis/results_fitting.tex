@@ -408,7 +408,34 @@ set_nsm_plot_nbnsm_spectro.png
 
 \FloatBarrier
 \subsection{Size of timesteps}
-\comment{add plots from timestep analysis}
+In the fitting process the timestep was chosen somewhat arbitrarily in order to give the best result in a realistic amount of time for working purposes. The size of the timesteps are important for accuracy of the result of a numerical calculation, longer and fewer timesteps give unaccurate results, but too short and too many timesteps take much memory and comupting time. numerical presicion and floating point arithmetic can also come into play at the shorter timestep simulations.
+
+In order to check the accuracy of \omegamodel\ against \eris\ a comparison is needed.
+\omegamodel\ uses two different timestepping tecnhiques, one with n logarithmic timesteps between start and end, and one with constant timesteps between start and end.
+By varying the number of timesteps in the \omegamodel\ data for [O/H], [F/H], [Eu/H] in time will be created.
+These data will be interpolated onto the time-data for \eris\ and compared to the \eris-data with a pearson chi-squared test. The pearson static is only used to compare the difference with increasing time-resolution, the chi-squared statistic will not be used to compare what is, in essence, two different simulations.
+
+It should be noted that there were some peculiar difficulties discovered at this point. \omegamodel\ cannot create a stable list of timestep-values when the timesteps are shorter then the time-array in the input star formation rate (which, in this case belongs to \eris). The same problem also occured for some timestep-sizes close to the timestepsize of \eris.
+This is the reason for the sparse datapoints at higher resolutions.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption{\label{fig:fit-res-euro}}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption{\label{fig:fit-res-euro}}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption{\label{fig:fit-res-euro}}
+  \end{subfigure}
+\end{figure}
 
 \FloatBarrier
 \subsection{Final parameters of fitting}

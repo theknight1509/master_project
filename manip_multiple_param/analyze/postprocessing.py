@@ -219,3 +219,16 @@ def Reduce(Extract):
             self.save_pandas(save_filename + "_hist", hist_dict)
 
         return
+
+if __name__ == '__main__':
+    import configparser as cp
+    config_filename = "config_beehive_revides.ini"
+    config = cp.ConfigParser()
+    config.read(config_filename)
+    subdir_name = config["montecarlo parameters"]["directory_name"]
+    
+    extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
+    extract_instance() #do the stuff for Re-Os
+
+    reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
+    reduce_instance() #do the stuff for Re-Os

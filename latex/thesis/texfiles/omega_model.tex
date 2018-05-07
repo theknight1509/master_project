@@ -1,32 +1,35 @@
 \section{The \omegamodel\ model}
 \label{sec:omega}
-OMEGA stands for 'One-zone Model of the Evolution of Galaxies' and evolves the isotopic content of a galaxy.
+\omegamodel\ is a python code developed by Benoit C\^{o}t\'{e} and Christian Ritter\footnote{\url{https://nugrid.github.io/NuPyCEE/}}.
+OMEGA stands for 'One-zone Model of the Evolution of Galaxies' and evolves the isotopic content of a galaxy\mycite{cote16a}.
 The model is a one-zone model, which means that the entire galaxy is simplified to a single point.
 A zero-space-dimensional galaxy model seems unrealistic, but it can be imagined as the mean value for a three-space-dimensional galaxy model.
-\comment{Add reference to cote-paper}
+
+In this work the \omegamodel\ code will be modified with a wrapper in order to explore various parameters related to nucleosynthesis.
 
 \subsection{Process}
 \label{sec:omega-process}
-The \omegamodel\ model emulates the chemical evolution of a galaxy by representing the initial primordial gas. A simple stellar population is created by integrating the star formation rate in time.
-The star formation rate is calculated either by using a constant star formation rate, the Kennicut-Schmidt law, or by using an input star formation rate and interpolate over those values.
+The \omegamodel\ model emulates the chemical evolution of a galaxy starting from the initial primordial gas. A simple stellar population is created by integrating the star formation rate over time.
+The star formation rate is calculated either by using a constant star formation rate, the Kennicut-Schmidt law\mycitetwo{fuchs09}{and refernces therein}, or by using an input star formation rate and interpolate over those values.
 
 The stellar populations represent a cluster of stars, with a total mass, initial mass distribution, and initial metallicity distribution.
-The initial mass distributions are given as one of the standard distributions, Salpeter, Kroupa, Chabrier, or a power-law, all between some minimum and maximum mass limit.
-The initial metallicity distribution is the mass of each single isotope tracked, then scaled to one to get the relative amount of each isotope.
+The initial mass distributions are given as one of the standard distributions, Salpeter, Kroupa, Chabrier, or a power-law, all between some minimum and maximum mass limit (see figure \ref{fig:imf}.
+The initial metallicity distribution is the relative mass distribution of isotopes heavier than \isotope{Li}{3}{7}, and the metallicity is the mass fraction of all isotopes heavier than \isotope{Li}{3}{7} combined.
+\input{img/Plot_of_various_initial_mass_functions}
 
 Stellar evolution codes calculate the amount of ejected material, for each isotope, for a star with a given initial metallicity and initial mass. These codes are used to create \textbf{yield tables} for certain kind of stars with different initial mass and metallicity.
 
-In the simple stellar population in the galactic chemical evolution model, these yield tables are used to calculate the chemical composition and mass of ejecta from a group of stars. The ejecta are disspersed back into the interstellar medium (gas of the galaxy model) at delay-times appropriate for each mass of star.
-E.g. For a given mass-bin the total mass of stars, number, and age of stars, with initial mass in that bin, are calculated using the total mass of the total stellar mass and mass function chosen. By choosing the yield tables closest in initial mass and initial metallicity the total ejecta composition is calculated and added to the interstellar medium at the age where those stars would have gone supernova.
+In the simple stellar population assumed in the galactic chemical evolution model, these yield tables are used to calculate the chemical composition and mass of ejecta from each group of stars. The ejecta are disspersed back into the interstellar medium (gas of the galaxy model) at delay-times appropriate for each group of stellar mass.
+E.g. For a given mass-bin the total mass in stars, number, and age of stars, with initial mass in that bin, are calculated using the total mass of the total stellar mass and mass function chosen. By choosing the yield tables closest in initial mass and initial metallicity the total ejecta composition is calculated and added to the interstellar medium at the age where those stars would have gone supernova.
 The material that is not ejected is left as remnants and total mass and number of remnants are also added to the simulation at the time these stars would have gone supernova.
 
-In \omegamodel\ the creation and treatment of simple stellar population is done by another python-program called \texttt|SYGMA|.
-
-Another key effect that dictates chemical evolution is outflow and inflow. Outflow created from supernova feedback, active galactic nucleus, stellar kick or similar, and inflow from matter outside the galaxy into ``box'' that is our model.
-To describe the chemical evolution one needs to know the total content of the galaxy (or box) and the distribution. In other words, how much of the total mass is stored as each isotope. Material with the same composition as the box is ejected from the box, and material with another composition falls into the box.
+In \omegamodel\ the creation and treatment of simple stellar population is done by another python-program called \texttt{Sygma}.
 
 The \omegamodel\ model is a \textit{one-zone} model, meaning that everything inside the box has been enriched from stellar lifecycles. Everything outside the box is untouched since ``it's creation'', and has the same composition as the material inside the box had to start with.
-This composition is called the primordial composition (three parts hydrogen, one part helium and trace amounts of lithium and beryllium), and is derived from the big bang nucleosynthesis \comment{(add reference here or in theory part 1)}.
+This composition is called the primordial composition (three parts hydrogen, one part helium and trace amounts of lithium and beryllium), and is derived from the big bang nucleosynthesis (see section\ref{sec:bbn}.
+Flow of material can determine the chemical evolution of a galaxy. Enriched material can be ejected from the galaxy by supernova feedback, active galactic nucleus, stellar kick or similar, and non-enriched material can flow into the galaxy.
+To describe the chemical evolution of a one-zone model one needs to know the total content of the galaxy (or box) and the distribution. In other words, how much of the total mass is stored as each isotope. Material with the same composition as the box is ejected from the box, and material with another composition falls into the box.
+
 \comment{More on outflow/inflow}
 
 \subsection{Uncertainty of parameters}

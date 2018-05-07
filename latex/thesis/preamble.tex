@@ -1,6 +1,6 @@
 
 %packages
-\usepackage{color} %color-package for text
+\usepackage{xcolor} %color-package for text
 \usepackage{mhchem} %nuclear notation package
 \usepackage[english]{babel} %english language package
 \usepackage{amsmath} %math-mode package
@@ -15,7 +15,10 @@
 \usepackage{hyperref}
 
 %commands
-\newcommand{\comment}[1]{ {\color{red}#1} }
+\definecolor{myred}{rgb}{1,0,0}
+\colorlet{MYRED}{myred} %for titles and such
+\colorlet{Myred}{myred} %for titles and such 
+\newcommand{\comment}[1]{ \textcolor{myred}{#1} }
 \newcommand{\importantcomment}[1]{ {\Huge \comment{#1}} }
 
 %Packages and styles
@@ -27,9 +30,14 @@
 \newcommand\aaps{A\&AS}
 \newcommand\apj{ApJ}
 \newcommand\physrep{Phys.Rep.}
-\newcommand\mycite[1]{{\footnotesize \it \citep{#1}}}
+\newcommand\nat{Nature}
+\newcommand\mycite[1]{ {\footnotesize \it \citep{#1}} }
+\newcommand\mycitetwo[2]{ {\footnotesize \it \citep[#2]{#1}} }
 
-\newcommand{\isotope}[3]{{\footnotesize\ce{^{#3}_{#2}{#1}}}}
+\newcommand{\isotope}[3]{
+  \ifmmode {\ce{^{#3}_{#2}{#1}} }
+  \else {\footnotesize \ce{^{#3}_{#2}{#1}} } \fi
+}
 \newcommand{\eu}[1]{\isotope{Eu}{63}{#1}}
 \newcommand{\re}[1]{\isotope{Re}{75}{#1}}
 \newcommand{\os}[1]{\isotope{Os}{76}{#1}}
@@ -48,9 +56,9 @@
   \ifmmode M_{\astrosun}
   \else $M_{\astrosun}$ \fi
 }
-\newcommand\omegamodel{\texttt{'Omega'}}
-\newcommand\eris{\texttt{'Eris'}}
-\newcommand\chemevol{\texttt{'Chem\_Evol'}}
+\newcommand\omegamodel{\texttt{Omega}}
+\newcommand\eris{\texttt{Eris}}
+\newcommand\chemevol{\texttt{Chem\_Evol}}
 \newcommand\nsm{neutron star merger}
 
 %define lengths for subpages and subfigures

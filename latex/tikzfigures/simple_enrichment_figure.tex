@@ -1,0 +1,27 @@
+
+\newlength{\circleheight}
+\setlength{\circleheight}{1.5cm}
+\newlength{\circlewidth}
+\setlength{\circlewidth}{3cm}
+\newlength{\horseplength}
+\setlength{\horseplength}{5cm}
+\newlength{\verseplength}
+\setlength{\verseplength}{8cm}
+
+\newcommand{\initialgastext}{\centering Initial gas \newline \\ Characterized by initial mass function of stars that will form}
+\newcommand{\starformationtext}{\centering Star formation \newline \\ Collapse of initial gas into stars \\ Characterized by the star formation rate}
+\newcommand{\stardeathtext}{\centering Death of stars  \newline \\ Explosive ejection of enriched gas \\ Characterized by isotopic yield tables \newline }
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    %Draw bubble of initial gas
+    \draw (0,\verseplength) circle [x radius=\circlewidth, y radius=\circleheight] node {\parbox{2\circlewidth}{\initialgastext}};
+    %Draw bubble of star formation
+    \draw (0.5\horseplength,0) circle [x radius=\circlewidth, y radius=\circleheight] node {\parbox{2\circlewidth}{\starformationtext}};
+    %Draw bubble of star death
+    \draw (-0.5\horseplength,0) circle [x radius=\circlewidth, y radius=\circleheight] node {\parbox{2\circlewidth}{\stardeathtext}};
+    %draw arros between circles
+    \draw[thick] (0,\verseplength) -> (0.5\horseplength);
+  \end{tikzpicture}
+\end{figure}

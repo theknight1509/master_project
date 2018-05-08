@@ -1,6 +1,7 @@
 """
 Plot files in pandas-csv files, and store them in the some folder.
 """
+import sys
 import os
 import matplotlib.pyplot as pl
 import numpy as np
@@ -19,12 +20,12 @@ rcParams[u"lines.linewidth"] = 2.0
 
 def plot_timeevol(filename_timeevol):
     pandas_data_frame = pd.read_csv(filename_timeevol)
-    time = pandas_data_frame
-    mean = 
-    pos_sigma = 
-    neg_sigma = 
-    maximum =
-    minimum =
+    time = pandas_data_frame["time"]
+    mean = pandas_data_frame["mean"]
+    pos_sigma = pandas_data_frame["mean+sigma"]
+    neg_sigma = pandas_data_frame["mean-sigma"]
+    maximum = pandas_data_frame["maximum"]
+    minimum = pandas_data_frame["minimum"]
     
     #make figure
     fig = pl.figure(); ax = fig.gca(); ax.grid(True)
@@ -46,16 +47,13 @@ def plot_timeevol(filename_timeevol):
 
 def plot_hist(filename_hist):
     pandas_data_frame = pd.read_csv(filename_hist)
-
-    sos_formation =
-    now = 
-    #make figure
+    keys = pandas_data_frame.keys()
     fig = pl.figure()
     loa_ax = fig.subplots(nrows=2,ncols=1, sharex=True)
-    for ax, array, label in zip(loa_ax, [sos_formation, now], 
-                                 ["t=9.5Gyr","t=14Gyr"]):
+    for ax, key in zip(loa_ax, keys):
+        array = pandas_data_frame[key]
         ax.grid(True)
-        ax.hist(array, bins=50, label=label)
+        ax.hist(array, bins=50, label=key)
         ax.axvline(np.mean(array), color='k', 
                    label=r"$\langle X \rangle \pm 1 \sigma$")
         ax.axvline(np.mean(array)-np.std(array), color='k')
@@ -83,11 +81,19 @@ def get_full_filenames(experiment_folder):
 
 if __name__ == '__main__':
     loa_fullpaths = get_full_filenames(subdir_name)
+
+    for fullpath in loa_fullpaths:
+        print fullpath.split('/')[-1]
+    if raw_input("continue? y/n\t") == "y":
+        pass
+    else:
+        sys.exit("Exiting!")
+
     for fullpath in loa_fullpaths:
         if "hist" in fullpath:
             fig = plot_hist(fullpath)
         elif "timeevol" in fullpath:
-            fig = plot_hist(fullpath)
+            fig = plot_timeevol(fullpath)
         else:
             print "(/) Error! neither 'hist' not 'timeevol' present"
 

@@ -105,7 +105,7 @@ class Extract(object):
         #extract re187/os-187 ism-array
         extract_func = lambda data: self.extract_ratio_array(data=data,
                                                         index_numer=doa_array_index[re187],
-                                                        index_denom=doa_array_index[re187])
+                                                        index_denom=doa_array_index[os187])
         self.handle_all_data(extract_func=extract_func,
                              extract_filename="ism_%sdiv%s"%(re187,os187))
         return

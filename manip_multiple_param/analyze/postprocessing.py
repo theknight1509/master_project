@@ -43,13 +43,15 @@ class Extract(object):
         else:
             return return_index
         
-    def get_numpy_filenames(self, trait="pid"):
+    def get_numpy_filenames(self, trait="pid", untrait="decayed"):
         """ Loop over all filenames, compile list with filenames that have:
         '.npy' and trait in the filename."""
         loa_filenames = os.listdir(self.get_dir)
         loa_numpy_filenames = [self.dir_string_func(self.get_dir) + filename
                                for filename in loa_filenames
-                               if ('.npy' in filename) and (trait in filename)]
+                               if ('.npy' in filename) 
+                               and (trait in filename)
+                               and (untrait not in filename)]
         return loa_numpy_filenames
 
     def handle_all_data(self, extract_func, extract_filename):
@@ -58,7 +60,7 @@ class Extract(object):
         'extract_func' - must take numpy matrix and return single array
         """
         loa_extracted_arrays = []
-        for data_filename in self.get_numpy_filenames(): #loop over numpy-files
+        for data_filename in self.get_numpy_filenames(trait="decayed", untrait=""): #loop over numpy-files
             data = np.load(data_filename) #get data from a single data-file
             extracted_arr = extract_func(data) #extract according to input function
             loa_extracted_arrays.append(extracted_arr) #store extracted array
@@ -228,7 +230,7 @@ class Reduce(Extract):
 class Decay(Extract):
     """ Class for adding cosmoradiogenic decay to data """
     def __init__(self, dir_name):
-        Extract.__init__(dir_name=dir_name)
+        Extract.__init__(self, dir_name=dir_name)
 
     def __call__(self):
         self.re187_cosmoradiogenic_decay()
@@ -241,7 +243,7 @@ class Decay(Extract):
 
         decay_constant = np.log(2)/halflife
 
-        for i in range(len(time_array)):
+        for i in range(len(time_array)-1):
             #calculate time
             dt = time_array[i+1] - time_array[i]
             #calculate decay
@@ -251,7 +253,7 @@ class Decay(Extract):
             #same for daughter, but negative decay
             daughter_array[i+1:] -= dN
 
-        return perent_array, daughter_array
+        return parent_array, daughter_array
 
     def re187_cosmoradiogenic_decay(self):
         """ For all datafiles, apply radioactive decay from Re-187 to Os-187. """
@@ -270,8 +272,9 @@ class Decay(Extract):
             new_re187_array, new_os187_array = self.apply_decay(time_array=time_array, parent_array=re187_array, daughter_array=os187_array, halflife=halflife_re187)
             data[index_re187,:] = new_re187_array
             data[index_os187,:] = new_os187_array
-
-            np.save(datafilename, data)
+            
+            new_datafilename = datafilename[:-len(".npy")] + "_decayed.npy"
+            np.save(new_datafilename, data)
 
         return
 
@@ -284,9 +287,10 @@ if __name__ == '__main__':
     subdir_name = config["montecarlo parameters"]["directory_name"]
     print "Mucking around in directory: %s"%(subdir_name)
 
-    decay_instance = Decay(dir_name=dir_name) #make instance of decay-class
-    decay_instance() #do the stuff for Re-Os
-    print "Succesfully applied decay!"
+    print "Do not apply decay!"
+    #decay_instance = Decay(dir_name=subdir_name) #make instance of decay-class
+    #decay_instance() #do the stuff for Re-Os
+    #print "Succesfully applied decay!"
     
     extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
     extract_instance() #do the stuff for Re-Os

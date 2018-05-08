@@ -224,6 +224,58 @@ class Reduce(Extract):
 
         return
 
+
+class Decay(Extract):
+    """ Class for adding cosmoradiogenic decay to data """
+    def __init__(self, dir_name):
+        Extract.__init__(dir_name=dir_name)
+
+    def __call__(self):
+        self.re187_cosmoradiogenic_decay()
+        return
+
+    def apply_decay(self, time_array, parent_array, daughter_array, halflife):
+        """ Apply decay from parent to daughter with 
+        the corresponding time-array and nuclear halflife.
+        Halflife in same units as time_array. """
+
+        decay_constant = np.log(2)/halflife
+
+        for i in range(len(time_array)):
+            #calculate time
+            dt = time_array[i+1] - time_array[i]
+            #calculate decay
+            dN = - decay_constant * parent_array[i] * dt
+            #apply decay to parent forall indeces greater then i
+            parent_array[i+1:] += dN
+            #same for daughter, but negative decay
+            daughter_array[i+1:] -= dN
+
+        return perent_array, daughter_array
+
+    def re187_cosmoradiogenic_decay(self):
+        """ For all datafiles, apply radioactive decay from Re-187 to Os-187. """
+        halflife_re187 = 43.3e+9 #yr
+        index_time = self.get_data_index("time")
+        index_re187 = self.get_data_index("ism_iso_Re-187")
+        index_os187 = self.get_data_index("ism_iso_Os-187")
+
+        for datafilename in self.get_numpy_filenames():
+            #load data as numpy 2D array
+            data = np.load(datafilename)
+            #get arrays from data
+            time_array = data[index_time,:]
+            re187_array = data[index_re187,:]
+            os187_array = data[index_os187,:]
+            new_re187_array, new_os187_array = self.apply_decay(time_array=time_array, parent_array=re187_array, daughter_array=os187_array, halflife=halflife_re187)
+            data[index_re187,:] = new_re187_array
+            data[index_os187,:] = new_os187_array
+
+            np.save(datafilename, data)
+
+        return
+
+
 if __name__ == '__main__':
     import configparser as cp
     config_filename = "../config_beehive_revised.ini"
@@ -231,6 +283,10 @@ if __name__ == '__main__':
     config.read(config_filename)
     subdir_name = config["montecarlo parameters"]["directory_name"]
     print "Mucking around in directory: %s"%(subdir_name)
+
+    decay_instance = Decay(dir_name=dir_name) #make instance of decay-class
+    decay_instance() #do the stuff for Re-Os
+    print "Succesfully applied decay!"
     
     extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
     extract_instance() #do the stuff for Re-Os

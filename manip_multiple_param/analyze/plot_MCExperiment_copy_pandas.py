@@ -47,7 +47,8 @@ def plot_timeevol(filename_timeevol):
 
 def plot_hist(filename_hist):
     pandas_data_frame = pd.read_csv(filename_hist)
-    keys = pandas_data_frame.keys()
+    keys = [key for key in pandas_data_frame.keys()
+            if ("t=" in key)]
     fig = pl.figure()
     loa_ax = fig.subplots(nrows=2,ncols=1, sharex=True)
     for ax, key in zip(loa_ax, keys):

@@ -60,7 +60,7 @@ class Extract(object):
         'extract_func' - must take numpy matrix and return single array
         """
         loa_extracted_arrays = []
-        for data_filename in self.get_numpy_filenames(trait="decayed", untrait=""): #loop over numpy-files
+        for data_filename in self.get_numpy_filenames():#trait="decayed", untrait=""): #loop over numpy-files
             data = np.load(data_filename) #get data from a single data-file
             extracted_arr = extract_func(data) #extract according to input function
             loa_extracted_arrays.append(extracted_arr) #store extracted array
@@ -104,12 +104,12 @@ class Extract(object):
             extract_func = lambda data: self.extract_single_array(data=data, index_array=doa_array_index[key])
             self.handle_all_data(extract_func=extract_func,
                                  extract_filename=doa_filename[key])
-        #extract re187/os-187 ism-array
+        #extract os-187/re187 ism-array
         extract_func = lambda data: self.extract_ratio_array(data=data,
-                                                        index_numer=doa_array_index[re187],
-                                                        index_denom=doa_array_index[os187])
+                                                             index_numer=doa_array_index[os187],
+                                                             index_denom=doa_array_index[re187])
         self.handle_all_data(extract_func=extract_func,
-                             extract_filename="ism_%sdiv%s"%(re187,os187))
+                             extract_filename="ism_%sdiv%s"%(os187,re187))
         return
 
 
@@ -175,6 +175,15 @@ class Reduce(Extract):
                 delta_interp_numpy_array = (upper_interp_numpy_array-lower_interp_numpy_array)*fraction_interp_time #jump in numpy_matrix to timepoint
                 
                 numpy_array = lower_interp_numpy_array + delta_interp_numpy_array #interpolated array
+                
+                # import matplotlib.pyplot as pl
+                # fig, (ax1, ax2, ax3) = pl.subplots(nrows=3, ncols=1, sharex=True)
+                # ax1.hist(lower_interp_numpy_array, label="lower")
+                # ax2.hist(upper_interp_numpy_array, label="upper")
+                # ax3.hist(delta_interp_numpy_array, label="delta")
+                # ax1.legend(); ax2.legend(); ax3.legend()
+                # fig.show()
+                # raw_input()
             else:
                 print "Extrapolation not considered! Fuck off!"
                 print "timepoint", timepoint, time_array[0], time_array[-1]
@@ -292,6 +301,7 @@ if __name__ == '__main__':
     #decay_instance() #do the stuff for Re-Os
     #print "Succesfully applied decay!"
     
+    #print "Do not extract!"
     extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
     extract_instance() #do the stuff for Re-Os
     print "Succesfully extracted!"

@@ -90,4 +90,10 @@ if __name__ == '__main__':
             fig = plot_hist(fullpath)
         else:
             print "(/) Error! neither 'hist' not 'timeevol' present"
+
+        ax = fig.gca()
+        ax.set_title(fullpath.split('/')[-1])
+
+        save_name = fullpath[:-len(".csv")] + ".png"
+        fig.savefig(save_name)
         fig.show()

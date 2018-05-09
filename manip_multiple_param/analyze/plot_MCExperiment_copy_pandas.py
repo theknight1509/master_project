@@ -63,6 +63,25 @@ def plot_hist(filename_hist):
     
     return fig
 
+def plot_hist_vertical(filename_hist):
+    pandas_data_frame = pd.read_csv(filename_hist)
+    keys = [key for key in pandas_data_frame.keys()
+            if ("t=" in key)]
+    fig = pl.figure()
+    loa_ax = fig.subplots(nrows=1,ncols=2, sharey=True)
+    for ax, key in zip(loa_ax, keys):
+        array = pandas_data_frame[key]
+        ax.grid(True)
+        ax.hist(array, bins=50, label=key, orientation="vertical")
+        ax.axhline(np.mean(array), color='k', 
+                   label=r"$\langle X \rangle \pm 1 \sigma$")
+        ax.axhline(np.mean(array)-np.std(array), color='k')
+        ax.axhline(np.mean(array)+np.std(array), color='k')
+        ax.legend(loc=1)
+    
+    return fig
+
+
 def get_full_filenames(experiment_folder):
     """ Return list of csv-filenames in experiment-folder with full path. """
     #get list of filenames in experiment-folder
@@ -97,10 +116,60 @@ def plot_all_single_paths(loa_fullpaths):
 
 def plot_pretty_plots(loa_fullpaths):
     doa_fullpaths = sort_paths(loa_fullpaths=loa_fullpaths)
-    return
 
-def sort_paths(loa_fullpaths):
-    return
+    #get paths of timeevol and hist
+    loa_paths = doa_fullpaths["div"]
+    #make master-figure
+    fig = pl.figure()
+    #sort paths into timeevol and hist
+    for path in loa_paths:
+        if "timeevol" in path: 
+            fig_timeevol = plot_timeevol(path)
+        elif "hist" in path: 
+            fig_hist = plot_hist(path)
+    #get ax1 from timeevol-figure
+    fig.add_axes(fig_timeevol.gca())
+    #get ax2 and ax3 from hist-figure
+    fig.add_axes(fig_hist.gca()[0])
+    fig.add_axes(fig_hist.gca()[1])
+    return fig
+
+def sort_paths(loa_fullpaths, check=True):
+    div = "div"
+    re187 = "Re-187"
+    os187 = "Os-187"
+    keys = [div, re187, os187]
+    doa_fullpaths = {key:[] for key in keys}
+    
+    while len(loa_fullpaths) > 0:
+        for i, path in enumerate(loa_fullpaths):
+            if div in path:
+                doa_fullpaths[div].append(path)
+                loa_fullpaths.pop(i)
+            elif re187 in path:
+                doa_fullpaths[re187].append(path)
+                loa_fullpaths.pop(i)
+            elif os187 in path:
+                doa_fullpaths[os187].append(path)
+                loa_fullpaths.pop(i)
+            else:
+                print "(/) Error in sort_paths()!"
+                print "\t", "path doesn't match any key %s"%keys
+                print "\t", path
+
+    if check: #check lengths of lists
+        all_good = True
+        desired_length = 2
+        for key in doa_fullpaths.keys():
+            if not (len(doa_fullpaths[key]) == desired_length):
+                all_good = False
+        if not all_good:
+            print "sort_paths()! Check of lists failed"
+            print doa_fullpaths
+        else:
+            print "sort_paths()! Check of lists succeded"
+
+    return doa_fullpaths
 
 if __name__ == '__main__':
     loa_fullpaths = get_full_filenames(subdir_name)
@@ -112,5 +181,6 @@ if __name__ == '__main__':
     else:
         sys.exit("Exiting!")
 
-    #plot_all_single_paths(loa_fullpaths=loa_fullpaths)
-    plot_pretty_plots
+    # plot_all_single_paths(loa_fullpaths=loa_fullpaths)
+    fig = plot_pretty_plots(loa_fullpaths=loa_fullpaths)
+    fig.show()

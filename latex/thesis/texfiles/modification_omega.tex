@@ -1,5 +1,7 @@
 %write description and code to single-yield modification
 
+\label{sec:mod-omega}
+
 In order to manipulate the program \omegamodel\ without changing the source code, which can be found on \comment{website to omega}, inheritance of python-classes was used.
 
 By creating a new python-class that inherits all methods from \omegamodel\ (which inherits many methods from \chemevol ), and making a new function with the same name as the function that sets the yield tables, the old funciton is overridden by the new.

@@ -78,18 +78,7 @@ def get_full_filenames(experiment_folder):
 
     return csv_file_list
 
-
-
-if __name__ == '__main__':
-    loa_fullpaths = get_full_filenames(subdir_name)
-
-    for fullpath in loa_fullpaths:
-        print fullpath.split('/')[-1]
-    if raw_input("continue? y/n\t") == "y":
-        pass
-    else:
-        sys.exit("Exiting!")
-
+def plot_all_single_paths(loa_fullpaths):
     for fullpath in loa_fullpaths:
         if "hist" in fullpath:
             fig = plot_hist(fullpath)
@@ -104,3 +93,24 @@ if __name__ == '__main__':
         save_name = fullpath[:-len(".csv")] + ".png"
         fig.savefig(save_name)
         fig.show()
+    return
+
+def plot_pretty_plots(loa_fullpaths):
+    doa_fullpaths = sort_paths(loa_fullpaths=loa_fullpaths)
+    return
+
+def sort_paths(loa_fullpaths):
+    return
+
+if __name__ == '__main__':
+    loa_fullpaths = get_full_filenames(subdir_name)
+
+    for fullpath in loa_fullpaths:
+        print fullpath.split('/')[-1]
+    if raw_input("continue? y/n\t") == "y":
+        pass
+    else:
+        sys.exit("Exiting!")
+
+    #plot_all_single_paths(loa_fullpaths=loa_fullpaths)
+    plot_pretty_plots

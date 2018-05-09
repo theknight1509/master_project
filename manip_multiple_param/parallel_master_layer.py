@@ -157,9 +157,9 @@ def modify_namespace(bestfit_namespace, loa_parameter_tuples):
         #     bestfit_namespace.bestfit_nsm_dtd_power = l_dtd
         elif parameter_name == "alphaimf":
             #choose imf-slope from Cote16a
-            bestfit_name.bestfit_imf_type = "alphaimf"
-            bestfit_name.bestfit_alphaimf = 2.29
-            bestfit_name.bestfit_alphaimf *= parameter_value
+            bestfit_namespace.bestfit_imf_type = "alphaimf"
+            bestfit_namespace.bestfit_alphaimf = 2.29
+            bestfit_namespace.bestfit_alphaimf *= parameter_value
         elif '-' in parameter_name: #parameter is a isotope-yield
             loa_yield_isotopes.append(parameter_name)
             loa_yield_values.append(parameter_value)

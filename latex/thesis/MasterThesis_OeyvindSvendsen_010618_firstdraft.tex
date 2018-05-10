@@ -1,0 +1,53 @@
+\documentclass[a4, 12pt, draft]{book}
+
+\include{preamble}
+
+\newcommand{\mintittel}{Tittel}
+\title{\mintittel}
+\author{\O yvind Svendsen}
+\date{01.06.18}
+
+\begin{document}
+
+\input{titlepage}
+\vspace*{18cm}
+\noindent Copyright \copyright$\,$ 2018, \O yvind Svendsen
+\vspace{4mm}
+
+\noindent This work, entitled ``\mintittel'' is distributed under the
+terms of the Public Library of Science Open Access License, a copy of which can be found at \url{http://www.publiclibraryofscience.org}. 
+
+%\include{foreword}
+%\include{acknowledgement}
+
+%abstract
+%introduction
+
+\include{introduction}
+%theory I
+\chapter{Theory Part I \comment{(need to rename)} }
+\input{texfiles/cosmology}
+\input{texfiles/nuclear_physics}
+\input{texfiles/stellar_evolution}
+\input{texfiles/re_os}
+
+%theory II
+\chapter{Theory Part II \comment{(need to rename)}}
+\include{texfiles/omega_model}
+\include{texfiles/sph}
+\include{texfiles/eris_simulation}
+%methodology
+\include{methodology}
+
+%results
+\chapter{Results}
+\input{results_fitting}
+\input{results_yields}
+\input{results_parameters}
+%conclusion/discussion
+\include{conclusion}
+
+% bibliographystyle defined in preamble
+\bibliography{../references/bibliography_svendsen}
+
+\end{document}

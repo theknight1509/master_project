@@ -63,28 +63,34 @@ The study shows that the heavy products of neutron star mergers can be incorpora
 This is supported by the neutron star merger (GW170817) observed\mycite{GW170817}. With \textit{estimated} dynamical ejecta of mass 0.002\msol and velocity of 0.2c and highspeed wind ejecta of mass 0.015\msol and velocity of 0.08c. Such velocities are high enough to cross a galaxy within $\simeq 1$ Gyr, and if most of the ejecta manifests as r-process material the assumed model of \mycite{shen15} (ejected r-process material of 0.01\msol) is realistic. The single GW170817 observation makes rate of such events hard to estimate, and therefore difficult to constrain the neutron star merger rate in \eris.
 
 %% Move stuff to theory I section
-Looking at very metal poor stars in our Galaxy, which have been around for a long time. r-process abundances can be found. Meaning that the source of r-process has been around for a long time, and in a robust manner. However, the large variations show that the process was unhomogenous for early times, while it is moore smoothed after many Galactic rotations and repeated events.
-The two main regions of producing these heavy r-process elements are in the merger of two neutron stars (or the merger between a neutron star and a black hole) or in a heavy core collapse supernova. The production yields are much larger for neutron star mergers, but they are also much more rare.
-(Important citations Takashi94 and Woosley94 for SNII; Lattimer 77 and Freiburghaus 99 for NSM)
+\subsection{move to theory I}
+Looking at very metal poor stars in our Galaxy, which have been around for a long time, r-process abundances can be found. Meaning that the source of r-process has been around for a long time, and in a robust manner. However, the large variations show that the process was unhomogenous for early times, while it is more smoothed after many Galactic rotations and repeated events.
+The two main sources of producing these heavy r-process elements are believed to be in the merger of two neutron stars (or the merger between a neutron star and a black hole) or in a heavy core collapse supernova. The production yields are much larger for neutron star mergers, but they are also much more rare.
+\comment{(Important citations Takashi94 and Woosley94 for SNII; Lattimer 77 and Freiburghaus 99 for NSM)}
+
+r-process nucleosynthesis requires neutron heavy isotopes, and the two leading theories are neutron star mergers and type II supernovae (see references Burbridge 1957, Roberts 2010, Lattimer 1977). Even though the conditions of the neutron star environment are somewhat uncertain, estimates are promising for the neutron star mergers to produce heavy isotopes in r-process distributions.
+These two processes, neutron star mergers and type II supernovae are quite different in frequency and yields, meaning that galactic chemical evolution models should be able to predict which of the models are most likely.
+
+\subsection{neutron star merger application to \eris}
+Numerically, the neutron star mergers are described by delay-time distribution, merger rate, yield of r-process elements, and the spatial distribution of events.
+The delay-time distribution is modelled by a power-law, $P(t) \propto t^{-n}$, from some minimum timescale to the hubble-time(end of simulation).
+Each neutron star merger is assumed to synthesize some mass of r-process material, only a fraction of this material will be europium(which is used as the tracer).
+The ratio of europium to r-process material is usually assumed to be solar\comment{($M_{Eu}=9.3\times10^{-4}M_{r-process}$ Sneden 2008)}, while the merger rate is calculated from scaling the star formation integral until europium-oxygen ratio equals solar ratio.
+
+From the merger rate, the number of injection events per timestep is calculated and applied to random star particles in the data. The ejection material is then distributed among gas particles in close proximity to the selected star particles.
 
 %% chemical observations
-The neutron star merger events are set to occur near the stellar distribution, and since the kinetic energy outout is not large compared to supernovae the gas dynamics is unaffected.
-In simple terms, the neutron star mergers are injected in stellar regions and therefor drown in the bright, explosive environment of larger supernovae.
-
-Using the time evolution of the star formation rate, the neutron star merger events are injected at random star-particles (simple stellar populations).
-
-At redshift zero the oxygen-iron abundances can be split into two main regions. One primarily enriched by type II supernovae, which are more rich in oxygen, leading to higher (supersolar) ratios. Another which are primarily enriched by type Ia supernovae, leading to more iron than oxygen.
+At redshift zero the oxygen-iron abundances can be split into two main sources.
+One source is type II supernovae, which are more rich in oxygen, leading to higher (supersolar) ratios.
+Another source is type Ia supernovae, which are more rich in iron, leading to more iron than oxygen.
 
 There are two main implementations involved, one without any mixing, and another with mixing of metals between gas particles. For both oxygen-iron ratios and europium-iron ratios one sees that mixing gives less variation between ``upper'' and ``lower'' sigma-bands.
 
 Populating some star particles with neutron star mergers and have them enrich the nearby gas particles, and subsequentually the new star particles, gives a more complete abundance-pattern to trace.
 The abundances traced are hydrogen, oxygen (which primarily follows type II supernovae), iron (produced more abundently in type Ia supernovae) and europium (produced in neutron star mergers only). The europium-iron ratio varies widely, even for early times.
 
-r-process nucleosynthesis requires neutron heavy isotopes, and the two leading theories are neutron star mergers and type II supernovae (see references Burbridge 1957, Roberts 2010, Lattimer 1977). Even though the conditions of the neutron star environment are somewhat uncertain, estimates are promising for the neutron star mergers to produce heavy isotopes in r-process distributions.
-These two processes, neutron star mergers and type II supernovae are quite different in frequency and yields, meaning that galactic chemical evolution models should be able to predict which of the models are most likely.
-
-The chemical enrichment is closely tied to the star formation rate/history/birth/death, and thereby makes the 'Eris' simulation a good approximation for the Milky Way Galaxy.
-This study (shen15 'Eris' rncp post-production) finds that neutron star mergers are capable of enriching the surrounding medium, even with a minimum delay-time of 100 Myr.
+The chemical enrichment is closely tied to the star formation and evoltuion. \eris\ is a good approximation to the Milky Way galaxy do to similar star formation, shape and chemical composition today.
+\mycite{shen15} finds that neutron star mergers are capable of enriching the surrounding medium, even with a minimum delay-time of 100 Myr.
 
 The dispersion/variantion of [Eu/Fe] is great enough, even at low metallicities.
 The results changing the parameters in the fiducial model is obvious, and I've elaborated on this before.

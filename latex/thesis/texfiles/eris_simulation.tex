@@ -1,23 +1,113 @@
 \section{\eris\ simulation}
 
 %% Introduction (ref Guedes11)
-\eris\mycite{guedes11e} is a N-body/smooth particle hydrodynamics simulation of a galaxy forming in $\Lambda$CDM cosmology (see section \ref{sec:cosmology}.
+\eris\mycite{guedes11e} is a N-body/smooth particle hydrodynamics simulation of a galaxy forming in $\Lambda$CDM cosmology (see section \ref{sec:cosmology}. The simulation is performed with \gasoline\mycite{wadsley03}.
 
 %% SPH
+\subsection{Smoothed particle hydrodynamics}
 %% - particle-sim
+Particle physics can be simulated by calculating the forces acting on each particle, then using newtons second law to get the acceleration of each particle.
+By integrating in time, with a large variety of numerical methods, the acceleration will give correction to the velocity in the next timestep.
+In a similar fashion the velocity of each particle will give the position in the next timestep.
+Examples of such numerical methods are Euler's method, Euler-Cromer's method, Velocity Verlet, Runge-Kutta 4.
+Numerical particle physics approximates all matter to discrete points in time and space. Due to limited numerical capabilities, and the sheer scale of astronomical dimensions it will not be able to resolve an entire galaxy.
 %% - meshgrid-sim
+Alternatively to representing a galaxy by many discrete points, is representing a galaxy as a meshgrid of average physical properties.
+This meshgrid holds physical properties like density, pressure, velocity and internal energy. Flow of mass and energy between the gridspaces is done according to hydrodynamics.
 %% - combination (sphere of gas/kernel, hydrodynamical effects)
+Smoothed particle hydrodynamics \mycite{monaghan92} represent an effort to combine the two different approaches. Point particles representing a sphere of gas/stars/dark matter with a kernel function to extend the sphere around the point particle.
+The kernel function is historically represented by a gaussian, but for numerical ease modern methods use a spline-function that is zero outside a given range.
+Hydrodynamical effects on a particle from another nearby particle is given by the overlapping kernel functions, which represent a higher density/pressure/internal energy region. The hydrodynamical equations then govern change in velocity and temperature.
+
+\noindent
+\fbox{
+\begin{minipage}{0.5\linewidth}
+  Gravity and acceleration is calculated in \gasoline\ by solving the Poisson's equation (eq.\ref{eq:poisson}) and Newton's laws (eq.\ref{eq:newton}) for each body.
+  $\phi$ is the gravitational potential, $G$ is the gravitational constant, $\rho$ is the mass density, $a_i$ is the acceleration on body i, $M_j$ is the mass of body j, $r_i - r_j$ is the distance between body j and i.
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+  \begin{equation}
+    \nabla^2\phi = 4\pi G \rho
+    \label{eq:poisson}
+  \end{equation}
+  \begin{equation}
+    a_i = \nabla\phi = \sum_{i\neq j} \frac{GM_j}{(r_i-r_j)^2}
+    \label{eq:newton}
+  \end{equation}
+\end{minipage}
+}
+
+\noindent
+\fbox{
+  \begin{minipage}{0.5\linewidth}
+  The extension of a single particle is represented by a symmetric kernel function that extends to some smoothing length $h$, with an associated density of (eq.\ref{eq:density}).
+  $m_j$ is the mass of particle j, with $W_{ij}$ being the kernel function between particles i and j.
+  \end{minipage}
+  \begin{minipage}{0.5\linewidth}
+    \begin{equation}
+      \label{eq:density}
+      \rho_i = \sum_{j=1}^{n} m_jW_{ij}
+    \end{equation}
+  \end{minipage}
+}
+
+\noindent
+\fbox{
+  \begin{minipage}{0.5\linewidth}
+  The acceleration from gas pressure between two nearby particles is given by the momentum equation (eq. \ref{eq:momentum}).
+  $\vec{v}$ is the velocity of particle i, $P_i$ is the pressure associated with particle i, and $\Pi_{ij}$ is the artificial viscosity term between the two particles.
+  \end{minipage}
+  \begin{minipage}{0.5\linewidth}
+    \begin{equation}
+      \label{eq:momentum}
+      \frac{\textrm{d}\vec{v}_i}{\textrm{dt}} = - \sum_{j=1}^{n} m_j \left( \frac{P_i}{\rho_i^2} + \frac{P_j}{\rho_j^2} + \Pi_{ij} \right)\nabla_i W_{ij}
+    \end{equation}
+  \end{minipage}
+}
+
+\noindent
+\fbox{
+  \begin{minipage}{0.5\linewidth}
+  The change in temperature/internal energy for the gas in a particle is given by (eq.\ref{eq:internal-energy}).
+  $u_i$ is the internal energy of body i and $\vec{v}_{ij}$ is the relative velocity between the two bodies, i and j.  
+  \end{minipage}
+  \begin{minipage}{0.5\linewidth}
+    \begin{equation}
+      \label{eq:internal-energy}
+      \frac{\textrm{d}u_i}{\textrm{dt}} = \frac{P_i}{\rho_i^2} \sum_{j=1}^{n} m_j \vec{v}_{ij} \dot \nabla_i W_{ij}
+    \end{equation}
+  \end{minipage}
+}
+
 %% - tree structure (map distances, mass-center for far-away distances)
+If a group of bodies is far away from an observer, the sum force of each body is similar to force to the mass-center with a mass equal to the sum of indivdual masses.
+This is exploited numerically by splitting the point particles into ``trees'' where the force on one body from a group of smaller bodies far away is given by the distance to the mass-center of said group and the sum of masses.
+Numerically this is done by calculating the mass-center of all bodies, then splitting the simulation in two sections with equal number of particles and calculate the mass-center of these two sections. This process is repeated iteratively until a single body/point particle is left. In other words; the ``tree'' stretches into many ``branches'' with a single particle at the end of each branch. Nearby particles are also grouped together into ``leaves''.
+When calculating the force acting on a single particle one calculates the force from each neighbour, but as the distance increases the mass-center for a large ``branch'' is used instead of all individual ``leaves''.
+
 %% - gasoline (general, cooling, dynamical timestepping, drop layers-paragraph)
-%% - \comment{add to introduction - pure DM vs. gas vs. postproduction}
-%% - references to SPH-article and Gasoline-article
-%% - eqs of gravity, momentum, continuity, thermal energy(, poisson?)
-%% - figs sph/gasoline?
+\gasoline\ is a parallelized tree-smoothed-particle-hydrodynamics code that tracks particles with a selfgravitating sphere of density, represented by a kernel function around the particle, extending a certain distance from the particle. The particles are ``falling in their own gravity'', while ``flowing their own medium''.
+The code builds a tree to connect all the particles, in order to calculate gravitational forces more efficiently. The tree is also reproduced to calculate periodic boundary conditions more efficiently.
+
+Particle hydrodynamics is only relevant when two smoothing kernels (representing the extension of gas) overlap. When the edges of two kernels start overlapping, the density and pressure the kernel represent increase causing a repulsive force from the hydrodynamical equations of motion and continuity.
+
+Energy transport in \gasoline\ can follow a wide range of procedures, like adiabatic and isothermal cooling processes, hydrogen/helium cooling processes with ionization fractions in addition to ultraviolet feedback from star formation and cosmic background.
+
+%% ``Angular momentum problem'' description + solution + sources
+\subsection{Angular momentum problem}
+In galactic simulations there is an ``angular momentum problem''. This refers to baryonic components having much less rotaional spin in simulations than real observations. This failure was believed to arise from friction moving angular momentum from sub-structures to outer halo when these sub-structures merge causing the cold clumps of gas to fall to the center\mycite{navarro91}.
+Meaning that cosmological simulation with gas become clumped in the center of halos, instead of forming disks like observed galaxies. The ``problem'' being not enough angular momentum in the gas.
+In newer times this problem have been attempted solved with energy injected from supernovae, meaning evolving stars from the gas content to decrease the effect of cooling and removing angular moment from the center of the galaxy. The stars heat the surrounding gas, and the supernovae add kinetic energy to the gas so it is not allowed to cluster too much in the center.
+In the \eris-simulation however, an rotational disk is allowed to form. This is because the high resolution (many particles) combined with the high threshold for star formation centeres the star forming regions in the high density regions. Such compact star formation drives cold gas outflow from the center of the galaxy, removing low angular momentum gas into ``higher orbits''.
+
+%% Fig galaxy-sheet
+\input{img/HubbleTuningFork}
 
 %% Details + properties eris
+\subsection{Properties of the \eris-simulation}
 The simulation consist of dark matter particles and baryonic gas
 particles. Star particles are created when the number density
-passes 5 atoms cm$^{-3}$\footnote{Assuming three quarter neutral hydrogen and one quarter neutral helium, by mass, this threshold density equals $0.043\msol pc^{-3}$. A gas particle is initially represented by a total mass of $2\times10^{4}\msol$ and a smoothing length/radius of \importantcomment{Dafuq is the smoothing length}.}. Feedback from an active galactic nucleus
+passes 5 atoms cm$^{-3}$\footnote{Assuming three quarter neutral hydrogen and one quarter neutral helium, by mass, this threshold density equals $0.043\msol pc^{-3}$. A gas particle is initially represented by a total mass of $2\times10^{4}\msol$ and a smoothing length/radius of 120pc.}. Feedback from an active galactic nucleus
 is neglected, but supernova-feeback is considered along with
 cosmic UV background and radiative cooling.
 
@@ -37,18 +127,10 @@ Some properties of the simulated galaxy:
 \item{structural properties, mass budget, and scaling relations between mass and luminosity matches several observational constraints}
 \end{itemize}
 
-%% ``Angular momentum problem'' description + solution + sources
-\subsection{Angular momentum problem}
-In galactic simulations there is an ``angular momentum problem''. This refers to baryonic components having much less rotaional spin in simulations than real observations. This failure was believed to arise from friction moving angular momentum from sub-structures to outer halo when these sub-structures merge causing the cold clumps of gas to fall to the center\mycite{navarro91}.
-Meaning that cosmological simulation with gas become clumped in the center of halos, instead of forming disks like observed galaxies. The ``problem'' being not enough angular momentum in the gas.
-In newer times this problem have been attempted solved with energy injected from supernovae, meaning evolving stars from the gas content to decrease the effect of cooling and removing angular moment from the center of the galaxy. The stars heat the surrounding gas, and the supernovae add kinetic energy to the gas so it is not allowed to cluster too much in the center.
-
-%% Fig galaxy-sheet
-\input{img/HubbleTuningFork}
-
 %% What eris present (figs?)
 \mycite{guedes11e} presents a realistic simulation of a Milky Way type galaxy using a new smooth particle hydrodynamic cosmological simulation called \eris, based on \gasoline\mycite{wadsley03}. It includes radiative cooling, cosmic UV heating, supernova feedback, and high-density star formation requirement (which is believed to be a key ingredient in producing realistic spirals in galactic simulations).
 The high density threshold for star formation (5 atoms cm$^{-3}$) creates sparsely, clustered regions of star formation that remove low-angular momentum cold gas from the center of the halo. 
+
 %% postprocessing (ref Shen15)
 %% - implementaion
 %% - conclusion (add GW170817 observation)
@@ -80,27 +162,24 @@ The ratio of europium to r-process material is usually assumed to be solar\comme
 From the merger rate, the number of injection events per timestep is calculated and applied to random star particles in the data. The ejection material is then distributed among gas particles in close proximity to the selected star particles.
 
 %% chemical observations
+\subsection{Chemical observations of \eris}
 At redshift zero the oxygen-iron abundances can be split into two main sources.
 One source is type II supernovae, which are more rich in oxygen, leading to higher (supersolar) ratios.
 Another source is type Ia supernovae, which are more rich in iron, leading to more iron than oxygen.
 
-There are two main implementations involved, one without any mixing, and another with mixing of metals between gas particles. For both oxygen-iron ratios and europium-iron ratios one sees that mixing gives less variation between ``upper'' and ``lower'' sigma-bands.
+There are two main implementations of Eris postprocessing involved, one without any mixing, and another with mixing of metals between gas particles. For both oxygen-iron ratios and europium-iron ratios one sees that mixing gives less variation between ``upper'' and ``lower'' sigma-bands.
 
-Populating some star particles with neutron star mergers and have them enrich the nearby gas particles, and subsequentually the new star particles, gives a more complete abundance-pattern to trace.
-The abundances traced are hydrogen, oxygen (which primarily follows type II supernovae), iron (produced more abundently in type Ia supernovae) and europium (produced in neutron star mergers only). The europium-iron ratio varies widely, even for early times.
-
-The chemical enrichment is closely tied to the star formation and evoltuion. \eris\ is a good approximation to the Milky Way galaxy do to similar star formation, shape and chemical composition today.
+The chemical enrichment is closely tied to the star formation and evolution. \eris\ is a good approximation to the Milky Way galaxy do to similar star formation, shape and chemical composition today.
 \mycite{shen15} finds that neutron star mergers are capable of enriching the surrounding medium, even with a minimum delay-time of 100 Myr.
 
-The dispersion/variantion of [Eu/Fe] is great enough, even at low metallicities.
-The results changing the parameters in the fiducial model is obvious, and I've elaborated on this before.
-The conclusion is that variations of the model parameters do not significantly alter the result.
+The dispersion of [Eu/Fe] is big enough, even at low metallicities, to reproduce the variations of observed europium in old low-mass stars.
 The mixing level affects the abundance of europium, but it is hard to compare to observations becasue spectroscopic abundance of many stars are unknown.
+The conclusion is that variations of the model parameters do not significantly alter the result.
 
-Galactic chemical evolution models are single points in space with mass resolution and time-integration. These models are simple way of calculating the mean amount of elements in the galaxy based on a star formation history, yield tables and initial composition.
-These models do not replicate the inhomogeneities and variations in metal-distributions.
-An attempt is made in this study to reproduce the results with a 1D-model based on the parameters used in Eris.
-At late times model agrees well with the average of all of Eris, however it does not agree well with the early results of Eris, nor does it replicate the large variations in spectroscopic abundance during early times.
+Galactic chemical evolution models, like \omegamodel, are single points in space with mass resolution and time-integration. These models are simple way of calculating the mean amount of elements in the galaxy based on a star formation history, yield tables and initial composition.
+These models do not replicate the inhomogeneities and variations in metal-distributions that are found in N-body simulations.
+\mycite{shen15} attempts to reproduce the results with a 1D-model based on the parameters found in \eris;
+At late times model agrees well with the average of all of \eris, however it does not agree well with the early results of Eris, nor does it replicate the large variations in spectroscopic abundance during early times.
 
 \iffalse
 \importantcomment{This section is outdated as of 10.05.18}

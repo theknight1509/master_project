@@ -65,8 +65,7 @@ class Extract(object):
                                                             untrait="There is no fucking way this is in the filename")
         else:
             loa_chosen_datafiles = self.get_numpy_filenames(untrait="decayed")
-        print loa_chosen_datafiles
-
+        
         for data_filename in loa_chosen_datafiles:
             data = np.load(data_filename) #get data from a single data-file
             extracted_arr = extract_func(data) #extract according to input function

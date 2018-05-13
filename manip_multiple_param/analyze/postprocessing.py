@@ -334,14 +334,14 @@ def complete_postprocessing(config_filename=False, directory_path=False,
         reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
         reduce_instance() #do the stuff for Re-Os
 
-    results_folder = Foldermap().results + dir_data.split("/")[-1]
-    print "Results-folder: %s"%(results_folder)
-    try:
-        os.mkdir(results_folder)
-    except OSError: #folder already exists
-        pass
-    reduce_instance.set_save_dir(results_folder)
-    reduce_instance()
+        results_folder = Foldermap().results + dir_data.split("/")[-1]
+        print "Results-folder: %s"%(results_folder)
+        try:
+            os.mkdir(results_folder)
+        except OSError: #folder already exists
+            raise
+        reduce_instance.set_save_dir(results_folder)
+        reduce_instance()
 
     return
 

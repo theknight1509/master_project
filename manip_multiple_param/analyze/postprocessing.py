@@ -61,7 +61,8 @@ class Extract(object):
         """
         loa_extracted_arrays = []
         if decayed_data:
-            loa_chosen_datafiles = self.get_numpy_filenames(trait="decayed", untrait="")
+            loa_chosen_datafiles = self.get_numpy_filenames(trait="decayed",
+                                                            untrait="There is no fucking way this is in the filename")
         else:
             loa_chosen_datafiles = self.get_numpy_filenames(untrait="decayed")
         print loa_chosen_datafiles

@@ -241,8 +241,6 @@ class Reduce(Extract):
     def setup_reduce_reos(self, loa_timepoints=[9.5e+9, 14e+9]):
         """ Get histograms and timevolutions for all the extracted datafiles. """
         loa_extracted_filenames = self.get_extracted_filenames()
-        print loa_extracted_filenames
-        sys.exit()
         for extracted_filename in loa_extracted_filenames:
             #get relevant filename-section
             save_filename = extracted_filename.split("/")[-1]

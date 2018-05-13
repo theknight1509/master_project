@@ -110,12 +110,19 @@ class Extract(object):
             extract_func = lambda data: self.extract_single_array(data=data, index_array=doa_array_index[key])
             self.handle_all_data(extract_func=extract_func,
                                  extract_filename=doa_filename[key])
+            self.handle_all_data(extract_func=extract_func,
+                                 extract_filename=doa_filename[key]+"_decayed",
+                                 decayed_data=True)
+
         #extract os-187/re187 ism-array
         extract_func = lambda data: self.extract_ratio_array(data=data,
                                                              index_numer=doa_array_index[os187],
                                                              index_denom=doa_array_index[re187])
         self.handle_all_data(extract_func=extract_func,
                              extract_filename="ism_%sdiv%s"%(os187,re187))
+        self.handle_all_data(extract_func=extract_func,
+                             extract_filename="ism_%sdiv%s"%(os187,re187)+"_decayed",
+                             decayed_data=True)
         return
 
 
@@ -182,14 +189,6 @@ class Reduce(Extract):
                 
                 numpy_array = lower_interp_numpy_array + delta_interp_numpy_array #interpolated array
                 
-                # import matplotlib.pyplot as pl
-                # fig, (ax1, ax2, ax3) = pl.subplots(nrows=3, ncols=1, sharex=True)
-                # ax1.hist(lower_interp_numpy_array, label="lower")
-                # ax2.hist(upper_interp_numpy_array, label="upper")
-                # ax3.hist(delta_interp_numpy_array, label="delta")
-                # ax1.legend(); ax2.legend(); ax3.legend()
-                # fig.show()
-                # raw_input()
             else:
                 print "Extrapolation not considered! Fuck off!"
                 print "timepoint", timepoint, time_array[0], time_array[-1]
@@ -307,10 +306,10 @@ if __name__ == '__main__':
     print "Mucking around in directory: %s"%(subdir_name)
 
     decay_instance = Decay(dir_name=subdir_name) #make instance of decay-class
-    decay_instance() #do the stuff for Re-Os
+    #decay_instance() #do the stuff for Re-Os
     
     extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
-    extract_instance() #do the stuff for Re-Os
+    #extract_instance() #do the stuff for Re-Os
     
     reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
     reduce_instance() #do the stuff for Re-Os

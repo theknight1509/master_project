@@ -18,6 +18,10 @@ class Extract(object):
         self.setup_extract_reos()
         return
 
+    def set_save_dir(self, save_dir):
+        self.save_dir = save_dir
+        return
+
     def get_data_index(self, string):
         """ Go through data-index-file, find index matching 'string'
         return index or raise error """
@@ -72,8 +76,7 @@ class Extract(object):
             loa_extracted_arrays.append(extracted_arr) #store extracted array
         extracted_data = np.stack(loa_extracted_arrays) #stack into matrix of extracted arrays
         extracted_filename = self.dir_string_func(self.save_dir) + "extract_" + extract_filename + ".npy"
-        #np.save(extracted_filename, extracted_data) #save extracted data
-        print "Obs! Not actually saving any data!"
+        np.save(extracted_filename, extracted_data) #save extracted data
         print "Saving extracted data to %s"%(extracted_filename)
         return
 
@@ -311,14 +314,13 @@ if __name__ == '__main__':
     extract_instance() #do the stuff for Re-Os
     
     reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
-    #reduce_instance() #do the stuff for Re-Os
+    reduce_instance() #do the stuff for Re-Os
     
     """
     Choose Experiment-folder from config-file.
     Apply beta-decay to all data-files, SAVE AS '*_decayed.npy'!!
     Extract Re-Os-data from data-files and decayed-data-files, SAVE AS 'extract_..._.npy'
     Reduce extracted data to reasonable pandas-csv-files, save in experiment-folder and results-folder!
-    Plot reduced data, save in experiment-folder and results-folder!
     """
 
     #experiment_dirpath

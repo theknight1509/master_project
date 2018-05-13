@@ -5,6 +5,9 @@ sea of data-files in experiment-folders.
 """
 import os
 import numpy as np
+import configparser as cp
+import pandas as pd
+from directory_master import Foldermap
 
 class Extract(object):
     def __init__(self, dir_name):
@@ -206,8 +209,7 @@ class Reduce(Extract):
         save_filename = self.dir_string_func(self.save_dir) + "reduce_" + save_filename + ".csv"
         import pandas as pd
         pandaframe = pd.DataFrame(dictionary)
-        #pandaframe.to_csv(save_filename)
-        print "Obs! Not actually saving any data!"
+        pandaframe.to_csv(save_filename)
         print "Saving reduced PandasDataFrame to %s"%(save_filename)
 
         return
@@ -299,25 +301,8 @@ class Decay(Extract):
         return
 
 
-if __name__ == '__main__':
-    import configparser as cp
-    config_filename = "../config_beehive_revised.ini"
-    config = cp.ConfigParser()
-    config.read(config_filename)
-    subdir_name = config["montecarlo parameters"]["directory_name"]
-    print "Mucking around in directory: %s"%(subdir_name)
 
-    decay_instance = Decay(dir_name=subdir_name) #make instance of decay-class
-    #decay_instance() #do the stuff for Re-Os
-    
-    extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
-    extract_instance() #do the stuff for Re-Os
-    
-    reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
-    reduce_instance() #do the stuff for Re-Os
-    reduce_instance.set_save_dir("RESULTS")
-    reduce_instance()
-    
+def complete_postprocessing(config_filename=False, directory_path=False):
     """
     Choose Experiment-folder from config-file.
     Apply beta-decay to all data-files, SAVE AS '*_decayed.npy'!!
@@ -325,10 +310,40 @@ if __name__ == '__main__':
     Reduce extracted data to reasonable pandas-csv-files, save in experiment-folder and results-folder!
     """
 
-    #experiment_dirpath
-    #results_dirpath
+    if config_filename:
+        config = cp.ConfigParser()
+        config.read(config_filename)
+        dir_data = config["montecarlo parameters"]["directory_name"]
+    elif directory_path:
+        dir_data = directory_path
+    else:
+        raise TypeError("Wrong use of keyword arguments!"+
+                        "'config_filename' or 'directory_path' must be given!")
+    print "Mucking around in directory: %s"%(dir_data)
 
-    #apply beta decay new_name= .npy
-    #extract property new_name= .npy
-    #reduce extracted new_name= .csv #twice
-    #plot new_name= .png #twice
+    decay_instance = Decay(dir_name=dir_data) #make instance of decay-class
+    decay_instance() #do the stuff for Re-Os
+    
+    extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
+    extract_instance() #do the stuff for Re-Os
+    
+    reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
+    reduce_instance() #do the stuff for Re-Os
+
+    results_folder = Foldermap().results + dir_data.split("/")[-1]
+    print "Results-folder: %s"%(results_folder)
+    if False:
+        try:
+            os.mkdir(results_folder)
+        except OSError: #folder already exists
+            pass
+        reduce_instance.set_save_dir(results_folder)
+        reduce_instance()
+
+    return
+
+if __name__ == '__main__':
+    config_filename = "../config_beehive_revised.ini"
+    complete_postprocessing(config_filename=config_filename)
+    config_filename = "../config_beehive_revised_imfslope.ini"
+    complete_postprocessing(config_filename=config_filename)

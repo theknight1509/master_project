@@ -302,7 +302,8 @@ class Decay(Extract):
 
 
 
-def complete_postprocessing(config_filename=False, directory_path=False):
+def complete_postprocessing(config_filename=False, directory_path=False,
+                            decay=True, extraction=True, reduction=True):
     """
     Choose Experiment-folder from config-file.
     Apply beta-decay to all data-files, SAVE AS '*_decayed.npy'!!
@@ -321,29 +322,37 @@ def complete_postprocessing(config_filename=False, directory_path=False):
                         "'config_filename' or 'directory_path' must be given!")
     print "Mucking around in directory: %s"%(dir_data)
 
-    decay_instance = Decay(dir_name=dir_data) #make instance of decay-class
-    decay_instance() #do the stuff for Re-Os
-    
-    extract_instance = Extract(dir_name=dir_data) #make instance of extract-class
-    extract_instance() #do the stuff for Re-Os
-    
-    reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
-    reduce_instance() #do the stuff for Re-Os
+    if decay:
+        decay_instance = Decay(dir_name=dir_data) #make instance of decay-class
+        decay_instance() #do the stuff for Re-Os
+
+    if extraction:
+        extract_instance = Extract(dir_name=dir_data) #make instance of extract-class
+        extract_instance() #do the stuff for Re-Os
+
+    if reduction:
+        reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
+        reduce_instance() #do the stuff for Re-Os
 
     results_folder = Foldermap().results + dir_data.split("/")[-1]
     print "Results-folder: %s"%(results_folder)
-    if False:
-        try:
-            os.mkdir(results_folder)
-        except OSError: #folder already exists
-            pass
-        reduce_instance.set_save_dir(results_folder)
-        reduce_instance()
+    try:
+        os.mkdir(results_folder)
+    except OSError: #folder already exists
+        pass
+    reduce_instance.set_save_dir(results_folder)
+    reduce_instance()
 
     return
 
 if __name__ == '__main__':
+    decay=False
+    extraction=False
+    reduction=True
+    
     config_filename = "../config_beehive_revised.ini"
-    complete_postprocessing(config_filename=config_filename)
+    complete_postprocessing(config_filename=config_filename,
+                            decay=decay, extraction=extraction, reduction=reduction)
     config_filename = "../config_beehive_revised_imfslope.ini"
-    complete_postprocessing(config_filename=config_filename)
+    complete_postprocessing(config_filename=config_filename,
+                            decay=decay, extraction=extraction, reduction=reduction)

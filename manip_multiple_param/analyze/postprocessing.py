@@ -305,7 +305,7 @@ if __name__ == '__main__':
     print "Mucking around in directory: %s"%(subdir_name)
 
     decay_instance = Decay(dir_name=subdir_name) #make instance of decay-class
-    decay_instance() #do the stuff for Re-Os
+    #decay_instance() #do the stuff for Re-Os
     
     extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
     extract_instance() #do the stuff for Re-Os

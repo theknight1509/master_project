@@ -291,8 +291,7 @@ class Decay(Extract):
             new_datafilename = datafilename[:-len(".npy")] + "_decayed.npy"
             #np.save(new_datafilename, data)
             print "Obs! Not actually saving any data!"
-            print "Saving reduced PandasDataFrame to %s"%(new_datafilename)
-
+            print "Saving decayed data to %s"%(new_datafilename)
 
         return
 

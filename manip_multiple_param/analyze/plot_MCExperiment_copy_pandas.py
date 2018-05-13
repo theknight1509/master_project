@@ -6,13 +6,12 @@ import os
 import matplotlib.pyplot as pl
 import numpy as np
 import pandas as pd
-
-import configparser as cp
-config_filename = "../config_beehive_revised.ini"
-config = cp.ConfigParser()
-config.read(config_filename)
-subdir_name = config["montecarlo parameters"]["directory_name"]
-print "Working in directory: %s"%(subdir_name)
+# import configparser as cp
+# config_filename = "../config_beehive_revised.ini"
+# config = cp.ConfigParser()
+# config.read(config_filename)
+# subdir_name = config["montecarlo parameters"]["directory_name"]
+# print "Working in directory: %s"%(subdir_name)
 
 from matplotlib import rcParams
 #print rcParams.keys()
@@ -81,7 +80,6 @@ def plot_hist_vertical(filename_hist, loa_ax):
         # ax.legend(loc=1)
     return
 
-
 def get_full_filenames(experiment_folder):
     """ Return list of csv-filenames in experiment-folder with full path. """
     #get list of filenames in experiment-folder
@@ -116,53 +114,87 @@ def plot_all_single_paths(loa_fullpaths):
         fig.savefig(save_name)
     return fig
 
-def plot_combined_plots(loa_fullpaths):
+def plot_combined_plots(loa_fullpaths, save_dir=False):
     doa_fullpaths = sort_paths(loa_fullpaths=loa_fullpaths)
+    doa_figs = {}
 
-    #get paths of timeevol and hist
-    loa_paths = doa_fullpaths["div"]
-    #make master-figure
-    fig = pl.figure(dpi=100)
-    ax1, ax2, ax3 = fig.subplots(nrows=1, ncols=3,
-                            gridspec_kw={"width_ratios":[5,1,1]})
-    #sort paths into timeevol and hist
-    for path in loa_paths:
-        if "timeevol" in path: 
-            plot_timeevol(path, ax1)
-        elif "hist" in path: 
-            plot_hist_vertical(path, [ax3,ax2])
-    
-    #draw vertical line for histograms
-    ax1.axvline(9.5, color='k')
-    ax1.axvline(14, color='k')
-    ax1.set_title(r"$f_{187} = ^{187}Os/^{187}Re $")
-    
-    fig.tight_layout()
+    doa_plot_string = {}
+    doa_title = {}
+    for key in doa_fullpaths.keys():
+        if "div" in key:
+            doa_plot_string[key] = r"f_{187}"
+            doa_title[key] = r"$f_{187} = ^{187}Os/^{187}Re$"
+        elif "Re-187" in key:
+            doa_plot_string[key] = r"^{187}Re"
+            doa_title[key] = r"$^{187}Re$ Mass in ISM"
+        elif "Os-187" in key:
+            doa_plot_string[key] = r"^{187}Os"
+            doa_title[key] = r"$^{187}Os$ Mass in ISM"
 
-    return fig
+    for key in doa_fullpaths.keys():
+        #get paths of timeevol and hist
+        loa_paths = doa_fullpaths[key]
+        
+        #make master-figure
+        fig, [ax1, ax2, ax3] = pl.subplots(nrows=1, ncols=3,
+                                           gridspec_kw={"width_ratios":[5,1,1]})
+        
+        #sort paths into timeevol and hist
+        for path in loa_paths:
+            if "timeevol" in path: 
+                plot_timeevol(path, ax1, plot_string=doa_plot_string[key])
+            elif "hist" in path: 
+                plot_hist_vertical(path, [ax3,ax2])
+                
+        #draw vertical line for histograms
+        ax1.axvline(9.5, color='k')
+        ax1.axvline(14, color='k')
+        ax1.set_title(doa_title[key])
+
+        ax2.set_xticklabels([])
+        ax3.set_xticklabels([])
+        
+        fig.tight_layout()
+        fig.canvas.set_window_title(key)
+
+        if save_dir:
+            fig.savefig(save_dir+"combined_plot_"+key+".png")
+
+        doa_figs[key] = fig
+
+    return doa_figs
 
 def sort_paths(loa_fullpaths, check=True):
     div = "div"
     re187 = "Re-187"
     os187 = "Os-187"
+    decayed = "_decayed"
     keys = [div, re187, os187]
-    doa_fullpaths = {key:[] for key in keys}
+    keys_decayed = [key + decayed for key in keys]
+    doa_fullpaths = {key:[] for key in keys+keys_decayed}
     
     while len(loa_fullpaths) > 0:
         for i, path in enumerate(loa_fullpaths):
             if div in path:
-                doa_fullpaths[div].append(path)
-                loa_fullpaths.pop(i)
+                if decayed not in path:
+                    doa_fullpaths[div].append(path)
+                else:
+                    doa_fullpaths[div+decayed].append(path)
             elif re187 in path:
-                doa_fullpaths[re187].append(path)
-                loa_fullpaths.pop(i)
+                if decayed not in path:
+                    doa_fullpaths[re187].append(path)
+                else:
+                    doa_fullpaths[re187+decayed].append(path)
             elif os187 in path:
-                doa_fullpaths[os187].append(path)
-                loa_fullpaths.pop(i)
+                if decayed not in path:
+                    doa_fullpaths[os187].append(path)
+                else:
+                    doa_fullpaths[os187+decayed].append(path)
             else:
                 print "(/) Error in sort_paths()!"
                 print "\t", "path doesn't match any key %s"%keys
                 print "\t", path
+            loa_fullpaths.pop(i)
 
     if check: #check lengths of lists
         all_good = True
@@ -178,10 +210,14 @@ def sort_paths(loa_fullpaths, check=True):
 
     return doa_fullpaths
 
-if __name__ == '__main__':
-    loa_fullpaths = get_full_filenames(subdir_name)
 
-    print "All paths:"
+if __name__ == '__main__':
+    from directory_master import Foldermap
+    result_dir = Foldermap().results
+    result_dir = result_dir+"MCExperiment_revised_2_imfslope/"
+    loa_fullpaths = get_full_filenames(result_dir)
+
+    print "All paths in %s:"%(result_dir)
     for fullpath in loa_fullpaths:
         print fullpath.split('/')[-1]
     if raw_input("continue? y/n\t") == "y":
@@ -190,5 +226,5 @@ if __name__ == '__main__':
         sys.exit("Exiting!")
 
     # plot_all_single_paths(loa_fullpaths=loa_fullpaths)
-    fig = plot_combined_plots(loa_fullpaths=loa_fullpaths)
-    fig.show()
+    doa_figs = plot_combined_plots(loa_fullpaths=loa_fullpaths, save_dir=result_dir)
+    pl.show()

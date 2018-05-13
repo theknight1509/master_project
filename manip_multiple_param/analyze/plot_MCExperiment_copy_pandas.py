@@ -12,7 +12,6 @@ config_filename = "../config_beehive_revised.ini"
 config = cp.ConfigParser()
 config.read(config_filename)
 subdir_name = config["montecarlo parameters"]["directory_name"]
-subdir_name = subdir_name[:-1] + "1"
 print "Working in directory: %s"%(subdir_name)
 
 from matplotlib import rcParams

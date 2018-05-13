@@ -315,6 +315,8 @@ if __name__ == '__main__':
     
     reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
     reduce_instance() #do the stuff for Re-Os
+    reduce_instance.set_save_dir("RESULTS")
+    reduce_instance()
     
     """
     Choose Experiment-folder from config-file.

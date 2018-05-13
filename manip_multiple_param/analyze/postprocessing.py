@@ -290,8 +290,7 @@ class Decay(Extract):
             data[index_os187,:] = new_os187_array
             
             new_datafilename = datafilename[:-len(".npy")] + "_decayed.npy"
-            #np.save(new_datafilename, data)
-            print "Obs! Not actually saving any data!"
+            np.save(new_datafilename, data)
             print "Saving decayed data to %s"%(new_datafilename)
 
         return

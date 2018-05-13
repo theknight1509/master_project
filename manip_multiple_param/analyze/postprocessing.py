@@ -324,10 +324,10 @@ def complete_postprocessing(config_filename=False, directory_path=False):
     decay_instance = Decay(dir_name=dir_data) #make instance of decay-class
     decay_instance() #do the stuff for Re-Os
     
-    extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
+    extract_instance = Extract(dir_name=dir_data) #make instance of extract-class
     extract_instance() #do the stuff for Re-Os
     
-    reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
+    reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
     reduce_instance() #do the stuff for Re-Os
 
     results_folder = Foldermap().results + dir_data.split("/")[-1]

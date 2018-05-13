@@ -347,7 +347,7 @@ def complete_postprocessing(config_filename=False, directory_path=False,
         try:
             os.mkdir(results_folder)
         except OSError: #folder already exists
-            raise
+            pass
         reduce_instance.set_save_dir(results_folder)
         reduce_instance()
 

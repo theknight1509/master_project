@@ -334,7 +334,7 @@ def complete_postprocessing(config_filename=False, directory_path=False,
         reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
         reduce_instance() #do the stuff for Re-Os
 
-        results_folder = Foldermap().results + dir_data.split("/")[-1]
+        results_folder = Foldermap().hume_folder() + "latex/thesis/results/" + dir_data.split("/")[-1]
         print "Results-folder: %s"%(results_folder)
         try:
             os.mkdir(results_folder)

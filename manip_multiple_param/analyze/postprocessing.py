@@ -62,9 +62,9 @@ class Extract(object):
         loa_extracted_arrays = []
         if decayed_data:
             loa_chosen_datafiles = self.get_numpy_filenames(trait="decayed", untrait="")
-            print loa_chosen_datafiles
         else:
             loa_chosen_datafiles = self.get_numpy_filenames(untrait="decayed")
+        print loa_chosen_datafiles
 
         for data_filename in loa_chosen_datafiles:
             data = np.load(data_filename) #get data from a single data-file

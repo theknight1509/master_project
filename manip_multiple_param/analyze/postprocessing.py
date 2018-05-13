@@ -3,6 +3,7 @@
 Class and function for extracting data from 
 sea of data-files in experiment-folders.
 """
+import sys
 import os
 import numpy as np
 import configparser as cp
@@ -142,8 +143,15 @@ class Reduce(Extract):
         return
     
     def get_extracted_filenames(self):
-        #Get all numpy-filenames with "extract" in filenames
-        return self.get_numpy_filenames(trait="extract")
+        #Get all numpy-filenames with "extract" in filenames and not decayed
+        return self.get_numpy_filenames(trait="extract", untrait="There is no way this filename does exist")
+
+    # def get_extracted_filenames(self):
+    #     #Get all numpy-filenames with "extract" in filenames and not decayed
+    #     return self.get_numpy_filenames(trait="extract", untrait="decayed")
+    # def get_extracted_decayed_filenames(self):
+    #     #Get all numpy-filenames with "decayed" in filenames
+    #     return self.get_numpy_filenames(trait="decayed", untrait="There is no way this filename does exist")
     
     def get_timeevol(self, filename):
         #Get filename of "extracted data" return dictionary of arrays
@@ -233,6 +241,8 @@ class Reduce(Extract):
     def setup_reduce_reos(self, loa_timepoints=[9.5e+9, 14e+9]):
         """ Get histograms and timevolutions for all the extracted datafiles. """
         loa_extracted_filenames = self.get_extracted_filenames()
+        print loa_extracted_filenames
+        sys.exit()
         for extracted_filename in loa_extracted_filenames:
             #get relevant filename-section
             save_filename = extracted_filename.split("/")[-1]

@@ -54,19 +54,25 @@ class Extract(object):
                                and (untrait not in filename)]
         return loa_numpy_filenames
 
-    def handle_all_data(self, extract_func, extract_filename):
+    def handle_all_data(self, extract_func, extract_filename, decayed_data=False):
         """ Loop over all numpy arrays and extract array according to 
         function in keyword-arguments.
         'extract_func' - must take numpy matrix and return single array
         """
         loa_extracted_arrays = []
-        for data_filename in self.get_numpy_filenames():#trait="decayed", untrait=""): #loop over numpy-files
+        if decayed_data:
+            loa_chosen_datafiles = self.get_numpy_filenames(trait="decayed", untrait="")
+        else:
+            loa_chosen_datafiles = self.get_numpy_filenames(untrait="decayed")
+
+        for data_filename in loa_chosen_datafiles:
             data = np.load(data_filename) #get data from a single data-file
             extracted_arr = extract_func(data) #extract according to input function
             loa_extracted_arrays.append(extracted_arr) #store extracted array
         extracted_data = np.stack(loa_extracted_arrays) #stack into matrix of extracted arrays
         extracted_filename = self.dir_string_func(self.save_dir) + "extract_" + extract_filename + ".npy"
-        np.save(extracted_filename, extracted_data) #save extracted data
+        #np.save(extracted_filename, extracted_data) #save extracted data
+        print "Obs! Not actually saving any data!"
         print "Saving extracted data to %s"%(extracted_filename)
         return
 
@@ -91,7 +97,7 @@ class Extract(object):
         return time_array
 
     def setup_extract_reos(self):
-        """ Extract all data for ISM-data of Re-187, Os-187 and Re-187/Os-187."""
+        """ Extract all data for ISM-data of Re-187, Os-187 and Os-187/Re-187."""
         re187 = "Re-187"
         os187 = "Os-187"
         loa_keys = [re187, os187]
@@ -197,7 +203,8 @@ class Reduce(Extract):
         save_filename = self.dir_string_func(self.save_dir) + "reduce_" + save_filename + ".csv"
         import pandas as pd
         pandaframe = pd.DataFrame(dictionary)
-        pandaframe.to_csv(save_filename)
+        #pandaframe.to_csv(save_filename)
+        print "Obs! Not actually saving any data!"
         print "Saving reduced PandasDataFrame to %s"%(save_filename)
 
         return
@@ -283,7 +290,10 @@ class Decay(Extract):
             data[index_os187,:] = new_os187_array
             
             new_datafilename = datafilename[:-len(".npy")] + "_decayed.npy"
-            np.save(new_datafilename, data)
+            #np.save(new_datafilename, data)
+            print "Obs! Not actually saving any data!"
+            print "Saving reduced PandasDataFrame to %s"%(new_datafilename)
+
 
         return
 
@@ -296,16 +306,27 @@ if __name__ == '__main__':
     subdir_name = config["montecarlo parameters"]["directory_name"]
     print "Mucking around in directory: %s"%(subdir_name)
 
-    print "Do not apply decay!"
-    #decay_instance = Decay(dir_name=subdir_name) #make instance of decay-class
-    #decay_instance() #do the stuff for Re-Os
-    #print "Succesfully applied decay!"
+    decay_instance = Decay(dir_name=subdir_name) #make instance of decay-class
+    decay_instance() #do the stuff for Re-Os
     
-    #print "Do not extract!"
     extract_instance = Extract(dir_name=subdir_name) #make instance of extract-class
     extract_instance() #do the stuff for Re-Os
-    print "Succesfully extracted!"
-
+    
     reduce_instance = Reduce(dir_name=subdir_name) #make instance of reduce-class
     reduce_instance() #do the stuff for Re-Os
-    print "Succesfully reduced!"
+    
+    """
+    Choose Experiment-folder from config-file.
+    Apply beta-decay to all data-files, SAVE AS '*_decayed.npy'!!
+    Extract Re-Os-data from data-files and decayed-data-files, SAVE AS 'extract_..._.npy'
+    Reduce extracted data to reasonable pandas-csv-files, save in experiment-folder and results-folder!
+    Plot reduced data, save in experiment-folder and results-folder!
+    """
+
+    #experiment_dirpath
+    #results_dirpath
+
+    #apply beta decay new_name= .npy
+    #extract property new_name= .npy
+    #reduce extracted new_name= .csv #twice
+    #plot new_name= .png #twice

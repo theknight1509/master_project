@@ -8,7 +8,7 @@ By creating a new python-class that inherits all methods from \omegamodel\ (whic
 The old function in \chemevol\ is called \verb|__set_yield_tables|, and the new function, \verb|chem_evol__set_yield_tables|, has all the same content and overrides the old function. By adding a few lines of code to the end of the yield-table function, a 'fudge factor' is multiplied to the yield of a single isotope across all yield-tables used.
 The extra lines of code are shown below.
 
-\begin{lstlisting}[style=custompython, caption={Some caption}]
+\begin{lstlisting}[style=custompython, caption={Snippet of code added to the existing function \texttt{\_\_set\_yield\_tables} in \chemevol\ in \omegamodel-framework. The code-snippet multiplies the yield of isotope \texttt{self.experiment\_isotope} with a factor \texttt{self.experiment\_factor} for all yield-tables where the isotope can be found.}]
 ####################################################
 ### End of function as written in 'chem_evol.py' ###
 """ 

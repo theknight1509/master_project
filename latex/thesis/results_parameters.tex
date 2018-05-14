@@ -17,12 +17,123 @@ For varying different parameters simultaneously a similar method was used as in 
 \input{texfiles/postprocessing_betadecay}
 %explain 'extraction' to new data-files and subsequent reduction to plots
 
+\FloatBarrier
+
 \subsection{results}
 %description of the different experiments
+\newcommand\expone{\textbf{Yields}}
+\newcommand\exptwo{\textbf{Yields+IMFslope}}
+There are two main experiments;
+\begin{description}
+\item[\expone] The yields of isotopes are varied within their standard deviation \comment{Add reference to arnould table}
+\item[\exptwo] The yields of isotopes are varied \textit{and} the high mass slope of the initial mass function, $\alpha$, is varied within the uncertainty found in \mycite{cote16a}, which is $\sigma_{\alpha}=8.73\%$ around the mean $\langle \alpha \rangle = 2.29$.
+\end{description}
+
+%present data
+The solar system is formed from a collapse of interstellar gas. The gas is assumed to have separated from the interstellar medium at the formation of the solar system.
+The formation of the solar system is estimated from meteorites to be 4.5 Gyrs ago \comment{add citation and expand on meteorite articles}
+From the semianalytical model, \omegamodel, the total mass of \os{187} and \re{187} in the interstellar medium is calculated.
+The fraction between the two isotopes, $f_{187} = \frac{\os{187}}{\re{187}}$, is also calculated.
+The fraction between the isotopes is relevant because it can be determined from meteorites, unlike the total mass of isotopes in the \sos\ at the time of formation.
+In the \eris-simulation the galactic age is 14 Gyrs, which means the solar system formed at 9.5 Gyrs.
+The uncertainties of the mass of each isotope come from the uncertainty of the input parameters in each experiment, \expone\ and \exptwo.
+
 %explain results/plots for each experiment
 %explain how they differ
 
-%add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment
-%add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/IMFslope
+\FloatBarrier
+
+%Use subfigwidth for the first two figures
+\setlength{\subfigwidth}{0.45\textwidth}
+%Use figwidth for the last figure
+\setlength{\figwidth}{0.8\textwidth}
+
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment wo/decay
+\begin{figure}
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Re-187.png}
+    \caption{\label{fig:MCExperiment-nodecay-re187}
+      Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \centering
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Os-187.png}
+    \caption{\label{fig:MCExperiment-nodecay-os187}
+      Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\figwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div.png}
+    \caption{\label{fig:MCExperiment-nodecay-div}
+      Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \caption[\expone before \betadecay]{\label{fig:MCExperiment-nodecay}
+    The mass and mass fractions in the interstellar medium \textit{before} \betadecay is applied. Only nucleosynthesis/production from stellar sources is considered.
+
+    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+  }
+\end{figure}
+
+%add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Re-187_decayed.png}
+    \caption{\label{fig:MCExperiment-re187}
+      Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Os-187_decayed.png}
+    \caption{\label{fig:MCExperiment-os187}
+      Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div_decayed.png}
+    \caption{\label{fig:MCExperiment-div}
+      Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \caption[\expone after \betadecay]{\label{fig:MCExperiment}
+    The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
+
+    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+  }
+\end{figure}
+
+%add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/IMFslope
+\begin{figure}
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_imfslope/combined_plot_Re-187_decayed.png}
+    \caption{\label{fig:MCExperiment-imfslope-re187}
+      Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_imfslope/combined_plot_Os-187_decayed.png}
+    \caption{\label{fig:MCExperiment-imfslope-os187}
+      Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_imfslope/combined_plot_div_decayed.png}
+    \caption{\label{fig:MCExperiment-imfslope-div}
+      Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \caption[\exptwo after \betadecay]{\label{fig:MCExperiment-imfslope}
+    The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied and uncertainty in the high mass slope of the initial mass function. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}. The amount of type II supernovae are also varied because the high mass slope of the initial mass function gives more massive stars, which in turn give more type II supernovae.
+
+    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+  }
+\end{figure}
+
 %(add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/NSMparameters)
+
+\FloatBarrier

@@ -1,4 +1,4 @@
-\documentclass[a4, 12pt, draft]{book}
+\documentclass[a4, 12pt]{book}
 
 \include{preamble}
 
@@ -16,6 +16,8 @@
 
 \noindent This work, entitled ``\mintittel'' is distributed under the
 terms of the Public Library of Science Open Access License, a copy of which can be found at \url{http://www.publiclibraryofscience.org}. 
+
+\iffalse
 
 %\include{foreword}
 %\include{acknowledgement}
@@ -45,9 +47,11 @@ terms of the Public Library of Science Open Access License, a copy of which can 
 %\input{results_fitting}
 %\input{results_yields}
 
+\fi
+
 %results
 \chapter{Results}
-\input{results_parameters}
+\include{results_parameters}
 
 %conclusion/discussion
 \chapter{Conclusion/discussion}

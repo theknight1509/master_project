@@ -4,10 +4,11 @@ The data-files for each simulation consists of time-arrays for a multitude of me
 These measurables do not account for \betadecay of radioactive isotopes\footnote{This might be added in an update of \omegamodel, but was not implemented during this thesis work.}
 Postprocessing of all the datafiles must be done in order to account for the \betadecay of \re{187} to \os{187}.
 This is done, for each timestep, by calculating the amount of decayed material from parent nucleus to daughter nucleus. The amount of decayed material is calculated from the timestep and halflife of the radioactive parent nucleus, and applied to the current and all following timesteps for parent and daughter nuclei.
+\comment{Add reference to section of \betadecay calculations}
 The new data is then saved to file in the same format.
 The function for applying the decay to parent nucleus and daughter nucleus (\re{187} and \os{187}, respectively, in our case).
 
-\begin{lstlisting}[style=custompython, caption={Some caption}]
+\begin{lstlisting}[style=custompython, caption={Snippet of code implementing \betadecay in postprocessing on data calculated by \omegamodel.}]
 def apply_decay(self, time_array, parent_array, daughter_array, halflife):
     """ Apply decay from parent to daughter with 
     the corresponding time-array and nuclear halflife.

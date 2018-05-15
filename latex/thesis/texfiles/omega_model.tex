@@ -5,6 +5,8 @@ OMEGA stands for 'One-zone Model of the Evolution of Galaxies' and evolves the i
 The model is a one-zone model, which means that the entire galaxy is simplified to a single point.
 A zero-space-dimensional galaxy model seems unrealistic, but it can be imagined as the mean value for a three-space-dimensional galaxy model.
 
+\input{../tikzfigures/galaxy_iobox_model}
+
 In this work the \omegamodel\ code will be modified with a wrapper in order to explore various parameters related to nucleosynthesis.
 
 \subsection{Process}
@@ -43,6 +45,8 @@ The nuclear processes within stars span nanometer and millisecond timescales, ev
 Neither analytical/numerical models nor simulations cannot cover all these scales at once, that is when subgrid methods are used. Stellar evolution simulations predict the fate and output from the life of a single star based on sinple input parameters and assumptions of the physical processes that governs the evolution. These solutions are then simplified and applied to more complex galaxy simulations.
 Output ejecta from stars are ``looked up in a table'' and applied to the nearby interstellar medium.
 All these methods and linked applications introduce some uncertainties and assumptions, both physical and numerical, and these uncertainties are inherited through all methods based on applications of these models. In order to probe how the uncertainties of selected parameters manifest through the resulting galaxy evolution, \mycite{cote16a} presents a simple one-zone, closed-box model of galaxy evolution, called \omegamodel.
+
+\input{img/uncertainty_diagram_cote16a_fig1}
 
 \sygma creates the simplified stellar populations (mass function, total mass, lifetime distribution, initial metallicity).
 \omegamodel\ combines several stellar populations to emulate a galaxy evolution.
@@ -98,45 +102,10 @@ The main conclusions are summarized as follows:
 }
 \end{enumerate}
 
-%% The parameter space was sampled by running 300 parameter combinations where each parameter was varied within their gaussian probability distribution.
-%% Then a set of 700 models were calculated with all parameters sampled randomly from their gaussian probability distribution.
-%% A final set of 300 parameter combinations were also calculated with varying final stellar and gas mass.
+\input{img/spectroscopic_uncertainties_cote16a_fig6}
+\input{img/age_uncertainties_cote16a_fig11}
 
-%% The mass limits of the IMF generate little uncertainty.
-
-%% Modifying final stellar-gas ratio, the uncertainty is manifested in low [Fe/H] values, because more stars produce more iron and and more gas means more hydrogen. However the relative ratio of ejecta is unchanged, meaning [X/Fe] are not affected.
-%% In the grand scheme, uncertainties from final stellar mass and gas mass are not significant.
-
-%% Uncertainty in number of type 1a supernovae does not manifest as uncertainty in abundance until after delay time of those supernovae.
-%% The abundance has no uncertainty until [Fe/H] ~ -1.5 associated with 150 Myr.
-%% The unusual low iron abundance (milky way is believed to have type 1a supernovae onset at [Fe/H]~1) is due to the closed-box
-%% approximation.
-%% Type 1a supernovae add mostly iron to the interstellar abundance, increasing [Fe/H], decreasing [X/Fe].
-%% CNO-elements that are not produced much in SN1a are most affected.
-
-%% Slope of the IMF has the most effect, increasing it allows for more massive stars with quick and much ejecta.
-%% These stars quickly enrich the surounding gas.
-
-%% Overall uncertainty is calculated by varying all parameters simultaneously.
-%% Since the previous analysis depended on the uncertainty of a single variable, while keeping the other parameters constant,
-%% this becomes only an estimate of the uncertainty. However it will grant some valueble insight into which parameter affects
-%% the uncertainty the most.
-
-%% Parameters with the most impact: Slope of the IMF, total number of type 1a supernovae and final gas mass of galaxy.
-
-%% Varying seven input parameters stochastichally and in a monte carlo type fashion.
-%% The main conclusions are:
-%% \begin{enumerate}
-%% \item{Overall uncertainties between 0 and 0.6 dex. Metaliccity dependant uncertainties.}
-%% \item{Mass of gas and stars affect the uncertainties below [Fe/H] ~ -2,
-%%   with the delay-time distribution and number of type 1a supernovae affect the uncertainties above [Fe/H] ~ -1.5,
-%%   slope of the IMF affects uncertainty at all metallicities.}
-%% \item{Slope of IMF and number of type 1a supernovae affect uncertainty the most when plotting against metallicity.
-%%   Uncertainty is greatest when cosidered element and reference element is not the same. }
-%% \item{Features in [X/Fe]-[Fe/H] and [X/Mg]-[Mg/H] share the same characteristics. Such variations
-%%   are mostly caused by stellar yields, type of galaxy and star formation history.}
-%% \end{enumerate}
-
+\FloatBarrier
 
 \subsection{Relevant parameters}
 \label{sec:omega-parameters}

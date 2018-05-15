@@ -3,6 +3,8 @@
 %% Introduction (ref Guedes11)
 \eris\mycite{guedes11e} is a N-body/smooth particle hydrodynamics simulation of a galaxy forming in $\Lambda$CDM cosmology (see section \ref{sec:cosmology}. The simulation is performed with \gasoline\mycite{wadsley03}.
 
+\input{img/eris_map_guedes11_fig2}
+
 %% SPH
 \subsection{Smoothed particle hydrodynamics}
 %% - particle-sim
@@ -128,15 +130,11 @@ Some properties of the simulated galaxy:
 \item{structural properties, mass budget, and scaling relations between mass and luminosity matches several observational constraints}
 \end{itemize}
 
+\input{img/rotation_curve_guedes_fig1a}
+
 %% What eris present (figs?)
 \mycite{guedes11e} presents a realistic simulation of a Milky Way type galaxy using a new smooth particle hydrodynamic cosmological simulation called \eris, based on \gasoline\mycite{wadsley03}. It includes radiative cooling, cosmic UV heating, supernova feedback, and high-density star formation requirement (which is believed to be a key ingredient in producing realistic spirals in galactic simulations).
 The high density threshold for star formation (5 atoms cm$^{-3}$) creates sparsely, clustered regions of star formation that remove low-angular momentum cold gas from the center of the halo. 
-
-%% postprocessing (ref Shen15)
-%% - implementaion
-%% - conclusion (add GW170817 observation)
-%% - figs Eu-t, Eu-z
-%% - figs SFR, NSMR
 
 By using the \eris-simulation, the chemical evolution of the milky way is studied.
 \eris\ traces oxygen and iron from supernovae.
@@ -181,6 +179,9 @@ Galactic chemical evolution models, like \omegamodel, are single points in space
 These models do not replicate the inhomogeneities and variations in metal-distributions that are found in N-body simulations.
 \mycite{shen15} attempts to reproduce the results with a 1D-model based on the parameters found in \eris;
 At late times model agrees well with the average of all of \eris, however it does not agree well with the early results of Eris, nor does it replicate the large variations in spectroscopic abundance during early times.
+
+\input{img/spectroscopic_eu_shen15_fig4}
+\input{img/spectroscopic_abundance_shen15_fig6}
 
 \iffalse
 \importantcomment{This section is outdated as of 10.05.18}

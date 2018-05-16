@@ -1,4 +1,4 @@
-\documentclass[a4paper, 11pt]{book}
+\documentclass[a4paper, 12pt, draft]{book}
 
 \include{preamble}
 
@@ -7,6 +7,8 @@
 \chapter{Compiling single sections at a time}
 For writing purposes only.
 
+\iffalse
+
 \chapter{Theory Part II \comment{(need to rename)}}
 \comment{Describe analytical models, numerical models (omega), simulations (eris) and that I compare the two latter}
 \comment{Results from omega can be compared to hydrodynamical simulations like eris. Which are much more detialed and precise, but also more computationally expensive.}
@@ -14,6 +16,9 @@ For writing purposes only.
 \include{texfiles/omega_model}
 \include{texfiles/eris_simulation}
 
+\fi
+
+\input{texfiles/luck_cosmochronology_calc}
 
 %\bibstyle{plain}
 \bibliography{../references/bibliography_svendsen.bib}

@@ -1,0 +1,92 @@
+
+\renewcommand{\d}[1]{\frac{\textrm{d}#1}{\textrm{dt}}}
+
+Following the analytical approach of \mycite{luck80} which follows the approach of \mycite{clayton64} to the chemical evolution of the \re{187}-\os{187}-system. \\
+The solar values and evolution of \re{187}, \os{187}, \os{187} come, predominantly from three main sources;
+s-process contribution of \os{186} and \os{187}, r-process contribution of \re{187},
+and \betadecay from \re{187} to \os{187}.
+A simple exponential form is adopted for the r-process contribution to \re{187}.
+
+\begin{align*}
+  \os{186}^\odot &= \os{186}^s \\
+  \os{187}^\odot &= \os{187}^s + \os{187}^\beta \\
+  \d{\os{187}^\beta} &= \lambda_\beta\re{187} \\
+  \d{\re{187}} &= A(t) - \lambda_\beta\re{187} \\
+  &= A_0e^{-\tau^{-1}t} - \lambda_\beta\re{187} \\
+\end{align*}
+
+Solving \re{187}:
+\begin{align*}
+  \d{\re{187}} + \lambda_\beta \re{187} &= A_0e^{-\tau^{-1}t} \\
+  \textrm{General solution to homogenous equation:}
+  & \hspace{6em} \dot{\re{187}}_h + \lambda_\beta \re{187}_h = 0 \\
+  & \hspace{6em} \re{187}_h = Re(0) e^{-\lambda_\beta t} \\
+  \textrm{Particular solution:}
+  & \hspace{6em} \dot{\re{187}}_p = A_1 e^{-\tau^{-1}t} \\
+  \re{187} &= \re{187}_h + \re{187}_p = Re(0) e^{-\lambda_\beta t} + A_1 e^{-\tau^{-1}t} \\
+  \textrm{Initial condition of \re{187}:}
+  & \hspace{6em} \re{187}(t=0) = 0 = Re(0) + A_1 \\
+  & \hspace{6em} Re(0) = - A_1 \\
+  \re{187} &= A_1 (e^{-\tau^{-1}t} - e^{-\lambda_\beta t}) \\
+\end{align*}
+\comment{what is what?}
+
+Solving \os{187}:
+\begin{align*}
+  \d{\os{187}^\beta} &= \lambda_\beta \re{187} = \lambda_\beta A_1 (e^{-\tau^{-1}t} - e^{-\lambda_\beta t}) \\
+  \os{187}^\beta(\Delta t) &= \lambda_\beta A_1 \int_0^{\Delta t} (e^{-\tau^{-1}t} - e^{-\lambda_\beta t}) \textrm{dt} \\
+  &= \lambda_\beta A_1 \left[ \frac{1}{\tau^{-1}} (1-e^{-\tau^{1}\Delta t}) - \frac{1}{\lambda_\beta} (1-e^{-\lambda_\beta \Delta t}) \right] \\
+  &= A_1 \left[ \frac{\lambda_\beta}{\tau^{-1}} (1-e^{-\tau^{1}\Delta t}) - (1-e^{-\lambda_\beta \Delta t}) \right] \\
+\end{align*}
+
+Calculating fraction:
+\begin{equation}
+  \label{eq:luck-fraction}
+  \frac{\os{187}^\beta(\Delta t)}{\re{187}(\Delta t)} = \frac{\frac{\lambda_\beta}{\tau^{-1}} (1-e^{-\tau^{1}\Delta t}) - (1-e^{-\lambda_\beta \Delta t})}{e^{-\tau^{-1} \Delta t} - e^{-\lambda_\beta \Delta t}}
+\end{equation}
+
+Adopting meteoritic abundances for the solar values \comment{at the formation of the solar system?!} from \mycite{shizuma05}
+\begin{equation}
+  \label{eq:shizuma-frac}
+  \begin{array}{cc}
+    \re{187}^\odot/\os{186}^\odot &= 3.51 \pm 0.09 (\pm 2.56\%) \\
+    \os{187}^\odot/\os{186}^\odot &= 0.793 \pm 0.001 (\pm 0.126\%) \\
+    \os{187}^\odot/\re{187}^\odot &= \frac{0.793}{3.51} \pm \sqrt{(2.56\%)^2 + (0.126\%)^2} \\
+    &= 0.226 \pm 2.563\% (\pm 5.79\times 10^{-3})
+  \end{array}
+\end{equation}
+
+Since \os{187} and \re{187} is separated from the galaxy after the time of formation of the \sos,
+the fraction \os{187}/\re{187} at that time can be caluclated from simple \betadecay of \re{187}.
+The time of solar system formation is denoted $t_{f,sos}$, and the current time is denoted $t_0$.
+Note that the normalization and integration constants used from here on are not related to the constants used previously.
+
+\begin{align*}
+  \re{187}(t) &= A e^{-\lambda_\beta (t-t_{f,sos})} \\
+  \d{\os{187}} &= -d{\re{187}} = \lambda_\beta A e^{-\lambda_\beta (t-t_{f,sos})} \\
+  \os{187} &= - A e^{-\lambda_\beta (t-t_{f,sos})} + C \\
+  \textrm{\footnotesize normalization and integration constants:} & 
+  \begin{array}{rl}
+    C &= \os{187}(t=t_{f,sos}) \\
+    A &= \re{187}(t=t_{f,sos})
+  \end{array} \\
+  \frac{\os{187}}{\re{187}} &= \frac{C - Ae^{-\lambda_\beta (t-t_{f,sos})}}{Ae^{-\lambda_\beta (t-t_{f,sos}})}
+  = \frac{C}{A}e^{\lambda_\beta (t-t_{f,sos})} - 1 \\
+  \left( \frac{\os{187}}{\re{187}} \right)_{t_0} &= \frac{C}{A}e^{\lambda_\beta (t_0-t_{f,sos})} - 1 \\
+  \Rightarrow& \frac{C}{A} = \left[ \left( \frac{\os{187}}{\re{187}} \right)_{t_0} + 1\right]e^{-\lambda_\beta (t_0-t_{f,sos})} \\
+  \left( \frac{\os{187}}{\re{187}} \right)_{t_{f,sos}} &= \frac{C}{A}e^{\lambda_\beta (t_0-t_{f,sos})} - 1
+\end{align*}
+\begin{equation}
+  \label{eq:frac-fsos}
+  \left( \frac{\os{187}}{\re{187}} \right)_{t_0} = \left[ \left( \frac{\os{187}}{\re{187}} \right)_{t_0} + 1\right]e^{-\lambda_\beta (t_0-t_{f,sos})} - 1
+\end{equation}
+
+The fraction $\left( \frac{\os{187}}{\re{187}} \right)_{t_{f,sos}}$ is then calculated from the current fraction, the estimated age of the solar system in \mycite{shizuma05}:
+\begin{align*}
+  \lambda_\beta &= \ln(2)/T_{1/2} = \ln(2)/41.6Gyr \\
+  t_0 - t_{f,sos} &= 4.55 Gyr \\
+  \left( \frac{\os{187}}{\re{187}} \right)_{t_0} &= 0.226 \quad \textrm{eq.\ref{eq:shizuma-frac}} \\
+  \left( \frac{\os{187}}{\re{187}} \right)_{t_{f,sos}} &= \left[ \left( \frac{\os{187}}{\re{187}} \right)_{t_0} + 1 \right]e^{-\lambda_\beta (t_0-t_{f,sos})} - 1 \quad \textrm{eq.\ref{eq:frac-fsos}} \\
+  &= 0.136
+\end{align*}
+

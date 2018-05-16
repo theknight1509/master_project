@@ -258,7 +258,9 @@ class Reduce(Extract):
 
     def setup_reduce_reos(self, loa_timepoints=[9.5e+9, 14e+9]):
         """ Get histograms and timevolutions for all the extracted datafiles. """
-        loa_extracted_filenames = self.get_extracted_filenames(untrait="num")
+        loa_extracted_filenames = self.get_extracted_filenames()
+        loa_extracted_filenames = [filename for filename in loa_extracted_filenames
+                                   if "num" not in filename]
         for extracted_filename in loa_extracted_filenames:
             #get relevant filename-section
             save_filename = extracted_filename.split("/")[-1]
@@ -274,7 +276,9 @@ class Reduce(Extract):
         return
 
     def setup_reduce_nsm(self):
-        loa_extracted_filenames = self.get_extracted_filenames(trait="num")
+        loa_extracted_filenames = self.get_extracted_filenames()
+        loa_extracted_filenames = [filename for filename in loa_extracted_filenames
+                                   if "num" in filename]
         for extracted_filename in loa_extracted_filenames:
             #get relevant filename-section
             save_filename = extracted_filename.split("/")[-1]
@@ -361,15 +365,18 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     print "Mucking around in directory: %s"%(dir_data)
 
     if decay:
+        print "Applying decay"
         decay_instance = Decay(dir_name=dir_data) #make instance of decay-class
         decay_instance() #do the stuff for Re-Os
 
     if extraction:
+        print "Applying extraction"
         extract_instance = Extract(dir_name=dir_data) #make instance of extract-class
         extract_instance() #do the stuff for Re-Os
         extract_instance(nsm=True)
 
     if reduction:
+        print "Applying reduction"
         reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
         reduce_instance() #do the stuff for Re-Os
         reduce_instance(nsm=True)
@@ -387,8 +394,8 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     return
 
 if __name__ == '__main__':
-    decay=False
-    extraction=False
+    decay=True
+    extraction=True
     reduction=True
     
     # config_filename = "../config_beehive_revised.ini"

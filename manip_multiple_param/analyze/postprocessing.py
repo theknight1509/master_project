@@ -18,8 +18,11 @@ class Extract(object):
         self.get_dir = dir_name
         self.save_dir = dir_name
 
-    def __call__(self):
-        self.setup_extract_reos()
+    def __call__(self, nsm=False):
+        if nsm:
+            self.setup_extract_nsm()
+        else:
+            self.setup_extract_reos()
         return
 
     def set_save_dir(self, save_dir):
@@ -133,13 +136,28 @@ class Extract(object):
                              decayed_data=True)
         return
 
+    def setup_extract_nsm(self):
+        loa_keys = ["num_sn1a", "num_sn2", "num_nsm", "num_bhnsm"]
+        loa_indeces = [self.get_data_index(key) for key in loa_keys]
+        
+        #extract single array with keys for all keys for all data
+        for i,key in enumerate(loa_keys):
+            extract_func = lambda data: self.extract_single_array(data=data, index_array=loa_indeces[i])
+            self.handle_all_data(extract_func=extract_func,
+                                 extract_filename=key)
+
+        return
+
 
 class Reduce(Extract):
     def __init__(self, dir_name):
         Extract.__init__(self, dir_name=dir_name)
 
-    def __call__(self):
-        self.setup_reduce_reos()
+    def __call__(self, nsm=False):
+        if nsm:
+            self.setup_reduce_nsm()
+        else:
+            self.setup_reduce_reos()
         return
     
     def get_extracted_filenames(self):
@@ -240,7 +258,7 @@ class Reduce(Extract):
 
     def setup_reduce_reos(self, loa_timepoints=[9.5e+9, 14e+9]):
         """ Get histograms and timevolutions for all the extracted datafiles. """
-        loa_extracted_filenames = self.get_extracted_filenames()
+        loa_extracted_filenames = self.get_extracted_filenames(untrait="num")
         for extracted_filename in loa_extracted_filenames:
             #get relevant filename-section
             save_filename = extracted_filename.split("/")[-1]
@@ -253,6 +271,18 @@ class Reduce(Extract):
                                       loa_timepoints=loa_timepoints)
             self.save_pandas(save_filename + "_hist", hist_dict)
 
+        return
+
+    def setup_reduce_nsm(self):
+        loa_extracted_filenames = self.get_extracted_filenames(trait="num")
+        for extracted_filename in loa_extracted_filenames:
+            #get relevant filename-section
+            save_filename = extracted_filename.split("/")[-1]
+            save_filename = save_filename[len("extract_"):]
+            save_filename = save_filename[:-len(".npy")]
+            
+            timeevol_dict = self.get_timeevol(extracted_filename)
+            self.save_pandas(save_filename, timeevol_dict)
         return
 
 
@@ -337,10 +367,12 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     if extraction:
         extract_instance = Extract(dir_name=dir_data) #make instance of extract-class
         extract_instance() #do the stuff for Re-Os
+        extract_instance(nsm=True)
 
     if reduction:
         reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
         reduce_instance() #do the stuff for Re-Os
+        reduce_instance(nsm=True)
 
         results_folder = Foldermap().hume_folder() + "latex/thesis/results/" + dir_data.split("/")[-1]
         print "Results-folder: %s"%(results_folder)
@@ -350,6 +382,7 @@ def complete_postprocessing(config_filename=False, directory_path=False,
             pass
         reduce_instance.set_save_dir(results_folder)
         reduce_instance()
+        reduce_instance(nsm=True)
 
     return
 
@@ -358,9 +391,12 @@ if __name__ == '__main__':
     extraction=False
     reduction=True
     
-    config_filename = "../config_beehive_revised.ini"
-    complete_postprocessing(config_filename=config_filename,
-                            decay=decay, extraction=extraction, reduction=reduction)
-    config_filename = "../config_beehive_revised_imfslope.ini"
+    # config_filename = "../config_beehive_revised.ini"
+    # complete_postprocessing(config_filename=config_filename,
+    #                         decay=decay, extraction=extraction, reduction=reduction)
+    # config_filename = "../config_beehive_revised_imfslope.ini"
+    # complete_postprocessing(config_filename=config_filename,
+    #                         decay=decay, extraction=extraction, reduction=reduction)
+    config_filename = "../config_beehive_revised_nsmtest.ini"
     complete_postprocessing(config_filename=config_filename,
                             decay=decay, extraction=extraction, reduction=reduction)

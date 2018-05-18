@@ -18,6 +18,8 @@ class Extract(object):
         self.get_dir = dir_name
         self.save_dir = dir_name
 
+        self.check_filename_level = 0 #base level, all good
+
     def __call__(self, nsm=False):
         if nsm:
             self.setup_extract_nsm()
@@ -28,6 +30,20 @@ class Extract(object):
     def set_save_dir(self, save_dir):
         self.save_dir = save_dir
         return
+
+    def check_filename(self, filename=False):
+        if self.check_filename_level == 0:
+            return True
+        elif self.check_filename_level == 1:
+            if not filename:
+                raise UserWarning("No 'filename' given!")
+            else:
+                pid = get_pid_from_filename(filename=filename)
+                directory = "/".join(filename.split("/")[:-1])
+                y_hat_re187 = get_yhat(directory=directory, pid=pid, iso="Re-187")
+                y_hat_os187 = get_yhat(directory=directory, pid=pid, iso="Os-187")
+        else:
+            raise UserWarning("'self.checkout_filename_level' %d not accounted for!'"%(self.check_filename_level))
 
     def get_data_index(self, string):
         """ Go through data-index-file, find index matching 'string'
@@ -78,6 +94,10 @@ class Extract(object):
             loa_chosen_datafiles = self.get_numpy_filenames(untrait="decayed")
         
         for data_filename in loa_chosen_datafiles:
+            if self.check_filename(filename=data_filename):
+                pass
+            else:
+                continue
             data = np.load(data_filename) #get data from a single data-file
             extracted_arr = extract_func(data) #extract according to input function
             loa_extracted_arrays.append(extracted_arr) #store extracted array
@@ -148,6 +168,35 @@ class Extract(object):
 
         return
 
+    def setup_extract_reos_donotconciderzeroyields(self):
+        """ Extract all data for ISM-data of Re-187, Os-187 and Os-187/Re-187.
+        Do not concider any file where Y_Re187 or Y_Os187 is zero"""
+        re187 = "Re-187"
+        os187 = "Os-187"
+        loa_keys = [re187, os187]
+        doa_array_string = {key: "ism_iso_%s"%key for key in loa_keys}
+        doa_array_index = {key: self.get_data_index(doa_array_string[key]) for key in loa_keys}
+        doa_filename = {key: "ism_%s"%key for key in loa_keys}
+
+        #extract single-isotope ism-array from loa_keys
+        for key in loa_keys:
+            extract_func = lambda data: self.extract_single_array(data=data, index_array=doa_array_index[key])
+            self.handle_all_data(extract_func=extract_func,
+                                 extract_filename=doa_filename[key])
+            self.handle_all_data(extract_func=extract_func,
+                                 extract_filename=doa_filename[key]+"_decayed",
+                                 decayed_data=True)
+
+        #extract os-187/re187 ism-array
+        extract_func = lambda data: self.extract_ratio_array(data=data,
+                                                             index_numer=doa_array_index[os187],
+                                                             index_denom=doa_array_index[re187])
+        self.handle_all_data(extract_func=extract_func,
+                             extract_filename="ism_%sdiv%s"%(os187,re187))
+        self.handle_all_data(extract_func=extract_func,
+                             extract_filename="ism_%sdiv%s"%(os187,re187)+"_decayed",
+                             decayed_data=True)
+        return
 
 class Reduce(Extract):
     def __init__(self, dir_name):
@@ -344,13 +393,52 @@ class Decay(Extract):
 
 
 
+def get_pid_from_filename(filename):
+    #get string that follows 'pid'
+    pid_string = filename.split("pid")[-1]
+    #cut off string following first '_' or '.' or '/'
+    pid_string = pid_string.split("_")[0]
+    pid_string = pid_string.split(".")[0]
+    pid_string = pid_string.split("/")[0]
+    return int(pid_string)
+
+def get_yhat(directory, pid, iso):
+    #look for "parameter_files.dat" in directory
+    param_filename = "parameter_files.dat"
+    if directory[-1] != "/": directory = directory + "/"
+    full_path = directory + param_filename
+    #get contents of file
+    with open(full_path, 'r') as infile:
+        loa_contents = infile.readlines()
+    #find index of 'iso' in header
+    header = loa_contents[0]
+    header = header.split()
+    if iso not in header:
+        raise UserWarning("isotope, %s, cannot be found in parameter-header %s"%(iso, header))
+    else:
+        iso_index = header.index(iso)
+    #find row of 'pid'
+    found_pid = False
+    for row in loa_contents:
+        current_row = row.split()
+        if int(current_row[0]) == pid:
+            yhat = float(current_row[iso_index])
+            found_pid = True
+    if found_pid:
+        return yhat
+    else:
+        raise UserWarning("pid %d could not be found in parameter_file %s"%(pid, full_path))
+
+
 def complete_postprocessing(config_filename=False, directory_path=False,
-                            decay=True, extraction=True, reduction=True):
+                            decay=True, extraction=True, reduction=True, delete=False):
     """
     Choose Experiment-folder from config-file.
     Apply beta-decay to all data-files, SAVE AS '*_decayed.npy'!!
     Extract Re-Os-data from data-files and decayed-data-files, SAVE AS 'extract_..._.npy'
     Reduce extracted data to reasonable pandas-csv-files, save in experiment-folder and results-folder!
+
+    delete-option: execute extraction, with suboption "do not consider files were Y_Re-187 or Y_Os-187 = 0"
     """
 
     if config_filename:
@@ -372,9 +460,10 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     if extraction:
         print "Applying extraction"
         extract_instance = Extract(dir_name=dir_data) #make instance of extract-class
+        extract_instance.check_filename_level = 1 #check Y_hat(Re-187) and Y_hat(Os-187) from pid-in filename
         extract_instance() #do the stuff for Re-Os
         extract_instance(nsm=True)
-
+        
     if reduction:
         print "Applying reduction"
         reduce_instance = Reduce(dir_name=dir_data) #make instance of reduce-class
@@ -404,6 +493,10 @@ if __name__ == '__main__':
     # config_filename = "../config_beehive_revised_imfslope.ini"
     # complete_postprocessing(config_filename=config_filename,
     #                         decay=decay, extraction=extraction, reduction=reduction)
-    config_filename = "../config_beehive_revised_nsmtest.ini"
+    # config_filename = "../config_beehive_revised_nsmtest.ini"
+    # complete_postprocessing(config_filename=config_filename,
+    #                         decay=decay, extraction=extraction, reduction=reduction)
+    config_filename = "../config_beehive_revised_delete.ini"
     complete_postprocessing(config_filename=config_filename,
-                            decay=decay, extraction=extraction, reduction=reduction)
+                            decay=decay, extraction=extraction, reduction=reduction,
+                            delete=True)

@@ -39,6 +39,8 @@ class Extract(object):
                 raise UserWarning("No 'filename' given!")
             else:
                 pid = get_pid_from_filename(filename=filename)
+                if not pid:
+                    raise UserWarning("Invalid pid in filename: %s"%(filename))
                 directory = "/".join(filename.split("/")[:-1])
                 y_hat_re187 = get_yhat(directory=directory, pid=pid, iso="Re-187")
                 y_hat_os187 = get_yhat(directory=directory, pid=pid, iso="Os-187")
@@ -93,7 +95,7 @@ class Extract(object):
         loa_extracted_arrays = []
         if decayed_data:
             loa_chosen_datafiles = self.get_numpy_filenames(trait="decayed",
-                                                            untrait="There is no fucking way this is in the filename")
+                                                            untrait="extract")
         else:
             loa_chosen_datafiles = self.get_numpy_filenames(untrait="decayed")
         
@@ -398,6 +400,8 @@ class Decay(Extract):
 
 
 def get_pid_from_filename(filename):
+    if "pid" not in filename:
+        return False
     #get string that follows 'pid'
     pid_string = filename.split("pid")[-1]
     #cut off string following first '_' or '.' or '/'
@@ -415,7 +419,7 @@ def get_yhat(directory, pid, iso):
     with open(full_path, 'r') as infile:
         loa_contents = infile.readlines()
     #find index of 'iso' in header
-    header = loa_contents[0]
+    header = loa_contents.pop(0)
     header = header.split()
     if iso not in header:
         raise UserWarning("isotope, %s, cannot be found in parameter-header %s"%(iso, header))
@@ -487,7 +491,7 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     return
 
 if __name__ == '__main__':
-    decay=True
+    decay=False
     extraction=True
     reduction=True
     

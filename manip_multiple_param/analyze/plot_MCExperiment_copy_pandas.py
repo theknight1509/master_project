@@ -213,8 +213,8 @@ def sort_paths(loa_fullpaths, check=True):
 
 if __name__ == '__main__':
     from directory_master import Foldermap
-    result_dir = Foldermap().results
-    result_dir = result_dir+"MCExperiment_revised_2/"
+    result_dir = Foldermap().hume_folder() + "latex/thesis/results/" #.results
+    result_dir = result_dir+"MCExperiment_revised_2_delmax/"
     loa_fullpaths = get_full_filenames(result_dir)
 
     print "All paths in %s:"%(result_dir)

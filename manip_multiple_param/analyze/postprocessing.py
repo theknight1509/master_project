@@ -42,6 +42,10 @@ class Extract(object):
                 directory = "/".join(filename.split("/")[:-1])
                 y_hat_re187 = get_yhat(directory=directory, pid=pid, iso="Re-187")
                 y_hat_os187 = get_yhat(directory=directory, pid=pid, iso="Os-187")
+                if (y_hat_re187 > 0.0) and (y_hat_re187 > 0.0):
+                    return True
+                else:
+                    return False
         else:
             raise UserWarning("'self.checkout_filename_level' %d not accounted for!'"%(self.check_filename_level))
 

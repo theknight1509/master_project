@@ -11,10 +11,12 @@ from matplotlib import rcParams
 #print rcParams.keys()
 rcParams[u"lines.linewidth"] = 2.0
 
-def plot_timeevol(filename_timeevol, ax, plot_string="nsm"):
+def plot_timeevol(filename_timeevol, ax, plot_string="nsm", bool_stddev=False):
     pandas_data_frame = pd.read_csv(filename_timeevol)
     time = pandas_data_frame["time"]
     mean = pandas_data_frame["mean"]
+    mean_p_sigma = pandas_data_frame["mean+sigma"]
+    mean_m_sigma = pandas_data_frame["mean-sigma"]
 
     #scale time to Gyr
     time /= 1.0e+6
@@ -25,6 +27,10 @@ def plot_timeevol(filename_timeevol, ax, plot_string="nsm"):
     dt = np.copy(time[1:]) - np.copy(time[:-1])
     rate = np.zeros(len(time))
     rate[1:] = mean[1:]/dt
+    rate_p_sigma = np.zeros(len(time))
+    rate_p_sigma[1:] = mean_p_sigma[1:]/dt
+    rate_m_sigma = np.zeros(len(time))
+    rate_m_sigma[1:] = mean_m_sigma[1:]/dt
     
     #plot rate and/or cumulative sum
     color_rate = 'b'
@@ -40,6 +46,10 @@ def plot_timeevol(filename_timeevol, ax, plot_string="nsm"):
     ax_twin.set_ylabel(r"cumulative sum $\int_0^t dN_{%s}$"%(plot_string), color=color_sum)
     ax_twin.tick_params("y", colors=color_sum)
     ax_twin.ticklabel_format(style='scientific')
+
+    if bool_stddev:
+        ax.fill_between(time, mean_p_sigma, mean_m_sigma, color=color_rate)
+        ax_twin.fill_between(time, np.cumsum(mean_p_sigma), np.cumsum(mean_m_sigma), color=color_sum)
 
     return 
 

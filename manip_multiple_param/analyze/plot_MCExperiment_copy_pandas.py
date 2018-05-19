@@ -70,13 +70,17 @@ def plot_hist_vertical(filename_hist, loa_ax):
 
     for ax, key in zip(loa_ax, keys):
         array = pandas_data_frame[key]
+        mean = np.mean(array)
+        sigma = np.std(array)
         ax.grid(True)
         ax.hist(array, bins=50, label=key, orientation="horizontal", color=color[key])
         ax.set_title("%s"%(key))
         # ax.axhline(np.mean(array), color='k', 
         #            label=r"$\langle X \rangle \pm 1 \sigma$")
-        # ax.axhline(np.mean(array)-np.std(array), color='k')
-        # ax.axhline(np.mean(array)+np.std(array), color='k')
+        ax.axhline(mean - sigma, color='g', alpha=0.8)
+        ax.axhline(mean + sigma, color='g', alpha=0.8)
+        print "Standard deviation in %s: \n"%(filename_hist) \
+            + "time: %s mean: %2.4f sigma: %2.4f \n"%(key, mean, sigma)
         # ax.legend(loc=1)
     return
 
@@ -213,7 +217,7 @@ def sort_paths(loa_fullpaths, check=True):
 
 if __name__ == '__main__':
     from directory_master import Foldermap
-    result_dir = Foldermap().hume_folder() + "latex/thesis/results/" #.results
+    result_dir = Foldermap().results #.hume_folder() + "latex/thesis/results/"
     result_dir = result_dir+"MCExperiment_revised_2_delmax/"
     loa_fullpaths = get_full_filenames(result_dir)
 

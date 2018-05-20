@@ -42,12 +42,13 @@ The uncertainties of the mass of each isotope come from the uncertainty of the i
 In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{187}- and \os{187}-mass in the inter stellar medium is plotted, as well as the ratio between them. 
 %explain how they differ
 
-\FloatBarrier
+\FloatBarrier %end of section
 
+\subsection{Without \betadecay}
 %Use subfigwidth for the first two figures
-\setlength{\subfigwidth}{0.45\textwidth}
+\setlength{\subfigwidth}{0.40\textwidth}
 %Use figwidth for the last figure
-\setlength{\figwidth}{0.8\textwidth}
+\setlength{\figwidth}{0.6\textwidth}
 
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment wo/decay
 \begin{figure}
@@ -77,8 +78,10 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
     The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
   }
 \end{figure}
+\FloatBarrier %end of subsection
 
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment
+\subsection{With \betadecay}
 \begin{figure}
   \centering
   \begin{subfigure}{\subfigwidth}
@@ -105,7 +108,35 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
     The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
   }
 \end{figure}
+\FloatBarrier %end of subsection
 
+\subsection{Removing negative isotope yields}
+Do to the gaussian distribution of input parameters and relatively large sample size (1500 model calculations)
+some isotope yields will be negative. Since this is unphysical all negative yields are set to zero, since this is the closest physical interpretation of negative yields from a stellar population.
+
+This effect leads to an overabundance of zero-yields which makes the distribution of input parameters un-gaussian.
+Overabundances in parameter distributions of this scale leads to outliers in the results. Such outliers also greatly affect the standard deviation of the resulting distribution, see figure \ref{fig:MCExperiment-div} for an example.
+One possible solution to this is to take a gaussian distribution set it to zero below parameter-value zero and scale it to the integral (as is the norm for statistical distributions).
+Applying this form of distribution numerically is beyond the capabilities of the writer. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored. \comment{Signe! How do I correctly give you credit for coming up with this idea when we were discussing the distributions?}
+
+%figure of zero-yield plots here
+\comment{add figures of zero-yield plots here}
+\begin{figure}
+\end{figure}
+\FloatBarrier %end of subsection
+
+\subsection{Rate of nucleosynthetic events}
+\comment{add section of nsm rate plots here} \\
+\FloatBarrier %end of subsection
+\subsection{Comparing models}
+\comment{add section of different models here} \\
+\comment{add table of parameters and such} \\
+\comment{make references to calculations in appendices} \\
+\FloatBarrier %end of subsection
+\subsection{Consider high mass slope of initial mass function}
+\comment{move section of IMFslope experiment here} \\
+\comment{Removed IMFslope images, trade them with similar, zero-yields removed.} \\
+\iffalse
 %add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/IMFslope
 \begin{figure}
   \centering
@@ -133,7 +164,13 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
     The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
   }
 \end{figure}
+\fi
+\FloatBarrier %end of subsection
 
 %(add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/NSMparameters)
+\subsection{Consider events of binary neutron star mergers}
+\importantcomment{Work in progress} \\
+\comment{Add section of NSM-param experiment here} \\
+\comment{include nsm-rate plots in section} \\
 
-\FloatBarrier
+\FloatBarrier %end of subsection

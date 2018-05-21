@@ -491,14 +491,11 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     return
 
 if __name__ == '__main__':
-    decay=False
+    decay=True
     extraction=True
     reduction=True
     
     # config_filename = "../config_beehive_revised.ini"
-    # complete_postprocessing(config_filename=config_filename,
-    #                         decay=decay, extraction=extraction, reduction=reduction)
-    # config_filename = "../config_beehive_revised_imfslope.ini"
     # complete_postprocessing(config_filename=config_filename,
     #                         decay=decay, extraction=extraction, reduction=reduction)
     # config_filename = "../config_beehive_revised_nsmtest.ini"
@@ -508,3 +505,11 @@ if __name__ == '__main__':
     complete_postprocessing(config_filename=config_filename,
                             decay=decay, extraction=extraction, reduction=reduction,
                             delete=True)
+    config_filename = "../config_beehive_revised_imfslope.ini"
+    complete_postprocessing(config_filename=config_filename,
+                            decay=decay, extraction=extraction, reduction=reduction,
+                            delete=True)
+    # config_filename = "../config_beehive_revised_numnsm.ini"
+    # complete_postprocessing(config_filename=config_filename,
+    #                         decay=decay, extraction=extraction, reduction=reduction,
+    #                         delete=True)

@@ -1,5 +1,6 @@
 
 \renewcommand{\d}[1]{\frac{\textrm{d}#1}{\textrm{dt}}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 
 Following the analytical approach of \mycite{luck80} which follows the approach of \mycite{clayton64} to the chemical evolution of the \re{187}-\os{187}-system. \\
 The solar values and evolution of \re{187}, \os{187}, \os{187} come, predominantly from three main sources;
@@ -81,12 +82,79 @@ Note that the normalization and integration constants used from here on are not 
   \left( \frac{\os{187}}{\re{187}} \right)_{t_0} = \left[ \left( \frac{\os{187}}{\re{187}} \right)_{t_0} + 1\right]e^{-\lambda_\beta (t_0-t_{f,sos})} - 1
 \end{equation}
 
-The fraction $\left( \frac{\os{187}}{\re{187}} \right)_{t_{f,sos}}$ is then calculated from the current fraction, the estimated age of the solar system in \mycite{shizuma05}:
+
+\importantcomment{Rename $\frac{\os{187}}{\re{187}}$ to $f_{187}$}
+\newcommand\fracfsos{\left( \frac{\os{187}}{\re{187}} \right)_{t_{f,sos}}}
+\newcommand\fracnow{\left( \frac{\os{187}}{\re{187}} \right)_{t_{now}}}
+\renewcommand\fracfsos{f_{187}(t_{sos})}
+\renewcommand\fracnow{f_{187}(t_{now})}
+
+
+\begin{equation}
+  \label{eq:parameter-sources}
+  \begin{array}{rl}
+  \lambda_\beta &= \ln(2)/T_{1/2} \\
+  T_{1/2} &= 41.2 \pm 1.3 Gyr \quad \textrm{from \mycite{galeazzi01}
+    \footnote{Half life of \re{187} taken from \mycite{galeazzi01}, although Shizuma gives 41.6 Gyr and no uncertainty/citation for his half-life \mycite{shizuma05}. There is a better estimate by Snelling which gives $41.577 \pm 0.12 Gyr$, which is a summary half-life data by a creationist science journal \mycite{snelling15}} } \\
+  t_0 - t_{f,sos} = \Delta t &= 4.568^{0.2\times 10^{-1}}_{0.4\times 10^{-1}} Gyr \quad \textrm{from \mycite{bouvier10}} \\
+  \fracnow &= 0.226 \pm 5.79 \times 10^{-2} \quad \textrm{from eq.\ref{eq:shizuma-frac}}
+  \end{array}
+\end{equation}
+
 \begin{align*}
-  \lambda_\beta &= \ln(2)/T_{1/2} = \ln(2)/41.6Gyr \\
-  t_0 - t_{f,sos} &= 4.55 Gyr \\
-  \left( \frac{\os{187}}{\re{187}} \right)_{t_0} &= 0.226 \quad \textrm{eq.\ref{eq:shizuma-frac}} \\
-  \left( \frac{\os{187}}{\re{187}} \right)_{t_{f,sos}} &= \left[ \left( \frac{\os{187}}{\re{187}} \right)_{t_0} + 1 \right]e^{-\lambda_\beta (t_0-t_{f,sos})} - 1 \quad \textrm{eq.\ref{eq:frac-fsos}} \\
+  \fracfsos &= \left[ \left( \frac{\os{187}}{\re{187}} \right)_{t_0} + 1 \right]e^{-\lambda_\beta \Delta t} - 1 \quad \textrm{eq.\ref{eq:frac-fsos}} \\
   &= 0.136
 \end{align*}
 
+Error propagation of $\fracfsos$:
+\begin{align*}
+  \left( \frac{\delta f(x,y,z)}{f(x_0, y_0, z_0)} \right)^2 &=
+  \left(\pd{f}{x}\right)_{(x_0,y_0,z_0)}^2 \left( \frac{\delta x}{x_0} \right)^2
+  + \left(\pd{f}{y}\right)_{(x_0,y_0,z_0)}^2 \left( \frac{\delta y}{y_0} \right)^2
+  + \left(\pd{f}{z}\right)_{(x_0,y_0,z_0)}^2 \left( \frac{\delta z}{z_0} \right)^2 \\
+  \left(\frac{\delta \fracfsos}{\fracfsos}\right)^2 &= \left\{
+  \begin{array}{l}
+    \left(\pd{\fracfsos}{\Delta t}\right)_{(\Delta t, T_{1/2}, \fracnow)}^2 \left( \frac{\delta \Delta t}{\Delta t} \right)^2 \\
+    + \left(\pd{\fracfsos}{T_{1/2}}\right)_{(\Delta t, T_{1/2}, \fracnow)}^2 \left( \frac{\delta T_{1/2}}{T_{1/2}} \right)^2 \\
+    + \left(\pd{\fracfsos}{\fracnow}\right)_{(\Delta t, T_{1/2}, \fracnow)}^2 \left( \frac{\delta \fracnow}{\fracnow} \right)^2
+  \end{array} \right. \\
+  \pd{\fracfsos}{\Delta t} &= \pd{(eq.\ref{eq:frac-fsos})}{\Delta t}
+  = (\fracnow + 1) \left(\frac{-\ln 2}{T_{1/2}}\right) e^{-\ln 2 \Delta t /T_{1/2}} \\
+  \pd{\fracfsos}{T_{1/2}} &= \pd{(eq.\ref{eq:frac-fsos})}{T_{1/2}}
+  = (\fracnow + 1) \left(\frac{\ln 2 \Delta t}{T_{1/2}}^2\right) e^{-\ln 2 \Delta t /T_{1/2}} \\
+  \pd{\fracfsos}{\fracnow} &= \pd{(eq.\ref{eq:frac-fsos})}{\fracnow}
+  = e^{-\ln 2 \Delta t /T_{1/2}} \\
+  \left(\frac{\delta \fracfsos}{\fracfsos}\right)^2 &= \left\{
+  \begin{array}{l}
+    \left( (\fracnow + 1) \left(\frac{-\ln 2}{T_{1/2}}\right) e^{-\ln 2 \Delta t /T_{1/2}}
+    \right)^2%_{(\Delta t, T_{1/2}, \fracnow)}
+    \left( \frac{\delta \Delta t}{\Delta t} \right)^2 \\
+    + \left((\fracnow + 1) \left(\frac{\ln 2 \Delta t}{T_{1/2}}^2\right) e^{-\ln 2 \Delta t /T_{1/2}}
+    \right)^2%_{(\Delta t, T_{1/2}, \fracnow)}
+    \left( \frac{\delta T_{1/2}}{T_{1/2}} \right)^2 \\
+    + \left(e^{-\ln 2 \Delta t /T_{1/2}}\right)^2%_{(\Delta t, T_{1/2}, \fracnow)}
+    \left( \frac{\delta \fracnow}{\fracnow} \right)^2
+  \end{array} \right. \\
+  &= e^{-2\ln 2 \Delta t/ T_{1/2}} \left[
+    \begin{array}{l}
+    \left( \frac{\delta \fracnow}{\fracnow} \right)^2 \\
+    + \left((\fracnow + 1)\right)^2\left(\frac{ln 2}{T_{1/2}}\right)^2 \\
+    \qquad \times \left[
+      \left(\frac{\Delta t}{T_{1/2}}\right)^2 \left( \frac{\delta T_{1/2}}{T_{1/2}} \right)^2
+      - \left( \frac{\delta \Delta t}{\Delta t} \right)^2
+      \right]
+    \end{array}
+    \right]
+  \intertext{
+    Inserting values for ($\Delta t$, $T_{1/2}$, $\fracnow$) with uncertainties from eq.\ref{eq:parameter-sources}
+    \newline\noindent
+    $ \Delta t = 4.5682 Gyr \quad \delta \Delta t = 0.4 \times 10^{-3} Gyr$ \newline\noindent
+    $T_{1/2} = 41.2 Gyr \quad \delta T_{1/2} = 1.3 Gyr $ \newline\noindent
+    $ \fracnow = 0.226 \quad \delta \fracnow = 57.9 \times 10^{-3} $
+  }
+  &= 0.0563
+  \delta \fracfsos &= \sqrt{0.0563} \fracfsos \\
+  &= 0.0323
+\end{align*}
+
+This gives us that, at the formation of the solar system: $\fracfsos = 0.136 \pm 0.0323$

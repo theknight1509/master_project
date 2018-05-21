@@ -96,7 +96,7 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
       Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
   }
   \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
+  \begin{subfigure}{\figwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div_decayed.png}
     \caption{\label{fig:MCExperiment-div}
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
@@ -119,20 +119,142 @@ Overabundances in parameter distributions of this scale leads to outliers in the
 One possible solution to this is to take a gaussian distribution set it to zero below parameter-value zero and scale it to the integral (as is the norm for statistical distributions).
 Applying this form of distribution numerically is beyond the capabilities of the writer. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored. \comment{Signe! How do I correctly give you credit for coming up with this idea when we were discussing the distributions?}
 
+The resulting distributions can be found in figure \ref{fig:MCExperiment-delmax}.
 %figure of zero-yield plots here
-\comment{add figures of zero-yield plots here}
 \begin{figure}
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_Re-187_decayed.png}
+    \caption{ \label{fig:MCExperiment-delmax-re187}
+      Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_Os-187_decayed.png}
+    \caption{ \label{fig:MCExperiment-delmax-os187}
+      Mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\figwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_div_decayed.png}
+    \caption{ \label{fig:MCExperiment-delmax-div}
+      Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \caption[\expone with \betadecay and removing negative isotope yields]{ \label{fig:MCExperiment-delmax}
+  }
 \end{figure}
 \FloatBarrier %end of subsection
 
 \subsection{Rate of nucleosynthetic events}
-\comment{add section of nsm rate plots here} \\
+\comment{mention something about the nucleosynthetic events chosen, the times chosen and ref table and figure for result}
+\comment{what does this result tell us?}
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \multicolumn{3}{c}{Binary neutron star mergers} \\ \hline
+    time & rate & $\Sigma N$ \\ \hline 
+    $14 Gyr$ & $0.201 Myr^{-1}$ & $114 \times 10^3$ \\ \hline 
+    $9.49 Gyr$ & $3.75 Myr^{-1}$ & $101 \times 10^3$ \\ \hline
+    \multicolumn{3}{c}{} \\
+    \multicolumn{3}{c}{Type 1a supernovae} \\ \hline
+    time & rate & $\Sigma N$ \\ \hline 
+    $14 Gyr$ & $1.1 \times 10^{-44} Myr^{-1} \simeq 0 Myr^{-1}$ & $29.6 \times 10^{6}$ \\ \hline 
+    $9.49 Gyr$ & $821 Myr^{-1}$ & $27.2 \times 10^{6}$ \\ \hline
+    \multicolumn{3}{c}{} \\
+    \multicolumn{3}{c}{type 2 supernovae} \\ \hline
+    time & rate & $\Sigma N$ \\ \hline 
+    $14 Gyr$ & $0 Myr^{-1}$ & $258 \times 10^{6}$ \\ \hline 
+    $9.49 Gyr$ & $8.67 \times 10^{3} Myr^{-1}$ & $233 \times 10^{6}$ \\ \hline
+  \end{tabular}
+  \caption[]{\label{tab:nucleosynthetic-events}
+    Rates and total number of nucleosynthetic events for neuron star mergers, type 1a and 2 supernovae in \omegamodel.
+    The time is taken at $\simeq$9.5 Gyrs (the formation of the solar system, and 14 Gyrs (now).
+    Plots of the time evolution of nucleosynthetic events are shown in figures \ref{fig:MCExperiment-delmax-rate}.
+  }
+\end{table}
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/sn1a.png}
+    \caption{ \label{fig:MCExperiment-delmax-sn1a}
+      Type 1a supernovae.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/sn2.png}
+    \caption{ \label{fig:MCExperiment-delmax-sn2}
+      Type 2 supernovae.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\figwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/nsm.png}
+    \caption{ \label{fig:MCExperiment-delmax-nsm}
+      Binary neutron star mergers.
+    }
+  \end{subfigure}
+  \caption[\expone with \betadecay and removing negative isotope yields]{ \label{fig:MCExperiment-delmax-rate}
+    All plots show rate of nucleosynthetic events (blue), and cumulative sum of events (red)
+    after \betadecay applied and negative isotope yields have been removed.
+    The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-delmax-sn1a}) and type 2 (\ref{fig:MCExperiment-delmax-sn2})
+    supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-delmax-nsm}).
+    The rate of each event follows the star formation rate (see figure \ref{fig:sfr}) with a scale factor and delay time distribution.
+  } 
+\end{figure}
 \FloatBarrier %end of subsection
+
 \subsection{Comparing models}
 \comment{add section of different models here} \\
-\comment{add table of parameters and such} \\
+With a numerical model for \os{187}/\re{187}, the data can be compared to other, analytical models.
+All analytical models presented here are based on Claytons model for cosmochemical evolution of \os{187}/\re{187},
+which assumes that the rate of events declines exponentially in time. As can be seen in \comment{some appendix} the actual number of events and the amount of \re{187} ejected from each is insignificant when calculating the fraction \os{187}$_c$/\re{187}. \os{187}$_c$ is the
+component of \os{187} from cosmoradiogenic decay from \re{187}.
+\begin{landscape}
+  \begin{table}
+    \centering
+    \newcommand\leff{\lambda_{\tiny \beta}^{\textrm{\tiny eff}}}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline \small Model & \os{187}$_c$/\re{187} & $\lambda_{\re{187}}$ & $\lambda_{rncp}$ & Reference \\
+      \hline \hline \small Clayton
+      & $ \frac{\Lambda - \lambda}{\lambda} e^{\lambda t} \frac{1-e^{-\Lambda t}}{1-e^{-(\Lambda - \lambda) t}} - 1$
+      & $\lambda = \frac{\ln 2}{\tau_{\re{187}}}$ & $\Lambda$ & \mycite{clayton64} \\
+      \hline \small \begin{tabular}{c} Clayton \\ Sudden synthesis \end{tabular}
+      & $e^{\lambda t} - 1$
+      & $\tau_{\re{187}} = 47 \pm 10 Gyr$ & $\Lambda \rightarrow \infty$ & \mycite{clayton64} \\
+      \hline \small \begin{tabular}{c} Clayton \\ Uniform synthesis \end{tabular}
+      & $\frac{\lambda t}{1-e^{-\lambda t}} - 1$
+      & $\tau_{\re{187}} = 47 \pm 10 Gyr$ & $\Lambda \rightarrow 0$ & \mycite{clayton64} \\
+      \hline \small Luck & $\frac{\lambda_{Re}/\beta (1-e^{-\beta t}) - (1-e^{-\lambda_{Re} t})}{e^{-\beta t} - e^{-\lambda_{Re} t}}$
+      & $\lambda_{Re} = \begin{array}{l} 1.62 \pm 0.08  \\ \times 10^{-11} yr^{-1} \end{array}$ & $\beta$ & \mycite{luck80} \\
+      \hline \small \begin{tabular}{c} Luck \\ Sudden synthesis \end{tabular}
+      & & & $\beta = 10^{-6} yr^{-1}$ & \mycite{luck80} \\
+      \hline \small \begin{tabular}{c} Luck \\ Steady state \\ synthesis \end{tabular} & & & $\beta = 10^{-12} yr^{-1}$ & \mycite{luck80} \\
+      \hline \small Shizuma
+      & $\frac{(1-e^{-\leff t}) - (1-e^{-\lambda t}) \leff / \lambda }{e^{-\leff t} - e^{-\lambda t}} $
+      & $ \leff = \frac{ 1.2 \ln 2 }{ \tau_{\re{187}} }$ & $\lambda \in [0,2] Gyr^{-1}$ & \mycite{shizuma05} \\
+      \hline 
+    \end{tabular}
+    \caption[Analytical models for \os{187}$_c$/\re{187}]{ \label{tab:analytical-osre-models}
+      $\lambda_{\re{187}}$ is the decay constant of radioactive \re{187}.
+      $\lambda_{rncp}$ is the decay constant of the rate of events for \textit{rapid neutron capture processes}.
+      $\leff$ is the effective net \betadecay constant for \re{187} after thermal consitions of astration have been taken into account, equalt to 1.2 times \betadecay-constant of neutral \re{187}.
+      Shizuma does not give any uncertainty for the halflife of \re{187}, and the boundaries of $\lambda$ are only found to be in good agreement with a Galctic age of 11-15 yrs.
+      The basic model for Shizuma, Luck and Clayton are identical, even though they are written differently.
+    }
+  \end{table}
+\end{landscape}
+
 \comment{make references to calculations in appendices} \\
+\comment{add figures with uncertainty}
+\begin{figure}
+  \centering
+  \includegraphics[width=\figwidth]{results/MCExperiment_revised_2_delmax/model_fitting.png}
+  \caption{ \label{fig:osre-model-fitting} }
+\end{figure}
 \FloatBarrier %end of subsection
+
 \subsection{Consider high mass slope of initial mass function}
 \comment{move section of IMFslope experiment here} \\
 \comment{Removed IMFslope images, trade them with similar, zero-yields removed.} \\
@@ -152,7 +274,7 @@ Applying this form of distribution numerically is beyond the capabilities of the
       Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
   \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
+  \begin{subfigure}{\figwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_imfslope/combined_plot_div_decayed.png}
     \caption{\label{fig:MCExperiment-imfslope-div}
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.

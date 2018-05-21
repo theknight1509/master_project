@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt, draft]{book}
+\documentclass[a4paper, 12pt]{book}
 
 \include{preamble}
 
@@ -17,6 +17,15 @@ For writing purposes only.
 \include{texfiles/eris_simulation}
 
 \fi
+
+\iftrue
+
+\chapter{Results}
+\include{results_parameters}
+
+\fi
+
+\appendix
 
 \input{texfiles/luck_cosmochronology_calc}
 

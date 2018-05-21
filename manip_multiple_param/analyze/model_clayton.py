@@ -91,7 +91,7 @@ def plot_timeevol(toa_time_mean_sigma_arrays, ax, color='b', bool_std=True, plot
     ax.plot(time, mean, color, 
             label=r"$\langle %s \rangle$ %s"%(frac_string, plot_string))
     if bool_std:
-        ax.fill_between(time, pos_sigma, neg_sigma, color=color[0], alpha=0.8) #Use first char of fmt-string as color
+        ax.fill_between(time, pos_sigma, neg_sigma, color=color[0], alpha=0.3) #Use first char of fmt-string as color
                         #label=r"$\langle %s \rangle \pm \sigma$ %s"%(frac_string, plot_string))
     ax.legend(loc="upper left")
 
@@ -113,22 +113,21 @@ if __name__ == '__main__':
     #plot data
     fig = pl.figure()
     ax = fig.gca()
-    bool_std = False
+    bool_std = True
     plot_timeevol((time, mean, mean+uncertainty_up, mean-uncertainty_down), ax, color='k-', bool_std=bool_std, plot_string="data")
     
     #Clayton Sudden Synthesis
-    decay_rate_re187 = np.log(2)/(45e+9) #1/yr (Clayton 1964)
+    T_half = 47e+9
+    eps_T_half = 10.0/47.0
+    decay_rate_re187 = np.log(2)/(T_half) #1/yr (Clayton 1964)
     p_array = np.array([decay_rate_re187])
-    p_error = np.array([np.nan])
+    p_error = np.array([eps_T_half])*p_array
     clayton_model = cosmochronology_clayton_sudden(time, *p_array)
     plot_timeevol((time, clayton_model, clayton_model, clayton_model),
                   ax, color='b-', bool_std=bool_std, plot_string="Clayton sudden")
     print "Clayton sudden synthesis parameters to model: (lambda_eff) = %s +/- %s"%(p_array, p_error)
     
     #Clayton Uniform Synthesis
-    decay_rate_re187 = np.log(2)/(47e+9) #1/yr (Clayton 1964)
-    p_array = np.array([decay_rate_re187])
-    p_error = np.array([1.0/4.7*decay_rate_re187]) #uncertainty from tau_half = 4.7+/-1.0 e+10 (Clayton 1964)
     clayton_model = cosmochronology_clayton_uniform(time, *p_array)#decay_rate_eff, rncp_frequency)
     clayton_model_pluss = cosmochronology_clayton_uniform(time, *(p_array+p_error))
     clayton_model_minus = cosmochronology_clayton_uniform(time, *(p_array-p_error))
@@ -158,10 +157,13 @@ if __name__ == '__main__':
     ### Shizuma ###
     #Shizuma
     rncp_frequency = 1e-9 #1/yr (Shizuma et al. 2005)
-    decay_rate_re_187 = np.log(2)/(41.6e+9) #1/yr (Shizuma et al. 2005)
+    eps_rncp_frequency = 1 #1/yr (Shizuma et al. 2005)
+    halflife = 41.6e+9 # yr (shizuma et al. 2005)
+    eps_halflife = 1.3/41.2 #(galeazzi 2001)
+    decay_rate_re_187 = np.log(2)/halflife #1/yr (Shizuma et al. 2005)
     decay_rate_eff = 1.2*decay_rate_re_187 #(Shizuma et al. 2005)
     p_array = np.array([decay_rate_eff, rncp_frequency])
-    p_error = np.array([np.nan, np.nan])
+    p_error = np.array([eps_halflife, eps_rncp_frequency])*p_array 
     shizuma_model = cosmochronology_shizuma(time, *p_array)#decay_rate_eff, rncp_frequency)
     plot_timeevol((time, shizuma_model, shizuma_model, shizuma_model),
                   ax, color='g-', bool_std=bool_std, plot_string="Shizuma")

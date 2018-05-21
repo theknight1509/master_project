@@ -45,6 +45,7 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
 \FloatBarrier %end of section
 
 \subsection{Without \betadecay}
+\label{sec:results-nodecay}
 %Use subfigwidth for the first two figures
 \setlength{\subfigwidth}{0.40\textwidth}
 %Use figwidth for the last figure
@@ -82,27 +83,28 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
 
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment
 \subsection{With \betadecay}
+\label{sec:results-decay}
 \begin{figure}
   \centering
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Re-187_decayed.png}
-    \caption{\label{fig:MCExperiment-re187}
+    \caption{\label{fig:MCExperiment-decay-re187}
       Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
   \end{subfigure}
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Os-187_decayed.png}
-    \caption{\label{fig:MCExperiment-os187}
+    \caption{\label{fig:MCExperiment-decay-os187}
       Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
   }
   \end{subfigure}
   \begin{subfigure}{\figwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div_decayed.png}
-    \caption{\label{fig:MCExperiment-div}
+    \caption{\label{fig:MCExperiment-decay-div}
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
   \end{subfigure}
-  \caption[\expone after \betadecay]{\label{fig:MCExperiment}
+  \caption[\expone after \betadecay]{\label{fig:MCExperiment-decay}
     The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
 
     The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
@@ -111,13 +113,51 @@ In figures \ref{fig:MCExperiment-nodecay} the evolution and distribution of \re{
 \FloatBarrier %end of subsection
 
 \subsection{Removing negative isotope yields}
+\label{sec:results-delmax}
 Do to the gaussian distribution of input parameters and relatively large sample size (1500 model calculations)
 some isotope yields will be negative. Since this is unphysical all negative yields are set to zero, since this is the closest physical interpretation of negative yields from a stellar population.
 
 This effect leads to an overabundance of zero-yields which makes the distribution of input parameters un-gaussian.
-Overabundances in parameter distributions of this scale leads to outliers in the results. Such outliers also greatly affect the standard deviation of the resulting distribution, see figure \ref{fig:MCExperiment-div} for an example.
+Overabundances in parameter distributions of this scale leads to outliers in the results. Such outliers also greatly affect the standard deviation of the resulting distribution, see figure \ref{fig:MCExperiment-decay-div} for an example.
 One possible solution to this is to take a gaussian distribution set it to zero below parameter-value zero and scale it to the integral (as is the norm for statistical distributions).
 Applying this form of distribution numerically is beyond the capabilities of the writer. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored. \comment{Signe! How do I correctly give you credit for coming up with this idea when we were discussing the distributions?}
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Re-187_decayed_hist.csv: 
+%% time: t=14.00Gyr mean: 6.3002 sigma: 1.0041 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Re-187_decayed_hist.csv: 
+%% time: t=9.50Gyr mean: 6.1558 sigma: 0.9811 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Re-187_hist.csv: 
+%% time: t=14.00Gyr mean: 7.4247 sigma: 1.1833 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Re-187_hist.csv: 
+%% time: t=9.50Gyr mean: 6.8295 sigma: 1.0885 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187_decayed_hist.csv: 
+%% time: t=14.00Gyr mean: 1.1510 sigma: 0.1792 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187_decayed_hist.csv: 
+%% time: t=9.50Gyr mean: 0.6957 sigma: 0.1074 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187divRe-187_decayed_hist.csv: 
+%% time: t=14.00Gyr mean: 0.1828 sigma: 0.0008 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187divRe-187_decayed_hist.csv: 
+%% time: t=9.50Gyr mean: 0.1131 sigma: 0.0007 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187divRe-187_hist.csv: 
+%% time: t=14.00Gyr mean: 0.0037 sigma: 0.0007 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187divRe-187_hist.csv: 
+%% time: t=9.50Gyr mean: 0.0033 sigma: 0.0006 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187_hist.csv: 
+%% time: t=14.00Gyr mean: 0.0266 sigma: 0.0018 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_delmax/reduce_ism_Os-187_hist.csv: 
+%% time: t=9.50Gyr mean: 0.0219 sigma: 0.0015 
+
 
 The resulting distributions can be found in figure \ref{fig:MCExperiment-delmax}.
 %figure of zero-yield plots here
@@ -215,6 +255,7 @@ component of \os{187} from cosmoradiogenic decay from \re{187}.
   \begin{table}
     \centering
     \newcommand\leff{\lambda_{\tiny \beta}^{\textrm{\tiny eff}}}
+    \newcommand\ditto[1]{\rule[0.5ex]{#1}{0.5pt}\raisebox{-0.5ex}{\textquotedbl}\rule[0.5ex]{#1}{0.5pt}}
     \begin{tabular}{|c|c|c|c|c|}
       \hline \small Model & \os{187}$_c$/\re{187} & $\lambda_{\re{187}}$ & $\lambda_{rncp}$ & Reference \\
       \hline \hline \small Clayton
@@ -226,16 +267,19 @@ component of \os{187} from cosmoradiogenic decay from \re{187}.
       \hline \small \begin{tabular}{c} Clayton \\ Uniform synthesis \end{tabular}
       & $\frac{\lambda t}{1-e^{-\lambda t}} - 1$
       & $\tau_{\re{187}} = 47 \pm 10 Gyr$ & $\Lambda \rightarrow 0$ & \mycite{clayton64} \\
-      \hline \small Luck & $\frac{\lambda_{Re}/\beta (1-e^{-\beta t}) - (1-e^{-\lambda_{Re} t})}{e^{-\beta t} - e^{-\lambda_{Re} t}}$
-      & $\lambda_{Re} = \begin{array}{l} 1.62 \pm 0.08  \\ \times 10^{-11} yr^{-1} \end{array}$ & $\beta$ & \mycite{luck80} \\
+      \hline \small Luck & $\frac{\lambda_{\textrm{\tiny Re}}/\beta (1-e^{-\beta t}) - (1-e^{-\lambda_{\textrm{\tiny Re}} t})}{e^{-\beta t} - e^{-\lambda_{\textrm{\tiny Re}} t}}$
+      & $\lambda_{ \textrm{\tiny Re} } = \begin{array}{l} 1.62 \pm 0.08  \\ \times 10^{-11} yr^{-1} \end{array}$ & $\beta$ & \mycite{luck80} \\
       \hline \small \begin{tabular}{c} Luck \\ Sudden synthesis \end{tabular}
-      & & & $\beta = 10^{-6} yr^{-1}$ & \mycite{luck80} \\
-      \hline \small \begin{tabular}{c} Luck \\ Steady state \\ synthesis \end{tabular} & & & $\beta = 10^{-12} yr^{-1}$ & \mycite{luck80} \\
+      & \ditto{4em} & & $\beta = 10^{-6} yr^{-1}$ & \mycite{luck80} \\
+      \hline \small \begin{tabular}{c} Luck \\ Steady state \\ synthesis \end{tabular}
+      & \ditto{4em} & & $\beta = 10^{-12} yr^{-1}$ & \mycite{luck80} \\
       \hline \small Shizuma
       & $\frac{(1-e^{-\leff t}) - (1-e^{-\lambda t}) \leff / \lambda }{e^{-\leff t} - e^{-\lambda t}} $
       & $ \leff = \frac{ 1.2 \ln 2 }{ \tau_{\re{187}} }$ & $\lambda \in [0,2] Gyr^{-1}$ & \mycite{shizuma05} \\
+      \hline SciPy curvefit & \ditto{4em} & \comment{TODO!} & \comment{TODO!} & \\
       \hline 
     \end{tabular}
+    %% SciPy-fitting to data: (lambda_eff, lambda_rncp) = [  1.33343923e-11   5.42456343e-10] +/- [  2.76664355e-14   5.79209853e-12]/[  2.76664315e-14   5.79209788e-12]
     \caption[Analytical models for \os{187}$_c$/\re{187}]{ \label{tab:analytical-osre-models}
       $\lambda_{\re{187}}$ is the decay constant of radioactive \re{187}.
       $\lambda_{rncp}$ is the decay constant of the rate of events for \textit{rapid neutron capture processes}.
@@ -258,7 +302,44 @@ component of \os{187} from cosmoradiogenic decay from \re{187}.
 \subsection{Consider high mass slope of initial mass function}
 \comment{move section of IMFslope experiment here} \\
 \comment{Removed IMFslope images, trade them with similar, zero-yields removed.} \\
-\iffalse
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Re-187_decayed_hist.csv: 
+%% time: t=14.00Gyr mean: 11.8693 sigma: 6.0582 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Re-187_decayed_hist.csv: 
+%% time: t=9.50Gyr mean: 11.5688 sigma: 5.9070 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Re-187_hist.csv: 
+%% time: t=14.00Gyr mean: 13.9663 sigma: 7.1204 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Re-187_hist.csv: 
+%% time: t=9.50Gyr mean: 12.8173 sigma: 6.5357 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187_decayed_hist.csv: 
+%% time: t=14.00Gyr mean: 2.2962 sigma: 1.0779 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187_decayed_hist.csv: 
+%% time: t=9.50Gyr mean: 1.4144 sigma: 0.6434 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187divRe-187_decayed_hist.csv: 
+%% time: t=14.00Gyr mean: 0.2001 sigma: 0.0213 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187divRe-187_decayed_hist.csv: 
+%% time: t=9.50Gyr mean: 0.1281 sigma: 0.0187 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187divRe-187_hist.csv: 
+%% time: t=14.00Gyr mean: 0.0198 sigma: 0.0189 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187divRe-187_hist.csv: 
+%% time: t=9.50Gyr mean: 0.0180 sigma: 0.0170 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187_hist.csv: 
+%% time: t=14.00Gyr mean: 0.1993 sigma: 0.1141 
+
+%% Standard deviation in /home/oyvind/github_uio/Master/latex/thesis/results/MCExperiment_revised_2_imfslope/reduce_ism_Os-187_hist.csv: 
+%% time: t=9.50Gyr mean: 0.1659 sigma: 0.0946 
+
+\iftrue
 %add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/IMFslope
 \begin{figure}
   \centering

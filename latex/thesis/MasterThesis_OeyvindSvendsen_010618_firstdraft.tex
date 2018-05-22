@@ -1,28 +1,24 @@
-\documentclass[a4, 12pt, draft]{book}
+\documentclass[a4, 12pt]{book}
 
-\include{preamble}
+\input{preamble}
 
-\newcommand{\mintittel}{Modelling uncertainty of the Rhenium-Osmium cosmic clock}
-\title{\mintittel}
-\author{\O yvind Svendsen}
+\title{Modelling uncertainty of the Rhenium-Osmium cosmic clock}
+\author{\O yvind Brynhildsvoll Svendsen}
 \date{01.06.18}
 
-\includeonly{}
+%\includeonly{}
 
 \begin{document}
 
+\makeatletter %assures \@author, \@date, \@title available
 \input{titlepage}
-\vspace*{18cm}
-\noindent Copyright \copyright$\,$ 2018, \O yvind Svendsen
-\vspace{4mm}
 
-\noindent This work, entitled ``\mintittel'' is distributed under the
-terms of the Public Library of Science Open Access License, a copy of which can be found at \url{http://www.publiclibraryofscience.org}. 
+%\input{foreword}
+\input{abstract}
+\input{acknowledgements}
 
-%\include{foreword}
-%\include{acknowledgement}
+\tableofcontents 
 
-%abstract
 \include{chapter_introduction}
 \include{chapter_theory}
 \include{chapter_numerical_background}
@@ -30,6 +26,9 @@ terms of the Public Library of Science Open Access License, a copy of which can 
 \include{chapter_results}
 \include{chapter_conclusion}
 \include{appendices}
+
+\listoffigures
+\listoftables
 
 % bibliographystyle defined in preamble
 \bibliography{../references/bibliography_svendsen}

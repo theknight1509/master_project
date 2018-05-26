@@ -1,3 +1,6 @@
+\newlength{\vtitle}
+\setlength{\vtitle}{1cm}
+
 \begin{titlepage}
 \begin{center}
 
@@ -5,23 +8,25 @@
 \LARGE
 \@title
 
-\large
+\vspace{\vtitle}
+\Large
 \@author
 
-\vspace{1cm}
+\vspace{\vtitle}
 \begin{figure}[h]
 \centering
 \includegraphics[width=7cm]{uiologo.eps}
 \end{figure}
 
+\vspace{\vtitle}
 \Large
 Thesis submitted for the degree of \\
 Master of Science in Astronomy
 
+\vspace{\fill}
 \large
 Institute of Theoretical Astrophysics\\
-University of Oslo
-
+University of Oslo \\
 \@date
 
 \end{center}
@@ -31,9 +36,9 @@ University of Oslo
 
 %%% copyrights page %%%
 \iffalse
-\vspace*{8cm}
+\vspace{\vtitle}
 \noindent Copyright \copyright\ 2018, \@author
-\vspace{4mm}
+\vspace{\fill}
 
 \noindent This work, entitled ``\@title'' is distributed under the
 terms of the Public Library of Science Open Access License, a copy of which can be found at \url{http://www.publiclibraryofscience.org}.

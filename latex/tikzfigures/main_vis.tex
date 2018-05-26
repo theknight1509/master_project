@@ -2,15 +2,15 @@
 %Use this document solely to make/visualize the tex-code in this folder
 \documentclass{article}
 
-\usepackage{tikz}
-%\usepackage{graphicx}
-%\usepackage{mhchem}
-\usepackage{python}
+\input{../thesis/preamble}
+
+%\includeonly{atomic_structure}
 
 \begin{document}
 
-\input{nuclides187_chart}
-\input{galaxy_iobox_model}
-\input{simple_enrichment_figure}
+\include{nuclides187_chart}
+\include{galaxy_iobox_model}
+\include{stellar_enrichment}
+\include{atomic_structure}
 
 \end{document}

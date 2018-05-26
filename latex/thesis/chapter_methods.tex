@@ -1,19 +1,216 @@
 \chapter{Methods}
 \label{sec:methods}
 
-\section{Methodology}
-\comment{divide this section into more logical subsections?}
+\section{Purpose and goals}
+In this thesis the goal is to examine the influence of uncertainty in models and parameters with regards to r-process nucleosynthesis.
+This in turn, is used to estimate the influence of uncertainties with regards to the Rhenium-Osmium cosmic clock.
+This will be done by comparing a semianalyical galactic chemical evolution model (\omegamodel) with data from a high resolution smoothed particle hydrodynamics simulations (\eris).
 
-In this thesis the goal is to examine the influence of uncertainty in models and parameters
-with regards to r-process nucleosynthesis. This will be done by comparing simple galactic chemical evolution models to high resolution smoothed particle hydrodynamics simulations.
+\omegamodel\ is used because of it's simplicity and versatility;
+it can be executed as a python script on most computers, takes relatively little time to run and easily modifiable parameters.
+\omegamodel\ also demonstrates a much larger resolution in mass, by dividing mass into a wide range of nuclei.
 
-The chemical evolution used is \omegamodel, due to it's simplicity and versatility in executing. \omegamodel\ also demonstrates a much larger resolution in mass, resolving the mass into many different isotopes.
-The smoothed particle hydrodynamics simulation \eris\ is a highresoltuion simulation that resembles the Milky Way Galaxy in many aspects, and is therefor a great candidate for a Milky Way Proxy. Assuming that the evolution of \eris also resembles the evolution of the Milky Way allows us to use the star formation history and baryonic content data from \eris\ in order to match the generated data from \omegamodel.
+The smoothed particle hydrodynamics simulation \eris\ is a high resolution simulation that resembles the Milky Way Galaxy in many aspects, and is therefor a great candidate for a Milky Way Proxy.
+Assuming that the evolution of \eris also resembles the evolution of the Milky Way allows us to use the star formation history and baryonic content data from \eris\ in order to match the generated data from \omegamodel.
+Assuming that \eris\ is a good approximation to the Milky Way morphological history, the data from \eris\ are assumed to represent the mass and abundances of the Milky Way galaxy.
+By finding a model of \omegamodel\ that most accurately reproduce the mean-values of \eris\footnote{Since \omegamodel\ is a one-zone model without spatial dimensions, it can only approximate the mean of \eris. Not the spatial resolution.}, a Milky Way-proxy (that resolves \re{187} and \os{187} isotopes is found.
 
+After an appropriate parameter-space is estimated, the yields of some relevant nuclei (Eu-, Re-, Os-, W-isotopes available) can be varied within their observational uncertainties.
+An semianalytical model, like \omegamodel, will merely calculate the total amount of ejecta from stars (yield tables) and integrate the ejecta in time.
+Finding the effect of the observational uncertainties is done by changing the yields according to the observational uncertainties and tracking the difference through galactic time.
+
+\section{Fitting \omegamodel\ to \eris-data}
+% use \figwidth for width of figures
+\setlength\figwidth{0.5\textwidth}
+\comment{define new commands for MWOmega/MWCteOmega/fiducccial model}
+\newcommand\mwomega{TEMP-MWOmega}
+\newcommand\mwcomega{TEMP-MWcteOmega}
+\newcommand\fiduccialomega{TEMP-fiduccial}
+\comment{introduce 'our' \omegamodel\ model as the concept \textit{'fiduccial model'}}
+
+%\subsection{General purpose}
+To fit the \omegamodel\ model to \eris, the star formation rate calculated for each timestep is used as the star formation history in \omegamodel.
+This ensures that for sufficiently large timesteps \omegamodel\ will use the same star formation rate as \eris\ (however interpolated onto the timesteps used in \omegamodel).
+Otherwise, the parameters of \omegamodel\ are examined, in order to best reproduce the total baryonic content of the simulation, as well as the spectroscopic abundance of [O/H], [Fe/H], and [Eu/H].
+
+\subsection{Insertion\comment{(rename!)}}
+\newcommand\insertion{insertion}
+%method
+Galactic age, initial mass function, astrophysical effects and star formation are so essential to chemical evolution models that they will be taken from \eris\ and applied directly to \omegamodel.
+\begin{table}
+  \centering
+  \begin{tabular}{r|l}
+    \hline Parameter in \omegamodel & Value taken from \eris \\
+    \hline Galactic age & 14 Gyr \\
+    Star formation rate & Star-formation rate [$\msol/yr$] from \eris\footnote{Numerical array of time - star formation rate for each point in time in \eris.} \\
+    Initial mass function & Kroupa93\footnote{because \mycite{shen15} uses the mass function from \mycite{kroupa93}} \\
+    Type Ia supernovae & yes \\
+    Binary neutron star mergers & yes \\
+    \begin{tabular}{c}
+      Yield-table for \\
+      binary neturon star mergers
+    \end{tabular}
+    & \mycite{arnould07} \\
+    Neutron star - black hole merger & no \\
+    \hline
+  \end{tabular}
+  \caption[]{
+    The yield-table for binary neutron star mergers was chosen because it was the only r-process yield-table (out of two available) with the presence of \re{187}.
+    In \omegamodel, r-process yield tables are applied to neutron star mergers, and the yield-table chosen is calculated from the r-process abundance of the \sos at present day\mycite{arnould07}.
+    This means that all neutron star mergers are assumed to produce a r-process pattern like the one found in the \sos.
+  }
+\end{table}
+
+\comment{The main issue for all models is clear: star formation uses up all the gas in the model and star formation is quenched.}
+\textit{'Eris'} refers to data directly from \eris-simulation. \textit{'Omega' default} refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} refers to the \omegamodel\ model with the star formation and mass function from \eris.
+
+It is clear from figure \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} that star-formation is suppressed before 2Gyr for all models except \textit{'Omega' default}.
+
+%plots
+\begin{figure}[b]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_sfr.png}
+  \caption[Star formation rate in \omegamodel\ for \insertion]{\label{img:fit-v0-sfr}
+    Star formation rate(measured in solar masses of stars formed from gas each year) for four models of \omegamodel\ versus time. 
+  }
+\end{figure}
+\begin{figure}[b]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_stellar_mass.png}
+  \caption[Stellar mass in \omegamodel\ for \insertion]{\label{img:fit-v0-stellarmass}
+    Total accumulated stellar mass(cumulutaive sum of stellar mass produces from gas, measured in solar masses) for four models of \omegamodel\ versus time.
+  }
+\end{figure}
+\begin{figure}[b]
+  \centering
+  \includegraphics[width=\figwidth, draft=true]{results/plots_fitting/set_sfr_plot_gas_mass.png}
+  \caption[Gas mass in \omegamodel for \insertion]{\label{img:fit-v0-gasmass}
+    \comment{Replot this image, looks sketchy! \\}
+    Mass of gas in the interstellar medium for four different models of \omegamodel, and the \eris\ simulation against time in Gyrs.
+  }
+\end{figure}
+\FloatBarrier
+
+\subsection{Mass}
+%method
+A galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is only gas and stars inside the box and gas outside.
+The total baryonic mass inside \eris\ (at redshift z=0 and z=1) is taken from \mycite{guedes11e} and can be found in table \ref{tab:guedes11-baryonic-mass}.
+
+\input{texfiles/mass_table_guedes}
+
+The mass-content of the \fiduccialomega\ is adjusted by changing the initial mass of gas, 
+
+\iffalse
+Supernova feedback will drive an outflow from the galaxy into the surrounding medium \comment{find appropriate reference}. Adding outflow proportional to the supernova rate adds some realisim to the model, and might reproduce some of the spectroscopic features.
+In \omegamodel this is activated with the parameters \verb|mass_loading|(which ejects a amount of gas relative to the stellar mass formed), and \verb|out_follows_E_rate|(which adds a timedelay to the outflow, making the outflow proportional to the supernova rate instead of the star formation rate).
+Outflow removes gas from the galaxy, or interstellar medium, lowering the total amount of mass in the galaxy. Therefor the initial primordial gas and constant inflow must be increased as well.
+Setting the initial mass, inflow and outflow, gives the desired star formation. A final comparison of the fiducial \omegamodel model, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
+For the predefined models, the initial mass of primordial gas have been increased to $9.6\times10^{10}\msol$(the final value baryon-mass from \eris) to show the full evolution of star formation.
+Two prominent features in the spectroscopic data of \eris\ is the two 'dips' around universal time t=5 and t=8 Gyrs. These dips might be reproduced by adding primordial inflow, hydrogen, and enriched outflow, concentrated on on those periods($t\simeq5Gyr$ and $t\simeq8Gyr$), since these periods might coincide with the death of stars from the star forming peak in figure \ref{img:fit-v0-sfr}.
+Varying supernova-related outflow(known as the \texttt{mass\_loading} parameter) gives an expected result. In figure \ref{fig:fit-v1-2-iron} variation in the spectroscopic iron abundance can be seen the desired region, around the two 'dips', but the effect is too small to reproduce the two dips. The effect is also too wide and more closely similar to one big 'dip'. One unexpected result is that the smalles \texttt{mass\_loading} parameter yields the lowest dip(not really a dip at all, but more flat in the desired direction). suggesting that the outflow from supernovae occur later than the two 'dips'.
+This means that the two 'dips' cannot be reproduced by outflow and inflow.
+\fi
+%plots
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_1_plot_total_mass.png}
+  \caption[]{\label{fig:fit-v1-1-total}
+    The total baryonic mass of the \omegamodel-model for four different initial/inflow parameters.
+    $M_0$ is the initial primordial gas of the galaxy(in \msol), $\dot{M}$ is the inflow (in \msol/yr).
+    This visualization shows that 44G\msol and 3.7\msol/yr are the optimal parameters to reproduce the two baryonic data-points from \eris, although more then these four were tried.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_1_plot_stellar_mass.png}
+  \caption[]{\label{fig:fit-v1-1-stellar}
+    Plotting the cumulative stellar mass formed in the inflow-\omegamodel-models. All four reproduce the \eris\ cumulative star formation, because these models have enough gas to form the stars.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_total_mass.png}
+  \caption[]{\label{fig:fit-v1-2-total}
+    Total baryonic mass of galaxy over time.\comment{what is the initial mass of gas and inflow rate?}
+    The outflow adds a non-linear effect to the total mass.
+  }
+\end{figure}
+\importantcomment{add spectroscopic outflow plot here!}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_stellar_mass.png}
+  \caption[]{\label{fig:fit-v1-2-stellar}
+    Cumulative stellar mass formed against time for \comment{X} \omegamodel\ models, and the \eris-simulation.
+    The outflow removes mass, but there is still enough gas to form stars from the \eris\ star formation rate.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_iron.png}
+  \caption[]{\label{fig:fit-v1-2-iron}
+    Iron abundance in the models with varying mass-loading parameters(solar masses of outflow per solar mass of supernova). The data from \eris\ show two 'dips' from the increasing tendency.
+    The dips could not be reproduced by outflow of enriched material and inflow of hydrogen. Outflow peaks over the 'dips', reducing the spectroscopic abundance, however the effect is wide and smeared out over a time range beyond both 'dips'.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_total_mass.png}
+  \caption[]{\label{fig:fit-v1-3-total}
+    Total baryonic mass of galaxy over time for \eris, \fiduccialomega, \mwomega, \mwcomega\ and \omegamodel\ with all default parameters.
+    Only the \fiduccialomega model reproduces the total mass content found in \eris, represent by two datapoints from table \ref{tab:guedes-baryonic-mass}.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_stellar_mass.png}
+  \caption[]{\label{fig:fit-v1-3-stellar}
+    Cumulative stellar mass formed over time for \eris, \mwomega, \mwcomega, \fiduccialomega\ and \omegamodel\ with all default parameters.
+    All predefined models massively undershoots or overshoots the measured star formation in \eris.
+    The \fiduccialomega\ model accurately reproduces the cumulative stellar formation with \eris. The slight variation between the \fiduccialomega\ model and \eris\ is due to low numerical resolution.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_spectro_iron.png}
+  \caption[]{\label{fig:fit-v1-3-iron}
+    Spectroscopic iron over time for \eris, \mwomega, \mwcomega, \fiduccialomega\ and \omegamodel\ with all default parameters.
+    The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_spectro_oxy.png}
+  \caption[]{\label{fig:fit-v1-3-oxy}
+    Spectroscopic oxygen over time for \eris, \mwomega, \mwcomega, \fiduccialomega and \omegamodel with all default parameters.
+    The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
+  }
+\end{figure}
+
+\subsection{Effect of stars and supernovae}
+%specify AGB, massive, pop.3, SN1a
+%methods
+%plots
+\subsection{Nucleosynthesis from r-process}
+%specify BNSM
+%methods
+%plots
+\subsection{Size of timesteps}
+%??
+%plots
+\subsection{Final parameters of \omegamodel}
+%table
+\section{Impact of stellar yields}
+%method of manipulation
+%which yields tested, how?
+%which yields shown, why?
+%plots
+\section{Uncertainty from multiple parameter}
+%methods for main parameter-testing
+\section{Summary of methods}
+\section{Discussion}
+
+\iffalse
 %fitting of eris/omega
-The first step is to find the parameters for \omegamodel that best reproduce the results from \eris\cite{shen15}. This is done stepwise, and explained further in section \comment{point to correct section in results}.
-To fit the \omegamodel\ model to \eris, the star formation rate calculated for each timestep is used as the star formation history in \omegamodel. This ensures that for sufficiently large timesteps \omegamodel will use the same star formation rate as \eris.
-Otherwise, the parameters of \omegamodel are probed in order to best reproduce the total baryonic content of the simulation, as well as the spectroscopic abundance of [O/H], [Fe/H], and [Eu/H].
 
 %variation of isotope-yield
 Attempting to probe the uncertainties of nuclear observables is difficult, because both \eris\ and \omegamodel\ both use the observed r-process abundance from the \sos\ as the yield tables for all r-process events (\nsm\-s). This mean that all r-process events assume to generate the same distribution of heavy metals, and that distribution is the same as the component measured in the \sos.
@@ -25,7 +222,9 @@ This method does not only probe the nuclear uncertianties, varying the yield-tab
 There are many parameters that affect r-process production alone. Ejecta distribution and size from \nsm and type II supernovae, and the ratio of ejecta and frequency between the two. Even in relatively simple galactic chemical evolution models, these parameters can interact in unpredictable ways. In order to get a complete picture of errors and uncertainty in numerical models, a common approach has been Monte Carlo style simulation\comment{do I need a reference for this?}. Each parameter is randomly drawn from a distribution correspondin g to their ``determined'' uncertainty (usually the chosen distributions are gaussian), and after many repetitions of randomly drawing, the result can be viewed statistically in order to determine uncertainty behavior.
 This thesis will such an experiment with \comment{list parameters here} and see how the uncertainties of the r-process affect the uncertainty of the Re-Os dating method.
 
-%\section{fitting}
-%\input{results_fitting}
-%\section{impact of stellar yields}
-%\input{results_yields}
+\section{fitting}
+\input{results_fitting}
+\section{impact of stellar yields}
+\input{results_yields}
+
+\fi

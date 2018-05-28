@@ -501,15 +501,15 @@ if __name__ == '__main__':
     # config_filename = "../config_beehive_revised_nsmtest.ini"
     # complete_postprocessing(config_filename=config_filename,
     #                         decay=decay, extraction=extraction, reduction=reduction)
-    config_filename = "../config_beehive_revised_delete.ini"
-    complete_postprocessing(config_filename=config_filename,
-                            decay=decay, extraction=extraction, reduction=reduction,
-                            delete=True)
-    config_filename = "../config_beehive_revised_imfslope.ini"
-    complete_postprocessing(config_filename=config_filename,
-                            decay=decay, extraction=extraction, reduction=reduction,
-                            delete=True)
-    # config_filename = "../config_beehive_revised_numnsm.ini"
+    # config_filename = "../config_beehive_revised_delete.ini"
     # complete_postprocessing(config_filename=config_filename,
     #                         decay=decay, extraction=extraction, reduction=reduction,
     #                         delete=True)
+    # config_filename = "../config_beehive_revised_imfslope.ini"
+    # complete_postprocessing(config_filename=config_filename,
+    #                         decay=decay, extraction=extraction, reduction=reduction,
+    #                         delete=True)
+    config_filename = "../config_beehive_revised_numnsm.ini"
+    complete_postprocessing(config_filename=config_filename,
+                            decay=decay, extraction=extraction, reduction=reduction,
+                            delete=True)

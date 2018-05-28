@@ -1,60 +1,35 @@
-\documentclass[a4, 12pt, draft]{book}
+\documentclass[a4, 12pt]{book}
+\input{preamble}
 
-\include{preamble}
-
-\newcommand{\mintittel}{Modelling uncertainty of the Rhenium-Osmium cosmic clock}
-\title{\mintittel}
-\author{\O yvind Svendsen}
+\title{Modelling uncertainty of the Rhenium-Osmium cosmic clock}
+\author{\O yvind Brynhildsvoll Svendsen}
 \date{01.06.18}
+
+\includeonly{chapter_methods}
 
 \begin{document}
 
+\makeatletter %assures \@author, \@date, \@title available
 \input{titlepage}
-\vspace*{18cm}
-\noindent Copyright \copyright$\,$ 2018, \O yvind Svendsen
-\vspace{4mm}
 
-\noindent This work, entitled ``\mintittel'' is distributed under the
-terms of the Public Library of Science Open Access License, a copy of which can be found at \url{http://www.publiclibraryofscience.org}. 
+\input{abstract}
+%% \input{foreword does not exist yet}
+%% \input{acknowledgements}
 
-%\include{foreword}
-%\include{acknowledgement}
+\tableofcontents 
 
-%abstract
-%introduction
-\chapter{Introduction}
-\input{introduction}
+\include{chapter_introduction}
+\include{chapter_theory}
+\include{chapter_numerical_background}
+\include{chapter_methods}
+\include{chapter_results}
+\include{chapter_conclusion}
+\include{appendices}
 
-%theory I
-\chapter{Theory Part I \comment{(need to rename)} }
-\input{texfiles/cosmology}
-\input{texfiles/nuclear_physics}
-\input{texfiles/stellar_evolution}
-\input{texfiles/re_os}
+\listoffigures
+\listoftables
 
-%theory II
-\chapter{Theory Part II \comment{(need to rename)}}
-\comment{Describe analytical models, numerical models (omega), simulations (eris) and that I compare the two latter}
-\comment{Results from omega can be compared to hydrodynamical simulations like eris. Which are much more detialed and precise, but also more computationally expensive.}
-\setlength{\figwidth}{0.8\linewidth}
-\include{texfiles/omega_model}
-\include{texfiles/eris_simulation}
-
-%methodology
-\chapter{Methodology}
-\include{methodology}
-%\input{results_fitting}
-%\input{results_yields}
-
-%results
-\chapter{Results}
-\include{results_parameters}
-
-%conclusion/discussion
-\chapter{Conclusion/discussion}
-\include{conclusion}
-
-% bibliographystyle defined in preamble
+%% bibliographystyle defined in preamble
 \bibliography{../references/bibliography_svendsen}
 
 \end{document}

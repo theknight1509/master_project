@@ -1,37 +1,47 @@
+\newlength{\vtitle}
+\setlength{\vtitle}{1cm}
+
 \begin{titlepage}
 \begin{center}
 
 \bfseries
-\huge%\LARGE
-\mintittel
-
-\vspace{2cm}
 \LARGE
-DITT NAVN
+\@title
 
+\vspace{\vtitle}
+\Large
+\@author
 
-\vspace{1cm}
+\vspace{\vtitle}
 \begin{figure}[h]
 \centering
 \includegraphics[width=7cm]{uiologo.eps}
-\centering
 \end{figure}
-\vspace{3cm}
+
+\vspace{\vtitle}
 \Large
 Thesis submitted for the degree of \\
-Master of Science in Astronomy%Master of Science Thesis by\\
-%\Large
-%Amir Hammami\\
+Master of Science in Astronomy
 
-\vspace{0.8cm}
+\vspace{\fill}
 \large
 Institute of Theoretical Astrophysics\\
-University of Oslo
-
-\vspace{0.8cm}
-DIN DATO
+University of Oslo \\
+\@date
 
 \end{center}
 \normalfont
 
 \end{titlepage}
+
+%%% copyrights page %%%
+\iffalse
+\vspace{\vtitle}
+\noindent Copyright \copyright\ 2018, \@author
+\vspace{\fill}
+
+\noindent This work, entitled ``\@title'' is distributed under the
+terms of the Public Library of Science Open Access License, a copy of which can be found at \url{http://www.publiclibraryofscience.org}.
+
+\newpage
+\fi

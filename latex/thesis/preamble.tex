@@ -1,11 +1,13 @@
 
 %packages
-\usepackage{xcolor} %color-package for text
-\usepackage{mhchem} %nuclear notation package
 \usepackage[english]{babel} %english language package
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath} %math-mode package
 \usepackage{amssymb} %math-mode package
 \usepackage{wasysym} %astrological symbols package
+\usepackage{xcolor} %color-package for text
+\usepackage{mhchem} %nuclear notation package
 \usepackage{ifthen} %logical operations for new commands
 \usepackage{graphicx}
 \usepackage{placeins} %Use for floatbarrier-function
@@ -13,6 +15,7 @@
 \usepackage{subcaption}
 \usepackage{python} %use for python-environment
 \usepackage{tikz}
+\usepackage{pdflscape}
 \usepackage{hyperref}
 
 %commands
@@ -32,12 +35,14 @@
 \newcommand\aap{A\&A}
 \newcommand\apj{ApJ}
 \newcommand\apjs{ApJS}
+\newcommand\apjl{ApJL}
 \newcommand\physrep{Phys.Rep.}
+\newcommand\prc{Phys.Rev.C}
 \newcommand\nat{Nature}
 \newcommand\na{New Astronomy}
 \newcommand\mnras{MNRAS}
-\newcommand\mycite[1]{ {\footnotesize \it \citep{#1}} }
-\newcommand\mycitetwo[2]{ {\footnotesize \it \citep[#2]{#1}} }
+\newcommand\mycite[1]{{\footnotesize \it \citet{#1}}}
+\newcommand\mycitetwo[2]{{\footnotesize \it \citet[#2]{#1}}}
 
 \newcommand{\isotope}[3]{
   \ifmmode {\ce{^{#3}_{#2}{#1}}}

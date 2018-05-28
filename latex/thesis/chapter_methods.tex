@@ -22,16 +22,16 @@ Finding the effect of the observational uncertainties is done by changing the yi
 \section{Fitting \omegamodel\ to \eris-data}
 % use \figwidth for width of figures
 \setlength\figwidth{0.5\textwidth}
-\comment{define new commands for MWOmega/MWCteOmega/fiducccial model}
-\newcommand\mwomega{TEMP-MWOmega}
-\newcommand\mwcomega{TEMP-MWcteOmega}
-\newcommand\fiduccialomega{TEMP-fiduccial}
-\comment{introduce 'our' \omegamodel\ model as the concept \textit{'fiduccial model'}}
+\newcommand\mwomega{\textit{\omegamodel-MilkyWay}}
+\newcommand\mwcomega{\textit{\omegamodel-MilkyWay-c.sfr.}}
+\newcommand\fiduccialomega{\textit{Fiduccial \omegamodel-model}}
 
 %\subsection{General purpose}
 To fit the \omegamodel\ model to \eris, the star formation rate calculated for each timestep is used as the star formation history in \omegamodel.
 This ensures that for sufficiently large timesteps \omegamodel\ will use the same star formation rate as \eris\ (however interpolated onto the timesteps used in \omegamodel).
 Otherwise, the parameters of \omegamodel\ are examined, in order to best reproduce the total baryonic content of the simulation, as well as the spectroscopic abundance of [O/H], [Fe/H], and [Eu/H].
+
+In this section \mwomega\ refers to the built-in options for a Milky Way-like model in \omegamodel, while \mwcomega\ is similar, but assumes a constant star formation rate. \fiduccialomega\ will be represent the parameter-space of \omegamodel that will reproduce data from \eris.
 
 \subsection{Insertion\comment{(rename!)}}
 \newcommand\insertion{insertion}
@@ -169,41 +169,263 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
     The \fiduccialomega\ model accurately reproduces the cumulative stellar formation with \eris. The slight variation between the \fiduccialomega\ model and \eris\ is due to low numerical resolution.
   }
 \end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_spectro_iron.png}
-  \caption[]{\label{fig:fit-v1-3-iron}
-    Spectroscopic iron over time for \eris, \mwomega, \mwcomega, \fiduccialomega\ and \omegamodel\ with all default parameters.
-    The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
-  }
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_spectro_oxy.png}
-  \caption[]{\label{fig:fit-v1-3-oxy}
-    Spectroscopic oxygen over time for \eris, \mwomega, \mwcomega, \fiduccialomega and \omegamodel with all default parameters.
-    The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
-  }
-\end{figure}
+%% \begin{figure}[h]
+%%   \centering
+%%   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_spectro_iron.png}
+%%   \caption[]{\label{fig:fit-v1-3-iron}
+%%     Spectroscopic iron over time for \eris, \mwomega, \mwcomega, \fiduccialomega\ and \omegamodel\ with all default parameters.
+%%     The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
+%%   }
+%% \end{figure}
+%% \begin{figure}[h]
+%%   \centering
+%%   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_3_plot_spectro_oxy.png}
+%%   \caption[]{\label{fig:fit-v1-3-oxy}
+%%     Spectroscopic oxygen over time for \eris, \mwomega, \mwcomega, \fiduccialomega and \omegamodel with all default parameters.
+%%     The \fiduccialomega\ model has almost no star formation in the very beginning of the integration, this leads to a delayed chemical evolution that can be seen in the graph. The predefined models have some(if not much) star formation from the first integration step to the last. This implies that chemical evolution can begin much sooner, as can be seen in the graphs.
+%%   }
+%% \end{figure}
+\FloatBarrier
 
 \subsection{Effect of stars and supernovae}
 %specify AGB, massive, pop.3, SN1a
+Chemical enrichment of galactic gas (the interstellar medium), comes from stars.
+\comment{quick recap of theory section} Hydrogen and helium from the primordial gas is locked into a star, where fusion processes transmutates the elements into heavier elements up to iron. In the process some heavier elements are created, mostly by neutron capture processes. At the end of the stars life some of the material will be ejected back into the interstellar medium.
+Asymptotic giant branch stars are low mass stars at the end of their life, they eject mass via episodes known as helium flashes, leaving a white dwarf behind.
+Massive stars end their life as typeII supernovae, ejecting most of their enriched material leaving a neutron star or black hole behind.
+The very first stars, with no initial chemical enrichment, or metallicity, are called population III stars. They are generally believed to have a slightly different initial mass distribution function, and could produce slightly different distributions of metals.
+The exact science of population III stars is not well defined, as none has been observed, but the stellar population is one of the options of the \omegamodel\ model and should therefor be taken into consideration when comparing \eris and \omegamodel.
+The remnants, white dwarves, neutron stars and black holes, are not the end of the story, binary star systems can bring new life to these dead bodies. A white dwarf accreting plasma from the envelope of a binary star can accumulate enough mass to ignite a core-collapse that ejects more enriched matter into the interstellar medium. Two neutron stars in orbit around eachother can loose gravitational energy to gravitational waves and merge. Such an energetic event will create alot of heavy elements and eject alot of the mass of the binary system with great velocity. Similar gravitational events can occur between two black holes and a black hole and a neutron star. The last two event will be ignored because two black holes do not create or eject any heavy elements (or any elements at all), while black hole neutron star merger is not included in \eris.
+
 %methods
+This section will look at the effect of yield-tables for massive stars and asymptotic giant branch stars, the transitionmass between medium mass stars and massive stars, the boundaries of the initial mass function of population III stars (the first metall-less stars) and their yield tables.
+The values and tables available does not significantly alter the spectroscopic abundance of oxygen, iron, or europium, and the plots are therefor not shown here.
+In order to look at the effect of type 1a supernvoae, the number of supernovae, their delay-time distribution are varied.
+The yield-tables available for type 1a supernvoae give relatively similar results for oxygen and iron, so the plots are not shown here.
+
+The delay-time distribution can be chosen from a gaussian, exponential or powerlaw distribution.
+All were tried, but only the exponential distribution is shown in this section.
+
 %plots
+\begin{figure}[h]
+  \centering
+  %exp-sn1a [O/H]
+  \includegraphics[scale=0.5]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_oxy.png}
+  %exp-sn1a [Fe/H]
+  \includegraphics[scale=0.5]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_iron.png}
+  %num-sn1a [O/H]
+  \includegraphics[scale=0.5]{results/plots_fitting/set_sn1a_plot_sn1a_num2_oxy.png}
+  %num-sn1a [Fe/H]
+  \includegraphics[scale=0.5]{results/plots_fitting/set_sn1a_plot_sn1a_num2_iron.png}
+  \caption[Fit of type 1a supernovae \fiduccialomega]{\label{fig:fit-sn1a}
+    Spectroscopic abundance of oxygen and iron in \omegamodel compared to the data from \eris.
+  }
+\end{figure}
+\FloatBarrier
+
 \subsection{Nucleosynthesis from r-process}
 %specify BNSM
+Only binary neutron star mergers are considered, because this is the same site as \mycite{shen15}
 %methods
 %plots
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_dtd.png}
+  \caption{\label{fig:fit-v3-dtd}
+    Abundance of europium in \eris\ simulation and \omegamodel\ models for galactic time in Gyrs.
+    There are two main ways to calculate the delay-time of a neutron star merger in \omegamodel: one is a powerlaw distribution in time(with boundaries at minimum and maximum time), while another is setting a time after which all neutron star binaries merge, called a coalescence time.
+    \\ \comment{what does \eris\ use?} \\
+    In order to reproduce the \eris\ spectroscopic abundances, \omegamodel\ must synthesize more europium at an earlier time, this is achieved by a steep distribution with early minimum-time. It is clear from the plot that all models behave similar at late times, regardless of delay-time distribution. There is also little difference between a short coalescence time or a powerlaw distribution with short minimum time.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_ejmass.png}
+  \caption{\label{fig:fit-v3-ejecta}
+    Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models. In the models the mass ejected from each neutron star merger have been modified.
+    Modifying the mass ejected from each event will just scale the total europium content up and down.
+    Ejecting 0.2-0.3 \msol per event gives a pretty decent fit to late time europium and early time europium.
+    However for the 'dips' between 2 and 8 Gyrs, the \omegamodel\ model overshoots the \eris\ data.
+  }
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_mergerfraction_rates.png}
+  \caption{\label{fig:fit-v3-mergerfrac-nsmr}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_mergerfraction_spectro.png}
+  \caption{\label{fig:fit-v3-mergerfrac-euro}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_nbnsm_rates.png}
+  \caption{\label{fig:fit-v3-number-nsmr}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_nbnsm_spectro.png}
+  \caption{\label{fig:fit-v3-number-euro}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_combo_rates.png}
+  \caption{\label{fig:fit-v3-combo-nsmr}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_combo_spectro.png}
+  \caption{\label{fig:fit-v3-combo-euro}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_final_rates.png}
+  \caption{\label{fig:fit-v3-nsmr}}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_final_spectro.png}
+  \caption{\label{fig:fit-v3-final-euro}}
+\end{figure}
+\FloatBarrier
+
 \subsection{Size of timesteps}
 %??
 %plots
+In the fitting process the timestep was chosen somewhat arbitrarily in order to give the best result in a realistic amount of time for working purposes. The size of the timesteps are important for accuracy of the result of a numerical calculation, longer and fewer timesteps give unaccurate results, but too short and too many timesteps take much memory and comupting time. numerical presicion and floating point arithmetic can also come into play at the shorter timestep simulations.
+
+In order to check the accuracy of \omegamodel\ against \eris\ a comparison is needed.
+\omegamodel\ uses two different timestepping tecnhiques, one with n logarithmic timesteps between start and end, and one with constant timesteps between start and end.
+By varying the number of timesteps in the \omegamodel\ data for [O/H], [F/H], [Eu/H] in time will be created.
+These data will be interpolated onto the time-data for \eris\ and compared to the \eris-data with a pearson chi-squared test. The pearson static is only used to compare the difference with increasing time-resolution, the chi-squared statistic will not be used to compare what is, in essence, two different simulations.
+
+It should be noted that there were some peculiar difficulties discovered at this point. \omegamodel\ cannot create a stable list of timestep-values when the timesteps are shorter then the time-array in the input star formation rate (which, in this case belongs to \eris). The same problem also occured for some timestep-sizes close to the timestepsize of \eris.
+This is the reason for the sparse datapoints at higher resolutions.
+
+\setlength{\subfigwidth}{0.3\textwidth}
+\begin{figure}
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption{\label{fig:fit-res-euro}}
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption{\label{fig:fit-res-euro}}
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption{\label{fig:fit-res-euro}}
+  \end{subfigure}
+\end{figure}
+
+\FloatBarrier
+
 \subsection{Final parameters of \omegamodel}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline \omegamodel-parameter & Description & Value \\
+    \hline
+  \end{tabular}
+  \caption[Parameters for betsfit \omegamodel-model to \eris-data]{\label{tab:bestfit-parameters}
+    \comment{TODO!}
+    Parameters that produce best fit between \omegamodel and \eris-data.
+  }
+\end{table}
+    
 %table
+\FloatBarrier
+
 \section{Impact of stellar yields}
 %method of manipulation
+The \omegamodel\ model with \eris\ bestfit parameters is used to calculate the amount on \re{187}.
+A single function of \omegamodel\ is overwritten in order to change the stellar yields of \re{187}.
+The function multiplies the stellar yield of \re{187} ($Y_\re{187}$) with a constant, the new yield is denoted $\hat{Y}_\re{187}$.
+
+The yield table for binary neutron star mergers is taken from \cite{arnould07} and is the calculated distribution of r-process isotopes in the \sos.
+The \sos-distribution of isotopes is measured from the solar photosphere and chondrite meteorites in \cite{landolt93}.
+The s-process distribution can be calculated from nuclear reaction networks, and the r-process/p-process distributions are calculated by subtracting the s-process distribution after fitting to the \sos-abundances.
+The basic assumption is that all neutron star mergers eject material with the same isotopic distribution, and this distribution matches the observed solar distribution.
+In short, the yield-table used is the \textit{observed} r-process distribution of the \sos, and this distribution is applied to every neutron star mergers.
+
+In the \eris-postprocessing (\mycite{shen15}) the yield-table applied to all neutronstar mergers is a different one.
+The yield table was based on simulations by \comment{(some reference to Rosswog)} of neutron star mergers. Those yield-tables however does not contain any output of \re{187}, which is essential for the purpose of this thesis.
+
+\textit{What are the underlying uncertainties of the yield-tables that we so generously apply to our simulations?}
+The yield-tables represent the distribution of isotopes and elements ejected from a star during the end of it's lifetime. This information comes from stellar evolution codes like \cite{paxton11} and the nuclear reaction networks applied to them, like \cite{pignatari16}.
+Uncertainties in nuclear reaction rates, stellar interior environments and ejecta composition all add together to create a total uncertainty of yield tables which are hard to separate.
+In this case, the neutron star mergers are \textit{assumed} to be the dominant contributer to r-process isotopes in the galaxy, and the distribution is \textit{assumed} to follow observed r-process distribution in our \sos (this is ultimately an assumption of homogeneity).
+Following these assumptions, the uncertainties in nucleosynthesis of r-process isotopes will simply be the uncertainty \sos-observations\cite{arnould07}.
+Simulations suggest\comment{(some reference to Rosswog)} that the ejecta yield of binary neutron star mergers are somewhat dependant on the electron-fraction of the initial neutron stars, not taking inhomogeneities, rotation, and magnetic field of the initial neutron stars into account. Also given the rarity of kilonovas (compact object mergers) the assumption of homogeneity is questionable.
+
+\input{texfiles/modification_omega}
+
+\begin{table}[h]
+  \centering
+  \input{texfiles/arnould_table_modified}
+  \caption[Values and uncertainties of observed r-process abundances in the \sos]{\label{tab:arnould-rncp-uncertainty}
+    Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}.
+    The relative uncertainty, $\sigma$-values, are calculated on the assumption that min/max are the one-sigma standard deviations in either direction.
+    These values are expanded upon in appendix \ref{sec:sos-nuclei}.
+  }
+\end{table}
+
 %which yields tested, how?
+The r-process yields (which applies to neutron star mergers in \omegamodel) are taken from \mycite{arnould07}.
+These yields are the observed r-process abundances of the \sos, and the standing assumption is that the distribution of r-process nuclei from neutron star mergers follow the observed r-process abundances.
+In this spirit, the yield-tables for neutron star mergers are modified with the uncertainty of observed r-process abundances in the \sos.
+The values, absolute uncertainty and relative uncertainty of the selected nuclei are shown in table \ref{tab:arnould-rncp-uncertainty}.
+The minimum and maximum values are interpreted as one-sigma deviations in either direction, and the relative uncertainty, $\sigma$ is calculated thereafter.
+
 %which yields shown, why?
-%plots
+The effect of each nuclei in table \ref{tab:arnould-rncp-uncertainty} was calculated.
+The results were very similar, so only \re{187} will be shown.
+% plot + table Re-187
+\setlength{\subfigwidth}{0.5\textwidth}
+\begin{figure}[h]
+  \begin{subfigure}{\subfigwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{results/plots_yields/mdot_time_Re-187.png}
+    \caption{Time evolution of \re{187} ejected from supernovae and neutron star mergers.}
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{results/plots_yields/ism_time_Re-187.png}
+    \caption{Time evolution of the total mass of \re{187} in the galaxy over time.}
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{results/plots_yields/mdot_hist_Re-187.png}
+    \caption{Sum total of mass of \re{187} ejected from supernovae and neutron star mergers.}
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{results/plots_yields/ism_hist_Re-187.png}
+    \caption{Sum total of mass of \re{187} in the interstellar medium of the galaxy}
+  \end{subfigure}
+  \caption[effect of nucelar uncertainties]{\label{fig:re187-yield-uncertainties}
+    Resulting evolution of \re{187}-mass in a chemical evolution galaxy model.}
+\end{figure}
+%table of statistics input uncertainty vs. output uncertainty
+\begin{table}
+  \centering
+  \input{results/data_yields/table_Re-187.dat}
+  \caption[effect of nuclear uncertainties]{\label{tab:re187-yield-uncertainties}
+    Comparison of output mass-uncertainty with input yield-uncertainty.
+    $\sigma_{init}$ is the relative uncertainty from table \ref{tab:arnould-rncp-uncertainty} for zero, one, and two sigmas in either direction.
+    $\sigma_{ISM}$ is the relative deviation between the resulting mass of the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+    $\sigma_{\dot{m}}$ is the relative deviation between the ejected mass per timestep into the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+  }
+\end{table}
+In table \ref{tab:re187-yield-uncertainties} the output deviation, in ejected mass and total mass, is compared to the input uncertainty.
+The input uncertainty is the standard deviation from table \ref{tab:arnould-rncp-uncertainty} for one and two sigma deviation in either direction.
+The table represent the deviation in figure \ref{fig:re187-yield-uncertainties}.
+The relative uncertainty of the input is nearly the same as the output deviation.
+This suggests that the uncertainty of the stellar yield-tables affect the total abundance linearly (the relative uncertainty remains the same throughout the calculation).
+\FloatBarrier
+
 \section{Uncertainty from multiple parameter}
 %methods for main parameter-testing
 For varying different parameters simultaneously a similar method was used as in section \ref{sec:results-yields}, where a ``fudge-factor'' was applied to the \eris\ best fitted parameter-values. The ``fudge-factor'' is distributed gaussian around 1.0 and the factor is the multiplied to the parameter-value.

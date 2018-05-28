@@ -163,7 +163,7 @@ The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, 
     }
   \end{subfigure}
   \begin{subfigure}{\figwidth}
-    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_div_decayed.png}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_div_decayed_meteordata.png}
     \caption{ \label{fig:MCExperiment-delmax-div}
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
@@ -172,9 +172,9 @@ The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, 
     Same as figure \ref{fig:MCExperiment-decay} with datafiles corresponding to negative yields not considered in the distribution.
     
     The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time (a distribution extract).
-    The distribution extracts are taken at 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
-
+    The distribution extracts are taken at 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot. \\
     The values for the mean and standard deviation (green line) in the distribution extracts can be found in table \ref{tab:results-delmax}.
+    The green band represent meteordata calculated in appendix \ref{sec:calc-cosmo-chronology}.
   }
 \end{figure}
 \FloatBarrier %end of subsection
@@ -257,12 +257,15 @@ A summary of models, parameters and references can be found in table \ref{tab:an
   \centering
   \includegraphics[width=\figwidth]{results/MCExperiment_revised_2_delmax/model_fitting.png}
   \caption[Analytical models for cosmochronology]{ \label{fig:osre-model-fitting}
-    A comparison of the data from \omegamodel-experiment \expone (black), with the analytical models of Clayton (blue), Shizuma (green), and Luck (magenta) for comparison.
+    A comparison of the data from \omegamodel-experiment \expone (black), with the analytical models of Clayton (blue), Shizuma (green), and Luck (magenta) for comparison. \\
     The model from Shizuma is fitted to the data from \omegamodel, with the curvefit function in SciPy\footnote{\href{https://www.scipy.org/}{SciPy Homepage}} (seen in red).
+    The green band represent meteordata calculated in appendix \ref{sec:calc-cosmo-chronology}.
   }
 \end{figure}
 
+\newgeometry{bottom=1cm}
 \begin{landscape}
+  \centering
   \begin{table}
     \centering
     \newcommand\leff{\lambda_{\tiny \beta}^{\textrm{\tiny eff}}}
@@ -289,7 +292,7 @@ A summary of models, parameters and references can be found in table \ref{tab:an
       & \ditto{3em} & \ditto{3em} & $\beta = 10^{-12} yr^{-1}$ & \mycite{luck80} \\
       \hline \small Shizuma
       & $\frac{(1-e^{-\leff t}) - (1-e^{-\lambda t}) \leff / \lambda }{e^{-\leff t} - e^{-\lambda t}} $
-      & $ \leff = \frac{ 1.2 \ln 2 }{ \taure }$ \comment{TODO!} & $\lambda \in [0,2] Gyr^{-1}$ & \mycite{shizuma05} \\
+      & $ \leff = \frac{ 1.2 \ln 2 }{\taure} = 2.00\times 10^{-11} [yr^{-1}]$ & $\lambda \in [0,2] Gyr^{-1}$ & \mycite{shizuma05} \\
       \hline \tworow{SciPy curvefit}{to \omegamodel-data} & \ditto{3em}
       & \tworow{$1.33\times 10^{-11} $}{$\pm 2.767\times 10^{-14}$} $[yr^{-1}]$
       & \tworow{$5.42\times 10^{-10} $}{$\pm 5.79\times 10^{-12}$} $[yr^{-1}]$ & \\
@@ -308,6 +311,7 @@ A summary of models, parameters and references can be found in table \ref{tab:an
     }
   \end{table}
 \end{landscape}
+\restoregeometry
 \FloatBarrier %end of subsection
 
 \section{Consider high mass slope of initial mass function}
@@ -356,7 +360,7 @@ It would be more meaningful to divide the distributions in two and calcualte the
     }
   \end{subfigure}
   \begin{subfigure}{\figwidth}
-    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_imfslope/combined_plot_div_decayed.png}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_imfslope/combined_plot_div_decayed_meteordata.png}
     \caption{\label{fig:MCExperiment-imfslope-div}
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
@@ -371,70 +375,70 @@ It would be more meaningful to divide the distributions in two and calcualte the
 
 %(add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/NSMparameters)
 \section{Consider events of binary neutron star mergers}
+In the \expthree-experiment, the yields of stellar ejecta is varied as well as the slope of the initial mass function \textit{and} the physical parameters for neutron-star mergers.
+These parameters are number of events, mass ejected per event, and the delay-time distribution of events.
+Due to the lack of observational constraints it is hard to find quantifiable uncertainties for these parameters.
+In order to estimate how the uncertainties of the neutron-star merger parameters affect the outcome a 10\% uncertianty is added to all parameters.
 
-\comment{fix table from commented region}
-%% Finding indeces of nsm
-%% t_now: index=500 t=1.40e+04
-%% 	rate=3.22e-01 +/- 1.58e-01/-1.58e-01
-%% 	int_num=1.82e+05 +/- 8.91e+04/-8.91e+04
-%% t_sos: index=339 t=9.49e+03
-%% 	rate=6.01e+00 +/- 2.94e+00/-2.94e+00
-%% 	int_num=1.63e+05 +/- 7.96e+04/-7.96e+04
+Figures \ref{MCExperiment-numnsm} show the mass and mass-ratio of \os{817} and \re{187}, while figures \ref{MCExperiment-numnsm-rate} show the rate and cumulative numbers of nucleosynthetic events in the \expthree-experiment.
 
-%% Finding indeces of sn1a
-%% t_now: index=500 t=1.40e+04
-%% 	rate=4.37e-43 +/- 6.42e-43/-6.42e-43
-%% 	int_num=6.09e+08 +/- 8.75e+08/-8.75e+08
-%% t_sos: index=339 t=9.49e+03
-%% 	rate=1.74e+04 +/- 2.51e+04/-2.51e+04
-%% 	int_num=5.57e+08 +/- 8.00e+08/-8.00e+08
+\comment{Considering cut this section out, because the results look wrong and I don't know why. Uncertainty of rates vary by factors, while mass fraction is barely affected.}
 
-%% Finding indeces of sn2
-%% t_now: index=500 t=1.40e+04
-%% 	rate=0.00e+00 +/- 0.00e+00/0.00e+00
-%% 	int_num=4.24e+08 +/- 1.85e+08/-1.85e+08
-%% t_sos: index=339 t=9.49e+03
-%% 	rate=1.42e+04 +/- 6.16e+03/-6.16e+03
-%% 	int_num=3.82e+08 +/- 1.66e+08/-1.66e+08
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_numnsm/combined_plot_Re-187_decayed.png}
+    \caption{\label{fig:MCExperiment-numnsm-re187}
+      Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_numnsm/combined_plot_Os-187_decayed.png}
+    \caption{\label{fig:MCExperiment-numnsm-os187}
+      Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\figwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_numnsm/combined_plot_div_decayed_meteordata.png}
+    \caption{\label{fig:MCExperiment-numnsm-div}
+      Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    }
+  \end{subfigure}
+  \caption[\expthree\ after \betadecay and removing negative isotope yields]{\label{fig:MCExperiment-numnsm}
+    The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied to experiment \expthree. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
 
-%% Finding indeces of bhnsm
-%% t_now: index=500 t=1.40e+04
-%% 	rate=0.00e+00 +/- 0.00e+00/0.00e+00
-%% 	int_num=0.00e+00 +/- 0.00e+00/0.00e+00
-%% t_sos: index=339 t=9.49e+03
-%% 	rate=0.00e+00 +/- 0.00e+00/0.00e+00
-%% 	int_num=0.00e+00 +/- 0.00e+00/0.00e+00
+    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+  }
+\end{figure}
 
-\comment{fix figure from commented region}
-%% \begin{figure}
-%%   \centering
-%%   \begin{subfigure}{\subfigwidth}
-%%     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/sn1a.png}
-%%     \caption{ \label{fig:MCExperiment-delmax-sn1a}
-%%       Type 1a supernovae.
-%%     }
-%%   \end{subfigure}
-%%   \begin{subfigure}{\subfigwidth}
-%%     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/sn2.png}
-%%     \caption{ \label{fig:MCExperiment-delmax-sn2}
-%%       Type 2 supernovae.
-%%     }
-%%   \end{subfigure}
-%%   \begin{subfigure}{\figwidth}
-%%     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/nsm.png}
-%%     \caption{ \label{fig:MCExperiment-delmax-nsm}
-%%       Binary neutron star mergers.
-%%     }
-%%   \end{subfigure}
-%%   \caption[Rate of nucleosynthetic events]{ \label{fig:MCExperiment-delmax-rate}
-%%     All plots show rate of nucleosynthetic events (blue), and cumulative sum of events (red)
-%%     after \betadecay applied and negative isotope yields have been removed.
-%%     The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-delmax-sn1a}) and type 2 (\ref{fig:MCExperiment-delmax-sn2})
-%%     supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-delmax-nsm}).
-%%     The rate of each event follows the star formation rate (see figure \ref{fig:sfr}) with a scale factor and delay time distribution.
-%%   } 
-%% \end{figure}
-
-
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_numnsm/sn1a.png}
+    \caption{ \label{fig:MCExperiment-numnsm-sn1a}
+      Type 1a supernovae.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\subfigwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_numnsm/sn2.png}
+    \caption{ \label{fig:MCExperiment-numnsm-sn2}
+      Type 2 supernovae.
+    }
+  \end{subfigure}
+  \begin{subfigure}{\figwidth}
+    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_numnsm/nsm.png}
+    \caption{ \label{fig:MCExperiment-numnsm-nsm}
+      Binary neutron star mergers.
+    }
+  \end{subfigure}
+  \caption[Rate of nucleosynthetic events \expthree]{ \label{fig:MCExperiment-numnsm-rate}
+    All plots show rate of nucleosynthetic events (blue), and cumulative sum of events (red) for \expthree-experiment
+    after \betadecay applied and negative isotope yields have been removed.
+    The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-numnsm-sn1a}) and type 2 (\ref{fig:MCExperiment-numnsm-sn2})
+    supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-numnsm-nsm}).
+    The rate of each event follows the star formation rate (see figure \ref{fig:sfr}) with a scale factor and delay time distribution.
+    The uncertainties come from a 10\% gaussian uncertainty in number of neutron star mergers, the delay-time distribution of neutron star mergers, and the uncertainty of the slope of the initial mass function.
+  } 
+\end{figure}
 \FloatBarrier %end of subsection
 

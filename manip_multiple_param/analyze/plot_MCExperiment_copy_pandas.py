@@ -214,11 +214,25 @@ def sort_paths(loa_fullpaths, check=True):
 
     return doa_fullpaths
 
+def add_meteor_data(ax, fsos=True, now=False):
+    #fraction of os-187/Re-187 at the time of formation of the solar system (with absolute uncertainty)
+    f_187_fsos = [0.136, 0.0323]
+    #same for current time
+    f_187_now = [0.226, 57.9e-3]
+    if fsos:
+        ax.axhspan(f_187_fsos[0]+f_187_fsos[1], f_187_fsos[0]-f_187_fsos[1],
+                   alpha=0.5, label="obs. $f_{187}(t_{f,sos})$", color="g")
+    if now:
+        ax.axhspan(f_187_now[0]+f_187_now[1], f_187_now[0]-f_187_now[1],
+                   alpha=0.5, label="obs. $f_{187}(t_{now})$", color="g")
+    return
 
 if __name__ == '__main__':
     from directory_master import Foldermap
     result_dir = Foldermap().results #.hume_folder() + "latex/thesis/results/"
-    result_dir = result_dir+"MCExperiment_revised_2_imfslope/"
+    # result_dir = result_dir+"MCExperiment_revised_2_delmax/"
+    # result_dir = result_dir+"MCExperiment_revised_2_imfslope/"
+    result_dir = result_dir+"MCExperiment_revised_2_numnsm/"
     loa_fullpaths = get_full_filenames(result_dir)
 
     print "All paths in %s:"%(result_dir)
@@ -231,4 +245,14 @@ if __name__ == '__main__':
 
     # plot_all_single_paths(loa_fullpaths=loa_fullpaths)
     doa_figs = plot_combined_plots(loa_fullpaths=loa_fullpaths, save_dir=result_dir)
+    for key, fig in doa_figs.items():
+        if ("div" in key):
+            ax = fig.axes
+            ax_timeevol = ax[0]
+            add_meteor_data(ax=ax_timeevol)
+            ax_timeevol.legend(loc="upper left")
+            fig.savefig(result_dir+"combined_plot_"+key+"_meteordata.png")
+        else:
+            continue
+
     pl.show()

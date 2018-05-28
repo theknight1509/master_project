@@ -327,6 +327,8 @@ class Reduce(Extract):
             hist_dict = self.get_hist(filename=extracted_filename, 
                                       loa_timepoints=loa_timepoints)
             self.save_pandas(save_filename + "_hist", hist_dict)
+            print "both timeevol and hist"
+            sys.exit()
 
         return
 

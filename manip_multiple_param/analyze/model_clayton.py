@@ -18,7 +18,7 @@ from matplotlib import rcParams
 #     print key
 # print rcParams[u"legend.fontsize"] 
 # sys.exit()
-rcParams[u"legend.fontsize"] = "medium"
+rcParams[u"legend.fontsize"] = "small"
 rcParams[u"lines.linewidth"] = 2.0
 rcParams[u"font.size"] = 14
 
@@ -97,6 +97,18 @@ def plot_timeevol(toa_time_mean_sigma_arrays, ax, color='b', bool_std=True, plot
 
     return
 
+def add_meteor_data(ax, fsos=True, now=False):
+    #fraction of os-187/Re-187 at the time of formation of the solar system (with absolute uncertainty)
+    f_187_fsos = [0.136, 0.0323]
+    #same for current time
+    f_187_now = [0.226, 57.9e-3]
+    if fsos:
+        ax.axhspan(f_187_fsos[0]+f_187_fsos[1], f_187_fsos[0]-f_187_fsos[1],
+                   alpha=0.5, label="$f_{187}(t_{f,sos})$", color="g")
+    if now:
+        ax.axhspan(f_187_now[0]+f_187_now[1], f_187_now[0]-f_187_now[1],
+                   alpha=0.5, label="$f_{187}(t_{now})$", color="g")
+    return
 
 if __name__ == '__main__':
     #find app. directory
@@ -114,6 +126,7 @@ if __name__ == '__main__':
     fig = pl.figure()
     ax = fig.gca()
     bool_std = True
+    add_meteor_data(ax=ax)
     plot_timeevol((time, mean, mean+uncertainty_up, mean-uncertainty_down), ax, color='k-', bool_std=bool_std, plot_string="data")
     
     #Clayton Sudden Synthesis
@@ -123,7 +136,9 @@ if __name__ == '__main__':
     p_array = np.array([decay_rate_re187])
     p_error = np.array([eps_T_half])*p_array
     clayton_model = cosmochronology_clayton_sudden(time, *p_array)
-    plot_timeevol((time, clayton_model, clayton_model, clayton_model),
+    clayton_model_pluss = cosmochronology_clayton_sudden(time, *(p_array+p_error))
+    clayton_model_minus = cosmochronology_clayton_sudden(time, *(p_array-p_error))
+    plot_timeevol((time, clayton_model, clayton_model_pluss, clayton_model_minus),
                   ax, color='b-', bool_std=bool_std, plot_string="Clayton sudden")
     print "Clayton sudden synthesis parameters to model: (lambda_eff) = %s +/- %s"%(p_array, p_error)
     
@@ -164,9 +179,11 @@ if __name__ == '__main__':
     decay_rate_eff = 1.2*decay_rate_re_187 #(Shizuma et al. 2005)
     p_array = np.array([decay_rate_eff, rncp_frequency])
     p_error = np.array([eps_halflife, eps_rncp_frequency])*p_array 
-    shizuma_model = cosmochronology_shizuma(time, *p_array)#decay_rate_eff, rncp_frequency)
-    plot_timeevol((time, shizuma_model, shizuma_model, shizuma_model),
-                  ax, color='g-', bool_std=bool_std, plot_string="Shizuma")
+    shizuma_model = cosmochronology_shizuma(time, *p_array)
+    shizuma_model_pluss = cosmochronology_shizuma(time, *(p_array+p_error))
+    shizuma_model_minus = cosmochronology_shizuma(time, *(p_array-p_error))
+    plot_timeevol((time, shizuma_model, shizuma_model_pluss, shizuma_model_minus),
+                  ax, color='r-', bool_std=bool_std, plot_string="Shizuma")
     print "Shizuma parameters to model: (lambda_eff, lambda_rncp) = %s +/- %s"%(p_array, p_error)
     
     ### MODEL FITTING ###

@@ -55,8 +55,8 @@ def plot_timeevol(filename_timeevol, ax, plot_string="nsm", bool_stddev=False):
     ax_twin.ticklabel_format(style='scientific')
 
     if bool_stddev:
-        ax.fill_between(time, rate_p_sigma, rate_m_sigma, color=color_rate)
-        ax_twin.fill_between(time, int_num_p_sigma, int_num_m_sigma, color=color_sum)
+        ax.fill_between(time, rate_p_sigma, rate_m_sigma, color=color_rate, alpha=0.5)
+        ax_twin.fill_between(time, int_num_p_sigma, int_num_m_sigma, color=color_sum, alpha=0.5)
 
     #Recalculate sigmas around zero, not mean
     rate_p_sigma -= rate
@@ -92,19 +92,20 @@ def get_full_filenames(experiment_folder):
 if __name__ == '__main__':
     from directory_master import Foldermap
     result_dir = Foldermap().results #.hume_folder() + "latex/thesis/results/" #.stornext_folder() +...
-    result_dir = result_dir+"MCExperiment_revised_2_delmax/"
+    result_dir = result_dir+"MCExperiment_revised_2_numnsm/"
     loa_fullpaths = get_full_filenames(result_dir)
 
     print "All paths in %s:"%(result_dir)
     for fullpath in loa_fullpaths:
         print fullpath.split('/')[-1]
-    if raw_input("continue? y/n\t") == "y":
+    if True:
+        #if raw_input("continue? y/n\t") == "y":
         pass
     else:
         sys.exit("Exiting!")
 
     loa_num_paths = [path for path in loa_fullpaths
-                     if "num" in path]
+                     if "num" in path.split("/")[-1]]
     loa_plot_strings = [path.split("num_")[-1].split("_")[0].split(".")[0] 
                         for path in loa_num_paths] #extract string between 'num_' and '_'/'.'
 

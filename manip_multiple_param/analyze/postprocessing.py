@@ -315,7 +315,9 @@ class Reduce(Extract):
         """ Get histograms and timevolutions for all the extracted datafiles. """
         loa_extracted_filenames = self.get_extracted_filenames()
         loa_extracted_filenames = [filename for filename in loa_extracted_filenames
-                                   if "num" not in filename]
+                                   if "num" not in filename.split("/")[-1]]
+        if len(loa_extracted_filenames) == 0:
+            print "L320 Warning: no extracted filenames found"
         for extracted_filename in loa_extracted_filenames:
             #get relevant filename-section
             save_filename = extracted_filename.split("/")[-1]
@@ -327,9 +329,6 @@ class Reduce(Extract):
             hist_dict = self.get_hist(filename=extracted_filename, 
                                       loa_timepoints=loa_timepoints)
             self.save_pandas(save_filename + "_hist", hist_dict)
-            print "both timeevol and hist"
-            sys.exit()
-
         return
 
     def setup_reduce_nsm(self):
@@ -493,8 +492,8 @@ def complete_postprocessing(config_filename=False, directory_path=False,
     return
 
 if __name__ == '__main__':
-    decay=True
-    extraction=True
+    decay=False
+    extraction=False
     reduction=True
     
     # config_filename = "../config_beehive_revised.ini"

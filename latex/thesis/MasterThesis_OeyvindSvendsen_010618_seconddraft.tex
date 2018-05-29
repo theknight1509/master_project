@@ -1,0 +1,35 @@
+\documentclass[a4, 12pt]{book}
+\input{preamble}
+
+\title{Modelling uncertainty of the Rhenium-Osmium cosmic clock}
+\author{\O yvind Brynhildsvoll Svendsen}
+\date{01.06.18}
+
+%\includeonly{chapter_methods}
+
+\begin{document}
+
+\makeatletter %assures \@author, \@date, \@title available
+\input{titlepage}
+
+\input{abstract}
+%% \input{foreword does not exist yet}
+%% \input{acknowledgements}
+
+\tableofcontents 
+
+\include{chapter_introduction}
+\include{chapter_theory}
+\include{chapter_numerical_background}
+\include{chapter_methods}
+\include{chapter_results}
+\include{chapter_conclusion}
+\include{appendices}
+
+\listoffigures
+\listoftables
+
+%% bibliographystyle defined in preamble
+\bibliography{../references/bibliography_svendsen}
+
+\end{document}

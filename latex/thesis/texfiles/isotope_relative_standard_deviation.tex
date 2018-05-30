@@ -1,14 +1,13 @@
 %Make a table with the r-process quantities of the sun from Arnould et. al. and add calculations.
-
-\section{r-process standard deviation from \cite{arnould07}}
+\section{r-process standard deviation from \sos-aundances}
 Most elements heavier than iron in the solar system can be attributed to synthesis by the slow neutron capture process or rapid neutron capture process. Since the astrophysical sites of s-process nucleosynthesis is relatively well known the isotopic distribution can be well approximated by simulations and nuclear reaction networks.
 
-By measuring the isotopic content of the solar system (from photosphere measurements and meteorites that are similar to the solar distribution), the total contribution from s-process and r-process is observed. Scaling the well known s-process distribution to s-only isotopes\footnote{Isotopes which are shielded from r-process nucleosynthesis and produced solely through the s-process.}, gives the distribution of r-process isotopes.
+By measuring the isotopic content of the solar system (from photosphere measurements and meteorites that are similar to the solar distribution), the total contribution from s-process and r-process is observed. Scaling the well known s-process distribution to s-only isotopes\footnote{Isotopes which are shielded from r-process nucleosynthesis and produced solely through the s-process.}, gives the distribution of r-process isotopes\mycite{arnould07}.
 
 \begin{table}
   \input{texfiles/arnould_table_modified.tex}
   \caption{\label{tab:rncp-yield-sigma}
-    Table taken from \cite[table 1]{arnould07}
+    Table taken from \mycitetwo{arnould07}{table 1}
     $\sigma_{lower}$, $\sigma_{upper}$ are calculated by the relative fraction between standard value and min, max respectively.
     Upper standard deviation is the relative difference between standard value and maximum value, and lower standard deviation is the relative difference between standard value and minimum value.
   }
@@ -74,16 +73,16 @@ From figure \ref{fig:arnould-gauss-dist} the greatest difference lies in \eu{151
 \end{figure}
 \FloatBarrier
 
-\section{s-process standard deviation from \cite{landolt93}}
+\section{s-process standard deviation from \sos-aundances}
 ``The quality of these data has continually improved and the most recent compilation by
 Anders and Grevesse [89A] lists 37 elements, determined in the photosphere of the Sun, with errors below
-25\%''\cite[p.197]{landolt93}
+25\%''\mycitetwo{landolt93}{p.197}
 
-Estimated accuracy of elemental osmium is 5\% from CI chondrites\footnote{A type of carbonaceous meteorites with an near solar composition\url{https://en.wikipedia.org/wiki/CI_chondrite}.}\cite[table2, p.203]{landolt93}.
+Estimated accuracy of elemental osmium is 5\% from CI chondrites\footnote{A type of carbonaceous meteorites with an near solar composition\url{https://en.wikipedia.org/wiki/CI_chondrite}.}\mycitetwo{landolt93}{table2, p.203}.
 
-The number abundance of elemental osmium ($\log N(N(H)\equiv 10^{12}$) is given in log value. The uncertainty of the meteorite abundances is then $\simeq 1.45\%$ and the uncertainty in solar photosphere composition is $\simeq 6.90\%$. The difference between the two observations are $20\%$ with respect to the meteorite number abundance\cite[table3, p.205]{landolt93}, for other types of meteorites the difference is greater.
+The number abundance of elemental osmium ($\log N(N(H)\equiv 10^{12}$) is given in log value. The uncertainty of the meteorite abundances is then $\simeq 1.45\%$ and the uncertainty in solar photosphere composition is $\simeq 6.90\%$. The difference between the two observations are $20\%$ with respect to the meteorite number abundance\mycitetwo{landolt93}{table3, p.205}, for other types of meteorites the difference is greater.
 
-The solar system abundances, the fitted s-process distribution, and the resulting r-processes from \cite{landolt93} are included in figure \ref{fig:landholt-figures}.
+The solar system abundances, the fitted s-process distribution, and the resulting r-processes from \mycitetwo{landolt93}{table3, p.205} are included in figure \ref{fig:landholt-figures}.
 
 \setlength{\subfiglength}{0.3\textwidth}
 \begin{figure}
@@ -106,7 +105,7 @@ The solar system abundances, the fitted s-process distribution, and the resultin
     Figure 5, page 209, in article.}
   \end{subfigure}
   \caption{\label{fig:landholt-figures}
-    \sos number abundances and derived isotopic distributions from \cite{landolt93}.
+    \sos number abundances and derived isotopic distributions from \mycite{landolt93}.
   }
 \end{figure}
 

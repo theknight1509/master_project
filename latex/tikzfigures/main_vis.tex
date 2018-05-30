@@ -4,13 +4,27 @@
 
 \input{../thesis/preamble}
 
-%\includeonly{atomic_structure}
-
 \begin{document}
 
-\include{nuclides187_chart}
-\include{galaxy_iobox_model}
-\include{stellar_enrichment}
-\include{atomic_structure}
+\iftrue
+\begin{figure}
+  \input{nuclides187_chart}
+\end{figure}
+\fi
+\iftrue
+\begin{figure}
+  \input{galaxy_iobox_model}
+\end{figure}
+\fi
+\iftrue
+\begin{figure}
+  \input{stellar_enrichment}
+\end{figure}
+\fi
+\iftrue
+\begin{figure}
+  \input{atomic_structure}
+\end{figure}
+\fi
 
 \end{document}

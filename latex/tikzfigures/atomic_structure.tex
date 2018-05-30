@@ -1,0 +1,44 @@
+%Draw atomic structure with nucleus and electrons in simple Bohr-model form
+\newlength\elrad
+\newlength\prorad
+\newlength\orbit
+\setlength\elrad{0.5mm}
+\setlength\prorad{2\elrad}
+\setlength\orbit{1cm}
+
+\newcommand\particle[4]{\draw[fill=#4] (#1,#2) circle [radius=#3]}
+\newcommand\electron[2]{\particle{#1}{#2}{\elrad}{blue}}
+\newcommand\neutron[2]{\particle{#1}{#2}{\prorad}{gray}}
+\newcommand\proton[2]{\particle{#1}{#2}{\prorad}{red}}
+
+\centering
+\begin{tikzpicture}
+    %nucleus
+    \proton{-\prorad}{0};
+    \proton{\prorad}{2\prorad};
+    \proton{\prorad}{-2\prorad};
+    \proton{-2\prorad}{\prorad};
+    \proton{-2\prorad}{-\prorad};
+    \proton{3\prorad}{0};
+    \neutron{\prorad}{0};
+    \neutron{-\prorad}{2\prorad};
+    \neutron{-\prorad}{-2\prorad};
+    \neutron{2\prorad}{\prorad};
+    \neutron{2\prorad}{-\prorad};
+    \neutron{-3\prorad}{0};
+    %inner orbit
+    \draw (0,0) circle [radius=\orbit];
+    \electron{0}{\orbit};
+    \electron{0}{-\orbit};
+    %outer orbit
+    \setlength\orbit{2\orbit}
+    \draw (0,0) circle [radius=\orbit];
+    \electron{0}{\orbit};
+    \electron{0}{-\orbit};
+    \electron{\orbit}{0};
+    \electron{-\orbit}{0};
+\end{tikzpicture}
+\caption[Atomic structure]{\label{tikz:atomic-structure}
+    Figurative representation of a \isotope{C}{6}{12}-atom with six protons, neutrons, and electrons. The protons (red) and neutrons (gray) occupy the nucleus in the center, while the electrons (blue) orbit around them. According to quantum physics the electrons do not rotate around the nucleus in spherical orbits, but occupy orbitals/energy states around the nucleus as probability distributions. Real and relative sizes do not apply.
+    }
+  

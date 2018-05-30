@@ -1,35 +1,52 @@
 \chapter{Introduction}
 \label{sec:introduction}
 
-After the big bang and the elements formed, the chart of nuclides was scarcsly filled.
+After the big bang and the elements formed, the chart of nuclides was scarcely filled.
 Only the lightest elements and isotopes, hydrogen and helium primarily, filled the vast universe\cite{alphabetagamma}, in addition to the dark matter.
 In the universe today we see much more heavier elements, and these must have been synthesised in some manner.
 Nuclear fusion in stars create heavier elements up to iron, the heavier elements are made as by-products in which heavy atoms accumulates neutrons or protons and climb the chart of nuclides\cite{BBFH}.
 
 Since \re{187} is shielded from the s-process, and \os{187} is shielded from the r-process, the synthesis of these isotopes are not
-strongly coupled together. Granted, they both require heavy seed isotopes, hot neutron rich environments, and some method of ejection. The r-process needs so much higher neutron densities that it is believed to exist in vastly different stellar environments than the s-process\comment{(need some citation on the locations of r-process)}.
-After \comment{insert halflife of re-187 here} half of \re{187} would have decayed to \os{187}, similar to the decay of \isotope{carbon}{6}{14} used in dating millenia old archelogical artifacts.
+strongly coupled together. Granted, they both require heavy seed isotopes, hot neutron rich environments, and some method of ejection.
+However the r-process needs so much higher neutron densities that it is believed to exist in vastly different stellar environments than the s-process\comment{(need some citation on the locations of r-process)}.
+After 41.6 Gyr (\mycite{snelling15}) half of \re{187} would have decayed to \os{187}, similar to the decay of \isotope{carbon}{6}{14} used in dating millenia old archelogical artifacts.
 By taking the expected and observed abundance of the daughter and/or parent nuclei the age is determined by the ratio of isotopes and the halflife of the radioactive process.
 
-By making a model of all the s-process and r-process sources in this Galaxy, the amount of synthesised \re{187} and \os{187} can be estimated. These estimates can be used to estimated the age of nucleosynthesis (when the heavy elements started forming).
-Such a model is based on a mosaic of different scientific disciplines and data, and therefor also has a series of uncertainties from atomic properties to galactic history to numerical precision and everything in between. These uncertainties make the final image blurred.
+Modellling the s-process and r-process sources in this Galaxy, the amount of synthesised \re{187} and \os{187} can be estimated.
+These estimates can be used to estimated the age of nucleosynthesis (when the heavy elements started forming).
+Such a model is based on a mosaic of different scientific disciplines and data, and therefore also has a series of uncertainties from atomic properties to galactic history to numerical precision and everything in between.
+These uncertainties make the final image blurred.
 
-This was attempted analytically by \comment{clayton + other articles} and they yielded \comment{value uncertainty from articles} and the results are useless compared to cosmological results \comment{add cosmological age of universe, galaxy etc} due to the huge uncertainties. However since the age of the Galaxy is known from cosmology, the biggest uncertainties in the synthesis-model can be constricted.
+This was attempted analytically by \mycite{clayton64}, which came to a conclusion that the beginning of Galactic nucleosynthesis would occur between 11 and 18 Gyrs ago.
+For reference, the age of the universe is 13.8 Gyrs (as estimated by the recent Planck-collaboration data \mycite{planck15}).
+
+When it comes to scientifically study the evolution of the Galaxy, scientist are left with many options.
+Most relevantly for this work is analytical models, semianalytical models, and hydrodynamical simulation.
+Analytical models, like the one presented by \mycite{clayton64}, are purely mathematical.
+Semianalytical models, like \omegamodel\ by \mycite{cote16a} (see section \ref{sec:omega}), can take data and mathematical functions and integrate them in time to find the chemical evolution of the Galaxy.
+Hydrodynamical simulations, like \eris\ by \mycite{guedes11e} (see section \ref{sec:eris}), make a complete numerical representation of a galaxy and evolve it in time, with known forces and iteractions applied.
+
+The uncertainty of analytical models, like \mycite{clayton64} will be compared to a combination of a high-resolution hydrodynamical simulation and a semianalytical model.
+Binary neturon star mergers, like the one observed in \mycite{gw170817}, are assumed to be the main contributor to r-process nucleosynthesis.
+This allows for constraints on the amount of binary neutron star mergers in the hydrodynamical galaxy, from chemical evolution of heavy metals.
 
 \section{Outline}
+This thesis will introduce the concept and goals in the \textit{Introduction}.
+The astrophysical background will be presented in \textit{Theory}, while details of the numerical models and simulations will be presented in a separate chapter, \textit{Numerical background}.
+The work presented will be outlined in \textit{Methods}, \textit{Results}, and \textit{Conclusion/discussion}.
+A full list of figure and tables are found in the back of the thesis alongside the bibliography.
 
-This thesis is divided into six chapters
-\begin{description}
-\item[Introduction]
-\item[Theory]
-\item[Numerical background]
-\item[Methodology]
-\item[Results]
-\item[Conclusion and discussion]
-\end{description}
+\section{Some useful terminology}
+\underline{Spectroscopic abundance} is the relative amount of one element to another, log-scale, scaled to the solar ratio.
+$[X/Y] = \log\left(X / Y\right) - \log\left( X_{\astrosun}/Y_{\astrosun}\right)$
+where $X$, $Y$ are the number abundances of two different elements, and $X_{\astrosun}$, $Y_{\astrosun}$ are the number abundances of the same elements observed in the solar atmosphere.
+Astrophysically the spectroscopic abundance have been determined from spectral lines of distant stars, however when used in simulations and semianalytical calculations it will be calculated from the number abundance of elements; $X$,$Y$ in the interstellar medium.
 
-\comment{Explain [X/Y]} \\
-\comment{introduce delay-time somewhere} \\
-\comment{pure DM vs. gas vs. postproduction} \\
-\comment{astration on \re{187}} \\
-\comment{isotope, isobar, isotone} \\
+\underline{Delay-time} is the time between a star is formed/born and a star dies (and ejects enriched material into the interstellar medium).
+For binary neutron star mergers, the delay-time is the time between a system of binary neutron stars have formed and the system have radiated away enough graviational energy to merge with eachother and eject enriched material into the interstallar medium.
+
+\underline{Astration of \re{187}} is the decrease in nuclear halflife of \re{187} from simply existing in an stellar environment, as opposed to the cold neutral state of the interstellar medium.
+
+\underline{isotope, isobar, isotone} are different notations for nuclei that are similar. Two nuclei are \textit{isotopes} if they have the same number of protons, \textit{isobars} if they have the same number of total nucleons (protons and neutrons combined), and \textit{isotone} if they have the same number of neutrons in the nucleus.
+
+\comment{pure DM vs. gas vs. postproduction}

@@ -12,10 +12,40 @@ Due to cosmoradiogenic \os{187} dominating the components of \os{187} (the other
 This can be seen in figure \comment{ref fig f-187 with betadecay}, as the uncertainty distribution is alot smaller then seen in figure \comment{ref fig f-187 without betadecay} without \betadecay applied.
 
 There is an outlier in the uncertainty distribution of $f_{187}$, this is because of negative yields being set to zero and creating a non-gaussian distribution of input parameters (the input parameter being the stellar yield of the isotope in question). See section \comment{ref section negative yields} for a detailed description of cause and treatment of outliers.
-After applying betadecay and removing negative yield datasets from the considered distribution, the true distribution of $f_{187}$ in our \fiduccialomega emerges.
+After applying betadecay and removing negative yield datasets from the considered distribution, the true distribution of $f_{187}$ in our \comment{fiduccial-omega} emerges.
 In figure \comment{ref f-187 negative yields} the true uncertainty of $f_{187}$ when considering the nuclear uncertainties becomes apparent.
 From the green band it is clear that this results is compatible observed abundances in meteorites, although it should be mentioned that the uncertainty of observed meteorite abundances are a bit big and cannot really exclude any model.
 
+%uncertainty of observations
+From figure \comment{ref comparison of models} it is hard to say anything conclusive about the cosmochronologial models of Re-Os, due to the large uncertainties in the observations.
+From appendix \comment{ref section cosmochronology calcualtion} it is clear that the large uncertainties in \os{187}/\re{187} at the formation of the solar system is primarily due to the uncertainties observed today.
+The uncertainty of the \re{187} halflife also affect the uncertainty, but not nearly as much as the meteorite abundances.
+
+%number of nucleosynthetic events
+In section \comment{ref nucleosynthetic events} the cumulative number and rates of nucleosynthetic events are considered.
+Figure \comment{ref nsm nucleosynthetic events} and table \comment{ref events table} shows that a total of $\simeq100\times 10^6$ neutron star mergers are needed in \omegamodel, to reproduce the mean r-process abundances of \eris.
+In section \comment{ref nsm-param} a 10\% uncertainty is added to the number of mergers and the delay time distribution.
+The resulting distribution of cumulative number of events (figure \comment{ref nsm-fig}) shows an uncertainty, at the time of \sos formation between $\simeq 100\times 10^{6}$ and $\simeq 250\times 10^{6}$ (see table \comment{ref nsm-table}), a factor of 2.5.
+It should be noted that the uncertainty of the initial mass function is also included, which means greater uncertainty in the number of massive stars, which leads to greater uncertainty in the number of ginary neutron star system.
+
+%comparison of models
+The $f_{187}$-data from the \comment{fiduccialomega} in figure \comment{ref model-figure \ref{fig:osre-model-fitting}?} coincides with a cosmochronology method between sudden and uniform.
+By using SciPy to fit the analytical model to our results, a decent curve is found and the parameters have some significance.
+The interpretation of the two parameters in the analytical model from \mycite{shizuma05} is the effective decay constant of \re{187} (after astration is considered) and the ``decay-constant'' of the r-process event-rate.
+The curve fitted with SciPy is not a perfect fit, and this can be explained by the interpretation of the ``r-process event rate decay constant''-parameter in the analytical model.
+An exponential decay could be a good approximation for the neutron star merger rate (see figure \comment{ref fig nucleosynthetic events nsm}), but only after two Gyr.
+Since the merger rate starts at zero a better analytical model would be an exponential or linear function until some point in time where the rate goes back to the original decay-function.
+
+%imf-slope
+Modifying the slope of initial mass function with the uncertainty found by \mycite{cote16a}, gives a non-gaussian term to the abundance of \re{187} and \os{187} (see figures \ref{fig:MCExperiment-imfslope-re187} and \ref{fig:MCExperiment-imfslope-os187}).
+This effect is greatly enhanced in \os{187}/\re{187} (figure \ref{fig:MCExperiment-imfslope-div}) and can be seen as an extra gaussian term in the distribution.
+The slope of the initial mass function is considered because \mycite{cote16a} finds it to be the most important parameter in chemical evolution, due to it's control over the relative number of high-mass stars.
+
+\subsection{Discussion and future outlook}
+As mentioned in section \comment{conclusion-betadecay-implementation} the implementation of \betadecay in the postprocessing of data is done with no regards to the uncertainty of the halflife of \re{187} or the uncertainty of the stellar enhancement factor.
+A more accurate representation of the physical uncertainties of \betadecay would be relevant for the analysis of cosmochronology.
+
+\iffalse
 \importantcomment{Ignore everything below this line in conclusion/discussion}
 \underline{conclusions so far:}
 \begin{itemize}
@@ -35,4 +65,4 @@ From the green band it is clear that this results is compatible observed abundan
 \item The removal of outliers is physically motivated and well justified.
 \item The evolution of \os{187}/\re{187} is dominated by \betadecay, which can be seen by comparing figures \ref{fig:MCExperiment-nodecay} and \ref{fig:MCExperiment-decay} (with and without \betadecay). Since the \betadecay-implementation in postprocessing does not include the uncertainty of the \re{187} halflife or the stellar enhancement factor (at least in those figures) alot of the real nuclear uncertainty \textit{vanishes}, this implemtation could be improved upon.
 \end{itemize}
-
+\fi

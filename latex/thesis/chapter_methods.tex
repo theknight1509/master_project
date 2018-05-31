@@ -231,18 +231,19 @@ All were tried, but only the exponential distribution is shown in this section.
     \centering
     %exp-sn1a [O/H]
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_oxy.png}
-    %exp-sn1a [Fe/H]
-    \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_iron.png}
+    %num-sn1a [O/H]
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_num2_oxy.png}
   \end{minipage}
   \begin{minipage}[h][][t]{0.49\textwidth}
     \centering
-    %num-sn1a [O/H]
-    \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_num2_oxy.png}
+    %exp-sn1a [Fe/H]
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_iron.png}
     %num-sn1a [Fe/H]
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_num2_iron.png}
   \end{minipage}
   \caption[Fit of type 1a supernovae \fiduccialomega]{\label{fig:fit-sn1a}
     Spectroscopic abundance of oxygen and iron in \omegamodel compared to the data from \eris.
+    \\ \todo[Add more description]
   }
 \end{figure}
 
@@ -270,55 +271,83 @@ Only binary neutron star mergers are considered, because this is the same site a
 %%     In order to reproduce the \eris\ spectroscopic abundances, \omegamodel\ must synthesize more europium at an earlier time, this is achieved by a steep distribution with early minimum-time. It is clear from the plot that all models behave similar at late times, regardless of delay-time distribution. There is also little difference between a short coalescence time or a powerlaw distribution with short minimum time.
 %%   }
 %% \end{figure}
+
 \begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_ejmass.png}
-  \caption{\label{fig:fit-v3-ejecta}
-    Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models. In the models the mass ejected from each neutron star merger have been modified.
-    Modifying the mass ejected from each event will just scale the total europium content up and down.
-    Ejecting 0.2-0.3 \msol per event gives a pretty decent fit to late time europium and early time europium.
-    However for the 'dips' between 2 and 8 Gyrs, the \omegamodel\ model overshoots the \eris\ data.
-  }
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_mergerfraction_rates.png}
-  \caption{\label{fig:fit-v3-mergerfrac-nsmr}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_mergerfraction_spectro.png}
-  \caption{\label{fig:fit-v3-mergerfrac-euro}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_nbnsm_rates.png}
-  \caption{\label{fig:fit-v3-number-nsmr}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_nbnsm_spectro.png}
-  \caption{\label{fig:fit-v3-number-euro}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_combo_rates.png}
-  \caption{\label{fig:fit-v3-combo-nsmr}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_combo_spectro.png}
-  \caption{\label{fig:fit-v3-combo-euro}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_final_rates.png}
-  \caption{\label{fig:fit-v3-nsmr}}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_final_spectro.png}
-  \caption{\label{fig:fit-v3-final-euro}}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_ejmass.png}
+    \caption[\todo NSM-ejectamass]{
+      \label{fig:fit-v3-ejecta}
+      Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models. In the models the mass ejected from each neutron star merger have been modified.
+      Modifying the mass ejected from each event will just scale the total europium content up and down.
+      Ejecting 0.2-0.3 \msol per event gives a pretty decent fit to late time europium and early time europium.
+      However for the 'dips' between 2 and 8 Gyrs, the \omegamodel\ model overshoots the \eris\ data.
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_rates.png}
+    \caption[\todo NSM fmerger rate]]{
+      \label{fig:fit-v3-mergerfrac-nsmr}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_spectro.png}
+    \caption[\todo mergerfraction spectroscopic plot]{
+      \label{fig:fit-v3-mergerfrac-euro}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_rates.png}
+    \caption[\todo nbnsm rates plot]{
+        \label{fig:fit-v3-number-nsmr}
+        \todo[Add more descriptive text]
+      }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_spectro.png}
+    \caption[\todo nbnsm spectro plot ]{
+      \label{fig:fit-v3-number-euro}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_rates.png}
+    \caption[\todo 'combo' rate plot ]{
+      \label{fig:fit-v3-combo-nsmr}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_spectro.png}
+    \caption[\todo combo'spectro' plot]{
+      \label{fig:fit-v3-combo-euro}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_rates.png}
+    \caption[\todo final rate plot]{
+      \label{fig:fit-v3-nsmr}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
+  \begin{minipage}[h][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_spectro.png}
+    \caption[\todo final spectro plot]{
+      \label{fig:fit-v3-final-euro}
+      \todo[Add more descriptive text]
+    }
+  \end{minipage}
 \end{figure}
 
 \begin{table}[h]
@@ -329,7 +358,7 @@ Only binary neutron star mergers are considered, because this is the same site a
 \end{table}
 \FloatBarrier
 
-\comment{Add iffalse here}
+\comment{iffalse here}
 \iffalse
 
 \subsection{Size of timesteps}

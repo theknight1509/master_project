@@ -25,6 +25,12 @@
 \colorlet{Myred}{myred} %for titles and such 
 \newcommand{\comment}[1]{ \textcolor{myred}{#1} }
 \newcommand{\importantcomment}[1]{ {\Huge \comment{#1}} }
+%\newcommand\todo{\comment{TODO!}}
+\newcommand\todo[1][]{
+        \ifthenelse{\equal{#1}{}}
+                {\comment{TODO!}}
+                {\comment{TODO! #1}}
+}
 
 %Packages and styles
 %\usepackage{natbib}

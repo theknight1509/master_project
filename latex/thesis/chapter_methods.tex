@@ -1,6 +1,5 @@
 \chapter{Methods}
 \label{sec:methods}
-
 \section{Purpose and goals}
 In this thesis the goal is to examine the influence of uncertainty in models and parameters with regards to r-process nucleosynthesis.
 This in turn, is used to estimate the influence of uncertainties with regards to the Rhenium-Osmium cosmic clock.
@@ -24,6 +23,7 @@ Finding the effect of the observational uncertainties is done by changing the yi
 \setlength\figwidth{0.5\textwidth}
 \newcommand\mwomega{\textit{\omegamodel-MilkyWay}}
 \newcommand\mwcomega{\textit{\omegamodel-MilkyWay-c.sfr.}}
+\newcommand\vanillaomega{\textit{Vanilla \omegamodel-model}}
 \newcommand\fiduccialomega{\textit{Fiduccial \omegamodel-model}}
 
 %\subsection{General purpose}
@@ -37,51 +37,28 @@ In this section \mwomega\ refers to the built-in options for a Milky Way-like mo
 \newcommand\insertion{insertion}
 %method
 Galactic age, initial mass function, astrophysical effects and star formation are so essential to chemical evolution models that they will be taken from \eris\ and applied directly to \omegamodel.
-\begin{table}
-  \centering
-  \begin{tabular}{r|l}
-    \hline Parameter in \omegamodel & Value taken from \eris \\
-    \hline Galactic age & 14 Gyr \\
-    Star formation rate & Star-formation rate [$\msol/yr$] from \eris\footnote{Numerical array of time - star formation rate for each point in time in \eris.} \\
-    Initial mass function & Kroupa93\footnote{because \mycite{shen15} uses the mass function from \mycite{kroupa93}} \\
-    Type Ia supernovae & yes \\
-    Binary neutron star mergers & yes \\
-    \begin{tabular}{c}
-      Yield-table for \\
-      binary neturon star mergers
-    \end{tabular}
-    & \mycite{arnould07} \\
-    Neutron star - black hole merger & no \\
-    \hline
-  \end{tabular}
-  \caption[]{
-    The yield-table for binary neutron star mergers was chosen because it was the only r-process yield-table (out of two available) with the presence of \re{187}.
-    In \omegamodel, r-process yield tables are applied to neutron star mergers, and the yield-table chosen is calculated from the r-process abundance of the \sos at present day\mycite{arnould07}.
-    This means that all neutron star mergers are assumed to produce a r-process pattern like the one found in the \sos.
-  }
-\end{table}
+These values are listed in table \ref{tab:fitting-parameters-insertion}.
 
-\comment{The main issue for all models is clear: star formation uses up all the gas in the model and star formation is quenched.}
-\textit{'Eris'} refers to data directly from \eris-simulation. \textit{'Omega' default} refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} refers to the \omegamodel\ model with the star formation and mass function from \eris.
+\textit{'Eris'} refers to data directly from \eris-simulation. \textit{'Omega' default} (or \vanillaomega) refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} (or \mwomega)refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} (or \mwcomega) refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} (or \fidducialomega) refers to the \omegamodel\ model with the star formation and mass function from \eris. This model, \fiduccialomega will be exaned upon throughout the fitting process.
 
-It is clear from figure \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} that star-formation is suppressed before 2Gyr for all models except \textit{'Omega' default}.
+It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} that star-formation is suppressed before 2Gyr for all models except \vanillaomega.
 
 %plots
-\begin{figure}[b]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_sfr.png}
   \caption[Star formation rate in \omegamodel\ for \insertion]{\label{img:fit-v0-sfr}
     Star formation rate(measured in solar masses of stars formed from gas each year) for four models of \omegamodel\ versus time. 
   }
 \end{figure}
-\begin{figure}[b]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_stellar_mass.png}
   \caption[Stellar mass in \omegamodel\ for \insertion]{\label{img:fit-v0-stellarmass}
     Total accumulated stellar mass(cumulutaive sum of stellar mass produces from gas, measured in solar masses) for four models of \omegamodel\ versus time.
   }
 \end{figure}
-\begin{figure}[b]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\figwidth, draft=true]{results/plots_fitting/set_sfr_plot_gas_mass.png}
   \caption[Gas mass in \omegamodel for \insertion]{\label{img:fit-v0-gasmass}
@@ -89,27 +66,49 @@ It is clear from figure \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} th
     Mass of gas in the interstellar medium for four different models of \omegamodel, and the \eris\ simulation against time in Gyrs.
   }
 \end{figure}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|l|}
+    \hline Parameter & \omegamodel-argument & Value taken from \eris \\
+    \hline Galactic age & \texttt{tend} & 14 Gyr \\
+    Star formation rate & \texttt{sfh\_array} & Star-formation rate [$\msol/yr$]\footnote{Numerical array of time - star formation rate for each point in time in \eris.} \\
+    Initial mass function & \texttt{imftype} & Kroupa93\footnote{because \mycite{shen15} uses the mass function from \mycite{kroupa93}} \\
+    Type Ia supernovae & \texttt{sn1a\_on} & yes \\
+    Binary neutron star mergers & \texttt{nsmerger\_on} & yes \\
+    \begin{tabular}{c}
+      Yield-table for \\
+      binary neturon star mergers
+    \end{tabular}
+     & \texttt{ns\_merger\_table}& \mycite{arnould07} \\
+    Neutron star - black hole merger & \texttt{bhns\_merger\_on} & no \\
+    \hline
+  \end{tabular}
+  \caption[\omegamodel-parameters directly adopted from \eris]{ \label{tab:fitting-parameters-insertion}
+    The yield-table for binary neutron star mergers was chosen because it was the only r-process yield-table (out of two available) with the presence of \re{187}.
+    In \omegamodel, r-process yield tables are applied to neutron star mergers, and the yield-table chosen is calculated from the r-process abundance of the \sos at present day (\mycite{arnould07}).
+    This means that all neutron star mergers are assumed to produce a r-process pattern like the one found in the \sos.
+  }
+\end{table}
 \FloatBarrier
 
 \subsection{Mass}
 %method
-A galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is only gas and stars inside the box and gas outside.
-The total baryonic mass inside \eris\ (at redshift z=0 and z=1) is taken from \mycite{guedes11e} and can be found in table \ref{tab:guedes11-baryonic-mass}.
-
 \input{texfiles/mass_table_guedes}
 
-The mass-content of the \fiduccialomega\ is adjusted by changing the initial mass of gas, 
+A galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is only gas and stars inside the box and gas outside the box (see figure \ref{tikz:galaxy_iobox}).
+The total baryonic mass inside \eris\ (at redshift z=0 and z=1) is taken from \mycite{guedes11e} and can be found in table \ref{tab:guedes11-baryonic-mass}.
 
-\iffalse
 Supernova feedback will drive an outflow from the galaxy into the surrounding medium \comment{find appropriate reference}. Adding outflow proportional to the supernova rate adds some realisim to the model, and might reproduce some of the spectroscopic features.
 In \omegamodel this is activated with the parameters \verb|mass_loading|(which ejects a amount of gas relative to the stellar mass formed), and \verb|out_follows_E_rate|(which adds a timedelay to the outflow, making the outflow proportional to the supernova rate instead of the star formation rate).
-Outflow removes gas from the galaxy, or interstellar medium, lowering the total amount of mass in the galaxy. Therefor the initial primordial gas and constant inflow must be increased as well.
-Setting the initial mass, inflow and outflow, gives the desired star formation. A final comparison of the fiducial \omegamodel model, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
+Outflow removes gas from the galaxy, or interstellar medium, lowering the total amount of mass in the galaxy. Therefore the initial primordial gas and constant inflow must be increased as well.
+Setting the initial mass, inflow and outflow, gives the desired mass content.
+A final comparison of the \fiduccialomega model, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
 For the predefined models, the initial mass of primordial gas have been increased to $9.6\times10^{10}\msol$(the final value baryon-mass from \eris) to show the full evolution of star formation.
 Two prominent features in the spectroscopic data of \eris\ is the two 'dips' around universal time t=5 and t=8 Gyrs. These dips might be reproduced by adding primordial inflow, hydrogen, and enriched outflow, concentrated on on those periods($t\simeq5Gyr$ and $t\simeq8Gyr$), since these periods might coincide with the death of stars from the star forming peak in figure \ref{img:fit-v0-sfr}.
 Varying supernova-related outflow(known as the \texttt{mass\_loading} parameter) gives an expected result. In figure \ref{fig:fit-v1-2-iron} variation in the spectroscopic iron abundance can be seen the desired region, around the two 'dips', but the effect is too small to reproduce the two dips. The effect is also too wide and more closely similar to one big 'dip'. One unexpected result is that the smalles \texttt{mass\_loading} parameter yields the lowest dip(not really a dip at all, but more flat in the desired direction). suggesting that the outflow from supernovae occur later than the two 'dips'.
 This means that the two 'dips' cannot be reproduced by outflow and inflow.
-\fi
+
 %plots
 \begin{figure}[h]
   \centering
@@ -135,7 +134,6 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
     The outflow adds a non-linear effect to the total mass.
   }
 \end{figure}
-\importantcomment{add spectroscopic outflow plot here!}
 \begin{figure}[h]
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_stellar_mass.png}
@@ -187,6 +185,9 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
 %% \end{figure}
 \FloatBarrier
 
+\comment{Add iffalse here}
+\iffalse
+
 \subsection{Effect of stars and supernovae}
 %specify AGB, massive, pop.3, SN1a
 Chemical enrichment of galactic gas (the interstellar medium), comes from stars.
@@ -228,16 +229,17 @@ All were tried, but only the exponential distribution is shown in this section.
 Only binary neutron star mergers are considered, because this is the same site as \mycite{shen15}
 %methods
 %plots
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_dtd.png}
-  \caption{\label{fig:fit-v3-dtd}
-    Abundance of europium in \eris\ simulation and \omegamodel\ models for galactic time in Gyrs.
-    There are two main ways to calculate the delay-time of a neutron star merger in \omegamodel: one is a powerlaw distribution in time(with boundaries at minimum and maximum time), while another is setting a time after which all neutron star binaries merge, called a coalescence time.
-    \\ \comment{what does \eris\ use?} \\
-    In order to reproduce the \eris\ spectroscopic abundances, \omegamodel\ must synthesize more europium at an earlier time, this is achieved by a steep distribution with early minimum-time. It is clear from the plot that all models behave similar at late times, regardless of delay-time distribution. There is also little difference between a short coalescence time or a powerlaw distribution with short minimum time.
-  }
-\end{figure}
+\comment{figure commented out}
+%% \begin{figure}[h]
+%%   \centering
+%%   \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_dtd.png}
+%%   \caption{\label{fig:fit-v3-dtd}
+%%     Abundance of europium in \eris\ simulation and \omegamodel\ models for galactic time in Gyrs.
+%%     There are two main ways to calculate the delay-time of a neutron star merger in \omegamodel: one is a powerlaw distribution in time(with boundaries at minimum and maximum time), while another is setting a time after which all neutron star binaries merge, called a coalescence time.
+%%     \\ \comment{what does \eris\ use?} \\
+%%     In order to reproduce the \eris\ spectroscopic abundances, \omegamodel\ must synthesize more europium at an earlier time, this is achieved by a steep distribution with early minimum-time. It is clear from the plot that all models behave similar at late times, regardless of delay-time distribution. There is also little difference between a short coalescence time or a powerlaw distribution with short minimum time.
+%%   }
+%% \end{figure}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_ejmass.png}
@@ -448,7 +450,7 @@ For varying different parameters simultaneously a similar method was used as in 
 \section{Summary of methods}
 \section{Discussion}
 
-\iffalse
+%\iffalse
 %fitting of eris/omega
 
 %variation of isotope-yield

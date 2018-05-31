@@ -27,8 +27,10 @@
 \newcommand{\importantcomment}[1]{ {\Huge \comment{#1}} }
 
 %Packages and styles
-\usepackage{natbib}
-\bibliographystyle{../references/apj}
+%\usepackage{natbib}
+%\bibliographystyle{../references/apj}
+\bibliographystyle{apalike}
+%\bibpunct{[}{]}{,}{a}{}{;}
 
 %Citation commands
 \newcommand\araa{ARA\&A}
@@ -42,8 +44,8 @@
 \newcommand\nat{Nature}
 \newcommand\na{New Astronomy}
 \newcommand\mnras{MNRAS}
-\newcommand\mycite[1]{{\footnotesize \it \citet{#1}}}
-\newcommand\mycitetwo[2]{{\footnotesize \it \citet[#2]{#1}}}
+\newcommand\mycite[1]{{\footnotesize \it \cite{#1}}}
+\newcommand\mycitetwo[2]{{\footnotesize \it \cite[#2]{#1}}}
 
 \newcommand{\isotope}[3]{
   \ifmmode {\ce{^{#3}_{#2}{#1}}}

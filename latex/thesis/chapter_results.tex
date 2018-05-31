@@ -45,6 +45,8 @@ The mass and ratio shown in figures \ref{fig:MCExperiment-nodecay} are only repr
 
 It is quite easy to see that the fraction in figure \ref{fig:MCExperiment-nodecay-div} is far below the observed value in table \ref{tab:obs-cosmo-chronology}.
 
+Some irragularities in the distribution (non-gaussian tendencies) will be discussed in section \ref{sec:results-decay}.
+
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment wo/decay
 \begin{figure}[h]
   \begin{subfigure}[t][][t]{\subfigwidth}
@@ -127,6 +129,7 @@ One possible solution to this is to take a gaussian distribution set it to zero 
 Applying this form of distribution numerically is beyond the scope of this project. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored.
 
 The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, and the values for the distribution extracts (both with and without the effect of \betadecay) are shown in table \ref{tab:results-delmax}.
+\comment{How many samples are removed? why is the sample size still big enough? (appears gaussian with very small fluctuations)}
 
 \newcommand\tworow[2]{\begin{tabular}{c}#1\\#2\end{tabular}}
 \newcommand\midrow[2]{\raisebox{-#2}[#2]{#1}}
@@ -189,6 +192,13 @@ Asymptotic giant branch stars, massive stars that turn into type 2 supernvoae, t
 In this section, the rate and cumulative number of neutron star mergers, type 2, and type 1a supernovae are shown, see figures \ref{fig:MCExperiment-delmax-rate}.
 The data was taken from \expone\ experiment, meaning that there is no uncertainty applied to the number and rate of events.
 Right panels show the distribution at 9.5 Gyr and 14 Gyr, and the values at these times are shown in table \ref{tab:nucleosynthetic-events}
+
+From table \ref{tab:nucleosynthetic-events} the number of neutron star mergers in the Galaxy is $\simeq10^8$ when the \sos\ formed.
+Assuming that \eris\ is representative for Milky Way Galaxy, that the r-process material is well mixed, and that the \sos\ r-process-abundance is representative of the Galactic average r-process abundance, and assuming that the \fiduccialomega model is represntative of \eris\ this is the number of neutron star mergers required to get the solar r-process abundance.
+\comment{solar radius rotation time?}
+\omegamodel is a one-zone semianalytic model and therefor unable to reproduce the local variations that can occur in a galaxy, which particle-hydrodynamics simulations, like \eris\ have a better hope at resolving.
+This means that local variations challenges the assumption of r-process abundances in the \sos\ being representative of the Galactic average.
+
 
 \comment{Compare cumulative NSMs to Korokbin(?), where rate-bands are given}
 

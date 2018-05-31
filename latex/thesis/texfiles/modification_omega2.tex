@@ -1,11 +1,12 @@
 \label{sec:mod-omega2}
 
-In order to manipulate several yield-values in \omegamodel\ at once, a modification to \verb|__set_yield_tables| in \chemevol\ were implemented.
-This is similar to the modification in section \ref{sec:mod-omega}, but includes list for all isotopes and ``fudge factors'' applied.
+In order to manipulate several yield-values and other parameters in \omegamodel\ at once, a modification to \verb|__set_yield_tables| in \chemevol\ was implemented.
+This is similar to the modification in section \ref{sec:mod-omega} (as seen in listing \ref{lst:mod-omega}), but includes a list for all isotopes and ``fudge factors''.
+The extra lines of code that replace the modification in section \ref{sec:mod-omega} are shown in listings \ref{lst:mod-omega2}.
 
 Other input variables are multiplied with a similar factor before the \omegamodel-simulation is executed.
 
-\begin{lstlisting}[style=custompython, caption={Snippet of code added to the existing function \texttt{\_\_set\_yield\_tables} in \chemevol\ in \omegamodel-framework. The code-snippet multiplies the yield of a list of isotopes, \texttt{self.loa\_manip\_isotope}, with a corresponding factor from a list of factors \texttt{self.loa\_manip\_yields} for all yield-tables where the isotopes can be found.}]
+\begin{lstlisting}[style=custompython, caption={\label{lst:mod-omega2}Snippet of code added to the existing function \texttt{\_\_set\_yield\_tables} in \chemevol\ in \omegamodel-framework. The code-snippet multiplies the yield of a list of isotopes, \texttt{self.loa\_manip\_isotope}, with a corresponding factor from a list of factors \texttt{self.loa\_manip\_yields} for all yield-tables where the isotopes can be found.}]
 ####################################################
 ### End of function as written in 'chem_evol.py' ###
 """ 

@@ -45,18 +45,20 @@ It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} t
 
 %plots
 \begin{figure}[h]
-  \centering
-  \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_sfr.png}
-  \caption[Star formation rate in \omegamodel\ for \insertion-fitting]{\label{img:fit-v0-sfr}
-    Star formation rate(measured in solar masses of stars formed from gas each year) for four models of \omegamodel\ versus time. 
-  }
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_stellar_mass.png}
-  \caption[Stellar mass in \omegamodel\ for \insertion-fitting]{\label{img:fit-v0-stellarmass}
-    Total accumulated stellar mass(cumulutaive sum of stellar mass produces from gas, measured in solar masses) for four models of \omegamodel\ versus time.
-  }
+  \begin{minipage}[t][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_sfr.png}
+    \caption[Star formation rate in \omegamodel\ for \insertion-fitting]{\label{img:fit-v0-sfr}
+      Star formation rate(measured in solar masses of stars formed from gas each year) for four models of \omegamodel\ versus time. 
+    }
+  \end{minipage}
+  \begin{minipage}[t][][t]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_stellar_mass.png}
+    \caption[Stellar mass in \omegamodel\ for \insertion-fitting]{\label{img:fit-v0-stellarmass}
+      Total accumulated stellar mass(cumulutaive sum of stellar mass produces from gas, measured in solar masses) for four models of \omegamodel\ versus time.
+    }
+  \end{minipage}
 \end{figure}
 \begin{figure}[h]
   \centering
@@ -91,6 +93,7 @@ It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} t
     This means that all neutron star mergers are assumed to produce a r-process pattern like the one found in the \sos.
   }
 \end{table}
+\comment{footnote not showing}
 \FloatBarrier
 
 \subsection{Mass}
@@ -273,7 +276,7 @@ Only binary neutron star mergers are considered, because this is the same site a
 %% \end{figure}
 
 \begin{figure}[h]
-  \begin{minipage}[h][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.49\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_ejmass.png}
     \caption[\todo NSM-ejectamass]{
@@ -283,63 +286,66 @@ Only binary neutron star mergers are considered, because this is the same site a
       Ejecting 0.2-0.3 \msol per event gives a pretty decent fit to late time europium and early time europium.
       However for the 'dips' between 2 and 8 Gyrs, the \omegamodel\ model overshoots the \eris\ data.
     }
-  \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
-    \centering
+  %% \end{minipage}
+  %% \begin{minipage}[h][][t]{0.49\textwidth}
+  %%   \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_rates.png}
     \caption[\todo NSM fmerger rate]]{
       \label{fig:fit-v3-mergerfrac-nsmr}
       \todo[Add more descriptive text]
     }
   \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.49\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_spectro.png}
     \caption[\todo mergerfraction spectroscopic plot]{
       \label{fig:fit-v3-mergerfrac-euro}
       \todo[Add more descriptive text]
     }
-  \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
-    \centering
+  %% \end{minipage}
+  %% \begin{minipage}[h][][t]{0.49\textwidth}
+  %%   \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_rates.png}
     \caption[\todo nbnsm rates plot]{
         \label{fig:fit-v3-number-nsmr}
         \todo[Add more descriptive text]
       }
   \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
+\end{figure}
+\begin{figure}
+  \begin{minipage}[t][][t]{0.49\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_spectro.png}
     \caption[\todo nbnsm spectro plot ]{
       \label{fig:fit-v3-number-euro}
       \todo[Add more descriptive text]
     }
-  \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
-    \centering
+  %% \end{minipage}
+  %% \begin{minipage}[h][][t]{0.49\textwidth}
+  %%   \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_rates.png}
     \caption[\todo 'combo' rate plot ]{
       \label{fig:fit-v3-combo-nsmr}
       \todo[Add more descriptive text]
     }
   \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.49\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_spectro.png}
     \caption[\todo combo'spectro' plot]{
       \label{fig:fit-v3-combo-euro}
       \todo[Add more descriptive text]
     }
-  \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
-    \centering
+  %% \end{minipage}
+  %% \begin{minipage}[h][][t]{0.49\textwidth}
+  %%   \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_rates.png}
     \caption[\todo final rate plot]{
       \label{fig:fit-v3-nsmr}
       \todo[Add more descriptive text]
     }
   \end{minipage}
+  \centering
   \begin{minipage}[h][][t]{0.49\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_spectro.png}
@@ -358,9 +364,6 @@ Only binary neutron star mergers are considered, because this is the same site a
 \end{table}
 \FloatBarrier
 
-\comment{iffalse here}
-\iffalse
-
 \subsection{Size of timesteps}
 %??
 In the fitting process the timestep was chosen somewhat arbitrarily in order to give the best result in a realistic amount of time for working purposes. The size of the timesteps are important for accuracy of the result of a numerical calculation, longer and fewer timesteps give unaccurate results, but too short and too many timesteps take much memory and comupting time. numerical presicion and floating point arithmetic can also come into play at the shorter timestep simulations.
@@ -378,35 +381,43 @@ This is the reason for the sparse datapoints at higher resolutions.
 \begin{figure}
   \centering
   \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
-    \caption{\label{fig:fit-res-euro}}
+    \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
+    \caption[\todo]{
+      \label{fig:fit-res-euro}
+      \todo
+    }
   \end{subfigure}
   \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
-    \caption{\label{fig:fit-res-euro}}
-  \end{subfigure}
+    \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_oxy_logged.png}
+    \caption[\todo]{
+      \label{fig:fit-res-oxy}
+      \todo
+    }  \end{subfigure}
   \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=0.5\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
-    \caption{\label{fig:fit-res-euro}}
-  \end{subfigure}
+    \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_iron_logged.png}
+    \caption[\todo]{
+      \label{fig:fit-res-iron}
+      \todo
+    }  \end{subfigure}
 \end{figure}
 
 \FloatBarrier
 
 \subsection{Final parameters of \omegamodel}
+\todo[plots?]
+\todo[table?]
 \begin{table}[h]
   \centering
   \begin{tabular}{|c|c|c|}
     \hline \omegamodel-parameter & Description & Value \\
     \hline
   \end{tabular}
-  \caption[Parameters for betsfit \omegamodel-model to \eris-data]{\label{tab:bestfit-parameters}
+  \caption[Parameters for bestfit \omegamodel-model to \eris-data]{\label{tab:bestfit-parameters}
     \comment{TODO!}
     Parameters that produce best fit between \omegamodel and \eris-data.
   }
 \end{table}
     
-%table
 \FloatBarrier
 
 \section{Impact of stellar yields}
@@ -499,7 +510,7 @@ This suggests that the uncertainty of the stellar yield-tables affect the total 
 
 \section{Uncertainty from multiple parameter}
 %methods for main parameter-testing
-For varying different parameters simultaneously a similar method was used as in section \ref{sec:results-yields}, where a ``fudge-factor'' was applied to the \eris\ best fitted parameter-values. The ``fudge-factor'' is distributed gaussian around 1.0 and the factor is the multiplied to the parameter-value.
+For varying different parameters simultaneously a similar method was used as in section \comment{results yields \ref{sec:results-yields}?}, where a ``fudge-factor'' was applied to the \fiduccialomega\ parameter-values. The ``fudge-factor'' was randomly sampled from a gaussian distribtuion with mean 1.0 and standard deviation equal to the relative uncertainty $\sigma$, from table \comment{ref table rncp arnould uncertianty \ref{tab:arnould-rncp-uncertainty}?}.
 
 %% The parameter values chosen are the ones that deal with r-process production; fraction of neutron stars that merge (number of mergers), the ejecta mass from a single neutron star merger, the delay-time distribution of merging events.
 %% Also the relevant r-process isotopes \re{187}, \re{185}, \w{184}, \os{188}, and the relevant s-process isotopes \os{187}, \os{186}.
@@ -531,6 +542,8 @@ This method does not only probe the nuclear uncertianties, varying the yield-tab
 %variation of multiple parameters and montecarlo simulations
 There are many parameters that affect r-process production alone. Ejecta distribution and size from \nsm and type II supernovae, and the ratio of ejecta and frequency between the two. Even in relatively simple galactic chemical evolution models, these parameters can interact in unpredictable ways. In order to get a complete picture of errors and uncertainty in numerical models, a common approach has been Monte Carlo style simulation\comment{do I need a reference for this?}. Each parameter is randomly drawn from a distribution correspondin g to their ``determined'' uncertainty (usually the chosen distributions are gaussian), and after many repetitions of randomly drawing, the result can be viewed statistically in order to determine uncertainty behavior.
 This thesis will such an experiment with \comment{list parameters here} and see how the uncertainties of the r-process affect the uncertainty of the Re-Os dating method.
+
+\iffalse
 
 \section{fitting}
 \input{results_fitting}

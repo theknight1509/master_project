@@ -6,9 +6,9 @@
 \newcommand\expthree{\textbf{Yields+IMFslope+NSM}}
 There are three main experiments;
 \begin{description}
-\item[\expone] The yields of isotopes are varied within their standard deviation \comment{Add reference to arnould table}
-\item[\exptwo] Same as \expone, with the high mass slope of the initial mass function, $\alpha$, varied within the uncertainty found in \mycite{cote16a}, which is $\sigma_{\alpha}=8.73\%$ around the mean $\langle \alpha \rangle = 2.29$.
-\item[\expthree] Same as \exptwo, with a ten percent uncertainty in parameters related to neutron star mergers. These are the fraction of binary neutron stars that turn to neutron star mergers (scales the rate of neutron star mergers), the ejecta mass (scales the total mass ejected from a neutron star merger), and the slope of the delay-time distribution (distribution of time between neutron star formation and merger for a system that will merge).
+\item[\expone] \, The yields of isotopes are varied within their standard deviation \comment{Add reference to arnould table \ref{tab:arnould-rncp-uncertainty}?}
+\item[\exptwo] \, \mycite{cote16a} found that the slope of the initial mass function affects the uncertainty of the chemical evolution most greatly. This experiment varies the stellar yields and the high mass slope of the initial mass function. The stellar yields are given the same distribution as \expone, and the slope of the initial mass function, $\alpha$, is given the uncertainty distribution found in \mycite{cote16a}; which is $\sigma_{\alpha}=8.73\%$ around the mean $\langle \alpha \rangle = 2.29$.
+\item[\expthree] \, Same as \exptwo, with a ten percent uncertainty in parameters related to neutron star mergers. These are the fraction of binary neutron stars that turn to neutron star mergers (scales the rate of neutron star mergers), the ejecta mass (scales the total mass ejected from a neutron star merger), and the slope of the delay-time distribution (distribution of time between neutron star formation and merger for a system that will merge).
 \end{description}
 It should be noted that the 10\% uncertainty in \expthree is rather arbitrary.
 It is diffeicult to find realistic realizations of the probability distribution of the \textit{neutron star merger parameters} in \expthree, and the experiments is merely used to compare the effect of varying the astrophysical source.
@@ -23,7 +23,7 @@ The gas is assumed to have separated from the interstellar medium at the formati
 The formation of the solar system is estimated from meteorites to be $\simeq$ 4.5 Gyrs ago \mycite{bouvier10}.
 From the semianalytical model, \omegamodel, the total mass of \os{187} and \re{187} in the interstellar medium is calculated.
 The cosmic clock fraction between the two isotopes, $f_{187} = \frac{\os{187}}{\re{187}}$, is also calculated.
-The fraction between the isotopes is relevant because it can be determined from meteorites, unlike the total mass of isotopes in the \sos\ at the time of formation.
+The fraction between the nuclei is relevant because it can be determined from meteorites, unlike the total mass of isotopes in the \sos\ at the time of formation.
 In the \eris-simulation the galactic age is 14 Gyrs, which means the solar system formed at 9.5 Gyrs.
 The uncertainties of the mass of each isotope come from the uncertainty of the input parameters in each experiment, \expone, \exptwo, and \expthree.
 The cosmic clock fraction, $f_{187}$, is determined from observations to be \comment{insert value+deviation here}, see table \ref{tab:obs-cosmochronology} in appendix \ref{sec:calc-cosmo-chronology}.
@@ -46,32 +46,36 @@ The mass and ratio shown in figures \ref{fig:MCExperiment-nodecay} are only repr
 It is quite easy to see that the fraction in figure \ref{fig:MCExperiment-nodecay-div} is far below the observed value in table \ref{tab:obs-cosmo-chronology}.
 
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment wo/decay
-\begin{figure}
-  \centering
-  \begin{subfigure}{\subfigwidth}
+\begin{figure}[h]
+  \begin{subfigure}[t][][t]{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Re-187.png}
-    \caption{\label{fig:MCExperiment-nodecay-re187}
-      Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    \caption{\label{fig:MCExperiment-nodecay-re187} \footnotesize
+      Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel, as a function of time.
   }
-  \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t][][t]{\subfigwidth}
     \centering
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Os-187.png}
-    \caption{\label{fig:MCExperiment-nodecay-os187}
-      Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    \caption{\label{fig:MCExperiment-nodecay-os187} \footnotesize
+      Same as \ref{fig:MCExperiment-nodecay-re187}, but for \os{187}.
     }
-  \end{subfigure}
-  \begin{subfigure}{\figwidth}
+  \end{subfigure} \\
+  \centering
+  \begin{subfigure}[t][][t]{\figwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div.png}
-    \caption{\label{fig:MCExperiment-nodecay-div}
+    \caption{\label{fig:MCExperiment-nodecay-div} \footnotesize
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
   \end{subfigure}
   \caption[\expone\ before \betadecay]{\label{fig:MCExperiment-nodecay}
-    The mass and mass fractions in the interstellar medium \textit{before} \betadecay is applied. Only nucleosynthesis/production from stellar sources is considered.
+    The mass and mass fractions in the interstellar medium \textit{before} \betadecay is applied.
+    Only nucleosynthesis/production from stellar sources is considered.
 
-    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+    The left panel, in all three figures, show the evolution of the total mass in the interstellar medium.
+    The two right panels, in all three figures, show the distribution at 9.5 and 14 Gyr.
+    The black vertical lines in the evolution-panel shows where the distribution in the two right panels have been taken from.
   }
+
 \end{figure}
 \FloatBarrier %end of subsection
 
@@ -83,44 +87,44 @@ As outlined in the methods, a \betadecay\ calculation was applied to the data in
 The resulting figures show a clear increase in cosmic clock fraction, as well as a significant decrease in uncertainty.
 The decrease in uncertainty is discussed in chapter \ref{sec:conclusion}.
 
-\begin{figure}
-  \centering
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Re-187_decayed.png}
-    \caption{\label{fig:MCExperiment-decay-re187}
-      Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    }
-  \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Os-187_decayed.png}
-    \caption{\label{fig:MCExperiment-decay-os187}
-      Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-  }
-  \end{subfigure}
-  \begin{subfigure}{\figwidth}
-    \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div_decayed.png}
-    \caption{\label{fig:MCExperiment-decay-div}
-      Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    }
-  \end{subfigure}
-  \caption[\expone\ after \betadecay]{\label{fig:MCExperiment-decay}
-    The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
+%% \begin{figure}
+%%   \centering
+%%   \begin{subfigure}{\subfigwidth}
+%%     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Re-187_decayed.png}
+%%     \caption{\label{fig:MCExperiment-decay-re187}
+%%       Total mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+%%     }
+%%   \end{subfigure}
+%%   \begin{subfigure}{\subfigwidth}
+%%     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_Os-187_decayed.png}
+%%     \caption{\label{fig:MCExperiment-decay-os187}
+%%       Total mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+%%   }
+%%   \end{subfigure}
+%%   \begin{subfigure}{\figwidth}
+%%     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2/combined_plot_div_decayed.png}
+%%     \caption{\label{fig:MCExperiment-decay-div}
+%%       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+%%     }
+%%   \end{subfigure}
+%%   \caption[\expone\ after \betadecay]{\label{fig:MCExperiment-decay}
+%%     The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
 
-    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
-  }
-\end{figure}
-\FloatBarrier %end of subsection
+%%     The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+%%   }
+%% \end{figure}
+%% \FloatBarrier %end of subsection
 
-\section{Removing negative isotope yields}
-\label{sec:results-delmax}
-Do to the gaussian distribution of input parameters and relatively large sample size (1500 model calculations) some isotope yields will be negative.
+%% \section{Removing negative isotope yields}
+%% \label{sec:results-delmax}
+Due to the gaussian distribution of the input parameters and relatively large sample size (1500 model calculations) some isotope yields will be negative.
 This is unphysical, and all negative yields will be set to zero in the calculation.
 Forcing the stellar yield is the closest physical interpretation of a negative yield-value.
 
-This effect leads to an overabundance of zero-yields which makes the distribution of input parameters un-gaussian.
-Overabundances in parameter distributions of this scale leads to outliers in the results. Such outliers also greatly affect the standard deviation of the resulting distribution, see figure \ref{fig:MCExperiment-decay-div} for an example.
+This effect leads to an overpopulation of ``randomly sampled fudge-factors'' being zero, and the non-gaussian shape of the distribution causes outliers in the distribution.
+Such outliers also greatly affect the standard deviation of the resulting distribution.
 One possible solution to this is to take a gaussian distribution set it to zero below parameter-value zero and scale it to the integral (as is the norm for statistical distributions).
-Applying this form of distribution numerically is beyond the capabilities of the writer. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored.
+Applying this form of distribution numerically is beyond the scope of this project. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored.
 
 The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, and the values for the distribution extracts (both with and without the effect of \betadecay) are shown in table \ref{tab:results-delmax}.
 
@@ -152,27 +156,26 @@ The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, 
   \centering
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_Re-187_decayed.png}
-    \caption{ \label{fig:MCExperiment-delmax-re187}
+    \caption{ \label{fig:MCExperiment-delmax-re187} \footnotesize
       Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
   \end{subfigure}
+  \hfill
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_Os-187_decayed.png}
-    \caption{ \label{fig:MCExperiment-delmax-os187}
+    \caption{ \label{fig:MCExperiment-delmax-os187} \footnotesize
       Mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
-  \end{subfigure}
+  \end{subfigure} \\
+  \centering
   \begin{subfigure}{\figwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/combined_plot_div_decayed_meteordata.png}
-    \caption{ \label{fig:MCExperiment-delmax-div}
+    \caption{ \label{fig:MCExperiment-delmax-div} \footnotesize
       Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
     }
   \end{subfigure}
   \caption[\expone\ with \betadecay and removing negative isotope yields]{ \label{fig:MCExperiment-delmax}
-    Same as figure \ref{fig:MCExperiment-decay} with datafiles corresponding to negative yields not considered in the distribution.
-    
-    The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time (a distribution extract).
-    The distribution extracts are taken at 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot. \\
+    The plots are similar to figures \ref{fig:MCExperiment-nodecay}, however \betadecay has been applied and only data with positive, non-zero isotope-yields, are considered.
     The values for the mean and standard deviation (green line) in the distribution extracts can be found in table \ref{tab:results-delmax}.
     The green band represent meteordata calculated in appendix \ref{sec:calc-cosmo-chronology}.
   }
@@ -182,26 +185,28 @@ The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, 
 \section{Rate of nucleosynthetic events}
 In \omegamodel, the nuclides in question are synthesized in stars and ejected into the interstellar medium through a limited list of events.
 Asymptotic giant branch stars, massive stars that turn into type 2 supernvoae, type 1a supernovae, and binary neutron star mergers.
-The merger of a black hole and a neutron star is not considered as it was not considered in the r-process postproduction of \eris\ (\mycite{shen15}).
-In this seciton, the rate and cumulative number of these events are shown, see figures \ref{fig:MCExperiment-delmax-rate}.
+%The merger of a black hole and a neutron star is not considered as it was not considered in the r-process postproduction of \eris\ (\mycite{shen15}).
+In this section, the rate and cumulative number of neutron star mergers, type 2, and type 1a supernovae are shown, see figures \ref{fig:MCExperiment-delmax-rate}.
 The data was taken from \expone\ experiment, meaning that there is no uncertainty applied to the number and rate of events.
-Extracts from the rates and cumulative numbers at the time of \sos\ formation and current time are shown in table \ref{tab:nucleosynthetic-events}
+Right panels show the distribution at 9.5 Gyr and 14 Gyr, and the values at these times are shown in table \ref{tab:nucleosynthetic-events}
+
+\comment{Compare cumulative NSMs to Korokbin(?), where rate-bands are given}
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|c|c|c|}
     \multicolumn{3}{c}{Binary neutron star mergers} \\ \hline
-    time & rate & $\Sigma N$ \\ \hline 
-    $14 Gyr$ & $0.201 Myr^{-1}$ & $114 \times 10^3$ \\ \hline 
-    $9.49 Gyr$ & $3.75 Myr^{-1}$ & $101 \times 10^3$ \\ \hline
+    time $\mathrm{Gyr}$ & rate $\mathrm{Myr^{-1}}$ & $\Sigma N$ \\ \hline 
+    $14$ & $0.201$ & $114 \times 10^3$ \\ \hline 
+    $9.49$ & $3.75$ & $101 \times 10^3$ \\ \hline
     \multicolumn{3}{c}{} \\
     \multicolumn{3}{c}{Type 1a supernovae} \\ \hline
-    time & rate & $\Sigma N$ \\ \hline 
+    time $\mathrm{Gyr}$ & rate $\mathrm{Myr^{-1}}$ & $\Sigma N$ \\ \hline 
     $14 Gyr$ & $1.1 \times 10^{-44} Myr^{-1} \simeq 0 Myr^{-1}$ & $29.6 \times 10^{6}$ \\ \hline 
     $9.49 Gyr$ & $821 Myr^{-1}$ & $27.2 \times 10^{6}$ \\ \hline
     \multicolumn{3}{c}{} \\
     \multicolumn{3}{c}{type 2 supernovae} \\ \hline
-    time & rate & $\Sigma N$ \\ \hline 
+    time $\mathrm{Gyr}$ & rate $\mathrm{Myr^{-1}}$ & $\Sigma N$ \\ \hline 
     $14 Gyr$ & $0 Myr^{-1}$ & $258 \times 10^{6}$ \\ \hline 
     $9.49 Gyr$ & $8.67 \times 10^{3} Myr^{-1}$ & $233 \times 10^{6}$ \\ \hline
   \end{tabular}
@@ -216,24 +221,24 @@ Extracts from the rates and cumulative numbers at the time of \sos\ formation an
   \centering
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/sn1a.png}
-    \caption{ \label{fig:MCExperiment-delmax-sn1a}
+    \caption{ \label{fig:MCExperiment-delmax-sn1a} \footnotesize
       Type 1a supernovae.
     }
   \end{subfigure}
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/sn2.png}
-    \caption{ \label{fig:MCExperiment-delmax-sn2}
+    \caption{ \label{fig:MCExperiment-delmax-sn2} \footnotesize
       Type 2 supernovae.
     }
   \end{subfigure}
   \begin{subfigure}{\figwidth}
     \includegraphics[width=\linewidth]{results/MCExperiment_revised_2_delmax/nsm.png}
-    \caption{ \label{fig:MCExperiment-delmax-nsm}
+    \caption{ \label{fig:MCExperiment-delmax-nsm} \footnotesize
       Binary neutron star mergers.
     }
   \end{subfigure}
   \caption[Rate of nucleosynthetic events]{ \label{fig:MCExperiment-delmax-rate}
-    All plots show rate of nucleosynthetic events (blue), and cumulative sum of events (red)
+    All plots show the rate of nucleosynthetic events (blue), and cumulative sum of events (red)
     after \betadecay applied and negative isotope yields have been removed.
     The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-delmax-sn1a}) and type 2 (\ref{fig:MCExperiment-delmax-sn2})
     supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-delmax-nsm}).
@@ -242,16 +247,19 @@ Extracts from the rates and cumulative numbers at the time of \sos\ formation an
 \end{figure}
 \FloatBarrier %end of subsection
 
-\section{Comparing models}
+\section{Comparing models for \os{187}/\re{187}}
 With a numerical model for \os{187}/\re{187}, the data can be compared to other, analytical models.
-All analytical models presented here are based on Claytons model for cosmochemical evolution of \os{187}/\re{187},
+All the analytical models presented here are variations of the \mycite{clayton64} model for cosmochemical evolution of \os{187}/\re{187},
 which assumes that the rate of events declines exponentially in time.
-As can be seen in appendix \ref{sec:calc-cosmo-chronology} the actual number of events and the amount of \re{187} ejected from each is insignificant when calculating the fraction \os{187}$_c$/\re{187}. \os{187}$_c$ is the component of \os{187} from cosmoradiogenic decay from \re{187}.
+As can be seen in appendix \ref{sec:calc-cosmo-chronology} the actual number of events and the amount of \re{187} ejected from each is insignificant when calculating the fraction $\os{187}_c$/\re{187}. $\os{187}_c$ is the component of \os{187} from cosmoradiogenic decay from \re{187}.
 
-The calculations in appendix \ref{sec:calc-cosmo-chronology} follow the analytical model of cosmochronology from \mycite{luck80}.
-Like \mycite{luck80}, \mycite{shizuma05} also follows the analytical steps of \mycite{clayton64}.
+The calculations in appendix \ref{sec:calc-cosmo-chronology} follow the analytical model of cosmochronology from \mycite{luck80} and \mycite{shizuma}, which again follow the analytical steps from \mycite{clayton64}.
 A summary of models, parameters and references can be found in table \ref{tab:analytical-osre-models}.
-\comment{\\ Possible error in figure, not uncertainty bands on shizuma and clayton suden models \\}
+
+From figure \ref{fig:osre-model-fitting} we see that the shape of the analytical models matchg the data from \omegamodel\ reasonably well.
+However, due to simplifications, the analytical models end up with deviating estimates of parameter values.
+The analytical models of \mycite{clayton64} and \mycite{luck80} consider extreme paradigms for nucleosynthesis.
+\omegamodel, with a more realistic model of nucleosynthesis, end up in between the two extremes.
 
 \begin{figure}[h]
   \centering
@@ -273,7 +281,7 @@ A summary of models, parameters and references can be found in table \ref{tab:an
     \newcommand\taure{\tau_{\scriptscriptstyle Re}}
     \newcommand\lamre{\lambda_{\scriptscriptstyle Re}}
     \begin{tabular}{|c|c|c|c|c|}
-      \hline \small Model & \os{187}$_c$/\re{187} & $\lamre$ & $\lambda_{rncp}$ & Reference \\
+      \hline \small Model & $\os{187}_c$/\re{187} & $\lamre$ & $\lambda_{rncp}$ & Reference \\
       \hline \hline \small Clayton
       & $ \frac{\Lambda - \lambda}{\lambda} e^{\lambda t} \frac{1-e^{-\Lambda t}}{1-e^{-(\Lambda - \lambda) t}} - 1$
       & $\lambda = \frac{\ln 2}{\taure}$ & $\Lambda$ & \mycite{clayton64} \\
@@ -293,13 +301,13 @@ A summary of models, parameters and references can be found in table \ref{tab:an
       \hline \small Shizuma
       & $\frac{(1-e^{-\leff t}) - (1-e^{-\lambda t}) \leff / \lambda }{e^{-\leff t} - e^{-\lambda t}} $
       & $ \leff = \frac{ 1.2 \ln 2 }{\taure} = 2.00\times 10^{-11} [yr^{-1}]$ & $\lambda \in [0,2] Gyr^{-1}$ & \mycite{shizuma05} \\
-      \hline \tworow{SciPy curvefit}{to \omegamodel-data} & \ditto{3em}
+      \hline \tworow{SciPy curvefit}{to \fiduccialomega-data} & \ditto{3em}
       & \tworow{$1.33\times 10^{-11} $}{$\pm 2.767\times 10^{-14}$} $[yr^{-1}]$
       & \tworow{$5.42\times 10^{-10} $}{$\pm 5.79\times 10^{-12}$} $[yr^{-1}]$ & \\
       \hline 
     \end{tabular}
     %% SciPy-fitting to data: (lambda_eff, lambda_rncp) = [  1.33343923e-11   5.42456343e-10] +/- [  2.76664355e-14   5.79209853e-12]/[  2.76664315e-14   5.79209788e-12]
-    \caption[Analytical models for \os{187}$_c$/\re{187}]{ \label{tab:analytical-osre-models}
+    \caption[Analytical models for $\os{187}_c$/\re{187}]{ \label{tab:analytical-osre-models}
       Table with the analytical models in the literature, stemming from \mycite{clayton64}.
       Notation of parameters is attempted to be consistent with the articles they are taken from, not with eachother in the table.
       $\lambda_{\re{187}}$ is the decay constant of radioactive \re{187}.
@@ -312,6 +320,8 @@ A summary of models, parameters and references can be found in table \ref{tab:an
   \end{table}
 \end{landscape}
 \restoregeometry
+
+\comment{consider making plot of NSM-rate versus nucleosynthesis rate in SciPy}
 \FloatBarrier %end of subsection
 
 \section{Consider high mass slope of initial mass function}
@@ -321,10 +331,12 @@ High mass stars end their life as type 2 core collapse supernovae, with a signif
 It was found in \mycite{cote16a} that the slope of the initial mass function had the most significant impact on uncertainties in nucleosynthesis.
 
 In a different set of \omegamodel-calculation, \exptwo, the slope of the initial mass function is varied as well, as described in the introduction to this chapter.
-Figures \ref{fig:MCExperiment-imfslope} show the mass and massratio of \os{187} and \re{187}, the distribution at the formation of the oslar system and current time are imbedded as distribution extracts.
+Figures \ref{fig:MCExperiment-imfslope} show the mass and massratio of \os{187} and \re{187}, the distribution at the formation of the solar system and current time are imbedded as distribution extracts.
 The mean and standard deviation of the distribution extract can be found in table \ref{tab:results-imf}, with and without \betadecay applied to the data.
-From the distribution extracts in figures \ref{MCExperiment-imfslope} the distribution are clearly non-gaussian in nature, so the mean and standard deviation can be misleading.
-It would be more meaningful to divide the distributions in two and calcualte the mean and standard deviation for the two separate distributions individually (especially for $f_{187}$ in figure \ref{MCExperiment-imfslope-div}).
+From the distribution extracts in figures \ref{fig:MCExperiment-imfslope} the distribution are clearly non-gaussian in nature, so the mean and standard deviation can be misleading.
+The uncertainty of the slope of the initial mass function dominates over the uncertainty of the stellar yields, as can be seen from the additional term in the uncertainty distribution of figure \ref{fig:MCExperiment-imfslope-div}.
+The degeneracy between parameters are not taken into account in the analysis of the yields and slope.
+It would be more meaningful to divide the distributions in two and calculate the mean and standard deviation for the two separate distributions individually (especially for $f_{187}$ in figure \ref{fig:MCExperiment-imfslope-div}).
 
 \begin{table}[h]
   \begin{tabular}{|c|c|cc|}

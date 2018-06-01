@@ -2,9 +2,9 @@
 \renewcommand{\d}[1]{\frac{\textrm{d}#1}{\textrm{dt}}}
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 
-Following the analytical approach of \mycite{luck80} and \mycite{shizuma05}, which follows the approach of \mycite{clayton64} to the chemical evolution of the \re{187}-\os{187}-system. \\
+Following the analytical approach of \mycite{luck80} and \mycite{shizuma05}, which again follows the approach of \mycite{clayton64} who estimate the chemical evolution of the \re{187}-\os{187}-system. \\
 The solar values and evolution of \re{187}, \os{187}, \os{187} come, predominantly from three main sources;
-s-process contribution of \os{186} and \os{187}, r-process contribution of \re{187},
+s-process contribution to \os{186} and \os{187}, r-process contribution to \re{187},
 and \betadecay from \re{187} to \os{187}.
 A simple exponential form is adopted for the r-process contribution to \re{187}.
 
@@ -25,12 +25,12 @@ A simple exponential form is adopted for the r-process contribution to \re{187}.
   \textrm{Particular solution:}
   & \hspace{3em} \dot{\re{187}}_p = A_1 e^{-\tau^{-1}t} \\
   \re{187} = \re{187}_h + \re{187}_p &= Re(0) e^{-\lambda_\beta t} + A_1 e^{-\tau^{-1}t} \\
-  \textrm{Initial condition of \re{187}:}
+  \textrm{Initial conditions for \re{187}:}
   & \hspace{3em} \re{187}(t=0) = 0 = Re(0) + A_1 \\
   & \hspace{3em} Re(0) = - A_1 \\
   \re{187} &= A_1 (e^{-\tau^{-1}t} - e^{-\lambda_\beta t}) \\
 \end{align*}
-Where $A_0$ and $A_1$ are scaling factors for the proposed form of r-process contribution, and $tau^{-1}$ is the
+Where $A_0$ and $A_1$ are scaling factors for the proposed form of r-process contribution, and $\tau^{-1}$ is the
 ``decay constant'' of the proposed form of r-process contribution.
 $\lambda_\beta=\frac{\ln 2}{T_{1/2}}$ is the decay constant of radioactive \re{187}, and $T_{1/2}$ is the half-life of radioactive \re{187}.
 
@@ -43,7 +43,6 @@ $\lambda_\beta=\frac{\ln 2}{T_{1/2}}$ is the decay constant of radioactive \re{1
 \end{align*}
 Where the constants are the same as \re{187}.
 
-\importantcomment{Rename $\frac{\os{187}}{\re{187}}$ to $f_{187}$}
 \newcommand\fraction{\frac{\os{187}}{\re{187}}}
 \newcommand\fracfsos{f_{187}(t_{sos})}
 \newcommand\fracnow{f_{187}(t_{now})}
@@ -52,7 +51,7 @@ Where the constants are the same as \re{187}.
   \label{eq:luck-fractio}
   \frac{\os{187}^\beta(\Delta t)}{\re{187}(\Delta t)} \equiv f_{187} = \frac{\frac{\lambda_\beta}{\tau^{-1}} (1-e^{-\tau^{1}\Delta t}) - (1-e^{-\lambda_\beta \Delta t})}{e^{-\tau^{-1} \Delta t} - e^{-\lambda_\beta \Delta t}}
 \end{equation}
-Where $\Delta t$ is the time between the formation of the galaxy and the formation of the \sos. This is, according to the model, all the time available to produce r-process isotopes outside of the \sos before collapse.
+Where $\Delta t$ is the time between the formation of the galaxy and the formation of the \sos. This is, according to the model, all the time available to produce r-process isotopes outside of the \sos\ before collapse.
 
 Adopting meteoritic abundances for the solar values at the formation of the solar system from \mycite{shizuma05} (which adopts the values from \mycite{faestermann98}), and assuming the uncertainties of \re{187} and \os{187} are uncorrelated:
 \begin{equation}
@@ -65,16 +64,16 @@ Adopting meteoritic abundances for the solar values at the formation of the sola
   \end{array}
 \end{equation}
 
-Since \os{187} and \re{187} is separated from the galaxy after the time of formation of the \sos,
+Since \os{187} and \re{187} are separated from the galaxy after the time of formation of the \sos,
 the fraction \os{187}/\re{187} at that time can be caluclated from simple \betadecay of \re{187}.
 The time of solar system formation is denoted $t_{f,sos}$, and the current time is denoted $t_0$.
-Note that the normalization and integration constants used from here on are not related to the constants used previously.
+Note that normalization constants need to be re-calculated when solving the equations for \betadecay.
 
 \begin{align*}
   \re{187}(t) &= A e^{-\lambda_\beta (t-t_{f,sos})} \\
   \d{\os{187}} &= -\d{\re{187}} = \lambda_\beta A e^{-\lambda_\beta (t-t_{f,sos})} \\
   \os{187} &= - A e^{-\lambda_\beta (t-t_{f,sos})} + C \\
-  \textrm{\footnotesize normalization and integration constants:} &
+  \textrm{normalization and integration constants:} &
   \hspace{3em}
   \begin{array}{rl}
     C &= \os{187}(t=t_{f,sos}) \\
@@ -86,14 +85,14 @@ Note that the normalization and integration constants used from here on are not 
   & \Rightarrow \frac{C}{A} = \left[ f_{187}(t_0) + 1\right]e^{-\lambda_\beta (t_0-t_{f,sos})} \\
   f_{187}(t_{f,sos}) &= \frac{C}{A}e^{\lambda_\beta (t_0-t_{f,sos})} - 1
 \end{align*}
-This leads to an equation for calculating the Os-Re-fraction, $f_{187}(t_{f,sos})$, at the formation of the \sos from physical parameters.
+This leads to an equation for calculating the Os-Re-fraction, $f_{187}(t_{f,sos})$, at the formation of the \sos\ from physical parameters.
 The physical parameters are; the current Os-Re-fraction, $f_{187}(t_{0})$, the decay-rate of \re{187}, $\lambda_\beta$, and the age of the solar system, $t_0-t_{f,sos}$.
 \begin{equation}
   \label{eq:frac-fsos}
   f_{187}(t_{f,sos}) = \left[ f_{187}(t_0) + 1\right]e^{-\lambda_\beta (t_0-t_{f,sos})} - 1
 \end{equation}
 
-\underline{Estimates of the physical parameter:}
+\underline{Estimates of the physical parameters:}
 \begin{equation}
   \label{eq:parameter-sources}
   \begin{array}{rl}
@@ -150,7 +149,7 @@ The physical parameters are; the current Os-Re-fraction, $f_{187}(t_{0})$, the d
     \end{array}
     \right]
   \intertext{
-    Inserting values for ($\Delta t$, $T_{1/2}$, $\fracnow$) with uncertainties from eq.\ref{eq:parameter-sources}
+    Inserting values for ($\Delta t$, $T_{1/2}$, $\fracnow$) with uncertainties from eq.\ref{eq:parameter-sources} (note that the maximum uncertainty of the age of the \sos\ will be used).
     \newline\noindent
     $ \Delta t = 4.5682 Gyr \quad \delta \Delta t = 0.4 \times 10^{-3} Gyr$ \newline\noindent
     $T_{1/2} = 41.577 Gyr \quad \delta T_{1/2} = 0.12 Gyr $ \newline\noindent
@@ -159,8 +158,6 @@ The physical parameters are; the current Os-Re-fraction, $f_{187}(t_{0})$, the d
   &= 0.0564 \\
   \delta \fracfsos &= \sqrt{0.0564} \fracfsos = 0.0323
 \end{align*}
-
-\noindent\comment{Redo for upper \textit{and} lower uncertainty of $T_{1/2}$}
 
 \begin{table}
   \begin{tabular}{|c|c|c|}

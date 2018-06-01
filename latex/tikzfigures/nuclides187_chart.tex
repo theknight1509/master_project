@@ -19,7 +19,7 @@
 \newlength{\distancenuclides}
 \newlength{\offset}
 \setlength{\halfwidthnuclides}{5mm}
-\setlength{\distancenuclides}{4\halfwidthnuclides}
+\setlength{\distancenuclides}{3\halfwidthnuclides}
 \setlength{\offset}{0.5\halfwidthnuclides}
 
 \usetikzlibrary{patterns}
@@ -85,17 +85,17 @@
   \drawsquare{2\distancenuclides}{-2\distancenuclides}{\halfwidthnuclides};
 
   %shaded region of stability
-  \fillrectangle{-3\distancenuclides}{-2\distancenuclides}{2\halfwidthnuclides}; %Ta-181
-  \fillrectangle{-3\distancenuclides}{-\distancenuclides}{2\halfwidthnuclides}; %W-182
-  \fillrectangle{-2\distancenuclides}{-\distancenuclides}{2\halfwidthnuclides}; %W-183
-  \fillrectangle{-\distancenuclides}{-\distancenuclides}{2\halfwidthnuclides}; %W-184
-  \fillrectangle{-\distancenuclides}{0}{2\halfwidthnuclides}; %Re-185
-  \fillrectangle{-\distancenuclides}{\distancenuclides}{2\halfwidthnuclides}; %Os-186
-  \fillrectangle{0}{\distancenuclides}{2\halfwidthnuclides}; %Os-187
-  \fillrectangle{\distancenuclides}{\distancenuclides}{2\halfwidthnuclides}; %Os-188
-  \fillrectangle{2\distancenuclides}{\distancenuclides}{2\halfwidthnuclides}; %Os-189
-  %\fillrectangle{\distancenuclides}{0}{2\halfwidthnuclides}; %Re-187
-  %\fillrectangle{\distancenuclides}{-\distancenuclides}{2\halfwidthnuclides}; %W-186
+  \fillrectangle{-3\distancenuclides}{-2\distancenuclides}{0.5\distancenuclides}; %Ta-181
+  \fillrectangle{-3\distancenuclides}{-\distancenuclides}{0.5\distancenuclides}; %W-182
+  \fillrectangle{-2\distancenuclides}{-\distancenuclides}{0.5\distancenuclides}; %W-183
+  \fillrectangle{-\distancenuclides}{-\distancenuclides}{0.5\distancenuclides}; %W-184
+  \fillrectangle{-\distancenuclides}{0}{0.5\distancenuclides}; %Re-185
+  \fillrectangle{-\distancenuclides}{\distancenuclides}{0.5\distancenuclides}; %Os-186
+  \fillrectangle{0}{\distancenuclides}{0.5\distancenuclides}; %Os-187
+  \fillrectangle{\distancenuclides}{\distancenuclides}{0.5\distancenuclides}; %Os-188
+  \fillrectangle{2\distancenuclides}{\distancenuclides}{0.5\distancenuclides}; %Os-189
+  %\fillrectangle{\distancenuclides}{0}{0.5\distancenuclides}; %Re-187
+  %\fillrectangle{\distancenuclides}{-\distancenuclides}{0.5\distancenuclides}; %W-186
 
   %draw s-process path
   \draw [ultra thick, ->, blue] (-2\distancenuclides-\offset,-3\distancenuclides-\offset)

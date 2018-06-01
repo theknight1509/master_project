@@ -5,10 +5,6 @@ OMEGA stands for 'One-zone Model of the Evolution of Galaxies' and evolves the i
 The model is a one-zone model, which means that the entire galaxy is simplified to a single point.
 A zero-space-dimensional galaxy model seems unrealistic, but it can be imagined as the mean value for a three-space-dimensional galaxy model.
 
-\begin{figure}
-  \input{../tikzfigures/galaxy_iobox_model}
-\end{figure}
-
 In this work the \omegamodel\ code will be modified with a wrapper in order to explore various parameters related to nucleosynthesis.
 
 \subsection{Process}
@@ -17,9 +13,8 @@ The \omegamodel\ model emulates the chemical evolution of a galaxy starting from
 The star formation rate is calculated either by using a constant star formation rate, the Kennicut-Schmidt law\mycitetwo{fuchs09}{and refernces therein}, or by using an input star formation rate and interpolate over those values.
 
 The stellar populations represent a cluster of stars, with a total mass, initial mass distribution, and initial metallicity distribution.
-The initial mass distributions are given as one of the standard distributions, Salpeter, Kroupa, Chabrier, or a power-law, all between some minimum and maximum mass limit (see figure \ref{fig:imf}.
+The initial mass distributions are given as one of the standard distributions, Salpeter, Kroupa, Chabrier, or a power-law, all between some minimum and maximum mass limit (see figure \ref{fig:various-imf}.
 The initial metallicity distribution is the relative mass distribution of isotopes heavier than \isotope{Li}{3}{7}, and the metallicity is the mass fraction of all isotopes heavier than \isotope{Li}{3}{7} combined.
-\input{img/various_initial_mass_functions}
 
 Stellar evolution codes calculate the amount of ejected material, for each isotope, for a star with a given initial metallicity and initial mass. These codes are used to create \textbf{yield tables} for certain kind of stars with different initial mass and metallicity.
 
@@ -34,12 +29,14 @@ This composition is called the primordial composition (three parts hydrogen, one
 Flow of material can determine the chemical evolution of a galaxy. Enriched material can be ejected from the galaxy by supernova feedback, active galactic nucleus, stellar kick or similar, and non-enriched material can flow into the galaxy.
 To describe the chemical evolution of a one-zone model one needs to know the total content of the galaxy (or box) and the distribution. In other words, how much of the total mass is stored as each isotope. Material with the same composition as the box is ejected from the box, and material with another composition falls into the box.
 
-\comment{More on outflow/inflow}
-
-\comment{Insert simple figure here}
+\begin{figure}[h]
+  \input{../tikzfigures/galaxy_iobox_model}
+\end{figure}
+\FloatBarrier
 
 \subsection{Uncertainty of parameters}
-\comment{uncertainty of parameters and summary of article (cote16a)}
+\nopagebreak
+\input{img/uncertainty_diagram_cote16a_fig1}
 
 Galaxies consist of many different, widely varying, scales for both spatial and temporal resolution.
 The galaxies themselves span hydrodynamical evolution on many kpcs and Gyrs, while their stars and supernovae span scales closer to seconds and meters.
@@ -47,8 +44,6 @@ The nuclear processes within stars span nanometer and millisecond timescales, ev
 Neither analytical/numerical models nor simulations cannot cover all these scales at once, that is when subgrid methods are used. Stellar evolution simulations predict the fate and output from the life of a single star based on sinple input parameters and assumptions of the physical processes that governs the evolution. These solutions are then simplified and applied to more complex galaxy simulations.
 Output ejecta from stars are ``looked up in a table'' and applied to the nearby interstellar medium.
 All these methods and linked applications introduce some uncertainties and assumptions, both physical and numerical, and these uncertainties are inherited through all methods based on applications of these models. In order to probe how the uncertainties of selected parameters manifest through the resulting galaxy evolution, \mycite{cote16a} presents a simple one-zone, closed-box model of galaxy evolution, called \omegamodel.
-
-\input{img/uncertainty_diagram_cote16a_fig1}
 
 \sygma creates the simplified stellar populations (mass function, total mass, lifetime distribution, initial metallicity).
 \omegamodel\ combines several stellar populations to emulate a galaxy evolution.
@@ -104,8 +99,17 @@ The main conclusions are summarized as follows:
 }
 \end{enumerate}
 
-\input{img/spectroscopic_uncertainties_cote16a_fig6}
-\input{img/age_uncertainties_cote16a_fig11}
+\begin{figure}[h]
+  \begin{minipage}[t][][t]{0.45\textwidth}
+    \setlength\figwidth{\linewidth}
+    \input{img/spectroscopic_uncertainties_cote16a_fig6}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t][][t]{0.45\textwidth}
+    \setlength\figwidth{\linewidth}
+    \input{img/age_uncertainties_cote16a_fig11}
+  \end{minipage}
+\end{figure}
 
 \FloatBarrier
 
@@ -125,12 +129,11 @@ This section will describe the most relevant ones in order of appearance in the 
   \item[milky\_way] Set present dark matter mass to $10^{12} \msol$ and present stellar mass to $5\times10^{10} \msol$, and use the star formation rate from \mycite{sfrcmr01}
   \end{description}
 \item[in\_out\_control] Boolean switch to turn on or off inflow and outflow.
-\item[outflow\_rate] \comment{remove this?} Constant outflow rate in $\frac{\msol}{yr}$. Enriched gas from the interstellar medium is removed from the galaxy.
-\item[inflow\_rate] Constant inflow rate in $\frac{\msol}{yr}$. Gas with primordial composition \comment{(reference to BBN?)} flows into the galaxy.
+\item[inflow\_rate] Constant inflow rate in $\frac{\msol}{yr}$. Gas with primordial composition (see section \ref{sec:bbn}) flows into the galaxy.
 \item[mass\_loading] Fraction of solar masses ejected per solar mass created as star. A different way of calculating outflow based on star formation rate.
-\item[imf\_type] Which form to use for the initial mass function\comment{explain this somewhere}. 
+\item[imf\_type] Which form to use for the initial mass function (see figure \ref{fig:various-imf}. 
 \item[alphaimf] Slope of lognormal initial mass function. 
-\item[sn1a\_rate] This string option chooses which distribution to calculate the rate of type 1a supernovaefrom.
+\item[sn1a\_rate] This string option chooses which distribution to calculate the rate of type 1a supernovae from.
   Options are powerlaw, gaussian, and exponential distribution.
   \begin{description}
   \item[beta\_pow] Set the power of the power law distribution if 'sn1a\_rate' is "power\_law" 
@@ -148,7 +151,7 @@ This section will describe the most relevant ones in order of appearance in the 
 \item[t\_nsm\_coal] Set the time after which all neutron stars collide/merge
 \item[table] path to yield table for AGB and massive stars.
 \item[sn1a\_on] Boolean switch that turn on or off the use of type 1a supernovae.
-\item[nsm\_dtd\_power] Set the powerlaw distribution of the neutron star merger delay-time distribution \comment{explain this somewhere}.
+\item[nsm\_dtd\_power] Set the powerlaw distribution of the neutron star merger delay-time distribution.
 \item[sn1a\_table] Yield table for type 1a supernovae
 \item[ns\_merger\_on] Boolean switch to turn on or off binary neutron star mergers
 \item[f\_merger] Fraction of binary systems that eventually merge. All systems are considered binary. This is instead of 'nb\_nsm\_per\_m'

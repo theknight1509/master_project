@@ -4,7 +4,7 @@ Postprocessing of all the datafiles must be done in order to account for the \be
 This is done, for each timestep, by calculating the amount of decayed material from parent nucleus to daughter nucleus. The amount of decayed material is calculated from the timestep length and half-life of the radioactive parent nucleus, and applied to the current and all following timesteps for parent and daughter nuclei.
 \comment{Add reference to section of \betadecay calculations}
 The new data is then saved to file in the same format.
-The function for applying the decay to parent nucleus and daughter nucleus (\re{187} and \os{187}, respectively, in our case) is found in listings \ref{mod-betadecay}.
+The function for applying the decay to parent nucleus and daughter nucleus (\re{187} and \os{187}, respectively, in our case) is found in listings \ref{lst:mod-betadecay}.
 
 \begin{lstlisting}[style=custompython, caption={\label{lst:mod-betadecay}Snippet of code implementing \betadecay in postprocessing on data calculated by \omegamodel.}]
 def apply_decay(self, time_array, parent_array, daughter_array, halflife):

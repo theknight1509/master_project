@@ -26,7 +26,7 @@ The cosmic clock fraction between the two isotopes, $f_{187} = \frac{\os{187}}{\
 The fraction between the nuclei is relevant because it can be determined from meteorites, unlike the total mass of isotopes in the \sos\ at the time of formation.
 In the \eris-simulation the galactic age is 14 Gyrs, which means the solar system formed at 9.5 Gyrs.
 The uncertainties of the mass of each isotope come from the uncertainty of the input parameters in each experiment, \expone, \exptwo, and \expthree.
-The cosmic clock fraction, $f_{187}$, is determined from observations to be \comment{insert value+deviation here}, see table \ref{tab:obs-cosmochronology} in appendix \ref{sec:calc-cosmo-chronology}.
+The cosmic clock fraction, $f_{187}$, is determined from observations to be \comment{insert value+deviation here}, see table \ref{tab:obs-cosmo-chronology} in appendix \ref{sec:calc-cosmo-chronology}.
 
 %explain results/plots for each experiment
 
@@ -252,7 +252,7 @@ This means that local variations challenges the assumption of r-process abundanc
     after \betadecay applied and negative isotope yields have been removed.
     The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-delmax-sn1a}) and type 2 (\ref{fig:MCExperiment-delmax-sn2})
     supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-delmax-nsm}).
-    The rate of each event follows the star formation rate (see figure \ref{fig:sfr}) with a scale factor and delay time distribution.
+    The rate of each event follows the star formation rate (see figure \ref{img:fit-v0-sfr}) with a scale factor and delay time distribution.
   } 
 \end{figure}
 \FloatBarrier %end of subsection
@@ -263,7 +263,7 @@ All the analytical models presented here are variations of the \mycite{clayton64
 which assumes that the rate of events declines exponentially in time.
 As can be seen in appendix \ref{sec:calc-cosmo-chronology} the actual number of events and the amount of \re{187} ejected from each is insignificant when calculating the fraction $\os{187}_c$/\re{187}. $\os{187}_c$ is the component of \os{187} from cosmoradiogenic decay from \re{187}.
 
-The calculations in appendix \ref{sec:calc-cosmo-chronology} follow the analytical model of cosmochronology from \mycite{luck80} and \mycite{shizuma}, which again follow the analytical steps from \mycite{clayton64}.
+The calculations in appendix \ref{sec:calc-cosmo-chronology} follow the analytical model of cosmochronology from \mycite{luck80} and \mycite{shizuma05}, which again follow the analytical steps from \mycite{clayton64}.
 A summary of models, parameters and references can be found in table \ref{tab:analytical-osre-models}.
 
 From figure \ref{fig:osre-model-fitting} we see that the shape of the analytical models matchg the data from \omegamodel\ reasonably well.
@@ -362,7 +362,7 @@ It would be more meaningful to divide the distributions in two and calculate the
   \end{tabular}
   \caption[Mass-table as \sos\ formation and now for \exptwo]{\label{tab:results-imf}
     Mean and standard deviation of mass and mass fraction in \omegamodel; experiment \exptwo.
-    Values represent the mean and standard deviations in the distribution extracts in figures \ref{MCExperiment-imf}.
+    Values represent the mean and standard deviations in the distribution extracts in figures \ref{fig:MCExperiment-imfslope}.
   }
 \end{table}
 
@@ -402,7 +402,7 @@ These parameters are number of events, mass ejected per event, and the delay-tim
 Due to the lack of observational constraints it is hard to find quantifiable uncertainties for these parameters.
 In order to estimate how the uncertainties of the neutron-star merger parameters affect the outcome a 10\% uncertianty is added to all parameters.
 
-Figures \ref{MCExperiment-numnsm} show the mass and mass-ratio of \os{817} and \re{187}, while figures \ref{MCExperiment-numnsm-rate} show the rate and cumulative numbers of nucleosynthetic events in the \expthree-experiment.
+Figures \ref{fig:MCExperiment-numnsm} show the mass and mass-ratio of \os{817} and \re{187}, while figures \ref{fig:MCExperiment-numnsm-rate} show the rate and cumulative numbers of nucleosynthetic events in the \expthree-experiment.
 
 \comment{Considering cut this section out, because the results look wrong and I don't know why. Uncertainty of rates vary by factors, while mass fraction is barely affected.}
 
@@ -458,7 +458,7 @@ Figures \ref{MCExperiment-numnsm} show the mass and mass-ratio of \os{817} and \
     after \betadecay applied and negative isotope yields have been removed.
     The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-numnsm-sn1a}) and type 2 (\ref{fig:MCExperiment-numnsm-sn2})
     supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-numnsm-nsm}).
-    The rate of each event follows the star formation rate (see figure \ref{fig:sfr}) with a scale factor and delay time distribution.
+    The rate of each event follows the star formation rate (see figure \ref{img:fit-v0-sfr}) with a scale factor and delay time distribution.
     The uncertainties come from a 10\% gaussian uncertainty in number of neutron star mergers, the delay-time distribution of neutron star mergers, and the uncertainty of the slope of the initial mass function.
   } 
 \end{figure}

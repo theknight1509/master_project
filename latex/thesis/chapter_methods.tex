@@ -33,8 +33,8 @@ Otherwise, the parameters of \omegamodel\ are examined, in order to best reprodu
 
 In this section \mwomega\ refers to the built-in options for a Milky Way-like model in \omegamodel, while \mwcomega\ is similar, but assumes a constant star formation rate. \fiduccialomega\ will be represent the parameter-space of \omegamodel that will reproduce data from \eris.
 
-\subsection{Insertion\comment{(rename!)}}
-\newcommand\insertion{insertion}
+\subsection{Direct insertion}
+\newcommand\insertion{ direct insertion}
 %method
 Galactic age, initial mass function, astrophysical effects and star formation are so essential to chemical evolution models that they will be taken from \eris\ and applied directly to \omegamodel.
 These values are listed in table \ref{tab:fitting-parameters-insertion}.
@@ -100,7 +100,7 @@ It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} t
 %method
 \input{texfiles/mass_table_guedes}
 
-A galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is only gas and stars inside the box and gas outside the box (see figure \ref{tikz:galaxy_iobox}).
+A galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is only gas and stars inside the box and gas outside the box (see figure \ref{tikz:galaxy-iobox}).
 The total baryonic mass inside \eris\ (at redshift z=0 and z=1) is taken from \mycite{guedes11e} and can be found in table \ref{tab:guedes11-baryonic-mass}.
 
 Supernova feedback will drive an outflow from the galaxy into the surrounding medium \comment{find appropriate reference}. Adding outflow proportional to the supernova rate adds some realisim to the model, and might reproduce some of the spectroscopic features.
@@ -115,7 +115,7 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
 
 %plots
 \begin{figure}[h]
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.4\textwidth}
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_1_plot_total_mass.png}
   \caption[Total mass of \fiduccialomega for initial/inflow mass-fitting]{\label{fig:fit-v1-1-total}
@@ -124,7 +124,8 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
     This visualization shows that 44G\msol and 3.7\msol/yr are the optimal parameters to reproduce the two baryonic data-points from \eris, although more then these four were tried.
   }
   \end{minipage}
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \hfill
+  \begin{minipage}[t][][t]{0.4\textwidth}
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_1_plot_stellar_mass.png}
   \caption[Stellar mass of \fiduccialomega for initial/inflow mass-fitting]{
@@ -136,7 +137,7 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
 
 %ad outflow plots
 \begin{figure}[h]
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.4\textwidth}
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_total_mass.png}
   \caption[Total mass of \fiduccialomega with outflow mass-fitting]{
@@ -146,7 +147,8 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
     The outflow adds a non-linear effect to the total mass.
   }
   \end{minipage}
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \hfill
+  \begin{minipage}[t][][t]{0.4\textwidth}
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_stellar_mass.png}
   \caption[Stellar mass of \fiduccialomega for with outflow mass-fitting]{
@@ -230,14 +232,15 @@ All were tried, but only the exponential distribution is shown in this section.
 
 %plots
 \begin{figure}[h]
-  \begin{minipage}[h][][t]{0.49\textwidth}
+  \begin{minipage}[h][][t]{0.4\textwidth}
     \centering
     %exp-sn1a [O/H]
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_oxy.png}
     %num-sn1a [O/H]
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_num2_oxy.png}
   \end{minipage}
-  \begin{minipage}[h][][t]{0.49\textwidth}
+  \hfill
+  \begin{minipage}[h][][t]{0.4\textwidth}
     \centering
     %exp-sn1a [Fe/H]
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_dtd3_iron.png}
@@ -263,7 +266,7 @@ All were tried, but only the exponential distribution is shown in this section.
 Only binary neutron star mergers are considered, because this is the same site as \mycite{shen15}
 %methods
 %plots
-\comment{figure commented out}
+%% \comment{figure commented out}
 %% \begin{figure}[h]
 %%   \centering
 %%   \includegraphics[scale=0.5]{results/plots_fitting/set_nsm_plot_dtd.png}
@@ -276,7 +279,7 @@ Only binary neutron star mergers are considered, because this is the same site a
 %% \end{figure}
 
 \begin{figure}[h]
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.4\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_ejmass.png}
     \caption[\todo NSM-ejectamass]{
@@ -295,7 +298,8 @@ Only binary neutron star mergers are considered, because this is the same site a
       \todo[Add more descriptive text]
     }
   \end{minipage}
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \hfill
+  \begin{minipage}[t][][t]{0.4\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_spectro.png}
     \caption[\todo mergerfraction spectroscopic plot]{
@@ -313,7 +317,7 @@ Only binary neutron star mergers are considered, because this is the same site a
   \end{minipage}
 \end{figure}
 \begin{figure}
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.4\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_spectro.png}
     \caption[\todo nbnsm spectro plot ]{
@@ -329,7 +333,8 @@ Only binary neutron star mergers are considered, because this is the same site a
       \todo[Add more descriptive text]
     }
   \end{minipage}
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \hfill
+  \begin{minipage}[t][][t]{0.4\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_spectro.png}
     \caption[\todo combo'spectro' plot]{
@@ -346,7 +351,7 @@ Only binary neutron star mergers are considered, because this is the same site a
     }
   \end{minipage}
   \centering
-  \begin{minipage}[h][][t]{0.49\textwidth}
+  \begin{minipage}[h][][t]{0.5\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_spectro.png}
     \caption[\todo final spectro plot]{
@@ -387,25 +392,29 @@ This is the reason for the sparse datapoints at higher resolutions.
       \todo
     }
   \end{subfigure}
+  \hfill
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_oxy_logged.png}
     \caption[\todo]{
       \label{fig:fit-res-oxy}
       \todo
-    }  \end{subfigure}
+    }
+  \end{subfigure}
+  \hfill
   \begin{subfigure}{\subfigwidth}
     \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_iron_logged.png}
     \caption[\todo]{
       \label{fig:fit-res-iron}
       \todo
-    }  \end{subfigure}
+    }
+  \end{subfigure}
 \end{figure}
 
 \FloatBarrier
 
 \subsection{Final parameters of \omegamodel}
-\todo[plots?]
-\todo[table?]
+%% \todo[plots?]
+%% \todo[table?]
 \begin{table}[h]
   \centering
   \begin{tabular}{|c|c|c|}
@@ -420,7 +429,7 @@ This is the reason for the sparse datapoints at higher resolutions.
     
 \FloatBarrier
 
-\section{Impact of stellar yields}
+\section{Impact of stellar yields} \label{sec:methods-yields}
 %method of manipulation
 The \omegamodel\ model with \eris\ bestfit parameters is used to calculate the amount on \re{187}.
 A single function of \omegamodel\ is overwritten in order to change the stellar yields of \re{187}.
@@ -510,7 +519,7 @@ This suggests that the uncertainty of the stellar yield-tables affect the total 
 
 \section{Uncertainty from multiple parameter}
 %methods for main parameter-testing
-For varying different parameters simultaneously a similar method was used as in section \comment{results yields \ref{sec:results-yields}?}, where a ``fudge-factor'' was applied to the \fiduccialomega\ parameter-values. The ``fudge-factor'' was randomly sampled from a gaussian distribution with mean 1.0 and standard deviation equal to the relative uncertainty $\sigma$, from table \comment{ref table rncp arnould uncertianty \ref{tab:arnould-rncp-uncertainty}?}.
+For varying different parameters simultaneously a similar method was used as in section \comment{results yields \ref{sec:methods-yields}?}, where a ``fudge-factor'' was applied to the \fiduccialomega\ parameter-values. The ``fudge-factor'' was randomly sampled from a gaussian distribution with mean 1.0 and standard deviation equal to the relative uncertainty $\sigma$, from table \comment{ref table rncp arnould uncertianty \ref{tab:arnould-rncp-uncertainty}?}.
 The ``fudge-factor'' is then multiplied with the parameter value found from the bestfit \fiduccialomega\ fitted to data from \eris.
 
 %% The parameter values chosen are the ones that deal with r-process production; fraction of neutron stars that merge (number of mergers), the ejecta mass from a single neutron star merger, the delay-time distribution of merging events.

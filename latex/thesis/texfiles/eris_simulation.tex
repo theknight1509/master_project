@@ -1,9 +1,12 @@
-\section{\eris\ simulation}
+\section{\eris\ simulation} \label{sec:eris}
 
 %% Introduction (ref Guedes11)
-\eris\mycite{guedes11e} is a N-body/smooth particle hydrodynamics simulation of a galaxy forming in $\Lambda$CDM cosmology (see section \ref{sec:cosmology}. The simulation is performed with \gasoline\mycite{wadsley03}.
+\eris\mycite{guedes11e} is a N-body/smooth particle hydrodynamics simulation of a galaxy forming in $\Lambda\mathrm{CDM}$ cosmology (see section \ref{sec:cosmology}. The simulation is performed with \gasoline\mycite{wadsley03}.
 
-\input{img/eris_map_guedes11_fig2}
+\begin{figure}[h]
+  \setlength\figwidth{0.5\textwidth}
+  \input{img/eris_map_guedes11_fig2}
+\end{figure}
 
 %% SPH
 \subsection{Smoothed particle hydrodynamics}
@@ -103,8 +106,8 @@ In newer times this problem have been attempted solved with energy injected from
 In the \eris-simulation however, an rotational disk is allowed to form. This is because the high resolution (many particles) combined with the high threshold for star formation centeres the star forming regions in the high density regions. Such compact star formation drives cold gas outflow from the center of the galaxy, removing low angular momentum gas into ``higher orbits''.
 
 %% Fig galaxy-sheet
-\setlength{\figwidth}{\linewidth}
-\input{img/HubbleTuningFork}
+%% \setlength{\figwidth}{\linewidth}
+%% \input{img/HubbleTuningFork}
 
 %% Details + properties eris
 \subsection{Properties of the \eris-simulation}
@@ -130,7 +133,10 @@ Some properties of the simulated galaxy:
 \item{structural properties, mass budget, and scaling relations between mass and luminosity matches several observational constraints}
 \end{itemize}
 
-\input{img/rotation_curve_guedes_fig1a}
+\setlength\figwidth{0.5\textwidth}
+\begin{figure}[h]
+  \input{img/rotation_curve_guedes_fig1a}
+\end{figure}
 
 %% What eris present (figs?)
 \mycite{guedes11e} presents a realistic simulation of a Milky Way type galaxy using a new smooth particle hydrodynamic cosmological simulation called \eris, based on \gasoline\mycite{wadsley03}. It includes radiative cooling, cosmic UV heating, supernova feedback, and high-density star formation requirement (which is believed to be a key ingredient in producing realistic spirals in galactic simulations).
@@ -141,39 +147,33 @@ By using the \eris-simulation, the chemical evolution of the milky way is studie
 \mycite{shen15} postprocesses the simulation data from \eris\ to include neutron star mergers that add europium (an r-process tracer) to the interstellar medium.
 The study shows that the heavy products of neutron star mergers can be incorporated into early stars, even if the shortest neutron star mergers is 100 Myr. The conclusion of the study does not vary much with delay-time and merger rate and an argument is made for neutron star mergers being the dominant r-process source in the galaxy.
 
-This is supported by the neutron star merger (GW170817) observed\comment{ cite gw170817}\mycite{gw170817}.
+This is supported by the neutron star merger (GW170817) observed \mycite{gw170817}.
 With \textit{estimated} dynamical ejecta of mass 0.002\msol and velocity of 0.2c and highspeed wind ejecta of mass 0.015\msol and velocity of 0.08c. Such velocities are high enough to cross a galaxy within $\simeq 1$ Gyr, and if most of the ejecta manifests as r-process material the assumed model of \mycite{shen15} (ejected r-process material of 0.01\msol) is realistic. The single GW170817 observation makes rate of such events hard to estimate, and therefore difficult to constrain the neutron star merger rate in \eris.
 
 %% Move stuff to theory I section
-\subsection{move to theory I}
-Looking at very metal poor stars in our Galaxy, which have been around for a long time, r-process abundances can be found. Meaning that the source of r-process has been around for a long time, and in a robust manner. However, the large variations show that the process was unhomogenous for early times, while it is more smoothed after many Galactic rotations and repeated events.
-The two main sources of producing these heavy r-process elements are believed to be in the merger of two neutron stars (or the merger between a neutron star and a black hole) or in a heavy core collapse supernova. The production yields are much larger for neutron star mergers, but they are also much more rare.
-\comment{(Important citations Takashi94 and Woosley94 for SNII; Lattimer 77 and Freiburghaus 99 for NSM)}
-
-r-process nucleosynthesis requires neutron heavy isotopes, and the two leading theories are neutron star mergers and type II supernovae (see references Burbridge 1957, Roberts 2010, Lattimer 1977). Even though the conditions of the neutron star environment are somewhat uncertain, estimates are promising for the neutron star mergers to produce heavy isotopes in r-process distributions.
-These two processes, neutron star mergers and type II supernovae are quite different in frequency and yields, meaning that galactic chemical evolution models should be able to predict which of the models are most likely.
+%\subsection{move to theory I}
 
 \subsection{neutron star merger application to \eris}
 Numerically, the neutron star mergers are described by delay-time distribution, merger rate, yield of r-process elements, and the spatial distribution of events.
 The delay-time distribution is modelled by a power-law, $P(t) \propto t^{-n}$, from some minimum timescale to the hubble-time(end of simulation).
 Each neutron star merger is assumed to synthesize some mass of r-process material, only a fraction of this material will be europium(which is used as the tracer).
-The ratio of europium to r-process material is usually assumed to be solar\comment{($M_{Eu}=9.3\times10^{-4}M_{r-process}$ Sneden 2008)}, while the merger rate is calculated from scaling the star formation integral until europium-oxygen ratio equals solar ratio.
+The ratio of europium to r-process material is usually assumed to be solar ($M_{Eu}=9.3\times10^{-4}M_{r-process}$ (\mycite{sneden08}), while the merger rate is calculated from scaling the star formation integral until europium-oxygen ratio equals solar ratio.
 
 From the merger rate, the number of injection events per timestep is calculated and applied to random star particles in the data. The ejection material is then distributed among gas particles in close proximity to the selected star particles.
 
 %% chemical observations
 \subsection{Chemical observations of \eris}
 At redshift zero the oxygen-iron abundances can be split into two main sources.
-One source is type II supernovae, which are more rich in oxygen, leading to higher (supersolar) ratios.
+One source is type II supernovae, which are more rich in oxygen,
+leading to higher (supersolar) ratios.
 Another source is type Ia supernovae, which are more rich in iron, leading to more iron than oxygen.
-
-There are two main implementations of Eris postprocessing involved, one without any mixing, and another with mixing of metals between gas particles. For both oxygen-iron ratios and europium-iron ratios one sees that mixing gives less variation between ``upper'' and ``lower'' sigma-bands.
+There are two main implementations of Eris postprocessing involved, one without any mixing, and another with mixing of metals between gas particles. For both oxygen-iron ratios and europium-iron ratios one sees that mixing gives less variation between ``upper'' and ``lower'' sigma-bands (\mycite{shen15}).
 
 The chemical enrichment is closely tied to the star formation and evolution. \eris\ is a good approximation to the Milky Way galaxy do to similar star formation, shape and chemical composition today.
 \mycite{shen15} finds that neutron star mergers are capable of enriching the surrounding medium, even with a minimum delay-time of 100 Myr.
 
 The dispersion of [Eu/Fe] is big enough, even at low metallicities, to reproduce the variations of observed europium in old low-mass stars.
-The mixing level affects the abundance of europium, but it is hard to compare to observations becasue spectroscopic abundance of many stars are unknown.
+The mixing level affects the abundance of europium, but it is hard to compare to observations because spectroscopic abundance of many stars are unknown.
 The conclusion is that variations of the model parameters do not significantly alter the result.
 
 Galactic chemical evolution models, like \omegamodel, are single points in space with mass resolution and time-integration. These models are simple way of calculating the mean amount of elements in the galaxy based on a star formation history, yield tables and initial composition.
@@ -181,8 +181,22 @@ These models do not replicate the inhomogeneities and variations in metal-distri
 \mycite{shen15} attempts to reproduce the results with a 1D-model based on the parameters found in \eris;
 At late times model agrees well with the average of all of \eris, however it does not agree well with the early results of Eris, nor does it replicate the large variations in spectroscopic abundance during early times.
 
-\input{img/spectroscopic_eu_shen15_fig4}
-\input{img/spectroscopic_abundance_shen15_fig6}
+Figures \ref{img:spectroscopic-eu-eris} and \ref{img:spectroscopic-abundance-eris} show the spectroscopic distribution and time evolution of \eris.
+
+\begin{figure}[h]
+  \begin{minipage}[t][][t]{\textwidth}
+    \setlength\figwidth{\textwidth}
+    \input{img/spectroscopic_eu_shen15_fig4}
+    %\ref{img:spectroscopic-eu-eris}
+  \end{minipage}
+\end{figure}
+\begin{figure}[h]
+  \begin{minipage}[t][][t]{\textwidth}
+    \setlength\figwidth{0.5\textwidth}
+    \input{img/spectroscopic_abundance_shen15_fig6}
+    %\ref{img:spectroscopic-abundance-eris}
+  \end{minipage}
+\end{figure}
 
 \iffalse
 \importantcomment{This section is outdated as of 10.05.18}

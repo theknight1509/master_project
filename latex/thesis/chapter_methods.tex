@@ -3,18 +3,19 @@
 \section{Purpose and goals}
 In this thesis the goal is to examine the influence of uncertainty in models and parameters with regards to r-process nucleosynthesis.
 This in turn, is used to estimate the influence of uncertainties with regards to the Rhenium-Osmium cosmic clock.
-This will be done by comparing a semianalyical galactic chemical evolution model (\omegamodel) with data from a high resolution smoothed particle hydrodynamics simulations (\eris).
+This will be done by varying a number of parameters in a semianalyical galactic chemical evolution model (\omegamodel).
+The parmeters o f\omegamodel\ were chosen to match the high resolution smoothed particle hydrodynamics simulation, \eris.
 
 \omegamodel\ is used because of it's simplicity and versatility;
-it can be executed as a python script on most computers, takes relatively little time to run and easily modifiable parameters.
-\omegamodel\ also demonstrates a much larger resolution in mass, by dividing mass into a wide range of nuclei.
+it can be executed as a python script on most computers, takes relatively little time to run and has easily modifiable parameters.
+\omegamodel\ also demonstrates a large resolution in the number of nuclides and elements.
 
-The smoothed particle hydrodynamics simulation \eris\ is a high resolution simulation that resembles the Milky Way Galaxy in many aspects, and is therefor a great candidate for a Milky Way Proxy.
-Assuming that the evolution of \eris also resembles the evolution of the Milky Way allows us to use the star formation history and baryonic content data from \eris\ in order to match the generated data from \omegamodel.
+The smoothed particle hydrodynamics simulation \eris\ is a high resolution simulation that resembles the Milky Way Galaxy in many aspects, and is therefore a great candidate for a Milky Way proxy.
+Assuming that the evolution of \eris\ also resembles the evolution of the Milky Way, allows us to use the star formation history and baryonic content data from \eris\ as input for \omegamodel.
 Assuming that \eris\ is a good approximation to the Milky Way morphological history, the data from \eris\ are assumed to represent the mass and abundances of the Milky Way galaxy.
-By finding a model of \omegamodel\ that most accurately reproduce the mean-values of \eris\footnote{Since \omegamodel\ is a one-zone model without spatial dimensions, it can only approximate the mean of \eris. Not the spatial resolution.}, a Milky Way-proxy (that resolves \re{187} and \os{187} isotopes is found.
+By finding a model of \omegamodel\ that most accurately reproduce the mean-values of \eris\footnote{Since \omegamodel\ is a one-zone model without spatial dimensions, it can only approximate the mean of \eris. Not the spatial resolution.}, a Milky Way-proxy (that resolves \re{187} and \os{187} isotopes)x is found.
 
-After an appropriate parameter-space is estimated, the yields of some relevant nuclei (Eu-, Re-, Os-, W-isotopes available) can be varied within their observational uncertainties.
+After an appropriate point in parameter-space is estimated, the yields of some nuclei relevant to us (Eu-, Re-, Os-, W-isotopes available) can be varied within their observational uncertainties.
 An semianalytical model, like \omegamodel, will merely calculate the total amount of ejecta from stars (yield tables) and integrate the ejecta in time.
 Finding the effect of the observational uncertainties is done by changing the yields according to the observational uncertainties and tracking the difference through galactic time.
 
@@ -24,35 +25,42 @@ Finding the effect of the observational uncertainties is done by changing the yi
 \newcommand\mwomega{\textit{\omegamodel-MilkyWay}}
 \newcommand\mwcomega{\textit{\omegamodel-MilkyWay-c.sfr.}}
 \newcommand\vanillaomega{\textit{Vanilla \omegamodel-model}}
-\newcommand\fiduccialomega{\textit{Fiduccial \omegamodel-model}}
+\newcommand\fiduccialomega{\textit{Fiducial \omegamodel-model}}
 
 %\subsection{General purpose}
 To fit the \omegamodel\ model to \eris, the star formation rate calculated for each timestep is used as the star formation history in \omegamodel.
 This ensures that for sufficiently large timesteps \omegamodel\ will use the same star formation rate as \eris\ (however interpolated onto the timesteps used in \omegamodel).
 Otherwise, the parameters of \omegamodel\ are examined, in order to best reproduce the total baryonic content of the simulation, as well as the spectroscopic abundance of [O/H], [Fe/H], and [Eu/H].
 
-In this section \mwomega\ refers to the built-in options for a Milky Way-like model in \omegamodel, while \mwcomega\ is similar, but assumes a constant star formation rate. \fiduccialomega\ will be represent the parameter-space of \omegamodel that will reproduce data from \eris.
+In this section \mwomega\ refers to the built-in options for a Milky Way-like model in \omegamodel, while \fiduccialomega\ will represent the parameter-space of \omegamodel\ that will reproduce data from \eris.
+
+Because of the large number of parameters, with different physical interpretations, I mostly follow a ``by-eye'' approach to find a set of parameters that fit the \eris-data.
+This is sufficient because we are mostly interested in the uncertainties. The base model should be realistic, but does not need to be perfect.
+
+In order to get a perfect fit, a multi-dimensional maximum likelihood approach would be required (e.g.  Monte Carlo Markov Chain).
+However this is beyond the scope of the project.
 
 \subsection{Direct insertion}
-\newcommand\insertion{ direct insertion}
+\newcommand\insertion{direct insertion}
 %method
 Galactic age, initial mass function, astrophysical effects and star formation are so essential to chemical evolution models that they will be taken from \eris\ and applied directly to \omegamodel.
 These values are listed in table \ref{tab:fitting-parameters-insertion}.
 
-\textit{'Eris'} refers to data directly from \eris-simulation. \textit{'Omega' default} (or \vanillaomega) refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} (or \mwomega)refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} (or \mwcomega) refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} (or \fiduccialomega) refers to the \omegamodel\ model with the star formation and mass function from \eris. This model, \fiduccialomega will be exaned upon throughout the fitting process.
+In figure \textit{'Eris'} refers to data directly from \eris-simulation. \textit{'Omega' default} (or \vanillaomega) refers to the \omegamodel\ model with no change to the initial parameters (see description in section \ref{sec:omega}). \textit{'Omega' MW} (or \mwomega)refers to the \omegamodel\ model with the Milky Way parameter (see description in section \ref{sec:omega}), and \textit{'Omega' MW cte} (or \mwcomega) refers to the same but with a constant one-solar-mass-per-year star formation rate. \textit{'Omega' w/'Eris'-SFR} (or \fiduccialomega) refers to the \omegamodel\ model with the star formation and mass function from \eris. This model, \fiduccialomega will be expanded upon throughout the fitting process.
 
 It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} that star-formation is suppressed before 2Gyr for all models except \vanillaomega.
 
 %plots
 \begin{figure}[h]
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \begin{minipage}[t][][t]{0.44\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_sfr.png}
     \caption[Star formation rate in \omegamodel\ for \insertion-fitting]{\label{img:fit-v0-sfr}
       Star formation rate(measured in solar masses of stars formed from gas each year) for four models of \omegamodel\ versus time. 
     }
   \end{minipage}
-  \begin{minipage}[t][][t]{0.49\textwidth}
+  \hfill
+  \begin{minipage}[t][][t]{0.4\textwidth}
     \centering
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sfr_plot_stellar_mass.png}
     \caption[Stellar mass in \omegamodel\ for \insertion-fitting]{\label{img:fit-v0-stellarmass}
@@ -60,14 +68,14 @@ It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} t
     }
   \end{minipage}
 \end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\figwidth, draft=true]{results/plots_fitting/set_sfr_plot_gas_mass.png}
-  \caption[Gas mass in \omegamodel for \insertion-fitting]{\label{img:fit-v0-gasmass}
-    \comment{Replot this image, looks sketchy! \\}
-    Mass of gas in the interstellar medium for four different models of \omegamodel, and the \eris\ simulation against time in Gyrs.
-  }
-\end{figure}
+%% \begin{figure}[h]
+%%   \centering
+%%   \includegraphics[width=\figwidth, draft=true]{results/plots_fitting/set_sfr_plot_gas_mass.png}
+%%   \caption[Gas mass in \omegamodel for \insertion-fitting]{\label{img:fit-v0-gasmass}
+%%     \comment{Replot this image, looks sketchy! \\}
+%%     Mass of gas in the interstellar medium for four different models of \omegamodel, and the \eris\ simulation against time in Gyrs.
+%%   }
+%% \end{figure}
 
 \begin{table}[h]
   \centering
@@ -88,30 +96,31 @@ It is clear from figures \ref{img:fit-v0-sfr} and \ref{img:fit-v0-stellarmass} t
   \end{tabular}
   \caption[\omegamodel-parameters directly adopted from \eris]{
     \label{tab:fitting-parameters-insertion}
-    The yield-table for binary neutron star mergers was chosen because it was the only r-process yield-table (out of two available) with the presence of \re{187}.
+    \omegamodel-parameters and their adopted values.
+    The yield-table for binary neutron star mergers (from \mycite{arnould07}) was chosen because it was the only r-process yield-table (out of two available) with the presence of \re{187}.
     In \omegamodel, r-process yield tables are applied to neutron star mergers, and the yield-table chosen is calculated from the r-process abundance of the \sos at present day (\mycite{arnould07}).
     This means that all neutron star mergers are assumed to produce a r-process pattern like the one found in the \sos.
   }
 \end{table}
-\comment{footnote not showing}
 \FloatBarrier
 
 \subsection{Mass}
 %method
-\input{texfiles/mass_table_guedes}
+In \omegamodel a galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is gas and stars inside the box and gas outside the box (see figure \ref{tikz:galaxy-iobox}).
+The total baryonic mass inside \eris\ (only at redshift z=0 and z=1) is taken from \mycite{guedes11e} and can be found in table \ref{tab:guedes11-baryonic-mass}.
 
-A galaxy's mass consist of gas and stars (not counting dark matter from section \ref{sec:cosmology}), and in a one-zone model there is only gas and stars inside the box and gas outside the box (see figure \ref{tikz:galaxy-iobox}).
-The total baryonic mass inside \eris\ (at redshift z=0 and z=1) is taken from \mycite{guedes11e} and can be found in table \ref{tab:guedes11-baryonic-mass}.
-
-Supernova feedback will drive an outflow from the galaxy into the surrounding medium \comment{find appropriate reference}. Adding outflow proportional to the supernova rate adds some realisim to the model, and might reproduce some of the spectroscopic features.
-In \omegamodel this is activated with the parameters \verb|mass_loading|(which ejects a amount of gas relative to the stellar mass formed), and \verb|out_follows_E_rate|(which adds a timedelay to the outflow, making the outflow proportional to the supernova rate instead of the star formation rate).
+Supernova feedback will drive an outflow from the galaxy into the surrounding medium (\mycite{fielding16, veilleux05}]). Adding outflow proportional to the supernova rate adds some realisim to the model, and might reproduce some of the spectroscopic features.
+In \omegamodel\ this is activated with the parameters \verb|mass_loading| (which ejects a amount of gas relative to the stellar mass formed), and \verb|out_follows_E_rate| (which adds a timedelay to the outflow, making the outflow proportional to the supernova rate instead of the star formation rate).
 Outflow removes gas from the galaxy, or interstellar medium, lowering the total amount of mass in the galaxy. Therefore the initial primordial gas and constant inflow must be increased as well.
 Setting the initial mass, inflow and outflow, gives the desired mass content.
-A final comparison of the \fiduccialomega model, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
+A final comparison of the \fiduccialomega, the predefined models (\mwomega, \mwcomega, and \omegamodel with all default parameters), and the data from the \eris\ simulation.
 For the predefined models, the initial mass of primordial gas have been increased to $9.6\times10^{10}\msol$(the final value baryon-mass from \eris) to show the full evolution of star formation.
 Two prominent features in the spectroscopic data of \eris\ is the two 'dips' around universal time t=5 and t=8 Gyrs. These dips might be reproduced by adding primordial inflow, hydrogen, and enriched outflow, concentrated on on those periods($t\simeq5Gyr$ and $t\simeq8Gyr$), since these periods might coincide with the death of stars from the star forming peak in figure \ref{img:fit-v0-sfr}.
-Varying supernova-related outflow(known as the \texttt{mass\_loading} parameter) gives an expected result. In figure \ref{fig:fit-v1-2-iron} variation in the spectroscopic iron abundance can be seen the desired region, around the two 'dips', but the effect is too small to reproduce the two dips. The effect is also too wide and more closely similar to one big 'dip'. One unexpected result is that the smalles \texttt{mass\_loading} parameter yields the lowest dip(not really a dip at all, but more flat in the desired direction). suggesting that the outflow from supernovae occur later than the two 'dips'.
+Varying supernova-related outflow(known as the \texttt{mass\_loading} parameter) gives an expected result. In figure \ref{fig:fit-v1-2-iron} variation in the spectroscopic iron abundance can be seen the desired region, around the two 'dips', but the effect is too small to reproduce the two dips. The effect is also too wide and more closely similar to one big 'dip'. One unexpected result is that the smalles \texttt{mass\_loading} parameter yields the lowest dip(not really a dip at all, but more flat in the desired direction).
+Suggesting that the outflow from supernovae occur later than the two 'dips'. In \eris this might be due to merger between the main galaxy and minor structures.
 This means that the two 'dips' cannot be reproduced by outflow and inflow.
+
+\input{texfiles/mass_table_guedes}
 
 %plots
 \begin{figure}[h]
@@ -137,37 +146,38 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
 
 %ad outflow plots
 \begin{figure}[h]
-  \begin{minipage}[t][][t]{0.4\textwidth}
-  \centering
-  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_total_mass.png}
-  \caption[Total mass of \fiduccialomega with outflow mass-fitting]{
-    \label{fig:fit-v1-2-total}
-    Adding outflow from supernovae feedback.
-    Total baryonic mass of galaxy over time.\comment{what is the initial mass of gas and inflow rate?}
-    The outflow adds a non-linear effect to the total mass.
-  }
-  \end{minipage}
-  \hfill
+  %% \begin{minipage}[t][][t]{0.4\textwidth}
+  %% \centering
+  %% \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_total_mass.png}
+  %% \caption[Total mass of \fiduccialomega with outflow mass-fitting]{
+  %%   \label{fig:fit-v1-2-total}
+  %%   Adding outflow from supernovae feedback.
+  %%   Total baryonic mass of galaxy over time.\comment{what is the initial mass of gas and inflow rate?}
+  %%   The outflow adds a non-linear effect to the total mass.
+  %% }
+  %% \end{minipage}
+  %% \hfill
   \begin{minipage}[t][][t]{0.4\textwidth}
   \centering
   \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_stellar_mass.png}
   \caption[Stellar mass of \fiduccialomega for with outflow mass-fitting]{
     \label{fig:fit-v1-2-stellar}
     Adding outflow from supernovae feedback.
-    Cumulative stellar mass formed against time for \comment{X} \omegamodel\ models, and the \eris-simulation.
+    Cumulative stellar mass formed against time for six \omegamodel\ models, and the \eris-simulation.
     The outflow removes mass, but there is still enough gas to form stars from the \eris\ star formation rate.
   }
   \end{minipage}
-\end{figure}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_iron.png}
-  \caption[\[Fe/H\] of \fiduccialomega for with outflow mass-fitting]{
-    \label{fig:fit-v1-2-iron}
-    Considering a different initial mass, constant inflow of gas andn adding outflow from supernovae feedback.
+  \hfill
+  \begin{minipage}[t][][t]{0.4\textwidth}
+    \centering
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_mass_2_plot_iron.png}
+    \caption[spectroscopic iron of \fiduccialomega for with outflow mass-fitting]{
+      \label{fig:fit-v1-2-iron}
+    Considering a different initial mass, constant inflow of gas and adding outflow from supernovae feedback.
     Iron abundance in the models with varying mass-loading parameters(solar masses of outflow per solar mass of supernova). The data from \eris\ show two 'dips' from the increasing tendency.
     The dips could not be reproduced by outflow of enriched material and inflow of hydrogen. Outflow peaks over the 'dips', reducing the spectroscopic abundance, however the effect is wide and smeared out over a time range beyond both 'dips'.
-  }
+    }
+  \end{minipage}
 \end{figure}
 %% \begin{figure}[h]
 %%   \centering
@@ -203,9 +213,20 @@ This means that the two 'dips' cannot be reproduced by outflow and inflow.
 %%   }
 %% \end{figure}
 \begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|l|}
+    \hline Parameter & \omegamodel-argument & Value taken from \eris \\
+    \hline
+    Inflow/outflow & \texttt{in\_out\_control} & yes \\
+    Delayed outflow through supernovae & \texttt{out\_follows\_E\_rate} & yes \\
+    Constant inflow rate & \texttt{inflow\_rate} & 4.3 [\msol/yr] \\
+    Initial mass of gas & \texttt{mgal} & 5.4e+10 [\msol] \\
+    Outflow mass per solar mass formed & \texttt{mass\_loading} & 0.3 \\
+    \hline
+  \end{tabular}
   \caption[\omegamodel-parameters from fitting mass-content to \eris]{
     \label{tab:fitting-parameters-mass}
-    \comment{add table of parameter}
+    \omegamodel-parameters and their adopted values.
   }
 \end{table}
 \FloatBarrier
@@ -248,22 +269,35 @@ All were tried, but only the exponential distribution is shown in this section.
     \includegraphics[width=\figwidth]{results/plots_fitting/set_sn1a_plot_sn1a_num2_iron.png}
   \end{minipage}
   \caption[Fit of type 1a supernovae \fiduccialomega]{\label{fig:fit-sn1a}
-    Spectroscopic abundance of oxygen and iron in \omegamodel compared to the data from \eris.
-    \\ \todo[Add more description]
+    Spectroscopic abundance of oxygen and iron in \omegamodel\ compared to the data from \eris.
+    Top plots show results with varius exponential delay-time distributions for type 1a supernovae.
+    Bottom plots show results for various number of type 1a supernvoae per stellar mass formed.
   }
 \end{figure}
 
 \begin{table}[h]
+  \begin{tabular}{|c|c|l|}
+    \hline Parameter & \omegamodel-argument & Value taken from \eris \\
+    \hline
+    Yield-table AGB\&Massive stars & \texttt{table} & \begin{tabular}{l}\verb|agb_and_massive_stars_nugrid|\\\verb|_MESAonly_fryer12delay_wind_preexp.txt|\end{tabular}\\
+    Yield-table type 1A SN & \texttt{sn1a\_table} & \verb|sn1a_ivo13_stable_z.txt| \\
+    \begin{tabular}{c} Shape of type 1a SN \\ delay-time dist.\end{tabular} & \texttt{sn1a\_rate} & \texttt{exp} \\
+    \begin{tabular}{c} Characteristic timescale of \\ type 1a SN delay-time dist.\end{tabular} & \texttt{exp\_dtd} & \texttt{5.5e+6} [yrs] \\
+    \begin{tabular}{c} Number of type 1a SN \\ per stellar mass formed \end{tabular} & \texttt{nb\_1a\_per\_m} & 1e-3 \\
+    \hline
+  \end{tabular}
   \caption[\omegamodel-parameters from fitting stars and supernovae to \eris]{
     \label{tab:fitting-parameters-sn1a}
-    \comment{add table of parameter}
+    \omegamodel-parameters after fitting yields and type 1a supernovae.
   }
 \end{table}
 \FloatBarrier
 
 \subsection{Nucleosynthesis from r-process}
 %specify BNSM
-Only binary neutron star mergers are considered, because this is the same site as \mycite{shen15}
+In the \fiduccialomega\ neutron star mergers are considered the main soruce of r-process elements.
+This means that finding the appropriate amount of europium, compared to \eris, the neutron star mergers are varied.
+The parameters chosen for this endevour is the fraction of binary neutron star systems that eventually merge, the delay-time distrtibution of the merging process, and the ejecta mass from each event.
 %methods
 %plots
 %% \comment{figure commented out}
@@ -284,18 +318,11 @@ Only binary neutron star mergers are considered, because this is the same site a
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_ejmass.png}
     \caption[\todo NSM-ejectamass]{
       \label{fig:fit-v3-ejecta}
-      Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models. In the models the mass ejected from each neutron star merger have been modified.
+      Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models.
+      In the models the mass ejected from each neutron star merger have been modified.
       Modifying the mass ejected from each event will just scale the total europium content up and down.
       Ejecting 0.2-0.3 \msol per event gives a pretty decent fit to late time europium and early time europium.
       However for the 'dips' between 2 and 8 Gyrs, the \omegamodel\ model overshoots the \eris\ data.
-    }
-  %% \end{minipage}
-  %% \begin{minipage}[h][][t]{0.49\textwidth}
-  %%   \centering
-    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_rates.png}
-    \caption[\todo NSM fmerger rate]]{
-      \label{fig:fit-v3-mergerfrac-nsmr}
-      \todo[Add more descriptive text]
     }
   \end{minipage}
   \hfill
@@ -304,16 +331,9 @@ Only binary neutron star mergers are considered, because this is the same site a
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_mergerfraction_spectro.png}
     \caption[\todo mergerfraction spectroscopic plot]{
       \label{fig:fit-v3-mergerfrac-euro}
-      \todo[Add more descriptive text]
+      Spectroscopic europium abundance against galactic time for \eris-data and several \omegamodel models.
+      In the models the fraction of merging systems have been modified.
     }
-  %% \end{minipage}
-  %% \begin{minipage}[h][][t]{0.49\textwidth}
-  %%   \centering
-    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_rates.png}
-    \caption[\todo nbnsm rates plot]{
-        \label{fig:fit-v3-number-nsmr}
-        \todo[Add more descriptive text]
-      }
   \end{minipage}
 \end{figure}
 \begin{figure}
@@ -322,15 +342,15 @@ Only binary neutron star mergers are considered, because this is the same site a
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_nbnsm_spectro.png}
     \caption[\todo nbnsm spectro plot ]{
       \label{fig:fit-v3-number-euro}
-      \todo[Add more descriptive text]
+      Varying the number of neutron star mergers per stellar mass formed.
     }
   %% \end{minipage}
   %% \begin{minipage}[h][][t]{0.49\textwidth}
   %%   \centering
-    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_rates.png}
-    \caption[\todo 'combo' rate plot ]{
-      \label{fig:fit-v3-combo-nsmr}
-      \todo[Add more descriptive text]
+    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_spectro.png}
+    \caption[\todo final spectro plot]{
+      \label{fig:fit-v3-final-euro}
+      Spectroscopic europium-content in \fiduccialomega\ versus \eris\ for the final parameters.
     }
   \end{minipage}
   \hfill
@@ -339,7 +359,7 @@ Only binary neutron star mergers are considered, because this is the same site a
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_combo_spectro.png}
     \caption[\todo combo'spectro' plot]{
       \label{fig:fit-v3-combo-euro}
-      \todo[Add more descriptive text]
+      Spectroscopic europium-content of \fiduccialomega\ with different ejectamasses.
     }
   %% \end{minipage}
   %% \begin{minipage}[h][][t]{0.49\textwidth}
@@ -347,24 +367,27 @@ Only binary neutron star mergers are considered, because this is the same site a
     \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_rates.png}
     \caption[\todo final rate plot]{
       \label{fig:fit-v3-nsmr}
-      \todo[Add more descriptive text]
+      Neutron star merger rates in \fiduccialomega\ versus \eris\ for the final parameters.
     }
   \end{minipage}
   \centering
   \begin{minipage}[h][][t]{0.5\textwidth}
     \centering
-    \includegraphics[width=\figwidth]{results/plots_fitting/set_nsm_plot_final_spectro.png}
-    \caption[\todo final spectro plot]{
-      \label{fig:fit-v3-final-euro}
-      \todo[Add more descriptive text]
-    }
   \end{minipage}
 \end{figure}
 
 \begin{table}[h]
+  \begin{tabular}{|c|c|l|}
+    \hline Parameter & \omegamodel-argument & Value taken from \eris \\
+    \hline
+    Ejecta mass from NSM & \texttt{m\_ej\_nsm} & 0.3 \\
+    Merging-fraction of binary neutron star system & \texttt{f\_merger} & 8e-4 \\
+    NSM power-law delay-time dist. & \texttt{nsm\_dtd\_power} & $t^{-2} \in[50e+6, 14e+9]$ yr \\
+    \hline
+  \end{tabular}
   \caption[\omegamodel-parameters from fitting r-process events to \eris]{
     \label{tab:fitting-parameters-nsm}
-    \comment{add table of parameter}
+    Parameters from neutron star mergers in \omegamodel.
   }
 \end{table}
 \FloatBarrier
@@ -389,7 +412,9 @@ This is the reason for the sparse datapoints at higher resolutions.
     \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_euro_logged.png}
     \caption[\todo]{
       \label{fig:fit-res-euro}
-      \todo
+      $\chi^2$ statistic as a function of number of timesteps in \omegamodel.
+      The [Eu/H]-data from \eris are used as the basis for calculating the chi-squared-parameter.
+      The plot shows convergence after a small number of timesteps.
     }
   \end{subfigure}
   \hfill
@@ -397,7 +422,9 @@ This is the reason for the sparse datapoints at higher resolutions.
     \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_oxy_logged.png}
     \caption[\todo]{
       \label{fig:fit-res-oxy}
-      \todo
+      $\chi^2$ statistic as a function of number of timesteps in \omegamodel.
+      The [O/H]-data from \eris are used as the basis for calculating the chi-squared-parameter.
+      The plot shows convergence after a small number of timesteps.
     }
   \end{subfigure}
   \hfill
@@ -405,28 +432,13 @@ This is the reason for the sparse datapoints at higher resolutions.
     \includegraphics[width=\textwidth]{results/resolution_analysis/resolution_difference_iron_logged.png}
     \caption[\todo]{
       \label{fig:fit-res-iron}
-      \todo
+      $\chi^2$ statistic as a function of number of timesteps in \omegamodel.
+      The [Fe/H]-data from \eris are used as the basis for calculating the chi-squared-parameter.
+      The plot shows convergence after a small number of timesteps.
     }
   \end{subfigure}
 \end{figure}
 
-\FloatBarrier
-
-\subsection{Final parameters of \omegamodel}
-%% \todo[plots?]
-%% \todo[table?]
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|c|c|c|}
-    \hline \omegamodel-parameter & Description & Value \\
-    \hline
-  \end{tabular}
-  \caption[Parameters for bestfit \omegamodel-model to \eris-data]{\label{tab:bestfit-parameters}
-    \comment{TODO!}
-    Parameters that produce best fit between \omegamodel and \eris-data.
-  }
-\end{table}
-    
 \FloatBarrier
 
 \section{Impact of stellar yields} \label{sec:methods-yields}

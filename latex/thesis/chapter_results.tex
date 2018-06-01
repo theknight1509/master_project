@@ -6,7 +6,7 @@
 \newcommand\expthree{\textbf{Yields+IMFslope+NSM}}
 There are three main experiments;
 \begin{description}
-\item[\expone] \, The yields of isotopes are varied within their standard deviation \comment{Add reference to arnould table \ref{tab:arnould-rncp-uncertainty}?}
+\item[\expone] \, The yields of isotopes are varied within their standard deviation \ref{tab:arnould-rncp-uncertainty}
 \item[\exptwo] \, \mycite{cote16a} found that the slope of the initial mass function affects the uncertainty of the chemical evolution most greatly. This experiment varies the stellar yields and the high mass slope of the initial mass function. The stellar yields are given the same distribution as \expone, and the slope of the initial mass function, $\alpha$, is given the uncertainty distribution found in \mycite{cote16a}; which is $\sigma_{\alpha}=8.73\%$ around the mean $\langle \alpha \rangle = 2.29$.
 \item[\expthree] \, Same as \exptwo, with a ten percent uncertainty in parameters related to neutron star mergers. These are the fraction of binary neutron stars that turn to neutron star mergers (scales the rate of neutron star mergers), the ejecta mass (scales the total mass ejected from a neutron star merger), and the slope of the delay-time distribution (distribution of time between neutron star formation and merger for a system that will merge).
 \end{description}
@@ -26,7 +26,7 @@ The cosmic clock fraction between the two isotopes, $f_{187} = \frac{\os{187}}{\
 The fraction between the nuclei is relevant because it can be determined from meteorites, unlike the total mass of isotopes in the \sos\ at the time of formation.
 In the \eris-simulation the galactic age is 14 Gyrs, which means the solar system formed at 9.5 Gyrs.
 The uncertainties of the mass of each isotope come from the uncertainty of the input parameters in each experiment, \expone, \exptwo, and \expthree.
-The cosmic clock fraction, $f_{187}$, is determined from observations to be \comment{insert value+deviation here}, see table \ref{tab:obs-cosmo-chronology} in appendix \ref{sec:calc-cosmo-chronology}.
+The cosmic clock fraction, $f_{187}$, is determined from observations to be $0.136\pm0.0323$, see table \ref{tab:obs-cosmo-chronology} in appendix \ref{sec:calc-cosmo-chronology}.
 
 %explain results/plots for each experiment
 
@@ -129,7 +129,6 @@ One possible solution to this is to take a gaussian distribution set it to zero 
 Applying this form of distribution numerically is beyond the scope of this project. An alternate method is suggested. When the statistical distribution is found from the data, all models with a parameter-value of zero or lower $\hat{Y}_{\isotope{X}{Z}{A}} \leq 0 $, is ignored.
 
 The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, and the values for the distribution extracts (both with and without the effect of \betadecay) are shown in table \ref{tab:results-delmax}.
-\comment{How many samples are removed? why is the sample size still big enough? (appears gaussian with very small fluctuations)}
 
 \newcommand\tworow[2]{\begin{tabular}{c}#1\\#2\end{tabular}}
 \newcommand\midrow[2]{\raisebox{-#2}[#2]{#1}}
@@ -185,7 +184,7 @@ The resulting distributions are shown in figures \ref{fig:MCExperiment-delmax}, 
 \end{figure}
 \FloatBarrier %end of subsection
 
-\section{Rate of nucleosynthetic events}
+\section{Rate of nucleosynthetic events} \label{sec:nucleosynthetic-events}
 In \omegamodel, the nuclides in question are synthesized in stars and ejected into the interstellar medium through a limited list of events.
 Asymptotic giant branch stars, massive stars that turn into type 2 supernvoae, type 1a supernovae, and binary neutron star mergers.
 %The merger of a black hole and a neutron star is not considered as it was not considered in the r-process postproduction of \eris\ (\mycite{shen15}).
@@ -194,13 +193,13 @@ The data was taken from \expone\ experiment, meaning that there is no uncertaint
 Right panels show the distribution at 9.5 Gyr and 14 Gyr, and the values at these times are shown in table \ref{tab:nucleosynthetic-events}
 
 From table \ref{tab:nucleosynthetic-events} the number of neutron star mergers in the Galaxy is $\simeq10^8$ when the \sos\ formed.
-Assuming that \eris\ is representative for Milky Way Galaxy, that the r-process material is well mixed, and that the \sos\ r-process-abundance is representative of the Galactic average r-process abundance, and assuming that the \fiduccialomega model is represntative of \eris\ this is the number of neutron star mergers required to get the solar r-process abundance.
-\comment{solar radius rotation time?}
-\omegamodel is a one-zone semianalytic model and therefor unable to reproduce the local variations that can occur in a galaxy, which particle-hydrodynamics simulations, like \eris\ have a better hope at resolving.
+Assuming that \eris\ is representative for Milky Way Galaxy, that the r-process material is well mixed, and that the \sos\ r-process-abundance is representative of the Galactic average r-process abundance, and assuming that the \fiduccialomega\ model is represntative of \eris\ this is the number of neutron star mergers required to get the solar r-process abundance.
+\omegamodel\ is a one-zone semianalytic model and therefor unable to reproduce the local variations that can occur in a galaxy, which particle-hydrodynamics simulations, like \eris\ have a better hope at resolving.
 This means that local variations challenges the assumption of r-process abundances in the \sos\ being representative of the Galactic average.
 
-
-\comment{Compare cumulative NSMs to Korokbin(?), where rate-bands are given}
+In \mycite{rosswog17} an estimate at the amount of nuetron star mergers required in our neighbourhood is estimated (see \mycitetwo{rosswog17}{fig.6}).
+A rough estimate of one to three neutron star mergers per year per (Gpc)$^3$ for an ejecta mass of 0.03 \msol.
+Accounting for the difference in ejecta mass, the \fiduccialomega\ requires an average of nearly one million mergers in 14 billion years in one single galaxy.
 
 \begin{table}[h]
   \centering
@@ -396,15 +395,13 @@ It would be more meaningful to divide the distributions in two and calculate the
 \FloatBarrier %end of subsection
 
 %(add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/NSMparameters)
-\section{Consider events of binary neutron star mergers}
+\section{Consider events of binary neutron star mergers} \label{sec:nsm-events}
 In the \expthree-experiment, the yields of stellar ejecta is varied as well as the slope of the initial mass function \textit{and} the physical parameters for neutron-star mergers.
 These parameters are number of events, mass ejected per event, and the delay-time distribution of events.
 Due to the lack of observational constraints it is hard to find quantifiable uncertainties for these parameters.
 In order to estimate how the uncertainties of the neutron-star merger parameters affect the outcome a 10\% uncertianty is added to all parameters.
 
 Figures \ref{fig:MCExperiment-numnsm} show the mass and mass-ratio of \os{817} and \re{187}, while figures \ref{fig:MCExperiment-numnsm-rate} show the rate and cumulative numbers of nucleosynthetic events in the \expthree-experiment.
-
-\comment{Considering cut this section out, because the results look wrong and I don't know why. Uncertainty of rates vary by factors, while mass fraction is barely affected.}
 
 \begin{figure}[h]
   \centering

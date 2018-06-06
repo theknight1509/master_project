@@ -2,7 +2,13 @@ Master
 ======
 Complete repository of my master project
 ---------------------------------------------
-**STILL IN PROGRESS**
+Thesis
+------
+[Thesis-directory](latex/thesis)
+
+Presentation
+-------------
+[Presentation-directory](latex/presentation)
 
 Key notes
 ----------

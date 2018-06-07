@@ -1,5 +1,5 @@
-Presentation of Master Thesis
-===================================
+Outline for presentation of Master Thesis
+==================================================
 
 Intro ()
 Theory (10 min)

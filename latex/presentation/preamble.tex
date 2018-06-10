@@ -16,7 +16,7 @@
 \newcommand\todo[1][]{
         \ifthenelse{\equal{#1}{}}
                 {\comment{TODO!}}
-                {\comment{TODO! #1}}}
+                {\comment{TODO! #1 some text }}}
 
 %Citation packages and styles
 \usepackage{natbib}
@@ -52,20 +52,21 @@
 \newcommand\osrebase{\frac{\os{187}}{\re{187}}}
 \newcommand\osre{\ifmmode {\osrebase} \else {$\osrebase$} \fi}
 
-%% \newcommand{\sos}{Solar system}
-%% \newcommand\betadecay{$\beta^-$-decay }
-%% \newcommand\betadecays{$\beta^-$-decays }
-%% \newcommand\halflife{
-%%   \ifmmode \tau_{\text{\tiny 1/2}}
-%%   \else $\tau_{\text{\tiny 1/2}}$ \fi
-%% }
-%% \newcommand\msol{
-%%   \ifmmode M_{\astrosun}
-%%   \else $M_{\astrosun}$ \fi
-%% }
-%% \newcommand\omegamodel{\texttt{Omega}}
-%% \newcommand\eris{\texttt{Eris}}
+%commands
+\newcommand{\sos}{Solar system}
+\newcommand\betadecay{$\beta^-$-decay }
+\newcommand\betadecays{$\beta^-$-decays }
+\newcommand\msol{
+  \ifmmode M_{\astrosun}
+  \else $M_{\astrosun}$ \fi
+}
+\newcommand\omegamodel{\texttt{Omega}}
+\newcommand\eris{\texttt{Eris}}
 %% \newcommand\gasoline{\texttt{Gasoline}}
 %% \newcommand\chemevol{\texttt{Chem\_Evol}}
 %% \newcommand\sygma{\texttt{Sygma}}
 %% \newcommand\nsm{neutron star merger}
+%% \newcommand\halflife{
+%%   \ifmmode \tau_{\text{\tiny 1/2}}
+%%   \else $\tau_{\text{\tiny 1/2}}$ \fi
+%% }

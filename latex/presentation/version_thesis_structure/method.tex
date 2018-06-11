@@ -35,6 +35,60 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Table of observed abundances}
+  \begin{table}[h]
+    \centering
+    \input{\thesisdir{texfiles/arnould_table_modified}}
+    \caption[Values and uncertainties of observed r-process abundances in the \sos]{\label{tab:arnould-rncp-uncertainty}
+      Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}.
+      The relative uncertainty, $\sigma$-values, are calculated on the assumption that min/max are the one-sigma standard deviations in either direction.
+    }
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Chemical evolution of \re{187}}
+  \setlength{\subfigwidth}{0.45\textwidth}
+  \begin{figure}[h]
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/mdot_time_Re-187.png}}
+      %\caption{Time evolution of \re{187} ejected from supernovae and neutron star mergers.}
+    \end{subfigure}
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/ism_time_Re-187.png}}
+      %\caption{Time evolution of the total mass of \re{187} in the galaxy over time.}
+    \end{subfigure}
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/mdot_hist_Re-187.png}}
+      %\caption{Sum total of mass of \re{187} ejected from supernovae and neutron star mergers.}
+    \end{subfigure}
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/ism_hist_Re-187.png}}
+      %\caption{Sum total of mass of \re{187} in the interstellar medium of the galaxy}
+    \end{subfigure}
+    %\caption[effect of nucelar uncertainties]{Resulting evolution of \re{187}-mass in a chemical evolution galaxy model.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Statistical deviation of \re{187}}
+  \begin{table}
+    \centering
+    \input{\thesisdir{results/data_yields/table_Re-187.dat}}
+    %% \caption[effect of nuclear uncertainties]{\label{tab:re187-yield-uncertainties}
+    %%   Comparison of output mass-uncertainty with input yield-uncertainty.
+    %%   $\sigma_{init}$ is the relative uncertainty from table \ref{tab:arnould-rncp-uncertainty} for zero, one, and two sigmas in either direction.
+    %%   $\sigma_{ISM}$ is the relative deviation between the resulting mass of the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+    %%   $\sigma_{\dot{m}}$ is the relative deviation between the ejected mass per timestep into the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+    %% }
+  \end{table}
+\end{frame}
+
+\begin{frame}
 \frametitle{Main experiments \todo[rewrite this]}
 \begin{itemize}
 \item Draw random ``fudge-factor'' from gaussian distribution
@@ -46,14 +100,19 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Postprocessing}
-\begin{minipage}{0.45\linewidth}
-\betadecay
-\vfill
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\linewidth}
-Removing negative negative yields
-\vfill
-\end{minipage}
+  \frametitle{Postprocessing}
+  \begin{minipage}[t][1cm][t]{0.45\linewidth}
+    \betadecay
+    \begin{itemize}
+      \item $\Delta \mathrm{Re} = -\lambda_{\scriptscriptstyle \mathrm{Re}} \mathrm{Re} \Delta t$
+      \item $\Delta \mathrm{Os} = \lambda_{\scriptscriptstyle \mathrm{Re}} \mathrm{Re} \Delta t$
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t][1cm][t]{0.45\linewidth}
+    Removing negative negative yields
+    \begin{itemize}
+      \item $\hat{Y} \leq 0 \rightarrow$ \begin{tabular}{l}Do not \\ consider \\ calculation \end{tabular}
+    \end{itemize}
+  \end{minipage}
 \end{frame}

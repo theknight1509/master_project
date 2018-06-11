@@ -1,4 +1,4 @@
-\usepackage{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage{inputenc}
 \usepackage[UKenglish]{babel}
 \usepackage[en-GB, showdow]{datetime2} %Has issues with babel-UKenglish
@@ -16,7 +16,7 @@
 \newcommand\todo[1][]{
         \ifthenelse{\equal{#1}{}}
                 {\comment{TODO!}}
-                {\comment{TODO! #1 some text }}}
+                {\comment{TODO! #1}}}
 
 %Citation packages and styles
 \usepackage{natbib}
@@ -70,3 +70,9 @@
 %%   \ifmmode \tau_{\text{\tiny 1/2}}
 %%   \else $\tau_{\text{\tiny 1/2}}$ \fi
 %% }
+
+%define lengths for subpages and subfigures
+\usepackage{subcaption}
+\usepackage{graphicx}
+\newlength{\figwidth}
+\newlength{\subfigwidth}

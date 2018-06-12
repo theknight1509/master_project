@@ -13,3 +13,99 @@
 \frame{\comment{Galaxies} \\ gravitational collapse of gas and dark matter \\ star formation from GMC \\ inflow from surrounding medium \\ outflow from supernovae}
 \frame{\comment{\eris} \\ SPH \\ properties \\ postprocessing \\ sfr + total mass + [O/H] + [Fe/H] + [Eu/H]}
 \frame{\comment{\omegamodel} \\ SFR + timestep -> stellar mass formed \\ stellar mass formed -> stellar population \\ stellar population + yield tables + delay-time -> isotopic yields recycled into ISM + remnant \\ remnants -> secondary events}
+
+\begin{frame}
+  \centering
+  \vfill
+  What is a cosmic clock?
+  \vfill
+  Why use \re{187}-\os{187}?
+  \vfill
+\end{frame}
+
+\begin{frame}
+  \frametitle{\re{187}-\os{187}}
+  Halflife: \todo
+  Different sources: slow and rapid neutron capture process
+\end{frame}
+
+\begin{frame}
+  \frametitle{nucleosynthesis}
+  \begin{itemize}
+  \item Fusion of lighter elements (up to iron)
+  \item Neutron capture processes
+    \begin{description}
+    \item[slow] \betadecays before succesive neutron capture
+    \item[rapid] capture multiple neutrons before \betadecay
+    \end{description}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \todo[insert tikz-figure from clayton]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytical models of \re{187}-\os{187} cosmic clock}
+  \todo[calculations and citations to appendix A]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Observed isotope fraction from meteorites and solar atmosphere}
+  \todo[calculatations and citations from appendix A]
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{Formation of stellar systems in the Galaxy}
+%%   \begin{itemize}
+%%   \item Collapse of gas in giant molecular clouds
+%%   \item Recycling of material from explosive events
+%%   \item Inflow and outflow of gas from circumgalactic and extragalactic medium
+%%   \end{itemize}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{Chemical enrichment of galactic medium}
+  \todo[insert tikz-figure of recycling]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Explosive events}
+  \begin{itemize}
+  \item Asymptotic giant branch stars (not really explosive)
+  \item Core collapse supernovae
+  \item Type 1a supernovae
+  \item Neutron star mergers
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Eris simulation}
+  \begin{minipage}{0.45\linewidth}
+    \todo[insert eris-image]
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\linewidth}
+    \begin{itemize}
+    \item Smoothed particle hydrodynamics simulation \mycite{guedes11}
+    \item \todo[Add more simulation details? number of particles etc.]
+    \item Postprocessing to add rapid neutron capture elements from neutron star mergers \mycite{shen15}
+    \end{itemize}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Omega semianalytical model \mycite{cote16a}}
+  \begin{itemize}
+  \item SFR + timestep $\rightarrow$ stellar mass formed
+  \item stellar mass formed $\rightarrow$ stellar population
+  \item stellar population + yield tables + delay-time $\rightarrow$ isotopic yields recycled into ISM + remnant
+  \item remnants $\rightarrow$ secondary events
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \makeatletter
+  \@title
+  \makeatsymbol
+\end{frame}

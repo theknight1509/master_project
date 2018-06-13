@@ -3,6 +3,9 @@ Presentation of Master Thesis
 
 [Outline-markdown](outline.md)
 [Outline-pdf](MasterPresentation_OeyvindSvendsen_150618_outline.pdf)
+[First draft](MasterPresentation_OeyvindSvendsen_150618_firstdraft.pdf)
+[Second draft](MasterPresentation_OeyvindSvendsen_150618_seconddraft.pdf)
+[Final pdf](MasterPresentation_OeyvindSvendsen_150618_final.pdf)
 
 latex-structure
 ---------------

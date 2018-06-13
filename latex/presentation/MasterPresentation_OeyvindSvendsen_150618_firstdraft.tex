@@ -1,9 +1,14 @@
 \documentclass{beamer} %document-declaration
 \input{preamble} %use preamble from separate file
+\input{titlepage}
+
+%% \makeatletter
+%% \let\newtitle\@title
+%% \makeatother
 
 \begin{document}
 
-\include{titlepage}
+\frame{\titlepage}
 
 \include{version_thesis_structure/main}
 

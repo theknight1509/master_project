@@ -1,21 +1,23 @@
-\frame{Theory (10 min)
-  \begin{itemize}
-  \item basics of nuclear physics and reactions
-  \item neutron capture processes
-  \item stellar evolution and galactic enrichment
-  \item Omega
-  \item Eris
-  \end{itemize}
-}
+%% \frame{Theory (10 min)
+%%   \begin{itemize}
+%%   \item basics of nuclear physics and reactions
+%%   \item neutron capture processes
+%%   \item stellar evolution and galactic enrichment
+%%   \item Omega
+%%   \item Eris
+%%   \end{itemize}
+%% }
 
-\frame{\comment{Nuclear physics} \\ atom + chart of nuclides \\ shell-model \\ reaction rates + \betadecay \\ neutron-capture reactions \\ slow and rapid neutron capture \\ climbing in the chart of nuclides \\ Re-Os system + analytical model}
-\frame{\comment{Stellar environments} \\ AGB + massive + SN2 \\ SN1a + BNSM + BHNSM \\ yield-tables}
-\frame{\comment{Galaxies} \\ gravitational collapse of gas and dark matter \\ star formation from GMC \\ inflow from surrounding medium \\ outflow from supernovae}
-\frame{\comment{\eris} \\ SPH \\ properties \\ postprocessing \\ sfr + total mass + [O/H] + [Fe/H] + [Eu/H]}
-\frame{\comment{\omegamodel} \\ SFR + timestep -> stellar mass formed \\ stellar mass formed -> stellar population \\ stellar population + yield tables + delay-time -> isotopic yields recycled into ISM + remnant \\ remnants -> secondary events}
+%% \frame{\comment{Nuclear physics} \\ atom + chart of nuclides \\ shell-model \\ reaction rates + \betadecay \\ neutron-capture reactions \\ slow and rapid neutron capture \\ climbing in the chart of nuclides \\ Re-Os system + analytical model}
+%% \frame{\comment{Stellar environments} \\ AGB + massive + SN2 \\ SN1a + BNSM + BHNSM \\ yield-tables}
+%% \frame{\comment{Galaxies} \\ gravitational collapse of gas and dark matter \\ star formation from GMC \\ inflow from surrounding medium \\ outflow from supernovae}
+%% \frame{\comment{\eris} \\ SPH \\ properties \\ postprocessing \\ sfr + total mass + [O/H] + [Fe/H] + [Eu/H]}
+%% \frame{\comment{\omegamodel} \\ SFR + timestep -> stellar mass formed \\ stellar mass formed -> stellar population \\ stellar population + yield tables + delay-time -> isotopic yields recycled into ISM + remnant \\ remnants -> secondary events}
 
 \begin{frame}
   \centering
+  \bf
+  \Large
   \vfill
   What is a cosmic clock?
   \vfill
@@ -25,13 +27,19 @@
 
 \begin{frame}
   \frametitle{\re{187}-\os{187}}
-  Halflife: \todo
-  Different sources: slow and rapid neutron capture process
+  \centering
+  Advantages
+  \begin{description}[labelwidth=\widthof{Different sources}] % {itemize}
+  \item[Halflife] $T_\beta =$ 43.3 Gyr\footnote{IAEA Nuclear Data Service Livechart} ($\lambda_\beta=\frac{\ln 2}{T_\beta}$)
+  \item[Different sources] Slow and rapid neutron capture process 
+  \end{description} %{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{nucleosynthesis}
+  \frametitle{Nucleosynthesis}
+  How was the nuclear elements created?
   \begin{itemize}
+  \item Big bang nucleosynthesis
   \item Fusion of lighter elements (up to iron)
   \item Neutron capture processes
     \begin{description}
@@ -42,17 +50,36 @@
 \end{frame}
 
 \begin{frame}
-  \todo[insert tikz-figure from clayton]
+  \frametitle{Slow and rapid neutron capture around \re{187}-\os{187}}
+  \begin{figure}
+    \input{../tikzfigures/nuclides187_chart}
+    \caption{Adopted from \mycitetwo{clayton64}{fig.1}}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
   \frametitle{Analytical models of \re{187}-\os{187} cosmic clock}
-  \todo[calculations and citations to appendix A]
+  \begin{align}
+    \frac{dN}{dt} &= -\lambda N \\
+    \os{187}_{\astrosun} &= \os{187}_{s} + \os{187}_{p} + \os{187}_{c} \\
+    \frac{d}{dt}\left[\os{187}_{c}\right] &= \lambda_\beta \re{187} \\
+    \frac{d}{dt}\left[\re{187}\right] &= A(t) - \lambda_\beta \re{187} 
+  \end{align}
+  Using the analytical model from Clayton \mycite{clayton64}
+  \begin{align}
+    A(t) &= A_0e^{-\lambda_{r}t} \\
+    f_{187} \equiv \frac{\os{187}_c}{\re{187}} &= \frac{\frac{\lambda_\beta}{\lambda_r} (1-e^{-\lambda_r t}) - (1-e^{-\lambda_\beta t})}{e^{-\lambda_{r}t}-e^{-\lambda_\beta t}}
+  \end{align}
 \end{frame}
 
 \begin{frame}
   \frametitle{Observed isotope fraction from meteorites and solar atmosphere}
-  \todo[calculatations and citations from appendix A]
+  \begin{align}
+    \os{187}_{\astrosun}/\re{187}_{\astrosun} &= 0.226 \pm 0.0579 \quad \mycite{Shizuma05} \\ %f_{187}(t_{now}) = 
+    \Delta t_{sos} &= 4.5682 \pm (4\times10^{-4}) Gyr \quad \mycite{bouvier10} \\
+    T_{1/2} &= 41.577 \pm 0.12 Gyr \quad \mycite{snelling15} \\
+    f_{187}(t_{sos}) &= 0.135 \pm 0.0323 %\os{187}_{\astrosun}/\re{187}_{\astrosun} 
+  \end{align}
 \end{frame}
 
 %% \begin{frame}
@@ -66,7 +93,10 @@
 
 \begin{frame}
   \frametitle{Chemical enrichment of galactic medium}
-  \todo[insert tikz-figure of recycling]
+  \begin{figure}
+    \centering
+    \includegraphics[height=0.9\textheight]{\curdir{stellar_recycling.png}}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -82,13 +112,18 @@
 \begin{frame}
   \frametitle{Eris simulation}
   \begin{minipage}{0.45\linewidth}
-    \todo[insert eris-image]
+    \begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{../thesis/img/eris_map_guedes11_fig2.png}
+      \caption{credit: Guedes et al. (2011) \mycitetwo{guedes11}{fig.2}}
+    \end{figure}
   \end{minipage}
   \hfill
   \begin{minipage}{0.45\linewidth}
     \begin{itemize}
     \item Smoothed particle hydrodynamics simulation \mycite{guedes11}
-    \item \todo[Add more simulation details? number of particles etc.]
+    \item 3D 
+    \item 18.6 million particles
     \item Postprocessing to add rapid neutron capture elements from neutron star mergers \mycite{shen15}
     \end{itemize}
   \end{minipage}

@@ -12,7 +12,7 @@ eris_data_inst = eris_data()
 data_dir = "data_fitting/"
 plot_dir = "plots_fitting/"
 #boolean switches
-plot_all = True #plot all data
+plot_all = False #plot all data
 locked_param = False #plot all data from version 0
 mass_param = False #plot all data from version 1
 star_param = False #plot all data from version 2
@@ -397,64 +397,67 @@ def v1_final(plot_arg="all"):
     omega1_desc = "'Omega' default"
     omega2_desc = "'Omega' MW"
     omega3_desc = "'Omega' MW cte"
-    omega4_desc = "'Omega' w/'Eris'-SFR"
+    omega4_desc = "Fiducial 'Omega'"
     filenames = ["masses_1_n300", "masses_2_n300", "rates_0_n300", "spectro_0_n300", "spectro_1_n300"]
     timescale = 1e+9 #scale time to Gyrs
 
-    """
+    
     if plot_arg in ["all", "1"]:
-    ### plot stellar mass ###
-    eris_mass = eris_data_inst.sfr["m_cum"]
-    eris_time = eris_data_inst.sfr["time"]
-    eris_time /= timescale #scale to Gyr
-    time, omega1, omega2, omega3, omega4 \
-        = np.load(data_filename_lambdafunc( filenames[0] ))
-    time /= timescale #scale time to Gyrs
-    #calculate cumulative stellar mass to compare with 'Eris'
-    omega1, omega2, omega3, omega4\
-        = np.cumsum(omega1), np.cumsum(omega2), \
-        np.cumsum(omega3), np.cumsum(omega4)
-    #make plot-object
-    fig = pl.figure("v1.3.1")
-    fig.suptitle("Comparison of models")
-    ax = fig.gca()
-    ax.set_xlabel("time [Gyr]")
-    ax.set_ylabel(r"$M_{\star, cum}$ [$M_\odot$]")
-    ax.grid(True)
-    ax.plot(eris_time, eris_mass, 'k-', label="'Eris'")
-    ax.plot(time, omega1, '--', label=omega1_desc)
-    ax.plot(time, omega2, '-.', label=omega2_desc)
-    ax.plot(time, omega3, '--', label=omega3_desc)
-    ax.plot(time, omega4, '-.', label=omega4_desc)
-    #ax.legend(loc="center right", bbox_to_anchor=(1.0, 0.0))
-    ax.legend(loc="best")
-    fig.savefig(plot_filename_lambdafunc("stellar_mass"))
+        ### plot stellar mass ###
+        eris_mass = eris_data_inst.sfr["m_cum"]
+        eris_time = eris_data_inst.sfr["time"]
+        eris_time /= timescale #scale to Gyr
+        time, omega1, omega2, omega3, omega4 \
+            = np.load(data_filename_lambdafunc( filenames[0] ))
+        time /= timescale #scale time to Gyrs
+        #calculate cumulative stellar mass to compare with 'Eris'
+        omega1, omega2, omega3, omega4\
+            = np.cumsum(omega1), np.cumsum(omega2), \
+            np.cumsum(omega3), np.cumsum(omega4)
+        #make plot-object
+        fig = pl.figure("v1.3.1")
+        fig.suptitle("Fitting of Fiducial Omega to mass content")
+        ax = fig.gca()
+        ax.set_xlabel("time [Gyr]")
+        ax.set_ylabel(r"$M_{\star, cum}$ [$M_\odot$]")
+        ax.grid(True)
+        ax.plot(eris_time, eris_mass, 'k-', label="'Eris'")
+        # ax.plot(time, omega1, '--', label=omega1_desc)
+        # ax.plot(time, omega2, '-.', label=omega2_desc)
+        # ax.plot(time, omega3, '--', label=omega3_desc)
+        ax.plot(time, omega4, '-.', label=omega4_desc)
+        #ax.legend(loc="center right", bbox_to_anchor=(1.0, 0.0))
+        ax.legend(loc="best")
+        fig.savefig(plot_filename_lambdafunc("stellar_mass"))
+        print plot_filename_lambdafunc("stellar_mass")
 
     if plot_arg in ["all", "2"]:
-    ### plot total mass ###
-    print "Warning! total mass does not reproduce github!"
-    eris_mass = eris_data_inst.mass["total_mass"]
-    eris_time = eris_data_inst.mass["time"]
-    eris_time /= timescale #scale to Gyr
-    time, omega1, omega2, omega3, omega4 \
-        = np.load(data_filename_lambdafunc( filenames[1] ))
-    time /= timescale #scale time to Gyrs
-    #make plot-object
-    fig = pl.figure("v1.3.2")
-    fig.suptitle("Comparison of models")
-    ax = fig.gca()
-    ax.set_xlabel("time [Gyr]")
-    ax.set_ylabel(r"$M_{tot}$ [$M_\odot$]")
-    ax.grid(True)
-    ax.plot(eris_time, eris_mass, 'k.', label="'Eris'")
-    ax.plot(time, omega1, '--', label=omega1_desc)
-    ax.plot(time, omega2, '-.', label=omega2_desc)
-    ax.plot(time, omega3, '--', label=omega3_desc)
-    ax.plot(time, omega4, '--', label=omega4_desc)
-    #ax.legend(loc="center right", bbox_to_anchor=(1.0, 0.0))
-    ax.legend(loc="best")
-    fig.savefig(plot_filename_lambdafunc("total_mass"))
+        ### plot total mass ###
+        print "Warning! total mass does not reproduce github!"
+        eris_mass = eris_data_inst.mass["total_mass"]
+        eris_time = eris_data_inst.mass["time"]
+        eris_time /= timescale #scale to Gyr
+        time, omega1, omega2, omega3, omega4 \
+            = np.load(data_filename_lambdafunc( filenames[1] ))
+        time /= timescale #scale time to Gyrs
+        #make plot-object
+        fig = pl.figure("v1.3.2")
+        fig.suptitle("Fitting of Fiducial Omega to mass content")
+        ax = fig.gca()
+        ax.set_xlabel("time [Gyr]")
+        ax.set_ylabel(r"$M_{tot}$ [$M_\odot$]")
+        ax.grid(True)
+        ax.plot(eris_time, eris_mass, 'k.', label="'Eris'")
+        # ax.plot(time, omega1, '--', label=omega1_desc)
+        # ax.plot(time, omega2, '-.', label=omega2_desc)
+        # ax.plot(time, omega3, '--', label=omega3_desc)
+        ax.plot(time, omega4, '--', label=omega4_desc)
+        #ax.legend(loc="center right", bbox_to_anchor=(1.0, 0.0))
+        ax.legend(loc="best")
+        fig.savefig(plot_filename_lambdafunc("total_mass"))
+        print plot_filename_lambdafunc("total_mass")
 
+    """
     if plot_arg in ["all", "3"]:
     ### plot sfr ###
     eris_sfr = eris_data_inst.sfr["sfr"]
@@ -531,9 +534,9 @@ def v1_final(plot_arg="all"):
     """
 
 if plot_all or mass_param or False:
-    if True:
+    if False:
         v1_minit_minf()
-    if True:
+    if False:
         v1_mout(plot_arg="all")
     if True:
         v1_final()
@@ -974,48 +977,50 @@ def v2_sn1a(plot_arg="all"):
         #[O/H]
         filename = data_filename_lambdafunc("v4_spectro_0_n30")
         fig = pl.figure("v2.3.9"); 
-        fig.suptitle("Number of Type 1a Supernovae")
+        fig.suptitle("Fitting of Fiducial Omega to type 1a supernovae")
         ax = fig.gca(); ax.grid(True); ax.hold(True)
         ax.set_xlabel("time [Gyr]"), ax.set_ylabel("[O/H]")
         time, omega1, omega2, omega3, omega4, omega5 = np.load(filename)
         time /= timescale
-        ax.plot(time, omega1, '--', label=numbers_string+"=%1.1e"%omega_desc[0])
-        ax.plot(time, omega2, '-.', label=numbers_string+"=%1.1e"%omega_desc[1])
-        ax.plot(time, omega3, ':', label=numbers_string+"=%1.1e"%omega_desc[2])
-        ax.plot(time, omega4, '--', label=numbers_string+"=%1.1e"%omega_desc[3])
-        ax.plot(time, omega5, '-.', label=numbers_string+"=%1.1e"%omega_desc[4])
+        #ax.plot(time, omega1, '--', label=numbers_string+"=%1.1e"%omega_desc[0])
+        #ax.plot(time, omega2, '-.', label=numbers_string+"=%1.1e"%omega_desc[1])
+        ax.plot(time, omega3, '--', label="Fiducial Omega") #numbers_string+"=%1.1e"%omega_desc[2])
+        #ax.plot(time, omega4, '--', label=numbers_string+"=%1.1e"%omega_desc[3])
+        #ax.plot(time, omega5, '-.', label=numbers_string+"=%1.1e"%omega_desc[4])
         ax.plot(eris_time, eris_oxy, 'k-', label="'Eris'")
         ax.legend(loc='best')
-        ax.set_ylim((-5,2))
+        ax.set_ylim((-2,1))
         filename = plot_filename_lambdafunc("sn1a_num2_oxy")
+        print filename
         fig.savefig(filename)
 
         #[Fe/H]
         filename = data_filename_lambdafunc("v4_spectro_1_n30")
         fig = pl.figure("v2.3.10"); 
-        fig.suptitle("Number of Type 1a Supernovae")
+        fig.suptitle("Fitting of Fiducial Omega to type 1a supernovae")
         ax = fig.gca(); ax.grid(True); ax.hold(True)
         ax.set_xlabel("time [Gyr]"), ax.set_ylabel("[Fe/H]")
         time, omega1, omega2, omega3, omega4, omega5 = np.load(filename)
         time /= timescale
-        ax.plot(time, omega1, '--', label=numbers_string+"=%1.1e"%omega_desc[0])
-        ax.plot(time, omega2, '-.', label=numbers_string+"=%1.1e"%omega_desc[1])
-        ax.plot(time, omega3, ':', label=numbers_string+"=%1.1e"%omega_desc[2])
-        ax.plot(time, omega4, '--', label=numbers_string+"=%1.1e"%omega_desc[3])
-        ax.plot(time, omega5, '-.', label=numbers_string+"=%1.1e"%omega_desc[4])
+        #ax.plot(time, omega1, '--', label=numbers_string+"=%1.1e"%omega_desc[0])
+        #ax.plot(time, omega2, '-.', label=numbers_string+"=%1.1e"%omega_desc[1])
+        ax.plot(time, omega3, '--', label="Fiducial Omega") #numbers_string+"=%1.1e"%omega_desc[2])
+        #ax.plot(time, omega4, '--', label=numbers_string+"=%1.1e"%omega_desc[3])
+        #ax.plot(time, omega5, '-.', label=numbers_string+"=%1.1e"%omega_desc[4])
         ax.plot(eris_time, eris_iron, 'k-', label="'Eris'")
         ax.legend(loc='best')
-        ax.set_ylim((-5,2))
+        ax.set_ylim((-2,1))
         filename = plot_filename_lambdafunc("sn1a_num2_iron")
+        print filename
         fig.savefig(filename)
 
 if plot_all or star_param or False:
-    if True:
+    if False:
         v2_star_useless()
-    if True:
+    if False:
         v2_sn1a_useless()
     if True:
-        v2_sn1a()
+        v2_sn1a("5")
 
 ############################
 ### plots from version 3 ###
@@ -1286,7 +1291,7 @@ def v3_combo():
     #plot nsm-rates data with nb_nsm_per_mass
     filename = data_filename_lambdafunc("v3_rates_2_n300")    
     fig = pl.figure("v3.5.1"); 
-    fig.suptitle("INSERT TITLE HERE")
+    fig.suptitle("Fitting of Fiducial Omega to neutron star mergers")
     ax = fig.gca(); ax.grid(True); ax.hold(True)
     ax.set_xlabel("time [Gyr]"), ax.set_ylabel("nsm rate")
     time, omega1, omega2, omega3, omega4, omega5 = np.load(filename)
@@ -1301,13 +1306,14 @@ def v3_combo():
     #ax.ticklabel_format(style="sci")
     ax.set_ylim((-1e-6,1e-5))
     filename = plot_filename_lambdafunc("combo_rates")
+    print filename
     fig.savefig(filename)
     
     #plot spectroscopic data with combo
     filename = data_filename_lambdafunc("v3_spectro_2_n300")
     
     fig = pl.figure("v3.5.2"); 
-    fig.suptitle("INSERT TITLE HERE")
+    fig.suptitle("Fitting of Fiducial Omega to neutron star mergers")
     ax = fig.gca(); ax.grid(True); ax.hold(True)
     ax.set_xlabel("time [Gyr]"), ax.set_ylabel("[Eu/H]")
     time, omega1, omega2, omega3, omega4, omega5 = np.load(filename)
@@ -1321,6 +1327,7 @@ def v3_combo():
     ax.legend(loc='best')
     ax.set_ylim((-5,2))
     filename = plot_filename_lambdafunc("combo_spectro")
+    print filename
     fig.savefig(filename)
 
     return None
@@ -1345,46 +1352,48 @@ def v3_final():
     #plot nsm-rates data with nb_nsm_per_mass
     filename = data_filename_lambdafunc("v4_rates_2_n300")    
     fig = pl.figure("v3.6.1"); 
-    fig.suptitle("INSERT TITLE HERE")
+    fig.suptitle("Fitting of Fiducial Omega to neutron star mergers")
     ax = fig.gca(); ax.grid(True); ax.hold(True)
     ax.set_xlabel("time [Gyr]"), ax.set_ylabel("nsm rate")
     time, omega = np.load(filename)
     time /= timescale
-    ax.plot(time, omega, '--', label="INSERT LABEL HERE")
-    ax.plot(eris_time_rate, eris_rate, 'k-', label="'Eris'")
+    ax.plot(time, omega, '--', label="Fiducial Omega")
+    ax.plot(eris_time_rate, eris_rate, 'k-', label="Eris")
     ax.legend(loc='best')
-    ax.set_ylim((-1e-6,1e-5))
+    #ax.set_ylim((-1e-6,1e-5))
     filename = plot_filename_lambdafunc("final_rates")
+    print filename
     fig.savefig(filename)
     
     #plot spectroscopic data with combo
     filename = data_filename_lambdafunc("v4_spectro_2_n300")
     
     fig = pl.figure("v3.6.2"); 
-    fig.suptitle("INSERT TITLE HERE")
+    fig.suptitle("Fitting of Fiducial Omega to neutron star mergers")
     ax = fig.gca(); ax.grid(True); ax.hold(True)
     ax.set_xlabel("time [Gyr]"), ax.set_ylabel("[Eu/H]")
     time, omega = np.load(filename)
     time /= timescale
-    ax.plot(time, omega, '--', label="INSERT LABEL HERE")
-    ax.plot(eris_time_euro, eris_euro, 'k-', label="'Eris'")
+    ax.plot(time, omega, '--', label="Fiducial Omega")
+    ax.plot(eris_time_euro, eris_euro, 'k-', label="Eris")
     ax.legend(loc='best')
     ax.set_ylim((-5,2))
     filename = plot_filename_lambdafunc("final_spectro")
+    print filename
     fig.savefig(filename)
 
     return None
 
 if plot_all or nsm_param or False:
-    if True:
+    if False:
         v3_dtd()
-    if True:
+    if False:
         v3_ejmass()
-    if True:
+    if False:
         v3_mergerfraction()
-    if True:
+    if False:
         v3_nbnsm()
-    if True:
+    if False:
         v3_combo()
     if True:
         v3_final()

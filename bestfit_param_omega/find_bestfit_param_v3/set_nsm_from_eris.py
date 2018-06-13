@@ -243,10 +243,10 @@ if __name__ == '__main__' and True:
     new_list_of_model_names = ["'Eris lookalike' from determining NSM parameters"]
     
     plot_rates(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v4_rates",
-                 expl_string="Final check for nsm-parameters")
-    plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
-                 version_string="v4_spectro",
-                 expl_string="Final check for nsm-parameters")
+               version_string="v4_rates",
+               expl_string="Final check for nsm-parameters")
+    # plot_spectro(loa_omegas=new_list_of_models, loa_omega_names=new_list_of_model_names,
+    #              version_string="v4_spectro",
+    #              expl_string="Final check for nsm-parameters")
     
 pl.show()

@@ -3,35 +3,103 @@
 \begin{itemize}
 \item Fitting \omegamodel\ to data from \eris
 \item Manipulate yields in \omegamodel
-\item Main experiments \todo[rewrite this]
+\item Main experiments
 \item Postprocessing
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Fitting \omegamodel\ to data from \eris}
-\begin{itemize}
-\item \todo[rough model]
-\item \todo[chi2-by-eye]
-\item \todo[data available]
-\item Steps
-\end{itemize}
+  \frametitle{Fitting \omegamodel\ to data from \eris}
+  \begin{minipage}{0.45\linewidth}
+    \begin{itemize}
+    \item Rough model
+    \item ``$\chi^2$-by-eye''
+    \item Star formation rate, stellar mass, total mass, [O/H], [Fe/H], [Eu/H]
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\linewidth}
+    \begin{itemize}
+    \item Direct insertion
+    \item Mass content
+    \item type 1a supernovae
+    \item Neutron star mergers
+    \item Size of timesteps
+    \end{itemize}
+  \end{minipage}
 \end{frame}
 
-\frame{\comment{Direct Insertion}}
-\frame{\comment{Mass}}
-\frame{\comment{Stellar parameters}}
-\frame{\comment{Neutron star mergers}}
-\frame{\comment{Time steps}}
-\frame{\comment{Final model}}
+\setlength\subfigwidth{0.45\linewidth}
+\begin{frame}
+  \frametitle{Direct Insertion}
+  \begin{figure}
+    \centering
+    \begin{subfigure}{1.1\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{eris_sfr.png}}
+    \end{subfigure}
+    \begin{subfigure}{0.9\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{various_initial_mass_functions.png}}
+    \end{subfigure}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{Mass content}
+  \begin{figure}
+    \centering
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{set_mass_3_plot_stellar_mass.png}}
+    \end{subfigure}
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{set_mass_3_plot_total_mass.png}}
+    \end{subfigure}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{Stellar parameters}
+  \begin{figure}
+    \centering
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{set_sn1a_plot_sn1a_num2_oxy.png}}
+    \end{subfigure}
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{set_sn1a_plot_sn1a_num2_iron.png}}
+    \end{subfigure}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{Neutron star mergers}
+  \begin{figure}
+    \centering
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{set_nsm_plot_final_rates.png}}
+    \end{subfigure}
+    \begin{subfigure}{\subfigwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\curdir{set_nsm_plot_final_spectro.png}}
+    \end{subfigure}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{Size of time steps}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{\curdir{resolution_difference_euro_logged.png}}
+  \end{figure}
+\end{frame}
 
 \begin{frame}
-\frametitle{Manipulate yields in \omegamodel}
-\begin{itemize}
-\item Yields from arnould and other \todo
-\item Fudge-factors \todo
-\item Linear relationship
-\end{itemize}
+  \frametitle{Manipulate yields in \omegamodel}
+  \begin{itemize}
+  \item Yields from arnould and other \todo
+  \item ``Fudge-factors''
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -39,57 +107,58 @@
   \begin{table}[h]
     \centering
     \input{\thesisdir{texfiles/arnould_table_modified}}
-    \caption[Values and uncertainties of observed r-process abundances in the \sos]{\label{tab:arnould-rncp-uncertainty}
-      Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}.
-      The relative uncertainty, $\sigma$-values, are calculated on the assumption that min/max are the one-sigma standard deviations in either direction.
-    }
-  \end{table}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Chemical evolution of \re{187}}
-  \setlength{\subfigwidth}{0.45\textwidth}
-  \begin{figure}[h]
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/mdot_time_Re-187.png}}
-      %\caption{Time evolution of \re{187} ejected from supernovae and neutron star mergers.}
-    \end{subfigure}
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/ism_time_Re-187.png}}
-      %\caption{Time evolution of the total mass of \re{187} in the galaxy over time.}
-    \end{subfigure}
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/mdot_hist_Re-187.png}}
-      %\caption{Sum total of mass of \re{187} ejected from supernovae and neutron star mergers.}
-    \end{subfigure}
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/ism_hist_Re-187.png}}
-      %\caption{Sum total of mass of \re{187} in the interstellar medium of the galaxy}
-    \end{subfigure}
-    %\caption[effect of nucelar uncertainties]{Resulting evolution of \re{187}-mass in a chemical evolution galaxy model.}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Statistical deviation of \re{187}}
-  \begin{table}
-    \centering
-    \input{\thesisdir{results/data_yields/table_Re-187.dat}}
-    %% \caption[effect of nuclear uncertainties]{\label{tab:re187-yield-uncertainties}
-    %%   Comparison of output mass-uncertainty with input yield-uncertainty.
-    %%   $\sigma_{init}$ is the relative uncertainty from table \ref{tab:arnould-rncp-uncertainty} for zero, one, and two sigmas in either direction.
-    %%   $\sigma_{ISM}$ is the relative deviation between the resulting mass of the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
-    %%   $\sigma_{\dot{m}}$ is the relative deviation between the ejected mass per timestep into the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+    \caption{Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}}
+    %% \caption[Values and uncertainties of observed r-process abundances in the \sos]{\label{tab:arnould-rncp-uncertainty}
+    %%   Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}.
+    %%   The relative uncertainty, $\sigma$-values, are calculated on the assumption that min/max are the one-sigma standard deviations in either direction.
     %% }
   \end{table}
 \end{frame}
 
+%% \begin{frame}
+%%   \frametitle{Chemical evolution of \re{187}}
+%%   \setlength{\subfigwidth}{0.45\textwidth}
+%%   \begin{figure}[h]
+%%     \begin{subfigure}{\subfigwidth}
+%%       \centering
+%%       \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/mdot_time_Re-187.png}}
+%%       %\caption{Time evolution of \re{187} ejected from supernovae and neutron star mergers.}
+%%     \end{subfigure}
+%%     \begin{subfigure}{\subfigwidth}
+%%       \centering
+%%       \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/ism_time_Re-187.png}}
+%%       %\caption{Time evolution of the total mass of \re{187} in the galaxy over time.}
+%%     \end{subfigure}
+%%     \begin{subfigure}{\subfigwidth}
+%%       \centering
+%%       \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/mdot_hist_Re-187.png}}
+%%       %\caption{Sum total of mass of \re{187} ejected from supernovae and neutron star mergers.}
+%%     \end{subfigure}
+%%     \begin{subfigure}{\subfigwidth}
+%%       \centering
+%%       \includegraphics[width=0.9\linewidth]{\thesisdir{results/plots_yields/ism_hist_Re-187.png}}
+%%       %\caption{Sum total of mass of \re{187} in the interstellar medium of the galaxy}
+%%     \end{subfigure}
+%%     %\caption[effect of nucelar uncertainties]{Resulting evolution of \re{187}-mass in a chemical evolution galaxy model.}
+%%   \end{figure}
+%% \end{frame}
+
+%% \begin{frame}
+%%   \frametitle{Statistical deviation of \re{187}}
+%%   \begin{table}
+%%     \centering
+%%     \input{\thesisdir{results/data_yields/table_Re-187.dat}}
+%%     %% \caption[effect of nuclear uncertainties]{\label{tab:re187-yield-uncertainties}
+%%     %%   Comparison of output mass-uncertainty with input yield-uncertainty.
+%%     %%   $\sigma_{init}$ is the relative uncertainty from table \ref{tab:arnould-rncp-uncertainty} for zero, one, and two sigmas in either direction.
+%%     %%   $\sigma_{ISM}$ is the relative deviation between the resulting mass of the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+%%     %%   $\sigma_{\dot{m}}$ is the relative deviation between the ejected mass per timestep into the interstellar medium, at current time (Z=0) and integrated for all time ($\Sigma$).
+%%     %% }
+%%   \end{table}
+%% \end{frame}
+
 \begin{frame}
-\frametitle{Main experiments \todo[rewrite this]}
+\frametitle{Main experiments}
 \begin{itemize}
 \item Draw random ``fudge-factor'' from gaussian distribution
 \item 1500 individual calculations

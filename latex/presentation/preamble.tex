@@ -2,6 +2,7 @@
 \usepackage{inputenc}
 \usepackage[UKenglish]{babel}
 \usepackage[en-GB, showdow]{datetime2} %Has issues with babel-UKenglish
+\usepackage{tikz}
 
 %\usepackage{amsmath} %math-mode package
 %\usepackage{amssymb} %math-mode package
@@ -46,13 +47,14 @@
 %% \renewcommand{\u}[1]{\isotope{U}{92}{#1}}
 %% \newcommand{\pb}[1]{\isotope{Pb}{82}{#1}}
 %% \renewcommand{\th}[1]{\isotope{Th}{90}{#1}}
-%% \newcommand{\w}[1]{\isotope{W}{74}{#1}}
+\newcommand{\w}[1]{\isotope{W}{74}{#1}}
 \newcommand\fbase{\mathrm{f}_{\scriptscriptstyle 187}}
 \newcommand\f{\ifmmode {\fbase} \else {$\fbase$} \fi}
 \newcommand\osrebase{\frac{\os{187}}{\re{187}}}
 \newcommand\osre{\ifmmode {\osrebase} \else {$\osrebase$} \fi}
 
 %commands
+\usepackage{wasysym} %astrological symbols package
 \newcommand{\sos}{Solar system}
 \newcommand\betadecay{$\beta^-$-decay }
 \newcommand\betadecays{$\beta^-$-decays }

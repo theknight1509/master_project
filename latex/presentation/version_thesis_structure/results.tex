@@ -1,27 +1,27 @@
-\setlength{\subfigwidth}{0.4\textwidth} %Use subfigwidth for the first two figures
+\setlength{\subfigwidth}{0.45\textwidth} %Use subfigwidth for the first two figures
 \setlength{\figwidth}{0.5\textwidth} %Use figwidth for the last figure
 \newcommand\MCEdir[1]{../thesis/results/MCExperiment_revised_2/#1}
-\newcommand\MCEdelmaxdir[1]{../thesis/results/MCExperiment_revised_2_delmax/#1}
+\renewcommand\MCEdelmaxdir[1]{../thesis/results/MCExperiment_revised_2_delmax/#1}
 \newcommand\MCEimfslopedir[1]{../thesis/results/MCExperiment_revised_2_imfslope/#1}
 \newcommand\MCEnumnsmdir[1]{../thesis/results/MCExperiment_revised_2_numnsm/#1}
 
-\begin{frame}
-\frametitle{Results}
-\begin{itemize}
-\item \re{187} in interstellar gas
-\item \os{187} in interstellar gas
-\item $\f = \osre$
-\item Rate of neutron star mergers
-\end{itemize}
-\begin{itemize}
-\item \textbf{Yields}
-\item \textbf{Yields+IMFslope}
-\item \textbf{Yields+IMFslope+NSM}
-\end{itemize}
-\end{frame}
+%% \begin{frame}
+%%   \frametitle{Results}
+%%   \begin{itemize}
+%%   \item \re{187} in interstellar gas
+%%   \item \os{187} in interstellar gas
+%%   \item $\f = \osre$
+%%   \item Rate of neutron star mergers
+%%   \end{itemize}
+%%   \begin{itemize}
+%%   \item \textbf{Yields}
+%%   \item \textbf{Yields+IMFslope}
+%%   \item \textbf{Yields+IMFslope+NSM}
+%%   \end{itemize}
+%% \end{frame}
 
 \begin{frame}
-\frametitle{\textbf{Yields} without postprocessing}
+\frametitle{Results - \textbf{Yields} without postprocessing}
 %add plots of Os-187, Re-187, Os-187/Re-187 for regular MCExperiment wo/decay
 \begin{figure}[h]
   \begin{subfigure}[t][][t]{\subfigwidth}
@@ -36,56 +36,74 @@
     %% \caption{\label{fig:MCExperiment-nodecay-os187} \footnotesize
     %%   Same as \ref{fig:MCExperiment-nodecay-re187}, but for \os{187}.
     %% }
-  \end{subfigure} \\
-  \centering
-  \begin{subfigure}[t][][t]{\figwidth}
-    \includegraphics[width=\linewidth]{\MCEdir{combined_plot_div.png}}
-    %% \caption{\label{fig:MCExperiment-nodecay-div} \footnotesize
-    %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
   \end{subfigure}
-  %% \caption[\expone\ before \betadecay]{\label{fig:MCExperiment-nodecay}
-  %%   The mass and mass fractions in the interstellar medium \textit{before} \betadecay is applied.
-  %%   Only nucleosynthesis/production from stellar sources is considered.
+  %% \centering
+  %% \begin{subfigure}[t][][t]{\figwidth}
+  %%   \includegraphics[width=\linewidth]{\MCEdir{combined_plot_div.png}}
+  %%   %% \caption{\label{fig:MCExperiment-nodecay-div} \footnotesize
+  %%   %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  %%   %% }
+  %% \end{subfigure}
+  %% %% \caption[\expone\ before \betadecay]{\label{fig:MCExperiment-nodecay}
+  %% %%   The mass and mass fractions in the interstellar medium \textit{before} \betadecay is applied.
+  %% %%   Only nucleosynthesis/production from stellar sources is considered.
 
-  %%   The left panel, in all three figures, show the evolution of the total mass in the interstellar medium.
-  %%   The two right panels, in all three figures, show the distribution at 9.5 and 14 Gyr.
-  %%   The black vertical lines in the evolution-panel shows where the distribution in the two right panels have been taken from.
-  %% }
+  %% %%   The left panel, in all three figures, show the evolution of the total mass in the interstellar medium.
+  %% %%   The two right panels, in all three figures, show the distribution at 9.5 and 14 Gyr.
+  %% %%   The black vertical lines in the evolution-panel shows where the distribution in the two right panels have been taken from.
+  %% %% }
 \end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{\textbf{Yields} with postprocessing}
-%figure of zero-yield plots here
-\begin{figure}
-  \centering
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEdelmaxdir{combined_plot_Re-187_decayed.png}}
-    %% \caption{ \label{fig:MCExperiment-delmax-re187} \footnotesize
-    %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
+  \frametitle{Postprocessing}
+  \begin{minipage}[t][1cm][t]{0.45\linewidth}
+    \betadecay \\ $\re{187} \rightarrow \os{187} + e^- + \bar{\nu}_e$
+    \begin{itemize}
+      \item $\Delta \mathrm{Re} = -\lambda_{\scriptscriptstyle \mathrm{Re}} \mathrm{Re} \Delta t$
+      \item $\Delta \mathrm{Os} = \lambda_{\scriptscriptstyle \mathrm{Re}} \mathrm{Re} \Delta t$
+    \end{itemize}
+  \end{minipage}
   \hfill
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEdelmaxdir{combined_plot_Os-187_decayed.png}}
-    %% \caption{ \label{fig:MCExperiment-delmax-os187} \footnotesize
-    %%   Mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  \begin{minipage}[t][1cm][t]{0.45\linewidth}
+    Removing negative negative yields
+    \begin{itemize}
+      \item $\hat{Y} \leq 0 \rightarrow$ \begin{tabular}{l}Do not \\ consider \\ calculation \end{tabular}
+    \end{itemize}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Results - \textbf{Yields} with postprocessing}
+  %figure of zero-yield plots here
+  \begin{figure}
+    \centering
+    \begin{subfigure}{\subfigwidth}
+      \includegraphics[width=\linewidth]{\MCEdelmaxdir{combined_plot_Re-187_decayed.png}}
+      %% \caption{ \label{fig:MCExperiment-delmax-re187} \footnotesize
+      %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+      %% }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{\subfigwidth}
+      \includegraphics[width=\linewidth]{\MCEdelmaxdir{combined_plot_Os-187_decayed.png}}
+      %% \caption{ \label{fig:MCExperiment-delmax-os187} \footnotesize
+      %%   Mass of \os{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+      %% }
+    \end{subfigure} \\
+    \centering
+    \begin{subfigure}{\figwidth}
+      \includegraphics[width=\linewidth]{\MCEdelmaxdir{combined_plot_div_decayed_meteordata.png}}
+      %% \caption{ \label{fig:MCExperiment-delmax-div} \footnotesize
+      %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+      %% }
+    \end{subfigure}
+    %% \caption[\expone\ with \betadecay and removing negative isotope yields]{ \label{fig:MCExperiment-delmax}
+    %%   The plots are similar to figures \ref{fig:MCExperiment-nodecay}, however \betadecay has been applied and only data with positive, non-zero isotope-yields, are considered.
+    %%   The values for the mean and standard deviation (green line) in the distribution extracts can be found in table \ref{tab:results-delmax}.
+    %%   The green band represent meteordata calculated in appendix \ref{sec:calc-cosmo-chronology}.
     %% }
-  \end{subfigure} \\
-  \centering
-  \begin{subfigure}{\figwidth}
-    \includegraphics[width=\linewidth]{\MCEdelmaxdir{combined_plot_div_decayed_meteordata.png}}
-    %% \caption{ \label{fig:MCExperiment-delmax-div} \footnotesize
-    %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  %% \caption[\expone\ with \betadecay and removing negative isotope yields]{ \label{fig:MCExperiment-delmax}
-  %%   The plots are similar to figures \ref{fig:MCExperiment-nodecay}, however \betadecay has been applied and only data with positive, non-zero isotope-yields, are considered.
-  %%   The values for the mean and standard deviation (green line) in the distribution extracts can be found in table \ref{tab:results-delmax}.
-  %%   The green band represent meteordata calculated in appendix \ref{sec:calc-cosmo-chronology}.
-  %% }
-\end{figure}
+  \end{figure}
 \end{frame}
 
 \newcommand\leff{\lambda_{\tiny \beta}^{\textrm{\tiny eff}}}
@@ -139,14 +157,13 @@
 %%     %% }
 %%   \end{table}
 %% \end{frame}
-
-\begin{frame}
-\frametitle{Comparing models}
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{\curdir{analytical_models_table.png}}
-\end{figure}
-\end{frame}           
+%% \begin{frame}
+%%   \frametitle{Comparing models}
+%%   \begin{figure}
+%%     \centering
+%%     \includegraphics[width=\linewidth]{\curdir{analytical_models_table.png}}
+%%   \end{figure}
+%% \end{frame}           
 
 \begin{frame}
 \frametitle{Comparing models}
@@ -170,34 +187,38 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Uncertainties of \textbf{Yields+IMFslope}}
-%add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/IMFslope
-\begin{figure}
-  \centering
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEimfslopedir{combined_plot_Re-187_decayed.png}}
-    %% \caption{\label{fig:MCExperiment-imfslope-re187}
-    %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEimfslopedir{combined_plot_Os-187_decayed.png}}
-    %% \caption{\label{fig:MCExperiment-imfslope-os187}
-    %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  \begin{subfigure}{\figwidth}
-    \includegraphics[width=\linewidth]{\MCEimfslopedir{combined_plot_div_decayed_meteordata.png}}
-    %% \caption{\label{fig:MCExperiment-imfslope-div}
-    %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  %% \caption[\exptwo\ after \betadecay and removing negative isotope yields]{\label{fig:MCExperiment-imfslope}
-  %%   The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied and uncertainty in the high mass slope of the initial mass function. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}. The amount of type II supernovae are also varied because the high mass slope of the initial mass function gives more massive stars, which in turn give more type II supernovae.
-
-  %%   The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
-  %% }
-\end{figure}
+  \frametitle{Results - Uncertainties of \textbf{Yields+IMFslope}}
+  %add plots of Os-187, Re-187, Os-187/Re-187 for MCExperiment w/IMFslope
+  \begin{figure}
+    \centering
+    \includegraphics[width=\subfigwidth]{\MCEdelmaxdir{combined_plot_div_decayed_meteordata.png}}
+    \hfill \raisebox{10ex}{$\rightarrow$} \hfill
+    \includegraphics[width=\subfigwidth]{\MCEimfslopedir{combined_plot_div_decayed_meteordata.png}}
+    %% \centering
+    %% \begin{subfigure}{\subfigwidth}
+    %%   \includegraphics[width=\linewidth]{\MCEimfslopedir{combined_plot_Re-187_decayed.png}}
+    %%   %% \caption{\label{fig:MCExperiment-imfslope-re187}
+    %%   %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    %%   %% }
+    %% \end{subfigure}
+    %% \begin{subfigure}{\subfigwidth}
+    %%   \includegraphics[width=\linewidth]{\MCEimfslopedir{combined_plot_Os-187_decayed.png}}
+    %%   %% \caption{\label{fig:MCExperiment-imfslope-os187}
+    %%   %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    %%   %% }
+    %% \end{subfigure}
+    %% \begin{subfigure}{\figwidth}
+    %%   \includegraphics[width=\linewidth]{\MCEimfslopedir{combined_plot_div_decayed_meteordata.png}}
+    %%   %% \caption{\label{fig:MCExperiment-imfslope-div}
+    %%   %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+    %%   %% }
+    %% \end{subfigure}
+    %% %% \caption[\exptwo\ after \betadecay and removing negative isotope yields]{\label{fig:MCExperiment-imfslope}
+    %% %%   The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied and uncertainty in the high mass slope of the initial mass function. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}. The amount of type II supernovae are also varied because the high mass slope of the initial mass function gives more massive stars, which in turn give more type II supernovae.
+    
+    %% %%   The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+    %% %% }
+  \end{figure}
 \end{frame}
 
 %% \begin{frame}
@@ -206,66 +227,71 @@
 %% \end{frame}
 
 \begin{frame}
-\frametitle{Uncertianties of \textbf{Yields+IMFslope+NSM}}
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEnumnsmdir{combined_plot_Re-187_decayed.png}}
-    %% \caption{\label{fig:MCExperiment-numnsm-re187}
-    %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEnumnsmdir{combined_plot_Os-187_decayed.png}}
-    %% \caption{\label{fig:MCExperiment-numnsm-os187}
-    %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  \begin{subfigure}{\figwidth}
-    \includegraphics[width=\linewidth]{\MCEnumnsmdir{combined_plot_div_decayed_meteordata.png}}
-    %% \caption{\label{fig:MCExperiment-numnsm-div}
-    %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
-    %% }
-  \end{subfigure}
-  %% \caption[\expthree\ after \betadecay and removing negative isotope yields]{\label{fig:MCExperiment-numnsm}
-  %%   The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied to experiment \expthree. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
+  \frametitle{Results - Uncertianties of \textbf{Yields+IMFslope+NSM}}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\subfigwidth]{\MCEdelmaxdir{combined_plot_div_decayed_meteordata.png}}
+    \hfill \raisebox{10ex}{$\rightarrow$} \hfill
+    \includegraphics[width=\subfigwidth]{\MCEnumnsmdir{combined_plot_div_decayed_meteordata.png}}
+  %% \centering
+  %% \begin{subfigure}{\subfigwidth}
+  %%   \includegraphics[width=\linewidth]{\MCEnumnsmdir{combined_plot_Re-187_decayed.png}}
+  %%   %% \caption{\label{fig:MCExperiment-numnsm-re187}
+  %%   %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  %%   %% }
+  %% \end{subfigure}
+  %% \begin{subfigure}{\subfigwidth}
+  %%   \includegraphics[width=\linewidth]{\MCEnumnsmdir{combined_plot_Os-187_decayed.png}}
+  %%   %% \caption{\label{fig:MCExperiment-numnsm-os187}
+  %%   %%   Mass of \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  %%   %% }
+  %% \end{subfigure}
+  %% \begin{subfigure}{\figwidth}
+  %%   \includegraphics[width=\linewidth]{\MCEnumnsmdir{combined_plot_div_decayed_meteordata.png}}
+  %%   %% \caption{\label{fig:MCExperiment-numnsm-div}
+  %%   %%   Fraction of \os{187} to \re{187} in the interstellar medium of the galaxy modelled by \omegamodel.
+  %%   %% }
+  %% \end{subfigure}
+  %% %% \caption[\expthree\ after \betadecay and removing negative isotope yields]{\label{fig:MCExperiment-numnsm}
+  %% %%   The mass and mass fractions in the interstellar medium \textit{after} \betadecay is applied to experiment \expthree. Nucleosynthesis/production from stellar sources is considered as well as the radioactive decay from \re{187} to \os{187}.
 
-  %%   The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
-  %% }
+  %% %%   The far left plot of all subfigures represent the timeevolution of the mass/mass-fraction in the interstellar medium, while the two right plots represent the uncertainty distribution at a given point in time. The points in time are 9.5 Gyrs (the formation of the solar system) and 14 Gyrs (current time). The points in time are also shown by black vertical lines in the far left plot.
+  %% %% }
 \end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Uncertianties of \textbf{Yields+IMFslope+NSM}}
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEnumnsmdir{sn1a.png}}
-    %% \caption{ \label{fig:MCExperiment-numnsm-sn1a}
-    %%   Type 1a supernovae.
-    %% }
-  \end{subfigure}
-  \begin{subfigure}{\subfigwidth}
-    \includegraphics[width=\linewidth]{\MCEnumnsmdir{sn2.png}}
-    %% \caption{ \label{fig:MCExperiment-numnsm-sn2}
-    %%   Type 2 supernovae.
-    %% }
-  \end{subfigure}
-  \begin{subfigure}{\figwidth}
+  \frametitle{Results - Uncertianties of \textbf{Yields+IMFslope+NSM}}
+  \begin{figure}[h]
+    \centering
     \includegraphics[width=\linewidth]{\MCEnumnsmdir{nsm.png}}
-    %% \caption{ \label{fig:MCExperiment-numnsm-nsm}
-    %%   Binary neutron star mergers.
-    %% }
-  \end{subfigure}
-  %% \caption[Rate of nucleosynthetic events \expthree]{ \label{fig:MCExperiment-numnsm-rate}
-  %%   All plots show rate of nucleosynthetic events (blue), and cumulative sum of events (red) for \expthree-experiment
-  %%   after \betadecay applied and negative isotope yields have been removed.
-  %%   The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-numnsm-sn1a}) and type 2 (\ref{fig:MCExperiment-numnsm-sn2})
-  %%   supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-numnsm-nsm}).
-  %%   The rate of each event follows the star formation rate (see figure \ref{img:fit-v0-sfr}) with a scale factor and delay time distribution.
-  %%   The uncertainties come from a 10\% gaussian uncertainty in number of neutron star mergers, the delay-time distribution of neutron star mergers, and the uncertainty of the slope of the initial mass function.
-  %% } 
-\end{figure}
+    %% \begin{subfigure}{\subfigwidth}
+    %%   \includegraphics[width=\linewidth]{\MCEnumnsmdir{sn1a.png}}
+    %%   %% \caption{ \label{fig:MCExperiment-numnsm-sn1a}
+    %%   %%   Type 1a supernovae.
+    %%   %% }
+    %% \end{subfigure}
+    %% \begin{subfigure}{\subfigwidth}
+    %%   \includegraphics[width=\linewidth]{\MCEnumnsmdir{sn2.png}}
+    %%   %% \caption{ \label{fig:MCExperiment-numnsm-sn2}
+    %%   %%   Type 2 supernovae.
+    %%   %% }
+    %% \end{subfigure}
+    %% \begin{subfigure}{\figwidth}
+    %%   \includegraphics[width=\linewidth]{\MCEnumnsmdir{nsm.png}}
+    %%   %% \caption{ \label{fig:MCExperiment-numnsm-nsm}
+    %%   %%   Binary neutron star mergers.
+    %%   %% }
+    %% \end{subfigure}
+    %% %% \caption[Rate of nucleosynthetic events \expthree]{ \label{fig:MCExperiment-numnsm-rate}
+    %% %%   All plots show rate of nucleosynthetic events (blue), and cumulative sum of events (red) for \expthree-experiment
+    %% %%   after \betadecay applied and negative isotope yields have been removed.
+    %% %%   The nucleosynthetic events are type 1a (\ref{fig:MCExperiment-numnsm-sn1a}) and type 2 (\ref{fig:MCExperiment-numnsm-sn2})
+    %% %%   supernovae, and binary neuron star mergers (\ref{fig:MCExperiment-numnsm-nsm}).
+    %% %%   The rate of each event follows the star formation rate (see figure \ref{img:fit-v0-sfr}) with a scale factor and delay time distribution.
+    %% %%   The uncertainties come from a 10\% gaussian uncertainty in number of neutron star mergers, the delay-time distribution of neutron star mergers, and the uncertainty of the slope of the initial mass function.
+    %% %% } 
+  \end{figure}
 \end{frame}
 
 

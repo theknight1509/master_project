@@ -31,7 +31,7 @@
 
 \setlength\subfigwidth{0.45\linewidth}
 \begin{frame}
-  \frametitle{Direct Insertion}
+  \frametitle{Fitting \omegamodel\ to data from \eris}
   \begin{figure}
     \centering
     \begin{subfigure}{1.1\subfigwidth}
@@ -44,42 +44,19 @@
     \end{subfigure}
   \end{figure}
 \end{frame}
+%\setlength\subfigwidth{0.3\linewidth}
 \begin{frame}
-  \frametitle{Mass content}
-  \begin{figure}
-    \centering
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=\linewidth]{\curdir{set_mass_3_plot_stellar_mass.png}}
-    \end{subfigure}
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=\linewidth]{\curdir{set_mass_3_plot_total_mass.png}}
-    \end{subfigure}
-  \end{figure}
-\end{frame}
-\begin{frame}
-  \frametitle{Stellar parameters}
+  \frametitle{Fitting \omegamodel\ to data from \eris}
   \begin{figure}
     \centering
     \begin{subfigure}{\subfigwidth}
       \centering
       \includegraphics[width=\linewidth]{\curdir{set_sn1a_plot_sn1a_num2_oxy.png}}
-    \end{subfigure}
+    \end{subfigure} \hfill
     \begin{subfigure}{\subfigwidth}
       \centering
       \includegraphics[width=\linewidth]{\curdir{set_sn1a_plot_sn1a_num2_iron.png}}
-    \end{subfigure}
-  \end{figure}
-\end{frame}
-\begin{frame}
-  \frametitle{Neutron star mergers}
-  \begin{figure}
-    \centering
-    \begin{subfigure}{\subfigwidth}
-      \centering
-      \includegraphics[width=\linewidth]{\curdir{set_nsm_plot_final_rates.png}}
-    \end{subfigure}
+    \end{subfigure} \\
     \begin{subfigure}{\subfigwidth}
       \centering
       \includegraphics[width=\linewidth]{\curdir{set_nsm_plot_final_spectro.png}}
@@ -96,18 +73,10 @@
 
 \begin{frame}
   \frametitle{Manipulate yields in \omegamodel}
-  \begin{itemize}
-  \item Yields from arnould and other \todo
-  \item ``Fudge-factors''
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Table of observed abundances}
   \begin{table}[h]
     \centering
     \input{\thesisdir{texfiles/arnould_table_modified}}
-    \caption{Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}}
+    \caption{Values and uncertainties of r-process nuclei near \re{187} from (Arnould et al. 2007)}
     %% \caption[Values and uncertainties of observed r-process abundances in the \sos]{\label{tab:arnould-rncp-uncertainty}
     %%   Values and uncertainties of r-process nuclei near \re{187} from \mycite{arnould07}.
     %%   The relative uncertainty, $\sigma$-values, are calculated on the assumption that min/max are the one-sigma standard deviations in either direction.
@@ -158,30 +127,14 @@
 %% \end{frame}
 
 \begin{frame}
-\frametitle{Main experiments}
-\begin{itemize}
-\item Draw random ``fudge-factor'' from gaussian distribution
-\item 1500 individual calculations
-\item \textbf{Yields}
-\item \textbf{Yields+IMFslope}
-\item \textbf{Yields+IMFslope+NSM}
-\end{itemize}
+  \frametitle{Main experiments}
+  \begin{itemize}
+  \item Draw random ``fudge-factor'' from gaussian distribution
+  \item 1500 individual calculations
+  \item \textbf{Yields}
+  \item \textbf{Yields+IMFslope}
+  \item \textbf{Yields+IMFslope+NSM}
+  \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Postprocessing}
-  \begin{minipage}[t][1cm][t]{0.45\linewidth}
-    \betadecay
-    \begin{itemize}
-      \item $\Delta \mathrm{Re} = -\lambda_{\scriptscriptstyle \mathrm{Re}} \mathrm{Re} \Delta t$
-      \item $\Delta \mathrm{Os} = \lambda_{\scriptscriptstyle \mathrm{Re}} \mathrm{Re} \Delta t$
-    \end{itemize}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t][1cm][t]{0.45\linewidth}
-    Removing negative negative yields
-    \begin{itemize}
-      \item $\hat{Y} \leq 0 \rightarrow$ \begin{tabular}{l}Do not \\ consider \\ calculation \end{tabular}
-    \end{itemize}
-  \end{minipage}
-\end{frame}
+

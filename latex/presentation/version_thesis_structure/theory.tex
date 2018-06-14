@@ -1,3 +1,5 @@
+\newcommand\MCEdelmaxdir[1]{../thesis/results/MCExperiment_revised_2_delmax/#1}
+
 %% \frame{Theory (10 min)
 %%   \begin{itemize}
 %%   \item basics of nuclear physics and reactions
@@ -53,33 +55,32 @@
   \frametitle{Slow and rapid neutron capture around \re{187}-\os{187}}
   \begin{figure}
     \input{../tikzfigures/nuclides187_chart}
-    \caption{Adopted from \mycitetwo{clayton64}{fig.1}}
+    \caption{Adopted from fig.1 in Clayton (1964)}
   \end{figure}
 \end{frame}
 
 \begin{frame}
   \frametitle{Analytical models of \re{187}-\os{187} cosmic clock}
-  \begin{align}
+  \begin{align*}
     \frac{dN}{dt} &= -\lambda N \\
     \os{187}_{\astrosun} &= \os{187}_{s} + \os{187}_{p} + \os{187}_{c} \\
     \frac{d}{dt}\left[\os{187}_{c}\right] &= \lambda_\beta \re{187} \\
     \frac{d}{dt}\left[\re{187}\right] &= A(t) - \lambda_\beta \re{187} 
-  \end{align}
-  Using the analytical model from Clayton \mycite{clayton64}
-  \begin{align}
+  \end{align*}
+  Using the analytical model from Clayton (1964)
+  \begin{align*}
     A(t) &= A_0e^{-\lambda_{r}t} \\
     f_{187} \equiv \frac{\os{187}_c}{\re{187}} &= \frac{\frac{\lambda_\beta}{\lambda_r} (1-e^{-\lambda_r t}) - (1-e^{-\lambda_\beta t})}{e^{-\lambda_{r}t}-e^{-\lambda_\beta t}}
-  \end{align}
+  \end{align*}
 \end{frame}
 
 \begin{frame}
   \frametitle{Observed isotope fraction from meteorites and solar atmosphere}
-  \begin{align}
-    \os{187}_{\astrosun}/\re{187}_{\astrosun} &= 0.226 \pm 0.0579 \quad \mycite{Shizuma05} \\ %f_{187}(t_{now}) = 
-    \Delta t_{sos} &= 4.5682 \pm (4\times10^{-4}) Gyr \quad \mycite{bouvier10} \\
-    T_{1/2} &= 41.577 \pm 0.12 Gyr \quad \mycite{snelling15} \\
-    f_{187}(t_{sos}) &= 0.135 \pm 0.0323 %\os{187}_{\astrosun}/\re{187}_{\astrosun} 
-  \end{align}
+  \begin{figure}
+    \centering
+    \includegraphics[height=0.5\textwidth]{\MCEdelmaxdir{model_fitting2.png}}
+  \end{figure}
+  Observed isotope fraction from meteorites (Shizuma, T. et al. 2005, Bouvier, A. et al. 2010, Snelling, A.A. 2015)
 \end{frame}
 
 %% \begin{frame}
@@ -112,31 +113,51 @@
 \begin{frame}
   \frametitle{Eris simulation}
   \begin{minipage}{0.45\linewidth}
+
     \begin{figure}
       \centering
-      \includegraphics[width=\linewidth]{../thesis/img/eris_map_guedes11_fig2.png}
-      \caption{credit: Guedes et al. (2011) \mycitetwo{guedes11}{fig.2}}
+      \includegraphics[height=0.4\textheight]{../thesis/img/eris_map_guedes11_fig2.png}
     \end{figure}
+    
+    \begin{figure}
+      \centering
+      \includegraphics[height=0.4\textheight]{\curdir{eris_example_iron.png}}
+    \end{figure}
+    
   \end{minipage}
   \hfill
   \begin{minipage}{0.45\linewidth}
     \begin{itemize}
-    \item Smoothed particle hydrodynamics simulation \mycite{guedes11}
+    \item Smoothed particle hydrodynamics simulation (Guedes et al. 2011)
     \item 3D 
     \item 18.6 million particles
-    \item Postprocessing to add rapid neutron capture elements from neutron star mergers \mycite{shen15}
+    \item Postprocessing to add rapid neutron capture elements from neutron star mergers (Shen et al. 2015)
     \end{itemize}
+    Figures/images from Guedes et al. (2011) and Shen et al. (2015)
   \end{minipage}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Omega semianalytical model \mycite{cote16a}}
-  \begin{itemize}
-  \item SFR + timestep $\rightarrow$ stellar mass formed
-  \item stellar mass formed $\rightarrow$ stellar population
-  \item stellar population + yield tables + delay-time $\rightarrow$ isotopic yields recycled into ISM + remnant
-  \item remnants $\rightarrow$ secondary events
-  \end{itemize}
+  \frametitle{Omega semianalytical model (C{\^o}t{\'e} 2016)}
+  \begin{minipage}{0.45\linewidth}
+    \begin{itemize}
+    \item SFR + timestep $\rightarrow$ stellar mass formed
+    \item stellar mass formed $\rightarrow$ stellar population
+    \item stellar population + yield tables + delay-time $\rightarrow$ isotopic yields recycled into ISM + remnant
+    \item remnants $\rightarrow$ secondary events
+    \end{itemize}
+  \end{minipage}
+  \begin{minipage}{0.45\linewidth}
+    \begin{figure}
+      \centering
+      \includegraphics[width=1.2\linewidth]{\curdir{omega_example_iron.png}}
+      \caption{Image from \texttt{github.com/NuGrid/NuPyCEE/}}
+    \end{figure}
+    \begin{figure}
+      \centering
+      \includegraphics[height=0.3\textheight]{\curdir{stellar_recycling.png}}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}
@@ -146,3 +167,6 @@
     \mytitle
   }
 \end{frame}
+
+
+

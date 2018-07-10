@@ -85,7 +85,9 @@ def plot_timeevol(toa_time_mean_sigma_arrays, ax, color='b', bool_std=True, plot
     frac_string = "f_{187}"
     ax.set_xlabel("time [Gyr]")
     ax.grid(True)
-    ax.set_title(r"$%s=^{187}Re/^{187}Os$"%(frac_string))
+    ax.set_ylabel(r"$%s=^{187}Os/^{187}Re$"%(frac_string))
+    ax.set_title(r"Isotope fraction in Galactic time")
+    ax.axvline(9.5, color='k')
     
     #plot mean, sigmas, extremas and shaded region
     ax.plot(time, mean, color, 
@@ -224,4 +226,33 @@ if __name__ == '__main__':
                   ax, color='r--', bool_std=bool_std, plot_string="SciPy-fit")
 
     fig.savefig(directory+"model_fitting.png")
+
+    #plot clayton only
+    fig = pl.figure()
+    ax = fig.gca()
+    bool_std = True
+    add_meteor_data(ax=ax)
+    
+    #Clayton Sudden Synthesis
+    T_half = 47e+9
+    eps_T_half = 10.0/47.0
+    decay_rate_re187 = np.log(2)/(T_half) #1/yr (Clayton 1964)
+    p_array = np.array([decay_rate_re187])
+    p_error = np.array([eps_T_half])*p_array
+    clayton_model = cosmochronology_clayton_sudden(time, *p_array)
+    clayton_model_pluss = cosmochronology_clayton_sudden(time, *(p_array+p_error))
+    clayton_model_minus = cosmochronology_clayton_sudden(time, *(p_array-p_error))
+    plot_timeevol((time, clayton_model, clayton_model_pluss, clayton_model_minus),
+                  ax, color='b-', bool_std=bool_std, plot_string="Clayton sudden")
+    print "Clayton sudden synthesis parameters to model: (lambda_eff) = %s +/- %s"%(p_array, p_error)
+    
+    #Clayton Uniform Synthesis
+    clayton_model = cosmochronology_clayton_uniform(time, *p_array)#decay_rate_eff, rncp_frequency)
+    clayton_model_pluss = cosmochronology_clayton_uniform(time, *(p_array+p_error))
+    clayton_model_minus = cosmochronology_clayton_uniform(time, *(p_array-p_error))
+    plot_timeevol((time, clayton_model, clayton_model_pluss, clayton_model_minus),
+                  ax, color='b--', bool_std=bool_std, plot_string="Clayton uniform")
+    print "Clayton uniform synthesis parameters to model: (lambda_re187) = %s +/- %s"%(p_array, p_error)
+
+    fig.savefig(directory+"model_fitting2.png")
     pl.show()

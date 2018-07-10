@@ -1,0 +1,16 @@
+Modelling uncertainty of the Rhenium-Osmium cosmic clock
+
+The nuclide 187Re beta-decays to 187Os with a half-life of approximately 41.6
+Gyr. The long half-life and simple relation between
+187Re and 187Os makes the
+ratio a good candidate for a cosmic clock. In order to "use the clock" we must
+determine the production of 187Re and 187Os through chemical enrichment of
+the Galaxy. This is a complicated task with a large number of assumptions and
+simplifications involved.
+The uncertainties related to some of the uncertanties are investigated.
+A hydrodynamical simulation is approximated with a simple one-zone chemical evolution model. The physical parameters of the chemical evolution model
+is varied by generating random numbers with a gaussian distribution to emulate
+the uncertainty of parameters.
+I conclude that observational constraints on r-process nuclei does not affect
+the cosmochronology of the Re-Os system much. The Galactic history, like star
+formation and mass function over time, would have greater effect on the cosmochronology.

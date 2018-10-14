@@ -101,7 +101,7 @@ def plot_timeevol(toa_time_mean_sigma_arrays, ax, color='b', bool_std=True, plot
 
 def add_meteor_data(ax, fsos=True, now=False):
     #fraction of os-187/Re-187 at the time of formation of the solar system (with absolute uncertainty)
-    f_187_fsos = [0.136, 0.0323]
+    f_187_fsos = [0.136, 0.0032]
     #same for current time
     f_187_now = [0.226, 57.9e-3]
     if fsos:
